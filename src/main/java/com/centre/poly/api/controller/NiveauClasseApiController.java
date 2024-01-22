@@ -1,7 +1,7 @@
 package com.centre.poly.api.controller;
 
 import com.centre.poly.api.NiveauClasseApi;
-import com.centre.poly.exception.ResponseDto;
+import com.centre.poly.dto.ResponseDto;
 import com.centre.poly.model.NiveauClasse;
 import com.centre.poly.service.NiveauClasseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class NiveauClasseApiController implements NiveauClasseApi {
     NiveauClasseService niveauClasseService;
     
     @Override
-    public NiveauClasse save(NiveauClasse niveauClasse) {
+    public ResponseDto save(NiveauClasse niveauClasse) {
         return niveauClasseService.save(niveauClasse);
     }
 

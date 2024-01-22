@@ -1,5 +1,6 @@
 package com.centre.poly.exception;
 
+import com.centre.poly.dto.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -17,8 +18,9 @@ public class GlobalExceptionHandler {
     ResponseDto e =
         ResponseDto.builder()
             .httpCode(HttpStatus.OK.value())
-                .code(ErrorCodes.PARAMS_NOT_VALID.toString())
+            .code(Codes.PARAMS_NOT_VALID)
             .message(message)
+                .isError(true)
             .build();
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
@@ -29,8 +31,9 @@ public class GlobalExceptionHandler {
         ResponseDto e =
                 ResponseDto.builder()
                         .httpCode(HttpStatus.OK.value())
-                        .code(ErrorCodes.PARAMS_REQUIRED.toString())
+                        .code(Codes.PARAMS_REQUIRED)
                         .message(message)
+                        .isError(true)
                         .build();
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
@@ -41,8 +44,9 @@ public class GlobalExceptionHandler {
         ResponseDto e =
                 ResponseDto.builder()
                         .httpCode(HttpStatus.OK.value())
-                        .code(ErrorCodes.PARAMS_REQUIRED.toString())
+                        .code(Codes.PARAMS_REQUIRED)
                         .message(message)
+                        .isError(true)
                         .build();
         return new ResponseEntity<>(e, HttpStatus.OK);
     }

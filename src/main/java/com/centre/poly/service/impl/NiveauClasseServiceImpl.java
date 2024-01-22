@@ -1,7 +1,7 @@
 package com.centre.poly.service.impl;
 
 import com.centre.poly.exception.InvalidEntityException;
-import com.centre.poly.exception.ResponseDto;
+import com.centre.poly.dto.ResponseDto;
 import com.centre.poly.model.NiveauClasse;
 import com.centre.poly.repository.NiveauClasseRepository;
 import com.centre.poly.service.NiveauClasseService;
@@ -9,7 +9,7 @@ import com.centre.poly.validator.NiveauClasseValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.centre.poly.exception.ErrorCodes;
+import com.centre.poly.exception.Codes;
 
 import java.util.List;
 
@@ -22,22 +22,24 @@ public class NiveauClasseServiceImpl implements NiveauClasseService {
 
 
     @Override
-    public NiveauClasse save(NiveauClasse niveauClasse) {
+    public ResponseDto save(NiveauClasse niveauClasse) {
 
         List<String> erreurs = NiveauClasseValidator.validate(niveauClasse);
 
         if(!erreurs.isEmpty()){
-            throw new InvalidEntityException("Le Niveau classe n'est pas valide", ErrorCodes.NIVEAU_CLASSE_NOT_VALID.toString(), erreurs);
+            throw new InvalidEntityException("Le Niveau classe n'est pas valide", Codes.NIVEAU_CLASSE_NOT_VALID, erreurs);
         }
 
         if(existsByNom(niveauClasse.getNom())){
       throw new InvalidEntityException(
           "Le NiveauClasse n'est pas valide",
-          ErrorCodes.NIVEAU_CLASSE_NOT_VALID.toString(),
+          Codes.NIVEAU_CLASSE_NOT_VALID,
           List.of("NAME_EXISTS"));
         }
 
-        return niveauClasseRepository.save(niveauClasse);
+        niveauClasseRepository.save(niveauClasse);
+
+        return ResponseDto.builder().httpCode(200).code(Codes.SUCCESS).build();
 
     }
 
@@ -55,7 +57,7 @@ public class NiveauClasseServiceImpl implements NiveauClasseService {
         }
 
         niveauClasseRepository.deleteById(id);
-        return ResponseDto.builder().httpCode(200).message("SUCCESS").code(ErrorCodes.SUCCESS.toString())
+        return ResponseDto.builder().httpCode(200).code(Codes.SUCCESS).isError(false)
         .build();
     }
 

@@ -1,6 +1,6 @@
 package com.centre.poly.exception;
 
-public enum ErrorCodes {
+public enum Codes {
 
     SUCCESS(0),
     PARAMS_NOT_VALID(1),
@@ -9,7 +9,7 @@ public enum ErrorCodes {
     DISCIPLINE_NOT_VALID(20);
     private int code;
 
-    ErrorCodes(int code){
+    Codes(int code){
         this.code=code;
     }
 

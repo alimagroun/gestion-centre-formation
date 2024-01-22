@@ -1,7 +1,6 @@
 package com.centre.poly.validator;
 
 import com.centre.poly.model.Classe;
-import com.centre.poly.model.Discipline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,6 @@ public class ClasseValidator {
 
         if (ob.getNiveauClasse() == null) {
             errors.add("Niveau classe est obligatoire");
-        }
-
-        if (ob.getGroupe() == null) {
-            errors.add("Groupe est obligatoire");
         }
 
         return errors;

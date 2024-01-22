@@ -13,11 +13,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Discipline {
+public class Specialite {
 
     @Id
     @GeneratedValue
     private Long id;
 
     private String nom;
+
+    private String Description;
 }

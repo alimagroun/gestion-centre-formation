@@ -1,7 +1,8 @@
 package com.centre.poly.model;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,18 +13,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Classe {
+public class AnneeScolaire {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long anneeScolaireId;
 
-    @ManyToOne
-    private Specialite discipline;
+    private int anneeDebut;
 
-    @ManyToOne
-    private NiveauClasse niveauClasse;
-
-    private int groupe;
-
+    private int anneeFin;
 }

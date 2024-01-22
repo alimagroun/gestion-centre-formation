@@ -20,4 +20,6 @@ public class NiveauClasse {
     private Long id;
 
     private String nom;
+
+    private String Description;
 }
