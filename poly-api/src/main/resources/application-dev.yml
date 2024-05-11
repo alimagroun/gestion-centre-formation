@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_social_network
+    url: jdbc:postgresql://localhost:5432/poly
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -18,7 +18,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://localhost:9090/realms/poly"
+          issuer-uri: "http://localhost:8080/realms/poly"
 
 application:
   cors:
