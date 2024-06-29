@@ -6,6 +6,7 @@
       <list>
         <option value="$USER_HOME$/OneDrive/Bureau/poly-api/pom.xml" />
         <option value="$PROJECT_DIR$/poly-api/pom.xml" />
+        <option value="$PROJECT_DIR$/centre-api/pom.xml" />
       </list>
     </option>
   </component>
