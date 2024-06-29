@@ -1,5 +1,10 @@
 package com.centre.poly;
 
+import com.centre.poly.person.PersonRepository;
+import com.centre.poly.person.model.Address;
+import com.centre.poly.person.model.Employer;
+import com.centre.poly.person.model.Parent;
+import com.centre.poly.person.model.Student;
 import com.centre.poly.role.Role;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
@@ -11,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Set;
 
 @Configuration
 public class AdminUserConfig {
@@ -25,20 +29,51 @@ public class AdminUserConfig {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @Bean
     public CommandLineRunner createAdminUser() {
         return args -> {
             if(!roleRepository.findByName("ROLE_ADMIN").isPresent()) {
                 roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
             }
+
+            if(!roleRepository.findByName("ROLE_PARENT").isPresent()) {
+                roleRepository.save(Role.builder().name("ROLE_PARENT").build());
+            }
+
+            if(!roleRepository.findByName("ROLE_STUDENT").isPresent()) {
+                roleRepository.save(Role.builder().name("ROLE_STUDENT").build());
+            }
+
             if (userRepository.findByUserName("admin").isEmpty()) {
+
+                Employer employer = new Employer();
+                employer.setFirstName("Ahmed");
+                employer.setLastName("Tiba");
+                employer.setJobTitle("Admin");
+
+                Address address = new Address();
+                address.setCity("Sahline");
+                address.setStreet("rue hedi chaker");
+                address.setZipCode("5012");
+                employer.setAddress(address);
+
+                personRepository.save(employer);
+
+
                 User admin = new User();
                 admin.setUserName("admin");
                 admin.setPassword(passwordEncoder.encode("12345678"));
                 admin.setRoles(List.of(roleRepository.findByName("ROLE_ADMIN").get()));
                 admin.setEnabled(true);
+                admin.setPerson(employer);
                 userRepository.save(admin);
             }
+
+
+
         };
     }
 

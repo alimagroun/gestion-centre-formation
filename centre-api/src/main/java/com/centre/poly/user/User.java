@@ -1,5 +1,6 @@
 package com.centre.poly.user;
 
+import com.centre.poly.person.model.Person;
 import com.centre.poly.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,9 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
+
+    @OneToOne
+    private Person person;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
