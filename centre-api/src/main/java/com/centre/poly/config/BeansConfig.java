@@ -63,6 +63,5 @@ public class BeansConfig {
         config.setAllowedMethods(Arrays.asList("*"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-
     }
 }

@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ExceptionResponse> handleException() {
-        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().businessErrorCode(BAD_CREDENTIALS.getCode()).businessErrorDescription(BAD_CREDENTIALS.getDescription()).error("Login and / or Password is incorrect").build());
+        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().businessErrorCode(BAD_CREDENTIALS.getCode()).businessErrorDescription(BAD_CREDENTIALS.getDescription()).build());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
