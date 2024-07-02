@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, V
 import {AuthenticationControllerService} from "../../services/services/authentication-controller.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {TokenService} from "../../services/token/token.service";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthenticationControllerService,
     private formBuilder: FormBuilder,
-    private tokenService: TokenService,) {
+    private tokenService: TokenService,
+    private router: Router) {
   }
 
   errorMsg: Array<string> = []
@@ -49,6 +51,11 @@ export class LoginComponent {
       next: (res) => {
         this.buttonLoading = false
         this.tokenService.token = res.token as string;
+
+        //Redirect
+        if(this.tokenService.userRoles[0] == "ROLE_ADMIN"){
+          this.router.navigate(['admin']);
+        }
       }, error: err => {
         if (err.error.validationErrors) {
 
