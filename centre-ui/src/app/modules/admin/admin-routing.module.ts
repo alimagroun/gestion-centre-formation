@@ -3,12 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import {IndexComponent} from "./pages/index/index.component";
 import {authGuard} from "../../services/guard/auth.guard";
 import {authAdminGuard} from "../../services/guard/auth-admin.guard";
+import {RoleComponent} from "./pages/role/role.component";
 
 const routes: Routes = [
   {
     path:"",
     component: IndexComponent,
     canActivate: [authAdminGuard],
+    children: [
+      {
+        path:"role",
+        component: RoleComponent,
+        canActivate: [authAdminGuard]
+      }
+    ]
   }
 ];
 

@@ -1,12 +1,16 @@
 package com.centre.poly.role;
 
+import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.DuplicateEntityException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +30,10 @@ public class RoleService {
 
     }
 
-    public List<RoleResponse> findAll(){
-        return roleRepository.findAll().stream()
-                .map(roleMapper::toRoleResponse)
-                .collect(Collectors.toList());
+    public PageResponse<RoleResponse> findAll(int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Role> roles = roleRepository.findAll(pageable);
+        List<RoleResponse> roleResponses = roles.stream().map(roleMapper::toRoleResponse).toList();
+        return new PageResponse<>(roleResponses, roles.getNumber(), roles.getSize(), roles.getTotalElements(), roles.getTotalPages(), roles.isFirst(), roles.isLast());
     }
 }

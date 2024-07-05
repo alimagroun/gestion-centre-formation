@@ -1,0 +1,25 @@
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item" *ngFor="let menu of menuProperties">
+      <div *ngIf="menu.sousMenu!.length != 0">
+        <a class="nav-link collapsed" [attr.data-bs-target]="'#nav'+menu.id" data-bs-toggle="collapse" href="#">
+          <i class="{{menu.icon}}"></i><span> {{menu.titre}}</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="nav{{menu.id}}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li *ngFor="let sousMenu of menu.sousMenu" [ngClass]="{'bg-danger':menu.activate, '': !menu.activate}">
+            <a  href="javascript:void(0);" (click)="navigate(sousMenu)">
+              <i class="bi bi-circle"></i><span>{{sousMenu.titre}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="menu.sousMenu!.length == 0" [ngClass]="{'text-white bg-warning':menu.activate, '': !menu.activate}">
+        <a class="nav-link collapsed" href="javascript:void(0);" (click)="navigate(menu)">
+          <i class="{{menu.icon}}"></i>
+          <span>{{menu.titre}}</span>
+        </a>
+      </div>
+    </li><!-- End Components Nav -->
+  </ul>
+
+</aside>

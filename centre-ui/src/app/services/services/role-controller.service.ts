@@ -11,7 +11,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { findAll } from '../fn/role-controller/find-all';
 import { FindAll$Params } from '../fn/role-controller/find-all';
-import { RoleResponse } from '../models/role-response';
+import { PageResponseRoleResponse } from '../models/page-response-role-response';
 import { save } from '../fn/role-controller/save';
 import { Save$Params } from '../fn/role-controller/save';
 
@@ -30,7 +30,7 @@ export class RoleControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<RoleResponse>>> {
+  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseRoleResponse>> {
     return findAll(this.http, this.rootUrl, params, context);
   }
 
@@ -40,9 +40,9 @@ export class RoleControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAll(params?: FindAll$Params, context?: HttpContext): Observable<Array<RoleResponse>> {
+  findAll(params?: FindAll$Params, context?: HttpContext): Observable<PageResponseRoleResponse> {
     return this.findAll$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<RoleResponse>>): Array<RoleResponse> => r.body)
+      map((r: StrictHttpResponse<PageResponseRoleResponse>): PageResponseRoleResponse => r.body)
     );
   }
 

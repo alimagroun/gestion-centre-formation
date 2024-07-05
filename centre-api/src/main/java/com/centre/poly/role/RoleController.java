@@ -1,5 +1,6 @@
 package com.centre.poly.role;
 
+import com.centre.poly.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,11 @@ public class RoleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RoleResponse>> findAll() {
-        return ResponseEntity.ok().body(roleService.findAll());
+    public ResponseEntity<PageResponse<RoleResponse>> findAll(
+            @RequestParam(name = "page", defaultValue = "0",
+                    required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
+        return ResponseEntity.ok().body(roleService.findAll(page, size));
     }
 
 }

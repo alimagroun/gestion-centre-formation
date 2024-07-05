@@ -6,14 +6,18 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { RoleResponse } from '../../models/role-response';
+import { PageResponseRoleResponse } from '../../models/page-response-role-response';
 
 export interface FindAll$Params {
+  page?: number;
+  size?: number;
 }
 
-export function findAll(http: HttpClient, rootUrl: string, params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<RoleResponse>>> {
+export function findAll(http: HttpClient, rootUrl: string, params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseRoleResponse>> {
   const rb = new RequestBuilder(rootUrl, findAll.PATH, 'get');
   if (params) {
+    rb.query('page', params.page, {});
+    rb.query('size', params.size, {});
   }
 
   return http.request(
@@ -21,7 +25,7 @@ export function findAll(http: HttpClient, rootUrl: string, params?: FindAll$Para
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<RoleResponse>>;
+      return r as StrictHttpResponse<PageResponseRoleResponse>;
     })
   );
 }
