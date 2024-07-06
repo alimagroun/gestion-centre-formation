@@ -29,6 +29,20 @@ export class MenuComponent {
           url: 'admin/role',
         },
       ],
+    },
+    {
+      id: '2',
+      titre: "Gestion d'inscription",
+      icon: 'bi bi-key',
+      url: '',
+      sousMenu: [
+        {
+          id: '11',
+          titre: 'Inscription un etudient',
+          icon: '',
+          url: 'admin/register',
+        },
+      ],
     }
   ];
 
