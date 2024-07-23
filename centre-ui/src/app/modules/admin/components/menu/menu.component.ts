@@ -29,7 +29,21 @@ export class MenuComponent {
           url: 'admin/role',
         },
       ],
-    }
+    },
+    {
+      id: '2',
+      titre: 'Gestion des matières',
+      icon: 'bi bi-book',
+      url: '',
+      sousMenu: [
+        {
+          id: '21',
+          titre: 'Matières',
+          icon: '',
+          url: 'admin/subject',
+        },
+      ],
+    },
   ];
 
   constructor(private router: Router) {}
