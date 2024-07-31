@@ -1,1 +1,79 @@
-<p>register works!</p>
+<div class="container p-2 card">
+  <div class="progress px-1">
+    <div class="progress-bar" role="progressbar" [style.width]="progress + '%'" [attr.aria-valuenow]="progress"
+         aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+
+  <ul class="nav nav-pills mb-3 mt-2" id="steps">
+    <li class="nav-item" *ngFor="let step of steps; let i = index">
+      <a class="nav-link" [ngClass]="{'active': currentStep === i + 1}">
+        <span class="badge bg-success rounded-circle me-2">{{ i + 1 }}</span> {{ step.name }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div *ngIf="currentStep === 1">
+      <app-parent-form
+        [parent]="parent"
+        (statusForm)="validationFormParent($event)"
+        (parentValidated)="setParentValidated($event)"
+      ></app-parent-form>
+    </div>
+    <div *ngIf="currentStep === 2">
+      <app-student-form
+        [student]="student"
+        (statusForm)="validationFormStudent($event)"
+      ></app-student-form>
+    </div>
+    <div *ngIf="currentStep === 3">
+      <app-address-form
+        [address]="address"
+        (statusForm)="validationFormAddress($event)"
+      ></app-address-form>
+    </div>
+    <div *ngIf="currentStep === 4">
+      <app-document-form
+        [listDocumentsSelected]="documents"
+        (listIdDocument)="setListDocumentSelected($event)"
+      ></app-document-form>
+    </div>
+    <div *ngIf="currentStep === 5">
+      <app-verification
+        [parentRequest]="parent"
+        [studentRequest]="student"
+        [addressRequest]="address"
+        [documents]="documents"
+      ></app-verification>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <button class="btn btn-secondary" (click)="prevStep()" [disabled]="currentStep === 1">Précédent</button>
+    <button *ngIf="currentStep != steps.length" class="btn btn-primary ms-5" (click)="nextStep()"
+            [disabled]="(currentStep == 1 && !statusFormParent)
+            || (currentStep == 2 && !statusFormStudent)
+             || (currentStep == 3 && !statusFormAddress)">Suivant
+    </button>
+    <button *ngIf="currentStep === steps.length" type="button" class="btn btn-success ms-5" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+      Inscription
+    </button>
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmationModalLabel">Confirmation d'inscription</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Êtes-vous sûr de vouloir inscrire cet étudiant?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" (click)="register()">Confirmer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

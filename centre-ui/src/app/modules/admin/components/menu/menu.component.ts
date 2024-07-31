@@ -18,12 +18,18 @@ export class MenuComponent {
   public menuProperties: Array<Menu> = [
     {
       id: '1',
-      titre: 'Gestion des utilisateurs',
+      titre: 'Gestion des Utilisateurs',
       icon: 'bi bi-people',
       url: '',
       sousMenu: [
         {
           id: '11',
+          titre: 'Utilisateur',
+          icon: '',
+          url: 'admin/role',
+        },
+        {
+          id: '12',
           titre: 'Role',
           icon: '',
           url: 'admin/role',
@@ -32,15 +38,21 @@ export class MenuComponent {
     },
     {
       id: '2',
-      titre: "Gestion d'inscription",
+      titre: "Gestion des Inscriptions",
       icon: 'bi bi-key',
       url: '',
       sousMenu: [
         {
-          id: '11',
-          titre: 'Inscription un etudient',
+          id: '21',
+          titre: 'Inscription',
           icon: '',
           url: 'admin/register',
+        },
+        {
+          id: '22',
+          titre: "Document d'inscription",
+          icon: '',
+          url: 'admin/registrationDocument',
         },
       ],
     }

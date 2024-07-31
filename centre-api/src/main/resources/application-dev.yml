@@ -1,7 +1,7 @@
 Spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/centre-formation
-    username: postgres
+    username: admin
     password: admin
     driver-class-name: org.postgresql.Driver
 

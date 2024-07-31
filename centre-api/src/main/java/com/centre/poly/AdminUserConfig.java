@@ -71,9 +71,6 @@ public class AdminUserConfig {
                 admin.setPerson(employer);
                 userRepository.save(admin);
             }
-
-
-
         };
     }
 

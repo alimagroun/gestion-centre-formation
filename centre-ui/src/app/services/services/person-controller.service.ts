@@ -9,8 +9,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { save1 } from '../fn/person-controller/save-1';
-import { Save1$Params } from '../fn/person-controller/save-1';
+import { findParentByNum } from '../fn/person-controller/find-parent-by-num';
+import { FindParentByNum$Params } from '../fn/person-controller/find-parent-by-num';
+import { ParentResponse } from '../models/parent-response';
+import { savePerson } from '../fn/person-controller/save-person';
+import { SavePerson$Params } from '../fn/person-controller/save-person';
 
 @Injectable({ providedIn: 'root' })
 export class PersonControllerService extends BaseService {
@@ -18,28 +21,53 @@ export class PersonControllerService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `save1()` */
-  static readonly Save1Path = '/person';
+  /** Path part for operation `savePerson()` */
+  static readonly SavePersonPath = '/person/save';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `save1()` instead.
+   * To access only the response body, use `savePerson()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save1$Response(params: Save1$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return save1(this.http, this.rootUrl, params, context);
+  savePerson$Response(params: SavePerson$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return savePerson(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `save1$Response()` instead.
+   * To access the full response (for headers, for example), `savePerson$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save1(params: Save1$Params, context?: HttpContext): Observable<number> {
-    return this.save1$Response(params, context).pipe(
+  savePerson(params: SavePerson$Params, context?: HttpContext): Observable<number> {
+    return this.savePerson$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findParentByNum()` */
+  static readonly FindParentByNumPath = '/person/findParentByNum';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findParentByNum()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findParentByNum$Response(params: FindParentByNum$Params, context?: HttpContext): Observable<StrictHttpResponse<ParentResponse>> {
+    return findParentByNum(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findParentByNum$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findParentByNum(params: FindParentByNum$Params, context?: HttpContext): Observable<ParentResponse> {
+    return this.findParentByNum$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ParentResponse>): ParentResponse => r.body)
     );
   }
 

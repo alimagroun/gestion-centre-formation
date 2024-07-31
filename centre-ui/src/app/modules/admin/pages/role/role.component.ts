@@ -32,7 +32,7 @@ export class RoleComponent implements OnInit {
   findRolePaginated() {
     this.loading = true;
     this.roleResponse.content = []
-    this.roleService.findAll({
+    this.roleService.findAllRoles({
       page: this.page,
       size: this.size
     }).subscribe(res => {

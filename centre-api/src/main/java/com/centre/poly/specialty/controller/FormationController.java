@@ -7,6 +7,7 @@ import com.centre.poly.specialty.service.FormationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,11 +17,13 @@ public class FormationController {
 
     private final FormationService formationService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Integer> createFormation(@RequestBody @Valid FormationRequest request) {
         return ResponseEntity.ok().body(formationService.createFormation(request));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<PageResponse<FormationResponse>> findAllFormations(
             @RequestParam(required = false, defaultValue = "0") int page,

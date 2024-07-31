@@ -10,6 +10,7 @@ import com.centre.poly.specialty.service.SpecialtyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,13 +21,15 @@ public class SpecialtyController {
 
     private final SpecialtyService service;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Integer> create(@RequestBody @Valid SpecialtyRequest request) {
         return ResponseEntity.ok().body(service.create(request));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<PageResponse<SpecialtyResponse>> findAllFormations(
+    public ResponseEntity<PageResponse<SpecialtyResponse>> findAllSpecialty(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size
     ){

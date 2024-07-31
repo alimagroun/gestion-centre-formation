@@ -10,6 +10,7 @@ import com.centre.poly.specialty.service.FormationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,13 +20,15 @@ public class DomainController {
 
     private final DomainService domainService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Integer> createDomain(@RequestBody @Valid DomainRequest request) {
         return ResponseEntity.ok().body(domainService.createDomain(request));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public ResponseEntity<PageResponse<DomainResponse>> findAll(
+    public ResponseEntity<PageResponse<DomainResponse>> findAllDomains(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size
             ){

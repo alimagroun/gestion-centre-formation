@@ -1,6 +1,7 @@
 package com.centre.poly.person.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,6 @@ public class Student extends Person {
 
     private String levelOfEducation;
 
+    @ManyToOne
+    private Parent parent;
 }
