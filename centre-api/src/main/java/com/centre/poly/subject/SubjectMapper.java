@@ -10,8 +10,7 @@ public class SubjectMapper {
             subject.getId(),
             subject.getName(),
             subject.getDescription(),
-            subject.getPdfFilePath(),
-            subject.getWordFilePath()
+            subject.getFilePath()
         );
     }
 }

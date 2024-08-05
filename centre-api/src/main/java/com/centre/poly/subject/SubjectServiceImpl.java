@@ -5,26 +5,55 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.NotFoundException;
+import com.centre.poly.file.FileStorageService;
+import com.centre.poly.user.User;
+import com.centre.poly.user.UserRepository;
+
+import jakarta.annotation.Nonnull;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
     private final SubjectMapper subjectMapper;
+    private final FileStorageService fileStorageService;
+    private final UserRepository userRepository;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
+    public SubjectServiceImpl(
+            SubjectRepository subjectRepository,
+            SubjectMapper subjectMapper,
+            FileStorageService fileStorageService,
+            UserRepository userRepo
+    ) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
+        this.fileStorageService = fileStorageService;
+        this.userRepository = userRepo;
     }
     
     @Override
-    public Subject saveSubject(Subject subject) {
+    public Subject saveSubject(Subject subject, @Nonnull MultipartFile sourceFile, @Nonnull String userName) {
+
+        Optional<User> optionalUser = userRepository.findByUserName(userName);
+        
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            String userId = String.valueOf(user.getId());
+
+            String filePath = fileStorageService.saveFile(sourceFile, userId);
+
+            subject.setFilePath(filePath);
+        } else {
+            throw new NotFoundException("User not found with username: " + userName);
+        }
+
         return subjectRepository.save(subject);
     }
 
@@ -49,8 +78,7 @@ public class SubjectServiceImpl implements SubjectService {
                 .map(existingSubject -> {
                     existingSubject.setName(subject.getName());
                     existingSubject.setDescription(subject.getDescription());
-                    existingSubject.setPdfFilePath(subject.getPdfFilePath());
-                    existingSubject.setWordFilePath(subject.getWordFilePath());
+                    existingSubject.setFilePath(subject.getFilePath());
                     return subjectRepository.save(existingSubject);
                 })
                 .orElseThrow(() -> new NotFoundException("Subject not found with id " + id));

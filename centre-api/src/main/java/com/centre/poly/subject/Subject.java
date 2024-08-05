@@ -35,8 +35,7 @@ public class Subject {
 
     private String name;
     private String description;
-    private String pdfFilePath;
-    private String wordFilePath;
+    private String filePath;
 
     @CreatedDate
     @Column(updatable = false)

@@ -1,1 +1,57 @@
-<p>subject works!</p>
+<div class="card p-3">
+  <div class="text-center mb-3">
+    <h3>Liste des sujets</h3>
+  </div>
+  <div class="row align-items-center mb-3">
+    <div class="col-md-2">
+      <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-9 text-end">
+      <span class="text-muted">Total: {{ subjectResponse.totalElements }}</span>
+    </div>
+  </div>
+
+  <div class="text-end mb-3">
+    <button type="button" class="btn btn-primary">Ajouter</button>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nom du sujet</th>
+        <th>Description</th>
+        <th>PDF</th>
+        <th>Word</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="loading">
+        <td colspan="4" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </td>
+      </tr>
+      <ng-container *ngFor="let subject of subjectResponse.content! | paginate: { itemsPerPage: subjectResponse.size!, currentPage: page+1, totalItems: subjectResponse.totalElements };">
+        <tr>
+          <td>{{ subject.name }}</td>
+          <td>{{ subject.description }}</td>
+          <td><a target="_blank">PDF</a></td>
+          <td><a target="_blank">Word</a></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    (pageChange)="loadPage($event)"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
+</div>

@@ -4,7 +4,6 @@ public record SubjectResponse(
 	    Long id,
 	    String name,
 	    String description,
-	    String pdfFilePath,
-	    String wordFilePath
+	    String filePath
 	) {}
 
