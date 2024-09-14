@@ -22,15 +22,17 @@ public class RegistrationController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ResponseEntity<Long> register(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<Long> register(@Valid @RequestBody RegistrationRequest request) {
         return ResponseEntity.ok().body(registrationService.save(request));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<PageResponse<RegistrationResponse>> findAllRegistrations(@RequestParam(name = "page", defaultValue = "0", required = false) int page, @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
         return ResponseEntity.ok().body(registrationService.findAll(page, size));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<RegistrationDetailsResponse> findRegistrationById(@PathVariable Long id) {
         return ResponseEntity.ok().body(registrationService.findById(id));

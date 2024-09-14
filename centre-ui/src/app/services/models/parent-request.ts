@@ -2,9 +2,9 @@
 /* eslint-disable */
 export interface ParentRequest {
   email?: string;
-  firstName?: string;
+  firstName: string;
   id?: number;
-  lastName?: string;
-  phoneNumber?: string;
+  lastName: string;
+  phoneNumber: string;
   profession?: string;
 }

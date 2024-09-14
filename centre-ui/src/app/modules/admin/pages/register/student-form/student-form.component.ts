@@ -18,7 +18,7 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class StudentFormComponent {
 
-  private _student : StudentRequest = {};
+  private _student : StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
 
   @Input()
   set student(value : StudentRequest) {

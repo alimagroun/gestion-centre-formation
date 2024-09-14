@@ -18,7 +18,7 @@ import {PersonControllerService} from "../../../../../services/services/person-c
 })
 export class ParentFormComponent implements OnInit {
 
-  private _parent: ParentRequest = {};
+  private _parent: ParentRequest = {lastName: "", phoneNumber: "", firstName: ""};
   showMsgSearchByTel = false
 
   @Input()
@@ -93,9 +93,16 @@ export class ParentFormComponent implements OnInit {
     let num = this.parentForm.get('phoneNumber')?.value ?? '';
     this.parentService.findParentByNum({num}).subscribe(
       res => {
-       this._parent = res
+       this._parent = {
+         lastName: res.lastName!,
+         phoneNumber: res.phoneNumber!,
+         firstName : res.firstName!,
+         email : res.email,
+         id: res.id,
+         profession: res.profession
+       }
        this.updateForm()
-        this.setParentValidate(res)
+        this.setParentValidate(this._parent)
         this.showMsgSearchByTel = true
       },
       error => {

@@ -17,13 +17,13 @@ import {DocumentResponse} from "../../../../../services/models/document-response
 export class VerificationComponent {
 
   @Input()
-  parentRequest : ParentRequest = {}
+  parentRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: ""}
 
   @Input()
-  studentRequest : StudentRequest = {}
+  studentRequest : StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""}
 
   @Input()
-  addressRequest : AddressRequest = {}
+  addressRequest : AddressRequest = {city: "", street: "", zipCode: ""}
 
   @Input()
   documents: Array<DocumentResponse> = []

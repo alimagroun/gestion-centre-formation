@@ -33,9 +33,9 @@ import {PersonControllerService} from "../../../../services/services/person-cont
 })
 export class RegisterComponent {
 
-  parent: ParentRequest = {};
-  student: StudentRequest = {};
-  address: AddressRequest = {}
+  parent: ParentRequest = {lastName: "", phoneNumber: "", firstName: ""};
+  student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
+  address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
   registreRequest : RegistrationRequest = {}
   statusFormParent = false;

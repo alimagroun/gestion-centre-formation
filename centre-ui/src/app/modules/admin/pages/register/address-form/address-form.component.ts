@@ -16,7 +16,7 @@ import {AddressRequest} from "../../../../../services/models/address-request";
 })
 export class AddressFormComponent implements OnInit {
 
-  private _address: AddressRequest = {};
+  private _address: AddressRequest = {city: "", street: "", zipCode: ""};
 
   @Input()
   set address(value: AddressRequest) {
