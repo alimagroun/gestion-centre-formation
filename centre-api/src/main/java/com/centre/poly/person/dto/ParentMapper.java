@@ -1,6 +1,7 @@
 package com.centre.poly.person.dto;
 
-import com.centre.poly.person.model.Parent;
+import com.centre.poly.person.entity.Parent;
+import com.centre.poly.registration.dto.ParentRequest;
 import org.springframework.stereotype.Service;
 
 @Service

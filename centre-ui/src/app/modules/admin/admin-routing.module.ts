@@ -9,6 +9,11 @@ import {RegistrationDocumentComponent} from "./pages/registration-document/regis
 import {
   AddRegistrationDocumentComponent
 } from "./pages/registration-document/add-registration-document/add-registration-document.component";
+import {FormationComponent} from "./pages/specialty/formation/formation.component";
+import {AddFormationComponent} from "./pages/specialty/formation/add-formation/add-formation.component";
+import {RegistrationListComponent} from "./pages/register/registration-list/registration-list.component";
+import {RegistrationDetailsComponent} from "./pages/register/registration-details/registration-details.component";
+import {UserComponent} from "./pages/user/user.component";
 
 const routes: Routes = [
   {
@@ -22,8 +27,23 @@ const routes: Routes = [
         canActivate: [authAdminGuard]
       },
       {
+        path:"user",
+        component: UserComponent,
+        canActivate: [authAdminGuard]
+      },
+      {
         path:"register",
         component: RegisterComponent,
+        canActivate: [authAdminGuard]
+      },
+      {
+        path: 'registrationList',
+        component: RegistrationListComponent,
+        canActivate: [authAdminGuard]
+      },
+      {
+        path: 'registrationDetails/:id',
+        component: RegistrationDetailsComponent,
         canActivate: [authAdminGuard]
       },
       {
@@ -33,10 +53,28 @@ const routes: Routes = [
           {
             path: '',
             component: RegistrationDocumentComponent,
+            canActivate: [authAdminGuard]
           },
           {
             path: 'addRegistrationDocument',
             component: AddRegistrationDocumentComponent,
+            canActivate: [authAdminGuard]
+          }
+        ],
+      },
+      {
+        path: 'formation',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: FormationComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addFormation',
+            component: AddFormationComponent,
+            canActivate: [authAdminGuard]
           },
         ],
       }

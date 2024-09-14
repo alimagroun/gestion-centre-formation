@@ -1,6 +1,6 @@
 package com.centre.poly.user;
 
-import com.centre.poly.person.model.Person;
+import com.centre.poly.person.entity.Person;
 import com.centre.poly.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

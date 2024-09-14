@@ -11,6 +11,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
 import {AddressRequest} from "../../../../services/models/address-request";
 import {DocumentResponse} from "../../../../services/models/document-response";
 import {RegistrationRequest} from "../../../../services/models/registration-request";
+import {RegistrationControllerService} from "../../../../services/services/registration-controller.service";
 import {PersonControllerService} from "../../../../services/services/person-controller.service";
 
 @Component({
@@ -40,6 +41,7 @@ export class RegisterComponent {
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
+  error : Array<string> = [];
 
   currentStep: number = 1;
   steps = [
@@ -51,7 +53,8 @@ export class RegisterComponent {
   ];
 
   constructor(
-    private personSerivce : PersonControllerService
+    private registerService : RegistrationControllerService,
+    private personService : PersonControllerService
   ) {
   }
 
@@ -60,7 +63,8 @@ export class RegisterComponent {
   }
 
   nextStep() {
-    if (this.statusFormParent || this.statusFormStudent || this.statusFormAddress) {
+    this.validation()
+    if ((this.statusFormParent || this.statusFormStudent || this.statusFormAddress) && this.validation()) {
       if (this.currentStep < this.steps.length) {
         this.currentStep++;
       }
@@ -93,9 +97,9 @@ export class RegisterComponent {
     this.registreRequest.addressRequest = this.address
     this.registreRequest.studentRequest = this.student
     this.registreRequest.parentRequest = this.parent
-    this.registreRequest.documentIDs = this.documents.map(document => document.id!);
+    this.registreRequest.documents = this.documents.map(document => document.id!);
 
-    this.personSerivce.savePerson(
+    this.registerService.register(
       {
         body : this.registreRequest
       }
@@ -106,5 +110,26 @@ export class RegisterComponent {
 
   setParentValidated(parent: ParentRequest) {
     this.parent = parent
+  }
+
+  validation(): boolean{
+    this.error = []
+    console.log(this.parent)
+
+    if(this.parent.id == null && this.currentStep == 1){
+      console.log(this.validateEmailParent(this.parent.email!))
+      if(this.validateEmailParent(this.parent.phoneNumber!)){
+        this.error.push("Le numéro de téléphone existe déjà")
+        return false
+      }
+    }
+
+    return true
+  }
+  validateEmailParent(email: string ): boolean{
+    this.personService.emailValidation({email}).subscribe(res => {
+      return res;
+    })
+    return false
   }
 }

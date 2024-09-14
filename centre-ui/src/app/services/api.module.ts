@@ -6,11 +6,13 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
-import { PersonControllerService } from './services/person-controller.service';
+import { RegistrationControllerService } from './services/registration-controller.service';
 import { FormationControllerService } from './services/formation-controller.service';
 import { DomainControllerService } from './services/domain-controller.service';
 import { DocumentsControllerService } from './services/documents-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
+import { UserControllerService } from './services/user-controller.service';
+import { PersonControllerService } from './services/person-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -22,11 +24,13 @@ import { AuthenticationControllerService } from './services/authentication-contr
   providers: [
     SpecialtyControllerService,
     RoleControllerService,
-    PersonControllerService,
+    RegistrationControllerService,
     FormationControllerService,
     DomainControllerService,
     DocumentsControllerService,
     AuthenticationControllerService,
+    UserControllerService,
+    PersonControllerService,
     ApiConfiguration
   ],
 })

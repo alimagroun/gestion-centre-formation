@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ParentResponse {
 
-    Integer id;
-    String firstName;
-    String lastName;
-    String phoneNumber;
-    String email;
-    String profession;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private String email;
+    private String profession;
 }

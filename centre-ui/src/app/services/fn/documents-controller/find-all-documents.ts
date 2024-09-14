@@ -6,18 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageResponseDocumentResponse } from '../../models/page-response-document-response';
+import { DocumentResponse } from '../../models/document-response';
 
 export interface FindAllDocuments$Params {
-  page?: number;
-  size?: number;
 }
 
-export function findAllDocuments(http: HttpClient, rootUrl: string, params?: FindAllDocuments$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseDocumentResponse>> {
+export function findAllDocuments(http: HttpClient, rootUrl: string, params?: FindAllDocuments$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<DocumentResponse>>> {
   const rb = new RequestBuilder(rootUrl, findAllDocuments.PATH, 'get');
   if (params) {
-    rb.query('page', params.page, {});
-    rb.query('size', params.size, {});
   }
 
   return http.request(
@@ -25,9 +21,9 @@ export function findAllDocuments(http: HttpClient, rootUrl: string, params?: Fin
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseDocumentResponse>;
+      return r as StrictHttpResponse<Array<DocumentResponse>>;
     })
   );
 }
 
-findAllDocuments.PATH = '/document';
+findAllDocuments.PATH = '/document/findAll';

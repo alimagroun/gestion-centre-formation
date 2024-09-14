@@ -37,7 +37,7 @@ export class RegistrationDocumentComponent {
   findAllDocuments() {
     this.loading = true;
     this.document.content = []
-    this.documentService.findAllDocuments({
+    this.documentService.findAllDocumentsPageable({
       page: this.page,
       size: this.size
     }).subscribe(res => {

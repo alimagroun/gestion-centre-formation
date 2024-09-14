@@ -1,5 +1,8 @@
 <div class="container">
   <h1>Formulaire d'Informations des Parents</h1>
+  <div *ngIf="showMsgSearchByTel" class="alert alert-success">
+    <span>Le parent avec le numéro de téléphone {{ parent.phoneNumber}} a été trouvé.</span>
+  </div>
   <form [formGroup]="parentForm">
     <div class="mb-3">
       <input

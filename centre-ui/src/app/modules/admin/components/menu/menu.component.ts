@@ -26,7 +26,7 @@ export class MenuComponent {
           id: '11',
           titre: 'Utilisateur',
           icon: '',
-          url: 'admin/role',
+          url: 'admin/user',
         },
         {
           id: '12',
@@ -34,6 +34,32 @@ export class MenuComponent {
           icon: '',
           url: 'admin/role',
         },
+      ],
+    },
+    {
+      id: '3',
+      titre: 'Gestion de specialité',
+      icon: 'bi bi-book-half',
+      url: '',
+      sousMenu: [
+        {
+          id: '31',
+          titre: 'Formation',
+          icon: '',
+          url: 'admin/formation',
+        },
+        {
+          id: '32',
+          titre: 'Domain',
+          icon: '',
+          url: 'admin/domain',
+        },
+        {
+          id: '33',
+          titre: 'Specialite',
+          icon: '',
+          url: 'admin/specialty',
+        }
       ],
     },
     {
@@ -53,6 +79,12 @@ export class MenuComponent {
           titre: "Document d'inscription",
           icon: '',
           url: 'admin/registrationDocument',
+        },
+        {
+          id: '23',
+          titre: "Liste d'inscription",
+          icon: '',
+          url: 'admin/registrationList',
         },
       ],
     }

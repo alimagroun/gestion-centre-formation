@@ -38,7 +38,7 @@ export class DocumentFormComponent implements OnInit{
   findAll(){
     this.loader = true
     this.documentService.findAllDocuments().subscribe(res=>{
-      this.documents = res.content!
+      this.documents = res
       this.loader = false
     })
   }

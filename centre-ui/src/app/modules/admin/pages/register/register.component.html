@@ -13,6 +13,9 @@
   </ul>
 
   <div class="tab-content">
+    <div *ngIf="error.length" class="alert alert-danger">
+      <span *ngFor="let msg of error">{{ msg }}</span>
+    </div>
     <div *ngIf="currentStep === 1">
       <app-parent-form
         [parent]="parent"
