@@ -62,14 +62,16 @@ export class RegisterComponent {
     return (this.currentStep - 1) * 100 / (this.steps.length - 1);
   }
 
-  nextStep() {
-    this.validation()
-    if ((this.statusFormParent || this.statusFormStudent || this.statusFormAddress) && this.validation()) {
+  async nextStep() {
+    const isValid = await this.validation();
+
+    if (isValid && (this.statusFormParent || this.statusFormStudent || this.statusFormAddress)) {
       if (this.currentStep < this.steps.length) {
         this.currentStep++;
       }
     }
   }
+
 
   prevStep() {
     if (this.currentStep > 1) {
@@ -104,7 +106,6 @@ export class RegisterComponent {
         body : this.registreRequest
       }
     ).subscribe(res=>{
-      console.log("success ",res)
     })
   }
 
@@ -112,24 +113,33 @@ export class RegisterComponent {
     this.parent = parent
   }
 
-  validation(): boolean{
-    this.error = []
-    console.log(this.parent)
+  async validation(): Promise<boolean> {
+    this.error = [];
 
-    if(this.parent.id == null && this.currentStep == 1){
-      console.log(this.validateEmailParent(this.parent.email!))
-      if(this.validateEmailParent(this.parent.phoneNumber!)){
-        this.error.push("Le numéro de téléphone existe déjà")
-        return false
+    if (this.currentStep == 1) {
+      const isValid = await this.validateEmailParent(this.parent.email!);
+      if (!isValid) {
+        this.error.push("Le numéro de téléphone existe déjà");
+        return false;
       }
     }
 
-    return true
+    return true;
   }
-  validateEmailParent(email: string ): boolean{
-    this.personService.emailValidation({email}).subscribe(res => {
-      return res;
-    })
-    return false
+
+  async validateEmailParent(email: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.personService.emailValidation({ email }).subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (error) => {
+          reject(false); // Retourner false si une erreur survient
+        }
+      );
+    });
   }
+
+
+
 }

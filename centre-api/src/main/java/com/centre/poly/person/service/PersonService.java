@@ -104,8 +104,8 @@ public class PersonService {
     }
 
     public Parent saveParent(Parent parent, Address address) {
-
-        if(parent.getId() == null){
+        Parent parentSaved = personRepository.findByPhoneNumber(parent.getPhoneNumber());
+        if(parentSaved == null){
             if (isPhoneNumberUnique(parent.getPhoneNumber())) {
                 throw new DuplicateEntityException("Phone number "+parent.getPhoneNumber()+" already exists");
             }
@@ -170,4 +170,5 @@ public class PersonService {
     public Boolean isEmailUnique(String email) {
         return personRepository.existByEmail(email);
     }
+
 }
