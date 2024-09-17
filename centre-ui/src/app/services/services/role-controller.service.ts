@@ -9,11 +9,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { findAll } from '../fn/role-controller/find-all';
-import { FindAll$Params } from '../fn/role-controller/find-all';
+import { findAllRoles } from '../fn/role-controller/find-all-roles';
+import { FindAllRoles$Params } from '../fn/role-controller/find-all-roles';
 import { PageResponseRoleResponse } from '../models/page-response-role-response';
-import { save } from '../fn/role-controller/save';
-import { Save$Params } from '../fn/role-controller/save';
+import { saveRole } from '../fn/role-controller/save-role';
+import { SaveRole$Params } from '../fn/role-controller/save-role';
 
 @Injectable({ providedIn: 'root' })
 export class RoleControllerService extends BaseService {
@@ -21,52 +21,52 @@ export class RoleControllerService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `findAll()` */
-  static readonly FindAllPath = '/role';
+  /** Path part for operation `findAllRoles()` */
+  static readonly FindAllRolesPath = '/role';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll()` instead.
+   * To access only the response body, use `findAllRoles()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseRoleResponse>> {
-    return findAll(this.http, this.rootUrl, params, context);
+  findAllRoles$Response(params?: FindAllRoles$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseRoleResponse>> {
+    return findAllRoles(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll$Response()` instead.
+   * To access the full response (for headers, for example), `findAllRoles$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll(params?: FindAll$Params, context?: HttpContext): Observable<PageResponseRoleResponse> {
-    return this.findAll$Response(params, context).pipe(
+  findAllRoles(params?: FindAllRoles$Params, context?: HttpContext): Observable<PageResponseRoleResponse> {
+    return this.findAllRoles$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseRoleResponse>): PageResponseRoleResponse => r.body)
     );
   }
 
-  /** Path part for operation `save()` */
-  static readonly SavePath = '/role';
+  /** Path part for operation `saveRole()` */
+  static readonly SaveRolePath = '/role';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `save()` instead.
+   * To access only the response body, use `saveRole()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save$Response(params: Save$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return save(this.http, this.rootUrl, params, context);
+  saveRole$Response(params: SaveRole$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return saveRole(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `save$Response()` instead.
+   * To access the full response (for headers, for example), `saveRole$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save(params: Save$Params, context?: HttpContext): Observable<number> {
-    return this.save$Response(params, context).pipe(
+  saveRole(params: SaveRole$Params, context?: HttpContext): Observable<number> {
+    return this.saveRole$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

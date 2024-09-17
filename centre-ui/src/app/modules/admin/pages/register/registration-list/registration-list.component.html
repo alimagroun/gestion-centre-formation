@@ -1,0 +1,61 @@
+<div class="card p-3">
+  <div class="text-center mb-3">
+    <h3>Liste des rôles</h3>
+  </div>
+  <div class="row align-items-center mb-3">
+    <div class="col-md-2">
+      <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-9 text-end">
+      <span class="text-muted">Total: {{ registrationPage.totalElements }}</span>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead >
+    <tr>
+      <th>Nom de l'étudiant</th>
+      <th>Date d'inscription</th>
+      <th>Statut</th>
+      <th>Remarque</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="2" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngFor="let reg of registrationPage.content! | paginate: { itemsPerPage: registrationPage.size!, currentPage: page+1, totalItems: registrationPage.totalElements };">
+      <tr>
+        <td>{{ reg.fullNameStudent }}</td>
+        <td>{{ reg.createdDate | date:'dd/MM/yyyy' }}</td>
+        <span class="badge" [ngClass]="{'bg-warning': reg.status === 'IN_PROGRESS',
+                                    'bg-danger': reg.status === 'CANCELLED',
+                                    'bg-success': reg.status === 'COMPLETED'}">
+          {{ reg.status == 'IN_PROGRESS' ? 'En cours' : reg.status == 'CANCELLED' ? 'Annulé' : 'Terminées' }}
+        </span>
+        <td>{{ reg.remarks }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="showRegistrationDetails(reg.id!)"> Voir les détails </button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    (pageChange)="loadPage($event)"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
+</div>

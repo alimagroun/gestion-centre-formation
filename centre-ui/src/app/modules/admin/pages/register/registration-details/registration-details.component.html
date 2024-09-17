@@ -1,0 +1,79 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-primary mb-3">
+      <div class="d-flex  align-items-center">
+        <h4 class="mb-0 me-5">
+          <button class="btn btn-primary" routerLink="../../registrationList"> <i class="bi bi-arrow-left"></i></button>  Détails de l'inscription </h4>
+        <span
+          [ngClass]="{
+            'badge bg-warning text-dark': registration.status === 'IN_PROGRESS',
+            'badge bg-success': registration.status === 'COMPLETED',
+            'badge bg-danger': registration.status === 'CANCELLED'
+          }">
+          {{ getStatusText(registration.status!) }}
+        </span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h5 class="text-primary">Informations sur l'élève</h5>
+          <p><i class="bi bi-person"></i> <strong> Nom :</strong> {{ registration.student?.fullName }}</p>
+          <p><i class="bi bi-book"></i> <strong> Niveau d'éducation
+            :</strong> {{ registration.student?.levelOfEducation }}</p>
+          <p><i class="bi bi-telephone"></i> <strong> Numéro de téléphone
+            :</strong> {{ registration.student?.phoneNumber }}</p>
+          <p><i class="bi bi-envelope"></i> <strong> Email :</strong> {{ registration.student?.email }}</p>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-primary">Informations sur le parent</h5>
+          <p><i class="bi bi-person"></i> <strong> Nom :</strong> {{ registration.parent?.fullName }}</p>
+          <p><i class="bi bi-briefcase"></i> <strong> Profession :</strong> {{ registration.parent?.profession }}</p>
+          <p><i class="bi bi-telephone"></i> <strong> Numéro de téléphone
+            :</strong> {{ registration.parent?.phoneNumber }}</p>
+          <p><i class="bi bi-envelope"></i> <strong> Email :</strong> {{ registration.parent?.email }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <h5 class="text-primary">Adresse</h5>
+          <p><i class="bi bi-geo-alt"></i> <strong> Rue :</strong> {{ registration.address?.street }}</p>
+          <p><i class="bi bi-building"></i> <strong> Ville :</strong> {{ registration.address?.city }}</p>
+          <p><i class="bi bi-mailbox"></i> <strong> Code postal :</strong> {{ registration.address?.zipCode }}</p>
+        </div>
+        <div class="col-md-6">
+          <h5 class="text-primary">Documents</h5>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let document of registration.documentRegistrationResponseList">
+              <span><i class="bi bi-file-earmark-text"></i>
+                <strong class="text-success">✔ {{ document.name }}:</strong>
+                {{ document.description }}
+              </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let document of remainingDocuments">
+              <span><i class="bi bi-file-earmark-text"></i> <strong class="text-danger">X {{ document.name }}
+                :</strong> {{ document.description }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <h5 class="text-primary">Remarques</h5>
+          <p class="text-muted">{{ registration.remarks }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <small>Date d'inscription : {{ registration.createdDate | date:'dd/MM/yyyy' }}</small>
+    </div>
+  </div>
+</div>

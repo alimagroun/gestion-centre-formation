@@ -11,28 +11,57 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.centre.poly.exception.BusinessErrorCodes.*;
+import static com.centre.poly.exception.ErrorCode.*;
+import static com.centre.poly.exception.ErrorCode.NOT_FOUND;
 import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = {LockedException.class})
+    @ExceptionHandler(LockedException.class)
     public ResponseEntity<ExceptionResponse> handleException(LockedException exp) {
-        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().businessErrorCode(ACCOUNT_LOCKED.getCode()).businessErrorDescription(ACCOUNT_LOCKED.getDescription()).error(exp.getMessage()).build());
+        return ResponseEntity.status(UNAUTHORIZED).body(
+                ExceptionResponse.builder()
+                        .errorCode(ACCOUNT_LOCKED.getCode())
+                        .errorMessage(ACCOUNT_LOCKED.getDescription())
+                        .errorDescription(exp.getMessage())
+                        .build()
+        );
     }
 
-    @ExceptionHandler(DisabledException.class)
+    @ExceptionHandler(DuplicateEntityException.class)
+    public ResponseEntity<ExceptionResponse> handleDuplicateException(DuplicateEntityException exp) {
+        return ResponseEntity.status(DUPLICATE_ENTITY.getHttpStatus()).body(
+                ExceptionResponse.builder()
+                        .errorCode(DUPLICATE_ENTITY.getCode())
+                        .errorMessage(DUPLICATE_ENTITY.getDescription())
+                        .errorDescription(exp.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionResponse> notFoundException(NotFoundException exp) {
+        return ResponseEntity.status(NOT_FOUND.getHttpStatus()).body(
+                ExceptionResponse.builder()
+                        .errorCode(NOT_FOUND.getCode())
+                        .errorMessage(NOT_FOUND.getDescription())
+                        .errorDescription(exp.getMessage())
+                        .build()
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(DisabledException.class)
     public ResponseEntity<ExceptionResponse> handleException(DisabledException exp) {
-        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().businessErrorCode(ACCOUNT_DISABLED.getCode()).businessErrorDescription(ACCOUNT_DISABLED.getDescription()).error(exp.getMessage()).build());
+        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().errorCode(ACCOUNT_DISABLED.getCode()).errorMessage(ACCOUNT_DISABLED.getDescription()).errorDescription(exp.getMessage()).build());
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ExceptionResponse> handleException() {
-        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().businessErrorCode(BAD_CREDENTIALS.getCode()).businessErrorDescription(BAD_CREDENTIALS.getDescription()).build());
+        return ResponseEntity.status(UNAUTHORIZED).body(ExceptionResponse.builder().errorCode(BAD_CREDENTIALS.getCode()).errorMessage(BAD_CREDENTIALS.getDescription()).build());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
         Set<String> errors = new HashSet<>();
         exp.getBindingResult().getAllErrors()
@@ -51,15 +80,15 @@ public class GlobalExceptionHandler {
     }
 
     //Cette méthode gère toutes les autres exceptions qui n'ont pas été traitées par les méthodes précédentes
-    @ExceptionHandler(Exception.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleException(Exception exp) {
         exp.printStackTrace();
         return ResponseEntity
                 .status(INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorDescription("Internal error, please contact the admin")
-                                .error(exp.getMessage())
+                                .errorMessage("Internal error, please contact the admin : " + exp.getMessage())
+                                .errorDescription(exp.getMessage())
                                 .build()
                 );
     }

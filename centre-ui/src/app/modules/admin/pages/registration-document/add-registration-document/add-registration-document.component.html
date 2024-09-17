@@ -1,0 +1,37 @@
+<div class="container card mt-4 p-2">
+  <div class="card-header">
+    <h2>
+      <button class="btn btn-outline-danger" routerLink="..">
+        <i class="bi bi-arrow-return-left me-2"></i>Retour
+      </button>
+      Ajouter un Document d'Inscription
+    </h2>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="mb-3">
+        <input type="text" [ngClass]="{'border border-danger': errors['name']}" id="name" name="name"
+               [(ngModel)]="document.name" class="form-control"
+               (input)="clearError('name')"
+                placeholder="Entrez le nom"/>
+        <span *ngIf="errors['name']" class="text-danger">{{ errors['name'] }}</span>
+      </div>
+      <div class="mb-3">
+        <textarea type="text" [ngClass]="{'border border-danger': errors['description']}" id="description"
+                  class="form-control" name="description" [(ngModel)]="document.description" rows="3"
+                  (input)="clearError('description')"
+                  placeholder="Entrez la description"></textarea>
+        <span *ngIf="errors['description']" class="text-danger">{{ errors['description'] }}</span>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="add()">
+        <span *ngIf="!loading">Ajouter</span>
+        <div  *ngIf="loading">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Chargement...
+        </div>
+      </button>
+      <button type="reset" class="btn btn-danger ms-3" >vider</button>
+    </form>
+  </div>
+</div>
+

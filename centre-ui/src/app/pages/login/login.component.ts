@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {AuthenticationRequest} from "../../services/models/authentication-request";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthenticationControllerService} from "../../services/services/authentication-controller.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {TokenService} from "../../services/token/token.service";
-import {Route, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,6 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthenticationControllerService,
-    private formBuilder: FormBuilder,
     private tokenService: TokenService,
     private router: Router) {
   }

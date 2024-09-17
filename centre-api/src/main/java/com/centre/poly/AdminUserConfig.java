@@ -1,10 +1,8 @@
 package com.centre.poly;
 
-import com.centre.poly.person.PersonRepository;
-import com.centre.poly.person.model.Address;
-import com.centre.poly.person.model.Employer;
-import com.centre.poly.person.model.Parent;
-import com.centre.poly.person.model.Student;
+import com.centre.poly.person.Repository.PersonRepository;
+import com.centre.poly.person.entity.Address;
+import com.centre.poly.person.entity.Employer;
 import com.centre.poly.role.Role;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
@@ -71,9 +69,6 @@ public class AdminUserConfig {
                 admin.setPerson(employer);
                 userRepository.save(admin);
             }
-
-
-
         };
     }
 

@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>Formulaire d'Informations des Parents</h1>
+  <div *ngIf="showMsgSearchByTel" class="alert alert-success">
+    <span>Le parent avec le numéro de téléphone {{ parent.phoneNumber}} a été trouvé.</span>
+  </div>
+  <form [formGroup]="parentForm">
+    <div class="mb-3">
+      <input
+        type="tel"
+        class="form-control"
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        placeholder="Entrez le numéro de téléphone"
+        (input)="searchByTel()">
+      <div *ngIf="parentForm.get('phoneNumber')?.invalid && (parentForm.get('phoneNumber')?.dirty || parentForm.get('phoneNumber')?.touched)"
+           class="text-danger">
+        <div *ngIf="parentForm.get('phoneNumber')?.hasError('required')">
+          Le numéro de téléphone est requis.
+        </div>
+        <div *ngIf="parentForm.get('phoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone valide.</div>
+        <div *ngIf="parentForm.get('phoneNumber')?.hasError('minlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
+        <div *ngIf="parentForm.get('phoneNumber')?.hasError('maxlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
+
+      </div>
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        formControlName="firstName"
+        placeholder="Entrez le prénom"
+        [ngClass]="{ 'is-invalid': parentForm.get('firstName')!.invalid && parentForm.get('firstName')!.touched }"
+      >
+      <div *ngIf="parentForm.get('firstName')?.invalid && (parentForm.get('firstName')?.dirty || parentForm.get('firstName')?.touched)" class="text-danger">
+        Le prénom est requis.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        formControlName="lastName"
+        placeholder="Entrez le nom">
+      <div *ngIf="parentForm.get('lastName')?.invalid && (parentForm.get('lastName')?.dirty || parentForm.get('lastName')?.touched)" class="text-danger">
+        Le nom est requis.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="Entrez l'email">
+      <div *ngIf="parentForm.get('email')?.invalid && (parentForm.get('email')?.dirty || parentForm.get('email')?.touched)"
+           class="text-danger">
+        <div *ngIf="parentForm.get('email')?.hasError('required')">
+          L'email est requis.
+        </div>
+        <div *ngIf="parentForm.get('email')?.hasError('email')">L'email doit être valide.</div>
+      </div>
+    </div>
+  </form>
+</div>

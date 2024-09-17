@@ -1,0 +1,34 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-4">
+      <h3 class="custom-title">Parent</h3>
+      <p><strong>Email:</strong> {{ parentRequest.email }}</p>
+      <p><strong>First Name:</strong> {{ parentRequest.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ parentRequest.lastName }}</p>
+      <p><strong>Phone Number:</strong> {{ parentRequest.phoneNumber }}</p>
+      <p><strong>Profession:</strong> {{ parentRequest.profession }}</p>
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">Etudient</h3>
+      <p><strong>Email:</strong> {{ studentRequest.email }}</p>
+      <p><strong>First Name:</strong> {{ studentRequest.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ studentRequest.lastName }}</p>
+      <p><strong>Level Of Education:</strong> {{ studentRequest.levelOfEducation }}</p>
+      <p><strong>Phone Number:</strong> {{ studentRequest.phoneNumber }}</p>
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">Adresse</h3>
+      <p><strong>Ville:</strong> {{ addressRequest.city }}</p>
+      <p><strong>Rue:</strong> {{ addressRequest.street }}</p>
+      <p><strong>Code postal:</strong> {{ addressRequest.zipCode }}</p>
+    </div>
+  </div>
+  <div>
+    <h3 class="custom-title">Liste des documents</h3>
+    <p *ngFor="let doc of documents">
+      <span>{{doc.name}}</span>
+    </p>
+  </div>
+</div>
