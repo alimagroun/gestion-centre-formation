@@ -31,6 +31,30 @@
     }
   ],
   "paths": {
+    "/school-years/{id}/default": {
+      "put": {
+        "tags": [
+          "school-year-controller"
+        ],
+        "operationId": "setDefault",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/specialty": {
       "get": {
         "tags": [
@@ -95,6 +119,77 @@
                 "schema": {
                   "type": "integer",
                   "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/school-years": {
+      "get": {
+        "tags": [
+          "school-year-controller"
+        ],
+        "operationId": "findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseSchoolYearResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "school-year-controller"
+        ],
+        "operationId": "save",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchoolYearRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
                 }
               }
             }
@@ -559,6 +654,79 @@
         }
       }
     },
+    "/subject": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "operationId": "getAllSubjects",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseSubjectResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/school-years/{id}": {
+      "get": {
+        "tags": [
+          "school-year-controller"
+        ],
+        "operationId": "findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchoolYearResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/register/{id}": {
       "get": {
         "tags": [
@@ -714,6 +882,25 @@
             "format": "int32"
           },
           "domainId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SchoolYearRequest": {
+        "required": [
+          "endYear",
+          "startYear"
+        ],
+        "type": "object",
+        "properties": {
+          "startYear": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "endYear": {
+            "minimum": 1,
             "type": "integer",
             "format": "int32"
           }
@@ -1010,6 +1197,60 @@
           }
         }
       },
+      "PageResponseSubjectResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubjectResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SubjectResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "pdfFilePath": {
+            "type": "string"
+          },
+          "wordFilePath": {
+            "type": "string"
+          }
+        }
+      },
       "DomainResponse": {
         "type": "object",
         "properties": {
@@ -1073,6 +1314,59 @@
           },
           "domain": {
             "$ref": "#/components/schemas/DomainResponse"
+          }
+        }
+      },
+      "PageResponseSchoolYearResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchoolYearResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SchoolYearResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "start_year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "end_year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isDefault": {
+            "type": "boolean"
           }
         }
       },

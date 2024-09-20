@@ -87,6 +87,20 @@ export class MenuComponent {
           url: 'admin/registrationList',
         },
       ],
+    },
+    {
+      id: '4',
+      titre: "Gestion des années scolaires",
+      icon: 'bi bi-key',
+      url: '',
+      sousMenu: [
+        {
+          id: '41',
+          titre: 'liste des années scolaires ',
+          icon: '',
+          url: 'admin/school-year',
+        },
+      ],
     }
   ];
 

@@ -4,6 +4,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { SchoolYearControllerService } from './services/school-year-controller.service';
 import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { RegistrationControllerService } from './services/registration-controller.service';
@@ -12,6 +13,7 @@ import { DomainControllerService } from './services/domain-controller.service';
 import { DocumentsControllerService } from './services/documents-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { UserControllerService } from './services/user-controller.service';
+import { SubjectControllerService } from './services/subject-controller.service';
 import { PersonControllerService } from './services/person-controller.service';
 
 /**
@@ -22,6 +24,7 @@ import { PersonControllerService } from './services/person-controller.service';
   exports: [],
   declarations: [],
   providers: [
+    SchoolYearControllerService,
     SpecialtyControllerService,
     RoleControllerService,
     RegistrationControllerService,
@@ -30,6 +33,7 @@ import { PersonControllerService } from './services/person-controller.service';
     DocumentsControllerService,
     AuthenticationControllerService,
     UserControllerService,
+    SubjectControllerService,
     PersonControllerService,
     ApiConfiguration
   ],
