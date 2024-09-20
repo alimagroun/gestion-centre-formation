@@ -14,6 +14,8 @@ import {AddFormationComponent} from "./pages/specialty/formation/add-formation/a
 import {RegistrationListComponent} from "./pages/register/registration-list/registration-list.component";
 import {RegistrationDetailsComponent} from "./pages/register/registration-details/registration-details.component";
 import {UserComponent} from "./pages/user/user.component";
+import {SchoolYearComponent} from "./pages/school-year/school-year.component";
+import {AddSchoolYearComponent} from "./pages/school-year/add-school-year/add-school-year.component";
 
 const routes: Routes = [
   {
@@ -40,6 +42,22 @@ const routes: Routes = [
         path: 'registrationList',
         component: RegistrationListComponent,
         canActivate: [authAdminGuard]
+      },
+      {
+        path: 'school-year',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: SchoolYearComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addSchoolYear',
+            component: AddSchoolYearComponent,
+            canActivate: [authAdminGuard]
+          },
+        ],
       },
       {
         path: 'registrationDetails/:id',

@@ -1,0 +1,91 @@
+<div class="card p-3">
+  <div class="text-center mb-3">
+    <h3>Liste des années scolaires</h3>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-12 text-start">
+      <button class="btn btn-primary" [routerLink]="['addSchoolYear']">
+        <i class="bi bi-plus-lg"></i> Ajouter année scolaire
+      </button>
+    </div>
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <div class="col-md-2">
+      <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-10 text-end">
+      <span class="text-muted">Total: {{ school_years_response.totalElements }}</span>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Année de début</th>
+      <th>Année de fin</th>
+      <th>Par défaut</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="3" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngFor="let sy of school_years_response.content! | paginate: { itemsPerPage: school_years_response.size!, currentPage: page+1, totalItems: school_years_response.totalElements };">
+      <tr>
+        <td>{{ sy.start_year }}</td>
+        <td>{{ sy.end_year }}</td>
+        <td>
+          <span class="badge" [ngClass]="sy.isDefault ? 'bg-success' : 'bg-danger'">
+            {{ sy.isDefault ? 'Oui' : 'Non' }}
+          </span>
+        </td>
+        <button class="btn btn-sm btn-outline-primary"
+                [disabled]="sy.isDefault || loading"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmModal"
+                (click)="selectedSchoolYear = sy">
+          <i class="bi bi-check-lg"></i> Par défaut
+        </button>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    (pageChange)="loadPage($event)"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
+</div>
+
+<!-- Modale Bootstrap de confirmation -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" #confirmModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmer l'action</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir définir cette année scolaire comme par défaut ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="confirmSetAsDefault()">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>

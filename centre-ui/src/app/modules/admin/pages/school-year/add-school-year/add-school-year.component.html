@@ -1,0 +1,38 @@
+<div class="card p-3">
+  <div class="d-flex align-items-center mb-3">
+    <button type="button" class="btn btn-secondary me-3" [routerLink]="['..']">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h3 class="mb-0">Ajouter année scolaire</h3>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMsg">
+   {{ errorMsg }}
+  </div>
+  <form [formGroup]="schoolYearForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="startYear" class="form-label">Année de début</label>
+        <input type="number" class="form-control" formControlName="startYear" id="startYear" name="startYear" required>
+        <div *ngIf="schoolYearForm.get('startYear')?.errors?.['required'] && (schoolYearForm.get('startYear')?.dirty || schoolYearForm.get('startYear')?.touched)" class="text-danger">
+          L'année de début est requise.
+        </div>
+        <div *ngIf="!schoolYearForm.get('startYear')?.errors?.['required'] && schoolYearForm.get('startYear')?.errors?.['pattern'] && (schoolYearForm.get('startYear')?.dirty || schoolYearForm.get('startYear')?.touched)" class="text-danger">
+          L'année de début doit comporter exactement 4 chiffres.
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="endYear" class="form-label">Année de fin</label>
+        <input type="number" class="form-control" formControlName="endYear" id="endYear" name="endYear" required>
+        <div *ngIf="schoolYearForm.get('endYear')?.errors?.['required'] && (schoolYearForm.get('endYear')?.dirty || schoolYearForm.get('endYear')?.touched)" class="text-danger">
+          L'année de fin est requise.
+        </div>
+        <div *ngIf="!schoolYearForm.get('endYear')?.errors?.['required'] && schoolYearForm.get('endYear')?.errors?.['pattern'] && (schoolYearForm.get('endYear')?.dirty || schoolYearForm.get('endYear')?.touched)" class="text-danger">
+          L'année de fin doit comporter exactement 4 chiffres.
+        </div>
+      </div>
+
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="schoolYearForm.invalid">Enregistrer</button>
+  </form>
+</div>

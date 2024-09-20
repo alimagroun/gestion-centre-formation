@@ -40,6 +40,17 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidRequestException(InvalidRequestException exp) {
+        return ResponseEntity.status(INVALID_REQUEST.getHttpStatus()).body(
+                ExceptionResponse.builder()
+                        .errorCode(INVALID_REQUEST.getCode())
+                        .errorMessage(INVALID_REQUEST.getDescription())
+                        .errorDescription(exp.getMessage())
+                        .build()
+        );
+    }
+
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse> notFoundException(NotFoundException exp) {
         return ResponseEntity.status(NOT_FOUND.getHttpStatus()).body(
