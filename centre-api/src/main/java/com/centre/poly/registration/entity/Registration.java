@@ -23,7 +23,8 @@ import java.util.List;
 public class Registration {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registration_sequence")
+    @SequenceGenerator(name = "registration_sequence", sequenceName = "registration_sequence", allocationSize = 1)
     private Long id;
 
     @OneToOne

@@ -4,6 +4,7 @@ import com.centre.poly.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,8 +23,10 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_sequence")
+    @SequenceGenerator(name = "role_sequence", sequenceName = "role_sequence", allocationSize = 1)
     private Integer id;
+
     @Column(unique = true)
     private String name;
 

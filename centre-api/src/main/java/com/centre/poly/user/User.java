@@ -32,7 +32,8 @@ import static jakarta.persistence.FetchType.EAGER;
 public class User implements UserDetails, Principal {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     private Integer id;
 
     @Column(unique = true)

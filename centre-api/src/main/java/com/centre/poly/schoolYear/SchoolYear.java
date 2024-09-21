@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public class SchoolYear {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "school_year_sequence")
+    @SequenceGenerator(name = "school_year_sequence", sequenceName = "school_year_sequence", allocationSize = 1)
     private Long id;
 
     private Integer startYear;
