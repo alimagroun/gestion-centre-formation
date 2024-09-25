@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {FormationRequest} from "../../../../../../services/models/formation-request";
 import {Router, RouterLink} from "@angular/router";
-import {FormationControllerService} from "../../../../../../services/services/formation-controller.service";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
+import {FromationControllerService} from "../../../../../../services/services/fromation-controller.service";
 
 @Component({
   selector: 'app-add-formation',
@@ -21,25 +21,24 @@ export class AddFormationComponent {
 
   formationRequest: FormationRequest = {name: '', description: ''}
   validationErrors: { [key: string]: string } = {};
-  error: Array<string> = []
+  error= ""
   loading = false
 
   constructor(
-    private formationService: FormationControllerService,
+    private formationService: FromationControllerService,
     private router: Router
   ) {
   }
 
   add() {
     this.loading = true
-    this.formationService.createFormation({body: this.formationRequest}).subscribe(res => {
+    this.formationService.saveFormation({body: this.formationRequest}).subscribe(res => {
         this.router.navigate(['admin/formation']);
       }, error => {
         this.loading = false
         const messages: { [key: string]: string } = {
-          'DESCRIPTION_REQUIRED': 'Description requis.',
-          'NAME_REQUIRED': 'Nom requis.',
-          'FORMATION_ALREADY_EXISTS': 'La formation existe déjà'
+          'DESCRIPTION_NOT_NULL': 'Description requis.',
+          'NAME_NOT_NULL': 'Nom requis.',
         };
 
         if (error.error.validationErrors) {
@@ -52,10 +51,10 @@ export class AddFormationComponent {
             }
           });
         }
-
-        if (error.error.error) {
-          this.error = error.error.error;
-          console.log(this.error)
+      console.log(error.error)
+        if (error.error) {
+          if(error.error.errorMessage == "DUPLICATE_FOUND")
+          this.error = "Formation existe déjà";
         }
       }
     )

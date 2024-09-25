@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface DomainResponse {
+export interface DomaineResponse {
   description?: string;
+  id?: number;
   name?: string;
 }

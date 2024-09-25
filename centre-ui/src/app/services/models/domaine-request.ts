@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface DomainRequest {
+export interface DomaineRequest {
   description: string;
   name: string;
 }

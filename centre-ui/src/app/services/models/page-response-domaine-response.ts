@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
-import { DomainResponse } from '../models/domain-response';
-export interface PageResponseDomainResponse {
-  content?: Array<DomainResponse>;
+import { DomaineResponse } from '../models/domaine-response';
+export interface PageResponseDomaineResponse {
+  content?: Array<DomaineResponse>;
   first?: boolean;
   last?: boolean;
   number?: number;

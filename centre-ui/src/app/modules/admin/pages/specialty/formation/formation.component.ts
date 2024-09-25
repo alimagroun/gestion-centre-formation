@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormationControllerService} from "../../../../../services/services/formation-controller.service";
 import {PageResponseFormationResponse} from "../../../../../services/models/page-response-formation-response";
 import {NgForOf, NgIf} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
 import {RouterLink} from "@angular/router";
+import {FromationControllerService} from "../../../../../services/services/fromation-controller.service";
 
 @Component({
   selector: 'app-formation',
@@ -25,13 +25,13 @@ export class FormationComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private formationService: FormationControllerService
+    private formationService: FromationControllerService
   ) {
   }
 
   findAllFroamtion() {
     this.loading = true;
-    this.formationService.findAllFormations({
+    this.formationService.findAllFormation({
       page: this.page,
       size: this.size
     }).subscribe(res => {

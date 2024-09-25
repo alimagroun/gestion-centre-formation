@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { SchoolYearControllerService } from './services/school-year-controller.service';
-import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { RegistrationControllerService } from './services/registration-controller.service';
-import { FormationControllerService } from './services/formation-controller.service';
-import { DomainControllerService } from './services/domain-controller.service';
+import { FromationControllerService } from './services/fromation-controller.service';
+import { DomaineControllerService } from './services/domaine-controller.service';
 import { DocumentsControllerService } from './services/documents-controller.service';
+import { ClasseFormationControllerService } from './services/classe-formation-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { UserControllerService } from './services/user-controller.service';
 import { SubjectControllerService } from './services/subject-controller.service';
@@ -25,12 +25,12 @@ import { PersonControllerService } from './services/person-controller.service';
   declarations: [],
   providers: [
     SchoolYearControllerService,
-    SpecialtyControllerService,
     RoleControllerService,
     RegistrationControllerService,
-    FormationControllerService,
-    DomainControllerService,
+    FromationControllerService,
+    DomaineControllerService,
     DocumentsControllerService,
+    ClasseFormationControllerService,
     AuthenticationControllerService,
     UserControllerService,
     SubjectControllerService,

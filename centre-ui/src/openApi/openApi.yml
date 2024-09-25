@@ -55,77 +55,6 @@
         }
       }
     },
-    "/specialty": {
-      "get": {
-        "tags": [
-          "specialty-controller"
-        ],
-        "operationId": "findAllSpecialty",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 10
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageResponseSpecialtyResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "specialty-controller"
-        ],
-        "operationId": "create",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SpecialtyRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/school-years": {
       "get": {
         "tags": [
@@ -342,9 +271,9 @@
     "/formation": {
       "get": {
         "tags": [
-          "formation-controller"
+          "fromation-controller"
         ],
-        "operationId": "findAllFormations",
+        "operationId": "findAllFormation",
         "parameters": [
           {
             "name": "page",
@@ -382,9 +311,9 @@
       },
       "post": {
         "tags": [
-          "formation-controller"
+          "fromation-controller"
         ],
-        "operationId": "createFormation",
+        "operationId": "saveFormation",
         "requestBody": {
           "content": {
             "application/json": {
@@ -402,7 +331,7 @@
               "application/json": {
                 "schema": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int64"
                 }
               }
             }
@@ -410,12 +339,12 @@
         }
       }
     },
-    "/domain": {
+    "/domaine": {
       "get": {
         "tags": [
-          "domain-controller"
+          "domaine-controller"
         ],
-        "operationId": "findAllDomains",
+        "operationId": "findAllDomain",
         "parameters": [
           {
             "name": "page",
@@ -444,7 +373,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PageResponseDomainResponse"
+                  "$ref": "#/components/schemas/PageResponseDomaineResponse"
                 }
               }
             }
@@ -453,14 +382,14 @@
       },
       "post": {
         "tags": [
-          "domain-controller"
+          "domaine-controller"
         ],
-        "operationId": "createDomain",
+        "operationId": "saveDomain",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/DomainRequest"
+                "$ref": "#/components/schemas/DomaineRequest"
               }
             }
           },
@@ -473,7 +402,7 @@
               "application/json": {
                 "schema": {
                   "type": "integer",
-                  "format": "int32"
+                  "format": "int64"
                 }
               }
             }
@@ -532,6 +461,77 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/DocumentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/classe": {
+      "get": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "findAllClasses",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseClasseFormationResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "saveClasse",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClasseFormationRequest"
               }
             }
           },
@@ -874,19 +874,6 @@
   },
   "components": {
     "schemas": {
-      "SpecialtyRequest": {
-        "type": "object",
-        "properties": {
-          "formationId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "domainId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
       "SchoolYearRequest": {
         "required": [
           "endYear",
@@ -1040,7 +1027,7 @@
           }
         }
       },
-      "DomainRequest": {
+      "DomaineRequest": {
         "required": [
           "description",
           "name"
@@ -1067,6 +1054,33 @@
           },
           "description": {
             "type": "string"
+          }
+        }
+      },
+      "ClasseFormationRequest": {
+        "required": [
+          "domaineId",
+          "formationId",
+          "schoolYearId"
+        ],
+        "type": "object",
+        "properties": {
+          "formationId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "domaineId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "schoolYearId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "groupNumber": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -1248,72 +1262,6 @@
           },
           "wordFilePath": {
             "type": "string"
-          }
-        }
-      },
-      "DomainResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "FormationResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "PageResponseSpecialtyResponse": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SpecialtyResponse"
-            }
-          },
-          "number": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "size": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
-          }
-        }
-      },
-      "SpecialtyResponse": {
-        "type": "object",
-        "properties": {
-          "formation": {
-            "$ref": "#/components/schemas/FormationResponse"
-          },
-          "domain": {
-            "$ref": "#/components/schemas/DomainResponse"
           }
         }
       },
@@ -1608,6 +1556,21 @@
           }
         }
       },
+      "FormationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
       "PageResponseFormationResponse": {
         "type": "object",
         "properties": {
@@ -1641,13 +1604,28 @@
           }
         }
       },
-      "PageResponseDomainResponse": {
+      "DomaineResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "PageResponseDomaineResponse": {
         "type": "object",
         "properties": {
           "content": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/DomainResponse"
+              "$ref": "#/components/schemas/DomaineResponse"
             }
           },
           "number": {
@@ -1696,6 +1674,61 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DocumentResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClasseFormationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "formationName": {
+            "type": "string"
+          },
+          "domaineName": {
+            "type": "string"
+          },
+          "schoolYear": {
+            "type": "string"
+          },
+          "groupNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageResponseClasseFormationResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClasseFormationResponse"
             }
           },
           "number": {

@@ -3,7 +3,11 @@ package com.centre.poly.classmanagement.entity;
 import com.centre.poly.schoolYear.SchoolYear;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -33,4 +37,12 @@ public class ClasseFormation {
     @ManyToOne
     @JoinColumn(name = "school_year_id", nullable = false)
     private SchoolYear schoolYear;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(insertable = false)
+    private LocalDateTime lastModifiedDate;
 }
