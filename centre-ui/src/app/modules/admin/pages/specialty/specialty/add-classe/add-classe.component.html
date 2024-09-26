@@ -1,0 +1,57 @@
+<div class="container card mt-4 p-2">
+  <div class="card-header">
+    <h2>
+      <button class="btn btn-outline-danger" routerLink="..">
+        <i class="bi bi-arrow-return-left me-2"></i>Retour
+      </button>
+      Ajouter un classe
+    </h2>
+  </div>
+  <div class="card-body">
+    <form>
+
+      <div *ngIf="showAlert" class="alert alert-danger" role="alert">
+        {{ errorMsg }}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="formation">Formation</label>
+        <select id="formation" class="form-control" [(ngModel)]="selectedFormation" name="formation">
+          <option [ngValue]="undefined" disabled>Choisir une formation...</option>
+          <option *ngFor="let formation of formationList" [value]="formation.id">{{ formation.name }}</option>
+        </select>
+      </div>
+
+
+      <div class="form-group mb-3">
+        <label for="domaine">Domaine</label>
+        <select id="domaine" class="form-control" [(ngModel)]="selectedDomaine" name="domaine">
+          <option [ngValue]="undefined" disabled>Choisir un domaine...</option>
+          <option *ngFor="let domaine of domainList" [value]="domaine.id">{{ domaine.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="schoolYear">Année Scolaire</label>
+        <select id="schoolYear" class="form-control" [(ngModel)]="selectedSchoolYear" name="schoolYear">
+          <option [ngValue]="undefined" disabled>Choisir une année scolaire...</option>
+          <option *ngFor="let year of schoolYearList" [value]="year.id">
+            {{ year.start_year }} - {{ year.end_year }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="groupe">Numéro de Groupe</label>
+        <input id="groupe" type="number" class="form-control" [(ngModel)]="groupNumber" name="groupe"
+               placeholder="Entrez le numéro de groupe">
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="saveClasse()">
+        <span *ngIf="loader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="!loader">Ajouter</span>
+      </button>
+
+    </form>
+  </div>
+</div>
