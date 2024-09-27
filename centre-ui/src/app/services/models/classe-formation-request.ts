@@ -5,4 +5,5 @@ export interface ClasseFormationRequest {
   formationId: number;
   groupNumber?: number;
   schoolYearId: number;
+  yearLevel?: number;
 }

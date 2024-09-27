@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FormationRepository extends JpaRepository<Formation, Long> {
 
-    Formation findByName(String name);
+    Formation findByNameIgnoreCase(String name);
 
 }

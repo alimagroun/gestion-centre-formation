@@ -15,6 +15,7 @@ public interface ClasseFormationRepository extends JpaRepository<ClasseFormation
             " c.domaine.id = :domaineId " +
             " and c.formation.id = :formationId " +
             " and c.schoolYear.id = :schoolYearId " +
-            " and c.groupNumber = :groupNumber")
-    Optional<ClasseFormation> findClasseFromation(Long formationId, Long domaineId, Long schoolYearId, int groupNumber);
+            " and c.groupNumber = :groupNumber" +
+            " and c.yearLevel = :yearLevel ")
+    Optional<ClasseFormation> findClasseFromation(Long formationId, Long domaineId, Long schoolYearId, int groupNumber, int yearLevel);
 }

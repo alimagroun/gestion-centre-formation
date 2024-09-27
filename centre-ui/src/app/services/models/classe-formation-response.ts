@@ -6,4 +6,5 @@ export interface ClasseFormationResponse {
   groupNumber?: number;
   id?: number;
   schoolYear?: string;
+  yearLevel?: number;
 }

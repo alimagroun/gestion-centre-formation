@@ -16,6 +16,7 @@ public class ClasseFormationMapper {
                 .formation(Formation.builder().id(request.getFormationId()).build())
                 .domaine(Domaine.builder().id(request.getDomaineId()).build())
                 .schoolYear(SchoolYear.builder().id(request.getSchoolYearId()).build())
+                .yearLevel(request.getYearLevel())
                 .groupNumber(request.getGroupNumber())
                 .build();
     }
@@ -24,6 +25,7 @@ public class ClasseFormationMapper {
         ClasseFormationResponse response = new ClasseFormationResponse();
         response.setId(entity.getId());
         response.setFormationName(entity.getFormation().getName());
+        response.setYearLevel(entity.getYearLevel());
         response.setDomaineName(entity.getDomaine().getName());
         response.setSchoolYear(entity.getSchoolYear().getStartYear()+ "-" + entity.getSchoolYear().getEndYear());
         response.setGroupNumber(entity.getGroupNumber());

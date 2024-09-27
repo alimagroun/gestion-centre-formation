@@ -11,6 +11,9 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { findAllFormation } from '../fn/fromation-controller/find-all-formation';
 import { FindAllFormation$Params } from '../fn/fromation-controller/find-all-formation';
+import { findAllFormationsList } from '../fn/fromation-controller/find-all-formations-list';
+import { FindAllFormationsList$Params } from '../fn/fromation-controller/find-all-formations-list';
+import { FormationResponse } from '../models/formation-response';
 import { PageResponseFormationResponse } from '../models/page-response-formation-response';
 import { saveFormation } from '../fn/fromation-controller/save-formation';
 import { SaveFormation$Params } from '../fn/fromation-controller/save-formation';
@@ -68,6 +71,31 @@ export class FromationControllerService extends BaseService {
   saveFormation(params: SaveFormation$Params, context?: HttpContext): Observable<number> {
     return this.saveFormation$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllFormationsList()` */
+  static readonly FindAllFormationsListPath = '/formation/allList';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllFormationsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFormationsList$Response(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FormationResponse>>> {
+    return findAllFormationsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllFormationsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllFormationsList(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<Array<FormationResponse>> {
+    return this.findAllFormationsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FormationResponse>>): Array<FormationResponse> => r.body)
     );
   }
 

@@ -33,10 +33,14 @@ public class DomaineService {
         return domaineRepository.save(domaineMapper.toRequest(request)).getId();
     }
 
-    public PageResponse<DomaineResponse> findAll(int page, int size){
+    public PageResponse<DomaineResponse> findAllPageable(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Domaine> domainePage = domaineRepository.findAll(pageable);
         List<DomaineResponse> list = domainePage.stream().map(domaineMapper::toResponse).toList();
         return new PageResponse<>(list, domainePage.getNumber(), domainePage.getSize(), domainePage.getTotalElements(), domainePage.getTotalPages(), domainePage.isFirst(), domainePage.isLast());
+    }
+
+    public List<DomaineResponse> findAll(){
+        return domaineRepository.findAll().stream().map(domaineMapper::toResponse).toList();
     }
 }

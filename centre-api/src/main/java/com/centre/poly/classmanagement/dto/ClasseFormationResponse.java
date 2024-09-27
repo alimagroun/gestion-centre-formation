@@ -13,5 +13,6 @@ public class ClasseFormationResponse {
     private String formationName;
     private String domaineName;
     private String schoolYear;
+    private int yearLevel;
     private int groupNumber;
 }

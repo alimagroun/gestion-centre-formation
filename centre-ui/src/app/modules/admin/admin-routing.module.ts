@@ -16,6 +16,10 @@ import {RegistrationDetailsComponent} from "./pages/register/registration-detail
 import {UserComponent} from "./pages/user/user.component";
 import {SchoolYearComponent} from "./pages/school-year/school-year.component";
 import {AddSchoolYearComponent} from "./pages/school-year/add-school-year/add-school-year.component";
+import {DomainComponent} from "./pages/specialty/domain/domain.component";
+import {AddDomainComponent} from "./pages/specialty/domain/add-domain/add-domain.component";
+import {SpecialtyComponent} from "./pages/specialty/specialty/specialty.component";
+import {AddClasseComponent} from "./pages/specialty/specialty/add-classe/add-classe.component";
 
 const routes: Routes = [
   {
@@ -92,6 +96,38 @@ const routes: Routes = [
           {
             path: 'addFormation',
             component: AddFormationComponent,
+            canActivate: [authAdminGuard]
+          },
+        ],
+      },
+      {
+        path: 'domain',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: DomainComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addDomain',
+            component: AddDomainComponent,
+            canActivate: [authAdminGuard]
+          },
+        ],
+      },
+      {
+        path: 'classe',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: SpecialtyComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addClasse',
+            component: AddClasseComponent,
             canActivate: [authAdminGuard]
           },
         ],

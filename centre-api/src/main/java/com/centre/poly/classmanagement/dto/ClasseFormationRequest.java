@@ -22,4 +22,7 @@ public class ClasseFormationRequest {
 
     @Min(value = 1, message = "GROUP_NUMBER_MIN_1")
     private int groupNumber;
+
+    @Min(value = 1, message = "YEAR_LEVEL_MIN_1")
+    private int yearLevel;
 }

@@ -38,7 +38,7 @@ public class SchoolYearService {
 
     }
 
-    public PageResponse<SchoolYearResponse> findAll(int page, int size){
+    public PageResponse<SchoolYearResponse> findAllPagebale(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<SchoolYear> pageSchoolYear = schoolYearRepository.findAll(pageable);
         List<SchoolYearResponse> schoolYearResponses = pageSchoolYear.map(schoolYearMapper::toResponse).toList();
@@ -63,5 +63,9 @@ public class SchoolYearService {
         }
         schoolYearToDefault.setIsDefault(true);
         schoolYearRepository.save(schoolYearToDefault);
+    }
+
+    public List<SchoolYearResponse> findAll(){
+        return schoolYearRepository.findAll().stream().map(schoolYearMapper::toResponse).toList();
     }
 }

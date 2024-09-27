@@ -25,7 +25,7 @@ public class FormationService {
 
     public Long save(FormationRequest request){
 
-        Formation exist  = formationRepository.findByName(request.name());
+        Formation exist  = formationRepository.findByNameIgnoreCase(request.name());
         if(exist != null){
             throw new DuplicateEntityException("Formation with name " + request.name() + " already exists");
         }
@@ -33,10 +33,14 @@ public class FormationService {
         return formationRepository.save(formationMapper.toRequest(request)).getId();
     }
 
-    public PageResponse<FormationResponse> findAll(int page, int size){
+    public PageResponse<FormationResponse> findAllPageabale(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Formation> formationPage = formationRepository.findAll(pageable);
         List<FormationResponse> list = formationPage.stream().map(formationMapper::toResponse).toList();
         return new PageResponse<>(list, formationPage.getNumber(), formationPage.getSize(), formationPage.getTotalElements(), formationPage.getTotalPages(), formationPage.isFirst(), formationPage.isLast());
+    }
+
+    public List<FormationResponse> findAll(){
+        return this.formationRepository.findAll().stream().map(formationMapper::toResponse).toList();
     }
 }

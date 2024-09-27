@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { findAll } from '../fn/school-year-controller/find-all';
 import { FindAll$Params } from '../fn/school-year-controller/find-all';
+import { findAllList } from '../fn/school-year-controller/find-all-list';
+import { FindAllList$Params } from '../fn/school-year-controller/find-all-list';
 import { findById } from '../fn/school-year-controller/find-by-id';
 import { FindById$Params } from '../fn/school-year-controller/find-by-id';
 import { PageResponseSchoolYearResponse } from '../models/page-response-school-year-response';
@@ -123,6 +125,31 @@ export class SchoolYearControllerService extends BaseService {
   findById(params: FindById$Params, context?: HttpContext): Observable<SchoolYearResponse> {
     return this.findById$Response(params, context).pipe(
       map((r: StrictHttpResponse<SchoolYearResponse>): SchoolYearResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllList()` */
+  static readonly FindAllListPath = '/school-years/all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllList$Response(params?: FindAllList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SchoolYearResponse>>> {
+    return findAllList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllList(params?: FindAllList$Params, context?: HttpContext): Observable<Array<SchoolYearResponse>> {
+    return this.findAllList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SchoolYearResponse>>): Array<SchoolYearResponse> => r.body)
     );
   }
 

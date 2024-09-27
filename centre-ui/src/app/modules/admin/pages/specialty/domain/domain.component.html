@@ -1,1 +1,52 @@
-<p>trainingType works!</p>
+<div class="card p-3">
+  <div class="text-center mb-3">
+    <h3>Liste des domain</h3>
+  </div>
+  <div class="mb-2">
+    <button class="btn btn-outline-primary" routerLink="addDomain">Ajouter</button>
+  </div>
+  <div class="row align-items-center mb-3">
+    <div class="col-md-2">
+      <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-9 text-end">
+      <span class="text-muted">Total: {{ domainResponse.totalElements }}</span>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead >
+    <tr>
+      <th>Nom</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="2" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngFor="let d of domainResponse.content! | paginate: { itemsPerPage: domainResponse.size!, currentPage: page+1, totalItems: domainResponse.totalElements };">
+      <tr>
+        <td>{{ d.name }}</td>
+        <td>{{ d.description }}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    (pageChange)="loadPage($event)"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
+</div>

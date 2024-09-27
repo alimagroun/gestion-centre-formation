@@ -9,8 +9,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { DomaineResponse } from '../models/domaine-response';
 import { findAllDomain } from '../fn/domaine-controller/find-all-domain';
 import { FindAllDomain$Params } from '../fn/domaine-controller/find-all-domain';
+import { findAllDomainsList } from '../fn/domaine-controller/find-all-domains-list';
+import { FindAllDomainsList$Params } from '../fn/domaine-controller/find-all-domains-list';
 import { PageResponseDomaineResponse } from '../models/page-response-domaine-response';
 import { saveDomain } from '../fn/domaine-controller/save-domain';
 import { SaveDomain$Params } from '../fn/domaine-controller/save-domain';
@@ -68,6 +71,31 @@ export class DomaineControllerService extends BaseService {
   saveDomain(params: SaveDomain$Params, context?: HttpContext): Observable<number> {
     return this.saveDomain$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllDomainsList()` */
+  static readonly FindAllDomainsListPath = '/domaine/allList';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllDomainsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllDomainsList$Response(params?: FindAllDomainsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<DomaineResponse>>> {
+    return findAllDomainsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllDomainsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllDomainsList(params?: FindAllDomainsList$Params, context?: HttpContext): Observable<Array<DomaineResponse>> {
+    return this.findAllDomainsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<DomaineResponse>>): Array<DomaineResponse> => r.body)
     );
   }
 

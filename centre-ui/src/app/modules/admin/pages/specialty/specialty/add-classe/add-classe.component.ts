@@ -39,6 +39,7 @@ export class AddClasseComponent implements OnInit{
   showAlert: any;
   errorMsg = ""
   loader = false
+  selectedClassLevel: any;
 
   constructor(
     private formationService : FromationControllerService,
@@ -86,7 +87,8 @@ export class AddClasseComponent implements OnInit{
       groupNumber: this.groupNumber,
       formationId: this.selectedFormation,
       domaineId: this.selectedDomaine,
-      schoolYearId: this.selectedSchoolYear
+      schoolYearId: this.selectedSchoolYear,
+      yearLevel: this.selectedClassLevel
     };
 
     this.classeService.saveClasse({body:this.classeRequest}).subscribe(res => {
@@ -95,6 +97,7 @@ export class AddClasseComponent implements OnInit{
     },error => {
       this.loader = false
       this.showAlert = true
+      console.log(error.error)
       this.errorMsg = "Classe existe déjà.."
     })
   }

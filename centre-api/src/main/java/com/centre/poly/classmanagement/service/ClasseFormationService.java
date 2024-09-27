@@ -44,7 +44,7 @@ public class ClasseFormationService {
         SchoolYear schoolYear = schoolYearRepository.findById(request.getSchoolYearId())
                 .orElseThrow(() -> new NotFoundException("School year not found"));
 
-        classeFormationRepository.findClasseFromation(request.getFormationId(), request.getDomaineId(), request.getSchoolYearId(), request.getGroupNumber())
+        classeFormationRepository.findClasseFromation(request.getFormationId(), request.getDomaineId(), request.getSchoolYearId(), request.getGroupNumber(), request.getYearLevel())
                 .ifPresent(existingClass -> {
                     throw new DuplicateEntityException("ClasseFormation already exists");
                 });

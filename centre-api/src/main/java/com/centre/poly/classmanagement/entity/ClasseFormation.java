@@ -38,6 +38,9 @@ public class ClasseFormation {
     @JoinColumn(name = "school_year_id", nullable = false)
     private SchoolYear schoolYear;
 
+    @Column(nullable = false)
+    private int yearLevel; // 1 for the first year, 2 for the second year
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;

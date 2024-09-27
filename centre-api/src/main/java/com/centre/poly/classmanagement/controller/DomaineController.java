@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("domaine")
@@ -26,7 +28,12 @@ public class DomaineController {
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "10") int size
     ){
-        return ResponseEntity.ok().body(domaineService.findAll(page, size));
+        return ResponseEntity.ok().body(domaineService.findAllPageable(page, size));
+    }
+
+    @GetMapping(value = "/allList")
+    public ResponseEntity<List<DomaineResponse>> findAllDomainsList() {
+        return ResponseEntity.ok().body(domaineService.findAll());
     }
 
 

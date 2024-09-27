@@ -38,7 +38,7 @@ export class MenuComponent {
     },
     {
       id: '3',
-      titre: 'Gestion de specialité',
+      titre: 'Gestion des classe',
       icon: 'bi bi-book-half',
       url: '',
       sousMenu: [
@@ -56,9 +56,9 @@ export class MenuComponent {
         },
         {
           id: '33',
-          titre: 'Specialite',
+          titre: 'Classe',
           icon: '',
-          url: 'admin/specialty',
+          url: 'admin/classe',
         }
       ],
     },

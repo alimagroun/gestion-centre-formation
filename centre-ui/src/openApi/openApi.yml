@@ -727,6 +727,29 @@
         }
       }
     },
+    "/school-years/all": {
+      "get": {
+        "tags": [
+          "school-year-controller"
+        ],
+        "operationId": "findAllList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchoolYearResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/register/{id}": {
       "get": {
         "tags": [
@@ -841,6 +864,52 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ParentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/formation/allList": {
+      "get": {
+        "tags": [
+          "fromation-controller"
+        ],
+        "operationId": "findAllFormationsList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FormationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domaine/allList": {
+      "get": {
+        "tags": [
+          "domaine-controller"
+        ],
+        "operationId": "findAllDomainsList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DomaineResponse"
+                  }
                 }
               }
             }
@@ -1078,6 +1147,11 @@
             "format": "int64"
           },
           "groupNumber": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "yearLevel": {
             "minimum": 1,
             "type": "integer",
             "format": "int32"
@@ -1715,6 +1789,10 @@
           },
           "schoolYear": {
             "type": "string"
+          },
+          "yearLevel": {
+            "type": "integer",
+            "format": "int32"
           },
           "groupNumber": {
             "type": "integer",

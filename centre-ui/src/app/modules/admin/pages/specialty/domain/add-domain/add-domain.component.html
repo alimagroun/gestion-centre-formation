@@ -4,7 +4,7 @@
       <button class="btn btn-outline-danger" routerLink="..">
         <i class="bi bi-arrow-return-left me-2"></i>Retour
       </button>
-      Ajouter Formation
+      Ajouter Domaine
     </h2>
   </div>
   <div class="card-body">
@@ -12,14 +12,14 @@
     <form>
       <div class="mb-3">
         <input type="text" [ngClass]="{'border border-danger': validationErrors['name']}" id="name" name="name"
-               [(ngModel)]="formationRequest.name" class="form-control"
+               [(ngModel)]="domaineRequest.name" class="form-control"
                (input)="clearError('name')"
                placeholder="Entrez le nom"/>
         <span *ngIf="validationErrors['name']" class="text-danger">{{ validationErrors['name'] }}</span>
       </div>
       <div class="mb-3">
         <textarea type="text" [ngClass]="{'border border-danger': validationErrors['description']}" id="description"
-                  class="form-control" name="description" [(ngModel)]="formationRequest.description" rows="3"
+                  class="form-control" name="description" [(ngModel)]="domaineRequest.description" rows="3"
                   (input)="clearError('description')"
                   placeholder="Entrez la description"></textarea>
         <span *ngIf="validationErrors['description']" class="text-danger">{{ validationErrors['description'] }}</span>

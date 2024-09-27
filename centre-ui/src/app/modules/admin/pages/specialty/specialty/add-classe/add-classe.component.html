@@ -42,6 +42,15 @@
       </div>
 
       <div class="form-group mb-3">
+        <label for="classLevel">Niveau de Classe</label>
+        <select id="classLevel" class="form-control" [(ngModel)]="selectedClassLevel" name="classLevel">
+          <option [ngValue]="undefined" disabled>Choisir le niveau...</option>
+          <option [value]="1">1ère</option>
+          <option [value]="2">2ème</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
         <label for="groupe">Numéro de Groupe</label>
         <input id="groupe" type="number" class="form-control" [(ngModel)]="groupNumber" name="groupe"
                placeholder="Entrez le numéro de groupe">

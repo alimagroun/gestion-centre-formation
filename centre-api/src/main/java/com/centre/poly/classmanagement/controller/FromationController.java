@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("formation")
@@ -26,7 +28,12 @@ public class FromationController {
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "10") int size
     ){
-        return ResponseEntity.ok().body(formationService.findAll(page, size));
+        return ResponseEntity.ok().body(formationService.findAllPageabale(page, size));
+    }
+
+    @GetMapping(value = "/allList")
+    public ResponseEntity<List<FormationResponse>> findAllFormationsList() {
+        return ResponseEntity.ok().body(formationService.findAll());
     }
 
 
