@@ -106,6 +106,7 @@ export class ParentFormComponent implements OnInit {
         this.showMsgSearchByTel = true
       },
       error => {
+        this._parent.id = undefined
         this.showMsgSearchByTel = false
         console.error('Erreur lors de la recherche du parent', error);
       }

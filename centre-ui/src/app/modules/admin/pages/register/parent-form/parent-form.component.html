@@ -3,7 +3,7 @@
   <div *ngIf="showMsgSearchByTel" class="alert alert-success">
     <span>Le parent avec le numéro de téléphone {{ parent.phoneNumber}} a été trouvé.</span>
   </div>
-  <form [formGroup]="parentForm">
+  <form [formGroup]="parentForm" autocomplete="off">
     <div class="mb-3">
       <input
         type="tel"
@@ -11,6 +11,7 @@
         id="phoneNumber"
         formControlName="phoneNumber"
         placeholder="Entrez le numéro de téléphone"
+        autocomplete="off"
         (input)="searchByTel()">
       <div *ngIf="parentForm.get('phoneNumber')?.invalid && (parentForm.get('phoneNumber')?.dirty || parentForm.get('phoneNumber')?.touched)"
            class="text-danger">

@@ -13,6 +13,8 @@ import {DocumentResponse} from "../../../../services/models/document-response";
 import {RegistrationRequest} from "../../../../services/models/registration-request";
 import {RegistrationControllerService} from "../../../../services/services/registration-controller.service";
 import {PersonControllerService} from "../../../../services/services/person-controller.service";
+import {Router} from "@angular/router";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -51,10 +53,12 @@ export class RegisterComponent {
     {name: 'Documents'},
     {name: 'Vérification'},
   ];
+  loading= false;
 
   constructor(
     private registerService : RegistrationControllerService,
-    private personService : PersonControllerService
+    private personService : PersonControllerService,
+    private router: Router
   ) {
   }
 
@@ -64,7 +68,6 @@ export class RegisterComponent {
 
   async nextStep() {
     const isValid = await this.validation();
-
     if (isValid && (this.statusFormParent || this.statusFormStudent || this.statusFormAddress)) {
       if (this.currentStep < this.steps.length) {
         this.currentStep++;
@@ -96,6 +99,7 @@ export class RegisterComponent {
   }
 
   register() {
+    this.loading = true
     this.registreRequest.addressRequest = this.address
     this.registreRequest.studentRequest = this.student
     this.registreRequest.parentRequest = this.parent
@@ -105,7 +109,11 @@ export class RegisterComponent {
       {
         body : this.registreRequest
       }
+    ).pipe(
+      finalize(() => this.loading = false)
     ).subscribe(res=>{
+      this.loading = false
+      this.router.navigate(['admin/registrationList']);
     })
   }
 
@@ -116,10 +124,22 @@ export class RegisterComponent {
   async validation(): Promise<boolean> {
     this.error = [];
 
-    if (this.currentStep == 1) {
-      const isValid = await this.validateEmailParent(this.parent.email!);
-      if (!isValid) {
-        this.error.push("Le numéro de téléphone existe déjà");
+    if (this.currentStep == 1 && this.parent.id == undefined) {
+      const isValid = await this.validateEmail(this.parent.email!);
+      if (isValid) {
+        this.error.push("Email "+ this.parent.email+" existe déjà");
+        return false;
+      }
+    }
+    else if(this.currentStep == 2) {
+      const isValid = await this.validateEmail(this.student.email!);
+      const isTelValid = await  this.validateTel(this.student.phoneNumber!);
+      if (isValid) {
+        this.error.push("Email "+ this.student.email+" existe déjà");
+        return false;
+      }
+      if (isTelValid) {
+        this.error.push("Le numéro de téléphone "+ this.student.phoneNumber+" existe déjà");
         return false;
       }
     }
@@ -127,14 +147,27 @@ export class RegisterComponent {
     return true;
   }
 
-  async validateEmailParent(email: string): Promise<boolean> {
+  async validateEmail(email: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.personService.emailValidation({ email }).subscribe(
         (res) => {
           resolve(res);
         },
         (error) => {
-          reject(false); // Retourner false si une erreur survient
+          reject(false);
+        }
+      );
+    });
+  }
+
+  async validateTel(phoneNumber: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.personService.phoneNumberValidation({ phoneNumber }).subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (error) => {
+          reject(false);
         }
       );
     });

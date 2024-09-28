@@ -122,7 +122,7 @@ public class PersonService {
 
             return parent;
         }
-        return parent;
+        return parentSaved;
     }
 
     public void createUserParent(Parent parent){
