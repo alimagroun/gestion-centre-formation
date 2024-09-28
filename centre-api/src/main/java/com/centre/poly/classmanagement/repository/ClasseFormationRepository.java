@@ -1,21 +1,29 @@
 package com.centre.poly.classmanagement.repository;
 
-import com.centre.poly.classmanagement.entity.ClasseFormation;
-import com.centre.poly.classmanagement.entity.Domaine;
-import com.centre.poly.classmanagement.entity.Formation;
-import com.centre.poly.schoolYear.SchoolYear;
+import com.centre.poly.classmanagement.entity.Class;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
-public interface ClasseFormationRepository extends JpaRepository<ClasseFormation, Long> {
+public interface ClasseFormationRepository extends JpaRepository<Class, Long> {
 
-    @Query("select c from ClasseFormation c where " +
+    @Query("select c from AccreditedClass c where " +
             " c.domaine.id = :domaineId " +
             " and c.formation.id = :formationId " +
             " and c.schoolYear.id = :schoolYearId " +
             " and c.groupNumber = :groupNumber" +
             " and c.yearLevel = :yearLevel ")
-    Optional<ClasseFormation> findClasseFromation(Long formationId, Long domaineId, Long schoolYearId, int groupNumber, int yearLevel);
+    Optional<Class> findAccreditedClass(Long formationId, Long domaineId, Long schoolYearId, int groupNumber, int yearLevel);
+
+    @Query("select c from AcceleratedClass c where " +
+            " c.domaine.id = :domaineId " +
+            " and c.formation.id = :formationId " +
+            " and c.groupNumber = :groupNumber" +
+            " and c.startDate = :startDate " +
+            " and c.endDate =:endDate ")
+    Optional<Class> findAcceleratedClass(Long formationId, Long domaineId, int groupNumber, LocalDate startDate, LocalDate endDate);
+
+
 }

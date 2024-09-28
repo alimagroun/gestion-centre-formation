@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
 
     @Id

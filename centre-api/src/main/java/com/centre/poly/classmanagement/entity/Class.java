@@ -3,6 +3,7 @@ package com.centre.poly.classmanagement.entity;
 import com.centre.poly.schoolYear.SchoolYear;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,16 +12,17 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class ClasseFormation {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Class {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classe_formation_sequence")
-    @SequenceGenerator(name = "classe_formation_sequence", sequenceName = "classe_formation_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "class_sequence")
+    @SequenceGenerator(name = "class_sequence", sequenceName = "class_sequence", allocationSize = 1)
     private Long id;
 
     @ManyToOne
@@ -34,12 +36,6 @@ public class ClasseFormation {
     @Column(nullable = false)
     private int groupNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "school_year_id", nullable = false)
-    private SchoolYear schoolYear;
-
-    @Column(nullable = false)
-    private int yearLevel; // 1 for the first year, 2 for the second year
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
