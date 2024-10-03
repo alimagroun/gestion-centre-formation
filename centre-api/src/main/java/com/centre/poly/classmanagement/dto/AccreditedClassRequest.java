@@ -11,11 +11,8 @@ import lombok.*;
 @Builder
 public class AccreditedClassRequest {
 
-    @NotNull(message = "FORMATION_ID_NOT_NULL")
-    private Long formationId;
-
-    @NotNull(message = "DOMAINE_ID_NOT_NULL")
-    private Long domaineId;
+    @NotNull(message = "SPECIALTY_ID_NOT_NULL")
+    private Long specialtyId;
 
     @NotNull(message = "SCHOOL_YEAR_ID_NOT_NULL")
     private Long schoolYearId;

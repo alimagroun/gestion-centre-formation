@@ -14,8 +14,7 @@ import java.time.LocalDate;
 public class AcceleratedClassResponse {
 
     private Long id;
-    private String formationName;
-    private String domaineName;
+    private String specialtyName;
     private int groupNumber;
     private LocalDate startDate;
     private LocalDate endDate;

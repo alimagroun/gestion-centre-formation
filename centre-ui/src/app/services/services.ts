@@ -1,4 +1,5 @@
 export { SchoolYearControllerService } from './services/school-year-controller.service';
+export { SpecialtyControllerService } from './services/specialty-controller.service';
 export { RoleControllerService } from './services/role-controller.service';
 export { RegistrationControllerService } from './services/registration-controller.service';
 export { FromationControllerService } from './services/fromation-controller.service';

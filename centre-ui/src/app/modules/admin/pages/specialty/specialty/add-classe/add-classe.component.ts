@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {FormationResponse} from "../../../../../../services/models/formation-response";
 import {DomaineResponse} from "../../../../../../services/models/domaine-response";
 import {FromationControllerService} from "../../../../../../services/services/fromation-controller.service";
 import {DomaineControllerService} from "../../../../../../services/services/domaine-controller.service";
@@ -8,7 +7,6 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {SchoolYearResponse} from "../../../../../../services/models/school-year-response";
 import {SchoolYearControllerService} from "../../../../../../services/services/school-year-controller.service";
-import {ClasseFormationRequest} from "../../../../../../services/models/classe-formation-request";
 import {
   ClasseFormationControllerService
 } from "../../../../../../services/services/classe-formation-controller.service";
@@ -26,16 +24,16 @@ import {
   templateUrl: './add-classe.component.html',
   styleUrl: './add-classe.component.scss'
 })
-export class AddClasseComponent implements OnInit{
+export class AddClasseComponent {
 
-  formationList : Array<FormationResponse> = []
+ /* formationList : Array<FormationResponse> = []
   domainList :  Array<DomaineResponse> = []
   schoolYearList : Array<SchoolYearResponse> = []
   selectedFormation: any;
   selectedDomaine: any;
   selectedSchoolYear: any;
   groupNumber: any;
-  classeRequest : ClasseFormationRequest = {domaineId: 0, formationId: 0, groupNumber: 0, schoolYearId: 0}
+  //classeRequest : ClasseFormationRequest = {domaineId: 0, formationId: 0, groupNumber: 0, schoolYearId: 0}
   showAlert: any;
   errorMsg = ""
   loader = false
@@ -100,5 +98,5 @@ export class AddClasseComponent implements OnInit{
       console.log(error.error)
       this.errorMsg = "Classe existe déjà.."
     })
-  }
+  }*/
 }

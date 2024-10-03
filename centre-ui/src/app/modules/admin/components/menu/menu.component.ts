@@ -56,9 +56,9 @@ export class MenuComponent {
         },
         {
           id: '33',
-          titre: 'Classe',
+          titre: 'Spécialité',
           icon: '',
-          url: 'admin/classe',
+          url: 'admin/specialty',
         }
       ],
     },

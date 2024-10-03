@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationRequest} from "../../services/models/authentication-request";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthenticationControllerService} from "../../services/services/authentication-controller.service";
@@ -18,7 +18,7 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
 
   authRequest: AuthenticationRequest = {userName: '', password: ''};
@@ -35,6 +35,15 @@ export class LoginComponent {
     private authService: AuthenticationControllerService,
     private tokenService: TokenService,
     private router: Router) {
+  }
+
+  ngOnInit(): void {
+    console.log(this.tokenService.userRoles)
+    if(this.tokenService.isTokenValid()){
+      if(this.tokenService.userRoles.includes("ROLE_ADMIN")){
+        this.router.navigate(['admin']);
+      }
+    }
   }
 
   errorMsg: Array<string> = []
@@ -77,5 +86,7 @@ export class LoginComponent {
       }
     });
   }
+
+
 
 }

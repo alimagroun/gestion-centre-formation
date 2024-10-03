@@ -1,8 +1,8 @@
 package com.centre.poly.classmanagement.controller;
 
-import com.centre.poly.classmanagement.dto.FormationRequest;
-import com.centre.poly.classmanagement.dto.FormationResponse;
-import com.centre.poly.classmanagement.service.FormationService;
+import com.centre.poly.classmanagement.dto.FormationTypeRequest;
+import com.centre.poly.classmanagement.dto.FormationTypeResponse;
+import com.centre.poly.classmanagement.service.FormationTypeService;
 import com.centre.poly.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,24 +16,24 @@ import java.util.List;
 @RequestMapping("formation")
 public class FromationController {
 
-    private final FormationService formationService;
+    private final FormationTypeService formationTypeService;
 
     @PostMapping
-    public ResponseEntity<Long> saveFormation(@Valid @RequestBody FormationRequest request) {
-        return ResponseEntity.ok().body(formationService.save(request));
+    public ResponseEntity<Long> saveFormation(@Valid @RequestBody FormationTypeRequest request) {
+        return ResponseEntity.ok().body(formationTypeService.save(request));
     }
 
     @GetMapping
-    public ResponseEntity<PageResponse<FormationResponse>> findAllFormation(
+    public ResponseEntity<PageResponse<FormationTypeResponse>> findAllFormation(
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "10") int size
     ){
-        return ResponseEntity.ok().body(formationService.findAllPageabale(page, size));
+        return ResponseEntity.ok().body(formationTypeService.findAllPageabale(page, size));
     }
 
     @GetMapping(value = "/allList")
-    public ResponseEntity<List<FormationResponse>> findAllFormationsList() {
-        return ResponseEntity.ok().body(formationService.findAll());
+    public ResponseEntity<List<FormationTypeResponse>> findAllFormationsList() {
+        return ResponseEntity.ok().body(formationTypeService.findAll());
     }
 
 

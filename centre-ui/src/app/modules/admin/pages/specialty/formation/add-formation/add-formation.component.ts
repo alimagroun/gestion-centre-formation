@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {FormationRequest} from "../../../../../../services/models/formation-request";
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {FromationControllerService} from "../../../../../../services/services/fromation-controller.service";
+import {FormationTypeRequest} from "../../../../../../services/models/formation-type-request";
 
 @Component({
   selector: 'app-add-formation',
@@ -19,7 +19,7 @@ import {FromationControllerService} from "../../../../../../services/services/fr
 })
 export class AddFormationComponent {
 
-  formationRequest: FormationRequest = {name: '', description: ''}
+  formationRequest: FormationTypeRequest = {name: '', description: ''}
   validationErrors: { [key: string]: string } = {};
   error= ""
   loading = false

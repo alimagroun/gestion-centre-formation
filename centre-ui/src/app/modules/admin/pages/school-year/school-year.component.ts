@@ -41,7 +41,7 @@ export class SchoolYearComponent implements OnInit{
 
   findAllPaginated(){
     this.loading = true
-    this.school_years_service.findAll({page:this.page, size:this.size})
+    this.school_years_service.findAll1({page:this.page, size:this.size})
       .pipe(
         finalize(() => this.loading = false)
       )

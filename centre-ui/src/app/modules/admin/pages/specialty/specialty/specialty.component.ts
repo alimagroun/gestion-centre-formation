@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  PageResponseClasseFormationResponse
-} from "../../../../../services/models/page-response-classe-formation-response";
 import {ClasseFormationControllerService} from "../../../../../services/services/classe-formation-controller.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
 import {RouterLink} from "@angular/router";
+import {PageResponseSpecialtyResponse} from "../../../../../services/models/page-response-specialty-response";
+import {SpecialtyControllerService} from "../../../../../services/services/specialty-controller.service";
 
 @Component({
   selector: 'app-specialty',
@@ -21,23 +20,23 @@ import {RouterLink} from "@angular/router";
 })
 export class SpecialtyComponent {
 
-  classeResponse: PageResponseClasseFormationResponse = {}
+  specialtyResponse: PageResponseSpecialtyResponse = {}
   page: number = 0;
   size: number = 10;
   loading: boolean = false;
 
   constructor(
-    private classeService: ClasseFormationControllerService
+    private specialtyService: SpecialtyControllerService
   ) {
   }
 
   findAllClasse() {
     this.loading = true;
-    this.classeService.findAllClasses({
+    this.specialtyService.findAllSpecialtyPageable({
       page: this.page,
       size: this.size
     }).subscribe(res => {
-      this.classeResponse = res
+      this.specialtyResponse = res
       this.loading = false
     })
   }

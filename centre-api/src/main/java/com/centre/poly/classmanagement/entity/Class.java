@@ -1,6 +1,5 @@
 package com.centre.poly.classmanagement.entity;
 
-import com.centre.poly.schoolYear.SchoolYear;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -26,12 +25,8 @@ public class Class {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "formation_id", nullable = false)
-    private Formation formation;
-
-    @ManyToOne
-    @JoinColumn(name = "domaine_id", nullable = false)
-    private Domaine domaine;
+    @JoinColumn(name = "specialty_id")
+    private Specialty specialty;
 
     @Column(nullable = false)
     private int groupNumber;

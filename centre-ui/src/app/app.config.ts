@@ -1,10 +1,11 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideClientHydration} from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {HttpTokenInterceptor} from "./services/interceptor/http-token.service";
+import {ToastrModule} from "ngx-toastr";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,9 +14,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withInterceptorsFromDi()),
     {
-      provide:HTTP_INTERCEPTORS,
-      useClass:HttpTokenInterceptor,
-      multi:true
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
     }
   ]
 };

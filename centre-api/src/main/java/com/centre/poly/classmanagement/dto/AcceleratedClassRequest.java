@@ -14,11 +14,8 @@ import java.time.LocalDate;
 @Builder
 public class AcceleratedClassRequest {
 
-    @NotNull(message = "FORMATION_ID_NOT_NULL")
-    private Long formationId;
-
-    @NotNull(message = "DOMAINE_ID_NOT_NULL")
-    private Long domaineId;
+    @NotNull(message = "SPECIALTY_ID_NOT_NULL")
+    private Long specialtyId;
 
     @Min(value = 1, message = "GROUP_NUMBER_MIN_1")
     private int groupNumber;

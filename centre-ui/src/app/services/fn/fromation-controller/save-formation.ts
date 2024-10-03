@@ -6,10 +6,10 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FormationRequest } from '../../models/formation-request';
+import { FormationTypeRequest } from '../../models/formation-type-request';
 
 export interface SaveFormation$Params {
-      body: FormationRequest
+      body: FormationTypeRequest
 }
 
 export function saveFormation(http: HttpClient, rootUrl: string, params: SaveFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {

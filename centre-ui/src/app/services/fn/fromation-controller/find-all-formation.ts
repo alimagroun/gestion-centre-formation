@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageResponseFormationResponse } from '../../models/page-response-formation-response';
+import { PageResponseFormationTypeResponse } from '../../models/page-response-formation-type-response';
 
 export interface FindAllFormation$Params {
   page?: number;
   size?: number;
 }
 
-export function findAllFormation(http: HttpClient, rootUrl: string, params?: FindAllFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFormationResponse>> {
+export function findAllFormation(http: HttpClient, rootUrl: string, params?: FindAllFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFormationTypeResponse>> {
   const rb = new RequestBuilder(rootUrl, findAllFormation.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
@@ -25,7 +25,7 @@ export function findAllFormation(http: HttpClient, rootUrl: string, params?: Fin
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseFormationResponse>;
+      return r as StrictHttpResponse<PageResponseFormationTypeResponse>;
     })
   );
 }

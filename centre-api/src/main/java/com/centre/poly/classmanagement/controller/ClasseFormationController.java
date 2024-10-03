@@ -1,7 +1,7 @@
 package com.centre.poly.classmanagement.controller;
 
 import com.centre.poly.classmanagement.dto.*;
-import com.centre.poly.classmanagement.service.ClasseFormationService;
+import com.centre.poly.classmanagement.service.ClassService;
 import com.centre.poly.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("classe")
 public class ClasseFormationController {
 
-    private final ClasseFormationService classeFormationService;
+    private final ClassService classService;
 
     @PostMapping("/accredited-classes")
     public ResponseEntity<Long> saveAccreditedClass(@RequestBody @Valid AccreditedClassRequest request) {
-        return new ResponseEntity<>(classeFormationService.saveAccreditedClass(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(classService.saveAccreditedClass(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/accelerated-classes")
     public ResponseEntity<Long> saveAcceleratedClass(@RequestBody @Valid AcceleratedClassRequest request) {
-        return new ResponseEntity<>(classeFormationService.saveAcceleratedClass(request), HttpStatus.CREATED);
+        return new ResponseEntity<>(classService.saveAcceleratedClass(request), HttpStatus.CREATED);
     }
 
     @GetMapping("/accredited-classes")
@@ -31,7 +31,7 @@ public class ClasseFormationController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        return new ResponseEntity<>(classeFormationService.findAllAccreditedClass(page, size), HttpStatus.OK);
+        return new ResponseEntity<>(classService.findAllAccreditedClass(page, size), HttpStatus.OK);
     }
 
     @GetMapping("/accelerated-classes")
@@ -39,7 +39,7 @@ public class ClasseFormationController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
 
-        return new ResponseEntity<>(classeFormationService.findAllAcceleratedClass(page, size), HttpStatus.OK);
+        return new ResponseEntity<>(classService.findAllAcceleratedClass(page, size), HttpStatus.OK);
     }
 
 }

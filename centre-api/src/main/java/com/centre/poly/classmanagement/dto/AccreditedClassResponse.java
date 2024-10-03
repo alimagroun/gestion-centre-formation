@@ -12,8 +12,7 @@ import lombok.*;
 public class AccreditedClassResponse {
 
     private Long id;
-    private String formationName;
-    private String domaineName;
+    private String specialtyName;
     private String schoolYear;
     private int yearLevel;
     private int groupNumber;

@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FormationResponse } from '../../models/formation-response';
+import { FormationTypeResponse } from '../../models/formation-type-response';
 
 export interface FindAllFormationsList$Params {
 }
 
-export function findAllFormationsList(http: HttpClient, rootUrl: string, params?: FindAllFormationsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FormationResponse>>> {
+export function findAllFormationsList(http: HttpClient, rootUrl: string, params?: FindAllFormationsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FormationTypeResponse>>> {
   const rb = new RequestBuilder(rootUrl, findAllFormationsList.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function findAllFormationsList(http: HttpClient, rootUrl: string, params?
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FormationResponse>>;
+      return r as StrictHttpResponse<Array<FormationTypeResponse>>;
     })
   );
 }

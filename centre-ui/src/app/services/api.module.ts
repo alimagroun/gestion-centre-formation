@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { SchoolYearControllerService } from './services/school-year-controller.service';
+import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { RegistrationControllerService } from './services/registration-controller.service';
 import { FromationControllerService } from './services/fromation-controller.service';
@@ -25,6 +26,7 @@ import { PersonControllerService } from './services/person-controller.service';
   declarations: [],
   providers: [
     SchoolYearControllerService,
+    SpecialtyControllerService,
     RoleControllerService,
     RegistrationControllerService,
     FromationControllerService,

@@ -13,8 +13,8 @@ import { findAllFormation } from '../fn/fromation-controller/find-all-formation'
 import { FindAllFormation$Params } from '../fn/fromation-controller/find-all-formation';
 import { findAllFormationsList } from '../fn/fromation-controller/find-all-formations-list';
 import { FindAllFormationsList$Params } from '../fn/fromation-controller/find-all-formations-list';
-import { FormationResponse } from '../models/formation-response';
-import { PageResponseFormationResponse } from '../models/page-response-formation-response';
+import { FormationTypeResponse } from '../models/formation-type-response';
+import { PageResponseFormationTypeResponse } from '../models/page-response-formation-type-response';
 import { saveFormation } from '../fn/fromation-controller/save-formation';
 import { SaveFormation$Params } from '../fn/fromation-controller/save-formation';
 
@@ -33,7 +33,7 @@ export class FromationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllFormation$Response(params?: FindAllFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFormationResponse>> {
+  findAllFormation$Response(params?: FindAllFormation$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseFormationTypeResponse>> {
     return findAllFormation(this.http, this.rootUrl, params, context);
   }
 
@@ -43,9 +43,9 @@ export class FromationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllFormation(params?: FindAllFormation$Params, context?: HttpContext): Observable<PageResponseFormationResponse> {
+  findAllFormation(params?: FindAllFormation$Params, context?: HttpContext): Observable<PageResponseFormationTypeResponse> {
     return this.findAllFormation$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseFormationResponse>): PageResponseFormationResponse => r.body)
+      map((r: StrictHttpResponse<PageResponseFormationTypeResponse>): PageResponseFormationTypeResponse => r.body)
     );
   }
 
@@ -83,7 +83,7 @@ export class FromationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllFormationsList$Response(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FormationResponse>>> {
+  findAllFormationsList$Response(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FormationTypeResponse>>> {
     return findAllFormationsList(this.http, this.rootUrl, params, context);
   }
 
@@ -93,9 +93,9 @@ export class FromationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllFormationsList(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<Array<FormationResponse>> {
+  findAllFormationsList(params?: FindAllFormationsList$Params, context?: HttpContext): Observable<Array<FormationTypeResponse>> {
     return this.findAllFormationsList$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FormationResponse>>): Array<FormationResponse> => r.body)
+      map((r: StrictHttpResponse<Array<FormationTypeResponse>>): Array<FormationTypeResponse> => r.body)
     );
   }
 

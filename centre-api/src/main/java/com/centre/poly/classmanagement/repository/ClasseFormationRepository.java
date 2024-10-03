@@ -10,20 +10,18 @@ import java.util.Optional;
 public interface ClasseFormationRepository extends JpaRepository<Class, Long> {
 
     @Query("select c from AccreditedClass c where " +
-            " c.domaine.id = :domaineId " +
-            " and c.formation.id = :formationId " +
+            " c.specialty.id = :specialtyId " +
             " and c.schoolYear.id = :schoolYearId " +
             " and c.groupNumber = :groupNumber" +
             " and c.yearLevel = :yearLevel ")
-    Optional<Class> findAccreditedClass(Long formationId, Long domaineId, Long schoolYearId, int groupNumber, int yearLevel);
+    Optional<Class> findAccreditedClass(Long specialtyId, Long schoolYearId, int groupNumber, int yearLevel);
 
     @Query("select c from AcceleratedClass c where " +
-            " c.domaine.id = :domaineId " +
-            " and c.formation.id = :formationId " +
+            " c.specialty.id = :specialtyId " +
             " and c.groupNumber = :groupNumber" +
             " and c.startDate = :startDate " +
             " and c.endDate =:endDate ")
-    Optional<Class> findAcceleratedClass(Long formationId, Long domaineId, int groupNumber, LocalDate startDate, LocalDate endDate);
+    Optional<Class> findAcceleratedClass(Long specialtyId, int groupNumber, LocalDate startDate, LocalDate endDate);
 
 
 }

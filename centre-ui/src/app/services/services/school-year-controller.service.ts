@@ -9,8 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { findAll } from '../fn/school-year-controller/find-all';
-import { FindAll$Params } from '../fn/school-year-controller/find-all';
+import { findAll1 } from '../fn/school-year-controller/find-all-1';
+import { FindAll1$Params } from '../fn/school-year-controller/find-all-1';
 import { findAllList } from '../fn/school-year-controller/find-all-list';
 import { FindAllList$Params } from '../fn/school-year-controller/find-all-list';
 import { findById } from '../fn/school-year-controller/find-by-id';
@@ -53,27 +53,27 @@ export class SchoolYearControllerService extends BaseService {
     );
   }
 
-  /** Path part for operation `findAll()` */
-  static readonly FindAllPath = '/school-years';
+  /** Path part for operation `findAll1()` */
+  static readonly FindAll1Path = '/school-years';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll()` instead.
+   * To access only the response body, use `findAll1()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll$Response(params?: FindAll$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseSchoolYearResponse>> {
-    return findAll(this.http, this.rootUrl, params, context);
+  findAll1$Response(params?: FindAll1$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseSchoolYearResponse>> {
+    return findAll1(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll$Response()` instead.
+   * To access the full response (for headers, for example), `findAll1$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll(params?: FindAll$Params, context?: HttpContext): Observable<PageResponseSchoolYearResponse> {
-    return this.findAll$Response(params, context).pipe(
+  findAll1(params?: FindAll1$Params, context?: HttpContext): Observable<PageResponseSchoolYearResponse> {
+    return this.findAll1$Response(params, context).pipe(
       map((r: StrictHttpResponse<PageResponseSchoolYearResponse>): PageResponseSchoolYearResponse => r.body)
     );
   }
