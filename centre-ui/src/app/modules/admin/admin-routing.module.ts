@@ -19,10 +19,10 @@ import {AddSchoolYearComponent} from "./pages/school-year/add-school-year/add-sc
 import {DomainComponent} from "./pages/specialty/domain/domain.component";
 import {AddDomainComponent} from "./pages/specialty/domain/add-domain/add-domain.component";
 import {SpecialtyComponent} from "./pages/specialty/specialty/specialty.component";
-import {AddClasseComponent} from "./pages/specialty/specialty/add-classe/add-classe.component";
 import {AddSpecialtyComponent} from "./pages/specialty/specialty/add-specialty/add-specialty.component";
 import {AccreditedClassComponent} from "./pages/classmanagement/accredited-class/accredited-class.component";
 import {AddClassComponent} from "./pages/classmanagement/accredited-class/add-class/add-class.component";
+import {AcceleratedClassComponent} from "./pages/classmanagement/accelerated-class/accelerated-class.component";
 
 const routes: Routes = [
   {
@@ -149,6 +149,17 @@ const routes: Routes = [
             component: AddClassComponent,
             canActivate: [authAdminGuard]
           }
+        ],
+      },
+      {
+        path: 'acceleratedClass',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: AcceleratedClassComponent,
+            canActivate: [authAdminGuard]
+          },
         ],
       }
     ]

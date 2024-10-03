@@ -62,9 +62,16 @@ export class MenuComponent {
         },
         {
           id: '34',
-          titre: 'Classe formation professionnelle',
+          titre: 'Classes formation professionnelle',
           icon: '',
           url: 'admin/accreditedClass',
+        },
+        {
+          id: '35',
+          titre: 'Classes de formation accélérée',
+          icon: '',
+          url: 'admin/acceleratedClass',
+
         }
       ],
     },
