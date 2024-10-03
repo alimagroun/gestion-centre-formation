@@ -20,8 +20,9 @@ import {DomainComponent} from "./pages/specialty/domain/domain.component";
 import {AddDomainComponent} from "./pages/specialty/domain/add-domain/add-domain.component";
 import {SpecialtyComponent} from "./pages/specialty/specialty/specialty.component";
 import {AddClasseComponent} from "./pages/specialty/specialty/add-classe/add-classe.component";
-import {AccreditClassComponent} from "./pages/specialty/accredit-class/accredit-class.component";
 import {AddSpecialtyComponent} from "./pages/specialty/specialty/add-specialty/add-specialty.component";
+import {AccreditedClassComponent} from "./pages/classmanagement/accredited-class/accredited-class.component";
+import {AddClassComponent} from "./pages/classmanagement/accredited-class/add-class/add-class.component";
 
 const routes: Routes = [
   {
@@ -140,14 +141,14 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: AccreditClassComponent,
+            component: AccreditedClassComponent,
             canActivate: [authAdminGuard]
           },
           {
-            path: 'addClasse',
-            component: AddClasseComponent,
+            path: 'addClassAccredited',
+            component: AddClassComponent,
             canActivate: [authAdminGuard]
-          },
+          }
         ],
       }
     ]

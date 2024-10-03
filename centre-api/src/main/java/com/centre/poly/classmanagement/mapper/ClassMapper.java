@@ -29,7 +29,7 @@ public class ClassMapper {
     public AccreditedClassResponse toResponseAccreditedClass(AccreditedClass entity){
         AccreditedClassResponse response = new AccreditedClassResponse();
         response.setId(entity.getId());
-        response.setSpecialtyName(entity.getSpecialty().getDomaine().getName()+" "+entity.getSpecialty().getFormationType().getName());
+        response.setSpecialtyName(entity.getSpecialty().getFormationType().getName()+" "+entity.getSpecialty().getDomaine().getName());
         response.setYearLevel(entity.getYearLevel());
         response.setSchoolYear(entity.getSchoolYear().getStartYear()+ "-" + entity.getSchoolYear().getEndYear());
         response.setGroupNumber(entity.getGroupNumber());
@@ -39,7 +39,7 @@ public class ClassMapper {
     public AcceleratedClassResponse toResponseAccreditedClass(AcceleratedClass entity){
         AcceleratedClassResponse response = new AcceleratedClassResponse();
         response.setId(entity.getId());
-        response.setSpecialtyName(entity.getSpecialty().getDomaine().getName()+" "+entity.getSpecialty().getFormationType().getName());
+        response.setSpecialtyName(entity.getSpecialty().getFormationType().getName()+" "+entity.getSpecialty().getDomaine().getName());
         response.setGroupNumber(entity.getGroupNumber());
         response.setStartDate(entity.getStartDate());
         response.setEndDate(entity.getEndDate());

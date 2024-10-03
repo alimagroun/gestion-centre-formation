@@ -59,6 +59,12 @@ export class MenuComponent {
           titre: 'Spécialité',
           icon: '',
           url: 'admin/specialty',
+        },
+        {
+          id: '34',
+          titre: 'Classe formation professionnelle',
+          icon: '',
+          url: 'admin/accreditedClass',
         }
       ],
     },

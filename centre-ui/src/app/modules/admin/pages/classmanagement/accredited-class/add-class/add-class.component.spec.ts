@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccreditClassComponent } from './accredit-class.component';
+import { AddClassComponent } from './add-class.component';
 
-describe('AccreditClassComponent', () => {
-  let component: AccreditClassComponent;
-  let fixture: ComponentFixture<AccreditClassComponent>;
+describe('AddClassComponent', () => {
+  let component: AddClassComponent;
+  let fixture: ComponentFixture<AddClassComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccreditClassComponent]
+      imports: [AddClassComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AccreditClassComponent);
+    fixture = TestBed.createComponent(AddClassComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
