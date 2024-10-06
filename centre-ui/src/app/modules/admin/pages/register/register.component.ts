@@ -15,6 +15,9 @@ import {RegistrationControllerService} from "../../../../services/services/regis
 import {PersonControllerService} from "../../../../services/services/person-controller.service";
 import {Router} from "@angular/router";
 import {finalize} from "rxjs";
+import {SpecialtyFormComponent} from "./specialty-form/specialty-form.component";
+import {SpecialtyResponse} from "../../../../services/models/specialty-response";
+import {ToastService} from "../../../../services/toast/toast.service";
 
 @Component({
   selector: 'app-register',
@@ -28,7 +31,8 @@ import {finalize} from "rxjs";
     NgIf,
     DocumentFormComponent,
     VerificationComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    SpecialtyFormComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -39,17 +43,20 @@ export class RegisterComponent {
   student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
   address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
-  registreRequest : RegistrationRequest = {}
+  registrationFeesFromChild: number = 0;
+  specialtyName = ""
+  registreRequest : RegistrationRequest = {specialtyId:0, registrationFees:0}
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
   error : Array<string> = [];
 
-  currentStep: number = 1;
+  currentStep: number = 4;
   steps = [
     {name: 'Parent'},
     {name: 'Etudiant'},
     {name: 'Adresse'},
+    {name: 'Spécialité'},
     {name: 'Documents'},
     {name: 'Vérification'},
   ];
@@ -58,6 +65,7 @@ export class RegisterComponent {
   constructor(
     private registerService : RegistrationControllerService,
     private personService : PersonControllerService,
+    private toastService : ToastService,
     private router: Router
   ) {
   }
@@ -98,12 +106,22 @@ export class RegisterComponent {
     this.documents = listDocumentSelected;
   }
 
+  onRegistrationFeesChange(fees: number): void {
+    this.registrationFeesFromChild = fees;
+  }
+
+  onSpecialtySelected(specialty: SpecialtyResponse) {
+    this.registreRequest.specialtyId = specialty.id!
+    this.specialtyName = specialty.formationTypeName + "-" + specialty.domaineName
+  }
+
   register() {
     this.loading = true
     this.registreRequest.addressRequest = this.address
     this.registreRequest.studentRequest = this.student
     this.registreRequest.parentRequest = this.parent
     this.registreRequest.documents = this.documents.map(document => document.id!);
+    this.registreRequest.registrationFees = this.registrationFeesFromChild
 
     this.registerService.register(
       {
@@ -113,6 +131,7 @@ export class RegisterComponent {
       finalize(() => this.loading = false)
     ).subscribe(res=>{
       this.loading = false
+      this.toastService.showSuccess("Ajout effectué avec succès !");
       this.router.navigate(['admin/registrationList']);
     })
   }
@@ -140,6 +159,11 @@ export class RegisterComponent {
       }
       if (isTelValid) {
         this.error.push("Le numéro de téléphone "+ this.student.phoneNumber+" existe déjà");
+        return false;
+      }
+    } else if (this.currentStep == 4) {
+      if(this.registreRequest.specialtyId == 0){
+        this.toastService.showError("Aucune spécialité sélectionnée. Veuillez en choisir une pour continuer.");
         return false;
       }
     }

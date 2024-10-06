@@ -15,7 +15,6 @@ public record AddressRequest(
 
         @NotNull(message = "ADDRESS_ZIP_CODE_REQUIRED")
         @NotEmpty(message = "ADDRESS_ZIP_CODE_REQUIRED")
-        @Size(min = 5, max = 5, message = "ADDRESS_ZIP_CODE_SIZE_INVALID")
         String zipCode
 ) {
 }

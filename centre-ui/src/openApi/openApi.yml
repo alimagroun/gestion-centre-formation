@@ -1212,6 +1212,10 @@
         }
       },
       "RegistrationRequest": {
+        "required": [
+          "registrationFees",
+          "specialtyId"
+        ],
         "type": "object",
         "properties": {
           "parentRequest": {
@@ -1222,6 +1226,14 @@
           },
           "addressRequest": {
             "$ref": "#/components/schemas/AddressRequest"
+          },
+          "registrationFees": {
+            "type": "number",
+            "format": "double"
+          },
+          "specialtyId": {
+            "type": "integer",
+            "format": "int64"
           },
           "remarks": {
             "type": "string"
@@ -1736,7 +1748,7 @@
               "CANCELLED"
             ]
           },
-          "remarks": {
+          "specialtyName": {
             "type": "string"
           },
           "createdDate": {
@@ -1819,6 +1831,13 @@
           "createdDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "specialtyName": {
+            "type": "string"
+          },
+          "registrationFees": {
+            "type": "number",
+            "format": "double"
           },
           "student": {
             "$ref": "#/components/schemas/StudentDetails"

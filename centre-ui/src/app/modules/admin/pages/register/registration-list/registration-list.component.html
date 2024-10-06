@@ -23,7 +23,7 @@
       <th>Nom de l'étudiant</th>
       <th>Date d'inscription</th>
       <th>Statut</th>
-      <th>Remarque</th>
+      <th>Spécialité</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -44,7 +44,7 @@
                                     'bg-success': reg.status === 'COMPLETED'}">
           {{ reg.status == 'IN_PROGRESS' ? 'En cours' : reg.status == 'CANCELLED' ? 'Annulé' : 'Terminées' }}
         </span>
-        <td>{{ reg.remarks }}</td>
+        <td>{{ reg.specialtyName }}</td>
         <td>
           <button type="button" class="btn btn-primary" (click)="showRegistrationDetails(reg.id!)"> Voir les détails </button>
         </td>

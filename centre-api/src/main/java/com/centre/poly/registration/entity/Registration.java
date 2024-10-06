@@ -1,5 +1,6 @@
 package com.centre.poly.registration.entity;
 
+import com.centre.poly.classmanagement.entity.Specialty;
 import com.centre.poly.document.Document;
 import com.centre.poly.person.entity.Student;
 import jakarta.persistence.*;
@@ -35,6 +36,12 @@ public class Registration {
     private RegistrationStatus status;
 
     private String remarks;
+
+    private Double registrationFees;
+
+    @ManyToOne
+    @JoinColumn(name = "specialty_id", nullable = false)
+    private Specialty specialty;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

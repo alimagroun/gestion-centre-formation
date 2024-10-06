@@ -28,4 +28,10 @@ export class VerificationComponent {
   @Input()
   documents: Array<DocumentResponse> = []
 
+  @Input()
+  specialtyName : string = ""
+
+  @Input()
+  registrationFeesFromChild: number = 0;
+
 }

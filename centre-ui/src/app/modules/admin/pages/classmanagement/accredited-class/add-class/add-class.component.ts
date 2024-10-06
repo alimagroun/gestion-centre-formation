@@ -7,7 +7,7 @@ import {SchoolYearControllerService} from "../../../../../../services/services/s
 import {
   ClasseFormationControllerService
 } from "../../../../../../services/services/classe-formation-controller.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {SpecialtyControllerService} from "../../../../../../services/services/specialty-controller.service";
 import {AccreditedClassRequest} from "../../../../../../services/models/accredited-class-request";
 import {FormsModule} from "@angular/forms";
@@ -20,7 +20,8 @@ import {ToastService} from "../../../../../../services/toast/toast.service";
   imports: [
     FormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './add-class.component.html',
   styleUrl: './add-class.component.scss'

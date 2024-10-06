@@ -4,6 +4,6 @@ export interface RegistrationResponse {
   createdDate?: string;
   fullNameStudent?: string;
   id?: number;
-  remarks?: string;
+  specialtyName?: string;
   status?: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
 }

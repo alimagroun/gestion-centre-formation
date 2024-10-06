@@ -1,5 +1,7 @@
 package com.centre.poly.registration.service;
 
+import com.centre.poly.classmanagement.entity.Specialty;
+import com.centre.poly.classmanagement.repository.SpecialtyRepository;
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.document.Document;
 import com.centre.poly.document.DocumentsRepository;
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +44,7 @@ public class RegistrationService {
     private final StudentMapper studentMapper;
     private final DocumentsRepository documentsRepository;
     private final RegistrationMapper registrationMapper;
+    private final SpecialtyRepository specialtyRepository;
 
     @Transactional
     public Long save(RegistrationRequest request) {
@@ -58,18 +62,24 @@ public class RegistrationService {
         // Retrieve and validate documents
         List<Document> documentList = getValidatedDocuments(request.documents());
 
+        //Registration specialty
+        Specialty specialty = verifSpecialty(request.specialtyId());
+
         // Create and save Registration entity
-        Registration registration = buildRegistration(studentSaved, documentList, request.remarks());
+        Registration registration = buildRegistration(studentSaved, documentList, request.remarks(), specialty, request.registrationFees());
+
         return registrationRepository.save(registration).getId();
 
     }
 
-    private Registration buildRegistration(Student student, List<Document> documents, String remarks) {
+    private Registration buildRegistration(Student student, List<Document> documents, String remarks, Specialty specialty, Double registrationFees) {
         Registration registration = new Registration();
         registration.setStudent(student);
         registration.setStatus(RegistrationStatus.IN_PROGRESS);
         registration.setDocuments(documents);
+        registration.setRegistrationFees(registrationFees);
         registration.setRemarks(remarks);
+        registration.setSpecialty(specialty);
         return registration;
     }
     private List<Document> getValidatedDocuments(List<Long> documentIds) {
@@ -112,6 +122,11 @@ public class RegistrationService {
         );
 
         return registrationMapper.toRegistrationResponse(registration);
+    }
+
+    private Specialty verifSpecialty(Long id){
+        Specialty specialty = specialtyRepository.findById(id).orElseThrow(() -> new NotFoundException("Specialty with ID " + id + " not found"));
+        return specialty;
     }
 
 }

@@ -18,19 +18,19 @@ export class MenuComponent {
   public menuProperties: Array<Menu> = [
     {
       id: '1',
-      titre: 'Gestion des Utilisateurs',
+      titre: 'Gestion des utilisateurs',
       icon: 'bi bi-people',
       url: '',
       sousMenu: [
         {
           id: '11',
-          titre: 'Utilisateur',
+          titre: 'Liste des utilisateurs',
           icon: '',
           url: 'admin/user',
         },
         {
           id: '12',
-          titre: 'Role',
+          titre: 'Liste des rôles',
           icon: '',
           url: 'admin/role',
         },
@@ -38,64 +38,71 @@ export class MenuComponent {
     },
     {
       id: '3',
-      titre: 'Gestion des classe',
-      icon: 'bi bi-book-half',
+      titre: 'Gestion des formations',
+      icon: 'bi bi-book',
       url: '',
       sousMenu: [
         {
           id: '31',
-          titre: 'Formation',
+          titre: 'Liste type des formations',
           icon: '',
           url: 'admin/formation',
         },
         {
           id: '32',
-          titre: 'Domain',
+          titre: 'Liste des domaines',
           icon: '',
           url: 'admin/domain',
         },
         {
           id: '33',
-          titre: 'Spécialité',
+          titre: 'Liste des spécialités',
           icon: '',
           url: 'admin/specialty',
-        },
+        }
+      ],
+    },
+    {
+      id: '5',
+      titre: 'Gestion des classes',
+      icon: 'bi bi-journal-text',
+      url: '',
+      sousMenu: [
         {
-          id: '34',
-          titre: 'Classes formation professionnelle',
+          id: '51',
+          titre: 'Liste des classes de formation professionnelle',
           icon: '',
           url: 'admin/accreditedClass',
         },
         {
-          id: '35',
-          titre: 'Classes de formation accélérée',
+          id: '52',
+          titre: 'Liste des classes de formation accélérée',
           icon: '',
           url: 'admin/acceleratedClass',
-
         }
       ],
     },
     {
       id: '2',
-      titre: "Gestion des Inscriptions",
-      icon: 'bi bi-key',
+      titre: "Gestion des inscriptions",
+      icon: 'bi bi-pencil-square',
       url: '',
       sousMenu: [
         {
           id: '21',
-          titre: 'Inscription',
+          titre: 'Nouvelle inscription',
           icon: '',
           url: 'admin/register',
         },
         {
           id: '22',
-          titre: "Document d'inscription",
+          titre: "Liste des documents d'inscription",
           icon: '',
           url: 'admin/registrationDocument',
         },
         {
           id: '23',
-          titre: "Liste d'inscription",
+          titre: "Liste des inscriptions",
           icon: '',
           url: 'admin/registrationList',
         },
@@ -104,7 +111,7 @@ export class MenuComponent {
     {
       id: '4',
       titre: "Gestion des années scolaires",
-      icon: 'bi bi-key',
+      icon: 'bi bi-calendar3',
       url: '',
       sousMenu: [
         {

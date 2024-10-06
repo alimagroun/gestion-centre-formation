@@ -52,7 +52,6 @@ public class ClassService {
 
         Specialty specialty = specialtyRepository.findById(request.getSpecialtyId()).orElseThrow(() -> new NotFoundException("Specialty not found"));
 
-
         classeFormationRepository.findAcceleratedClass(request.getSpecialtyId(), request.getGroupNumber(), request.getStartDate(), request.getEndDate()).ifPresent(existingClass -> {
             throw new DuplicateEntityException("Classe already exists");
         });

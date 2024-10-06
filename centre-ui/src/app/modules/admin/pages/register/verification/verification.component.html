@@ -24,11 +24,23 @@
       <p><strong>Rue:</strong> {{ addressRequest.street }}</p>
       <p><strong>Code postal:</strong> {{ addressRequest.zipCode }}</p>
     </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">Liste des documents</h3>
+      <p *ngFor="let doc of documents">
+        <span>{{doc.name}}</span>
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h3 class="custom-title">frais d'inscription</h3>
+      <span>{{registrationFeesFromChild}} + TND</span>
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">Specialité</h3>
+      <span>{{specialtyName}}</span>
+    </div>
+
   </div>
-  <div>
-    <h3 class="custom-title">Liste des documents</h3>
-    <p *ngFor="let doc of documents">
-      <span>{{doc.name}}</span>
-    </p>
-  </div>
+
 </div>

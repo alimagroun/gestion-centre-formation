@@ -1,0 +1,43 @@
+<div class="container card mt-4 p-2">
+  <div class="card-header">
+    <h2>
+      <button class="btn btn-outline-danger" routerLink="..">
+        <i class="bi bi-arrow-return-left me-2"></i>Retour
+      </button>
+      Ajouter un classe
+    </h2>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group mb-3">
+        <label for="specialty">Spécialité</label>
+        <select id="specialty" class="form-control" [(ngModel)]="selectSpecialty" name="specialty">
+          <option [ngValue]="undefined" disabled>Choisir une formation...</option>
+          <option *ngFor="let sp of specialtyList" [value]="sp.id">{{ sp.formationTypeName +"-"+sp.domaineName }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="startDate">Date de début</label>
+        <input id="startDate" class="form-control" type="date" name="stardDate" [(ngModel)]="classRequest.startDate">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="endDate">Date de fin</label>
+        <input id="endDate" class="form-control" type="date" name="endDate" [(ngModel)]="classRequest.endDate">
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="groupe">Numéro de Groupe</label>
+        <input id="groupe" type="number" class="form-control" [(ngModel)]="groupNumber" name="groupe"
+               placeholder="Entrez le numéro de groupe">
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="saveClasse()">
+        <span *ngIf="loader" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="!loader">Ajouter</span>
+      </button>
+
+    </form>
+  </div>
+</div>

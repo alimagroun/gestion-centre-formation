@@ -1,5 +1,6 @@
 package com.centre.poly.user;
 
+import com.centre.poly.person.entity.Employer;
 import com.centre.poly.person.entity.Parent;
 import com.centre.poly.person.entity.Person;
 import com.centre.poly.person.entity.Student;
@@ -35,6 +36,8 @@ public class UserMapper {
             type = "STUDENT";
         } else if (person instanceof Parent) {
             type = "PARENT";
+        }else {
+            type = "ADMIN";
         }
         return type;
     }

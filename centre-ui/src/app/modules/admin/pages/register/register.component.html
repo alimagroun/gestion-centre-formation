@@ -40,17 +40,26 @@
       ></app-address-form>
     </div>
     <div *ngIf="currentStep === 4">
-      <app-document-form
-        [listDocumentsSelected]="documents"
-        (listIdDocument)="setListDocumentSelected($event)"
-      ></app-document-form>
+      <app-specialty-form
+        (specialtySelected)="onSpecialtySelected($event)"
+      ></app-specialty-form>
     </div>
     <div *ngIf="currentStep === 5">
+      <app-document-form
+        [listDocumentsSelected]="documents"
+        [registrationFeesAmount]="registrationFeesFromChild"
+        (listIdDocument)="setListDocumentSelected($event)"
+        (registrationFeesChange)="onRegistrationFeesChange($event)"
+      ></app-document-form>
+    </div>
+    <div *ngIf="currentStep === 6">
       <app-verification
         [parentRequest]="parent"
         [studentRequest]="student"
         [addressRequest]="address"
         [documents]="documents"
+        [registrationFeesFromChild]="registrationFeesFromChild"
+        [specialtyName]="specialtyName"
       ></app-verification>
     </div>
   </div>

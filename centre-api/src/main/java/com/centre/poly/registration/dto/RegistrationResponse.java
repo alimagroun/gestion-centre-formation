@@ -16,7 +16,7 @@ public class RegistrationResponse {
 
     private Long id;
     private RegistrationStatus status;
-    private String remarks;
+    private String specialtyName;
     private LocalDateTime createdDate;
     private String fullNameStudent;
 

@@ -23,6 +23,9 @@ import {AddSpecialtyComponent} from "./pages/specialty/specialty/add-specialty/a
 import {AccreditedClassComponent} from "./pages/classmanagement/accredited-class/accredited-class.component";
 import {AddClassComponent} from "./pages/classmanagement/accredited-class/add-class/add-class.component";
 import {AcceleratedClassComponent} from "./pages/classmanagement/accelerated-class/accelerated-class.component";
+import {
+  AddClassAcceleratedComponent
+} from "./pages/classmanagement/accelerated-class/add-class-accelerated/add-class-accelerated.component";
 
 const routes: Routes = [
   {
@@ -160,6 +163,11 @@ const routes: Routes = [
             component: AcceleratedClassComponent,
             canActivate: [authAdminGuard]
           },
+          {
+            path: 'addClassAccelerated',
+            component: AddClassAcceleratedComponent,
+            canActivate: [authAdminGuard]
+          }
         ],
       }
     ]

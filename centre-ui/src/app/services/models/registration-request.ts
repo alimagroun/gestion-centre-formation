@@ -7,6 +7,8 @@ export interface RegistrationRequest {
   addressRequest?: AddressRequest;
   documents?: Array<number>;
   parentRequest?: ParentRequest;
+  registrationFees: number;
   remarks?: string;
+  specialtyId: number;
   studentRequest?: StudentRequest;
 }
