@@ -1,14 +1,16 @@
 package com.centre.poly.person.controller;
 
+import com.centre.poly.common.PageResponse;
+import com.centre.poly.person.dto.ParentDetailResponse;
 import com.centre.poly.person.dto.ParentResponse;
+import com.centre.poly.person.dto.StudentResponse;
 import com.centre.poly.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("person")
@@ -31,5 +33,32 @@ public class PersonController {
     @GetMapping("/findParentByNum")
     public ResponseEntity<ParentResponse> findParentByNum(@RequestParam("num") String num) {
         return ResponseEntity.ok().body(personService.findParentByNum(num));
+    }
+
+    @GetMapping("/parent/findAllParentsPaged")
+    public ResponseEntity<PageResponse<ParentResponse>> findAllParentsPaged(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size){
+        return ResponseEntity.ok().body(personService.findAllParentsPaged(page, size));
+    }
+
+    @GetMapping("/parent/{parentId}")
+    public ResponseEntity<ParentDetailResponse> findParentDetailById(@PathVariable Long parentId) {
+        return ResponseEntity.ok(personService.findParentDetailById(parentId));
+    }
+
+    @GetMapping("/parent/{parentId}/students")
+    public ResponseEntity<List<StudentResponse>> findAllStudentsByParentId(@PathVariable Long parentId) {
+        List<StudentResponse> students = personService.findAllStudentsByParentId(parentId);
+        return ResponseEntity.ok(students);
+    }
+
+
+    @GetMapping("/person/student")
+    public ResponseEntity<PageResponse<StudentResponse>> findAllStudentsPaged(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size){
+        return ResponseEntity.ok().body(personService.findAllStudentsPaged(page, size));
+
     }
 }

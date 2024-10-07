@@ -1,5 +1,6 @@
 package com.centre.poly.person.service;
 
+import com.centre.poly.common.PageResponse;
 import com.centre.poly.document.DocumentsRepository;
 import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.NotFoundException;
@@ -7,11 +8,17 @@ import com.centre.poly.person.Repository.PersonRepository;
 import com.centre.poly.person.dto.*;
 import com.centre.poly.person.entity.Address;
 import com.centre.poly.person.entity.Parent;
+import com.centre.poly.person.entity.Person;
 import com.centre.poly.person.entity.Student;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Not;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +31,7 @@ public class PersonService {
 
     private final ParentMapper parentMapper;
     private final PersonRepository personRepository;
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -169,6 +177,31 @@ public class PersonService {
 
     public Boolean isEmailUnique(String email) {
         return personRepository.existByEmail(email);
+    }
+
+    public PageResponse<ParentResponse> findAllParentsPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Person> parentsPage = personRepository.findAllParentPaged(pageable);
+        List<ParentResponse> parentResponses = parentsPage.stream().map(parentMapper::toResponse).toList();
+        return new PageResponse<>(parentResponses, parentsPage.getNumber(), parentsPage.getSize(), parentsPage.getTotalElements(), parentsPage.getTotalPages(), parentsPage.isFirst(), parentsPage.isLast());
+    }
+
+    public List<StudentResponse> findAllStudentsByParentId(Long parentId) {
+        List<StudentResponse> studentList = personRepository.findAllStudentsByParentId(parentId).stream().map(studentMapper::toResponse).toList();
+        return studentList;
+    }
+
+    public ParentDetailResponse findParentDetailById(Long parentId) {
+        Parent parent = personRepository.findByParentId(parentId).orElseThrow(()-> new NotFoundException("Parent with ID " + parentId + " not found"));
+        parent.setStudents(personRepository.findAllStudentsByParentId(parentId));
+        return parentMapper.toDetailResponse(parent);
+    }
+
+    public PageResponse<StudentResponse> findAllStudentsPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Student> studentsPage = personRepository.findAllStudentPaged(pageable);
+        List<StudentResponse> studentList = studentsPage.stream().map(studentMapper::toResponse).toList();
+        return new PageResponse<>(studentList, studentsPage.getNumber(), studentsPage.getSize(), studentsPage.getTotalElements(), studentsPage.getTotalPages(), studentsPage.isFirst(), studentsPage.isLast());
     }
 
 }

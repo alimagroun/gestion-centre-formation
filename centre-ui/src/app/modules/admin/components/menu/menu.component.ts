@@ -121,6 +121,26 @@ export class MenuComponent {
           url: 'admin/school-year',
         },
       ],
+    },
+    {
+      id: '6',
+      titre: "Gestion des étudiants et parents",
+      icon: 'bi bi-person-bounding-box',
+      url: '',
+      sousMenu: [
+        {
+          id: '61',
+          titre: 'Liste des étudiants',
+          icon: '',
+          url: 'admin/students',
+        },
+        {
+          id: '62',
+          titre: 'Liste des parents',
+          icon: '',
+          url: 'admin/parents',
+        },
+      ],
     }
   ];
 

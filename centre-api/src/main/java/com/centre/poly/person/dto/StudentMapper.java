@@ -18,4 +18,14 @@ public class StudentMapper {
         return student;
 
     }
+
+    public StudentResponse toResponse(Student student) {
+        StudentResponse response = new StudentResponse();
+        response.setId(student.getId());
+        response.setFirstName(student.getFirstName());
+        response.setLastName(student.getLastName());
+        response.setPhoneNumber(student.getPhoneNumber());
+        response.setLevelOfEducation(student.getLevelOfEducation());
+        return response;
+    }
 }

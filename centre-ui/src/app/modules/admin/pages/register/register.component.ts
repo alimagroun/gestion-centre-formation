@@ -51,7 +51,7 @@ export class RegisterComponent {
   statusFormAddress = false;
   error : Array<string> = [];
 
-  currentStep: number = 4;
+  currentStep: number = 1;
   steps = [
     {name: 'Parent'},
     {name: 'Etudiant'},

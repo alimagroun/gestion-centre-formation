@@ -1,0 +1,55 @@
+<div class="container my-5">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h4 class="card-title">Détails du Parent</h4>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading">
+        <h5 class="card-title">{{ parent.firstName + ' ' + parent.lastName }}</h5>
+        <p class="card-text"><strong>Email :</strong> {{ parent.email }}</p>
+        <p class="card-text"><strong>Téléphone :</strong> {{ parent.phoneNumber }}</p>
+        <p class="card-text"><strong>Profession :</strong> {{ parent.profession ? parent.profession : 'Non renseignée' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h5>Enfants</h5>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+
+      <table *ngIf="!loading" class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Numéro de téléphone</th>
+          <th scope="col">Niveau d'éducation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let s of parent.students">
+          <td>{{ s.firstName }}</td>
+          <td>{{ s.lastName }}</td>
+          <td>{{ s.phoneNumber }}</td>
+          <td>{{  s.levelOfEducation }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

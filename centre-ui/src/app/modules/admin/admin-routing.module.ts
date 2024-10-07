@@ -26,6 +26,11 @@ import {AcceleratedClassComponent} from "./pages/classmanagement/accelerated-cla
 import {
   AddClassAcceleratedComponent
 } from "./pages/classmanagement/accelerated-class/add-class-accelerated/add-class-accelerated.component";
+import {StudentsListComponent} from "./pages/student-parent-management/students-list/students-list.component";
+import {ParentsListComponent} from "./pages/student-parent-management/parents-list/parents-list.component";
+import {
+  ParentDetailComponent
+} from "./pages/student-parent-management/parents-list/parent-detail/parent-detail.component";
 
 const routes: Routes = [
   {
@@ -169,7 +174,34 @@ const routes: Routes = [
             canActivate: [authAdminGuard]
           }
         ],
-      }
+      },
+      {
+        path: 'students',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: StudentsListComponent,
+            canActivate: [authAdminGuard]
+          },
+        ],
+      },
+      {
+        path: 'parents',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: ParentsListComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'parent-details/:id',
+            component: ParentDetailComponent,
+            canActivate: [authAdminGuard]
+          },
+        ],
+      },
     ]
   }
 ];
