@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SpecialtyControllerService} from "../../../../../services/services/specialty-controller.service";
 import {SpecialtyResponse} from "../../../../../services/models/specialty-response";
 import {NgForOf} from "@angular/common";
@@ -17,7 +17,9 @@ import {FormsModule} from "@angular/forms";
 export class SpecialtyFormComponent implements OnInit{
 
   specialtyList : Array<SpecialtyResponse> = []
-  selectedSpecialty?: SpecialtyResponse;
+
+  @Input()
+  selectedSpecialty: SpecialtyResponse | undefined = {}
 
   @Output()
   specialtySelected = new EventEmitter<SpecialtyResponse>();
@@ -39,6 +41,7 @@ export class SpecialtyFormComponent implements OnInit{
   findAllSpecialty(){
     this.specialtyService.findAll().subscribe(res => {
       this.specialtyList = res
+      this.selectedSpecialty = this.specialtyList.find(specialty => specialty.id === this.selectedSpecialty!.id);
     })
   }
 

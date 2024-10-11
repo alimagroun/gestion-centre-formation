@@ -41,6 +41,7 @@
     </div>
     <div *ngIf="currentStep === 4">
       <app-specialty-form
+        [selectedSpecialty]="selectedSpecialty"
         (specialtySelected)="onSpecialtySelected($event)"
       ></app-specialty-form>
     </div>

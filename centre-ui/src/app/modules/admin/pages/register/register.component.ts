@@ -45,13 +45,14 @@ export class RegisterComponent {
   documents: Array<DocumentResponse> = []
   registrationFeesFromChild: number = 0;
   specialtyName = ""
+  selectedSpecialty : SpecialtyResponse = {}
   registreRequest : RegistrationRequest = {specialtyId:0, registrationFees:0}
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
   error : Array<string> = [];
 
-  currentStep: number = 1;
+  currentStep: number = 4;
   steps = [
     {name: 'Parent'},
     {name: 'Etudiant'},
@@ -111,6 +112,8 @@ export class RegisterComponent {
   }
 
   onSpecialtySelected(specialty: SpecialtyResponse) {
+    this.selectedSpecialty = specialty;
+    console.log(this.selectedSpecialty)
     this.registreRequest.specialtyId = specialty.id!
     this.specialtyName = specialty.formationTypeName + "-" + specialty.domaineName
   }
@@ -146,7 +149,7 @@ export class RegisterComponent {
     if (this.currentStep == 1 && this.parent.id == undefined) {
       const isValid = await this.validateEmail(this.parent.email!);
       if (isValid) {
-        this.error.push("Email "+ this.parent.email+" existe déjà");
+        this.toastService.showError("Email "+ this.parent.email+" existe déjà");
         return false;
       }
     }
@@ -154,11 +157,16 @@ export class RegisterComponent {
       const isValid = await this.validateEmail(this.student.email!);
       const isTelValid = await  this.validateTel(this.student.phoneNumber!);
       if (isValid) {
-        this.error.push("Email "+ this.student.email+" existe déjà");
+        this.toastService.showError("Email "+ this.student.email+" existe déjà");
         return false;
       }
       if (isTelValid) {
-        this.error.push("Le numéro de téléphone "+ this.student.phoneNumber+" existe déjà");
+        this.toastService.showError("Le numéro de téléphone "+ this.student.phoneNumber+" existe déjà");
+        return false;
+      }
+
+      if(this.parent.phoneNumber == this.student.phoneNumber) {
+        this.toastService.showError("Le numéro de téléphone de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
     } else if (this.currentStep == 4) {

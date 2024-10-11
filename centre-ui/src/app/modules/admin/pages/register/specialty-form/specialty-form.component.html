@@ -1,9 +1,12 @@
-<div class="mb-3">
-  <label for="specialtySelect" class="form-label">Sélectionner une spécialité</label>
-  <select class="form-select" id="specialtySelect" [(ngModel)]="selectedSpecialty" (ngModelChange)="onSpecialtyChange()">
-    <option [ngValue]="undefined" disabled>Sélectionner une spécialité</option>
-    <option *ngFor="let specialty of specialtyList" [ngValue]="specialty">
-      {{ specialty.domaineName }} - {{ specialty.formationTypeName }}
-    </option>
-  </select>
-</div>
+<form>
+  <div class="mb-3">
+    <label for="specialtySelect" class="form-label">Sélectionner une spécialité</label>
+    <select class="form-select" id="specialtySelect" name="specialtySelect" [(ngModel)]="selectedSpecialty" (ngModelChange)="onSpecialtyChange()">
+      <option [ngValue]="undefined" disabled>Sélectionner une spécialité</option>
+      <option *ngFor="let specialty of specialtyList" [ngValue]="specialty">
+        {{ specialty.domaineName }} - {{ specialty.formationTypeName }}
+      </option>
+    </select>
+  </div>
+</form>
+

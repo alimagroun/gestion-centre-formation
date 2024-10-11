@@ -45,8 +45,19 @@
       </div>
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" id="levelOfEducation" formControlName="levelOfEducation"
-             placeholder="Niveau d'éducation">
+      <select class="form-control" id="levelOfEducation" formControlName="levelOfEducation">
+        <option value="" disabled selected>Niveau d'éducation</option>
+        <option value="7eme">7ème</option>
+        <option value="8eme">8ème</option>
+        <option value="9eme">9ème</option>
+        <option value="1ere">1ère</option>
+        <option value="2eme">2ème</option>
+        <option value="3eme">3ème</option>
+        <option value="NiveauBac">Niveau Bac</option>
+        <option value="Bac">Bac</option>
+        <option value="BacPlus">Bac +</option>
+      </select>
+
       <div
         *ngIf="studentForm.get('levelOfEducation')?.invalid && (studentForm.get('levelOfEducation')?.dirty || studentForm.get('levelOfEducation')?.touched)"
         class="text-danger">

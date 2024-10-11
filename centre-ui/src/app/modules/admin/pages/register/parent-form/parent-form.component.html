@@ -31,6 +31,7 @@
         id="firstName"
         formControlName="firstName"
         placeholder="Entrez le prénom"
+        autocomplete="off"
         [ngClass]="{ 'is-invalid': parentForm.get('firstName')!.invalid && parentForm.get('firstName')!.touched }"
       >
       <div *ngIf="parentForm.get('firstName')?.invalid && (parentForm.get('firstName')?.dirty || parentForm.get('firstName')?.touched)" class="text-danger">
