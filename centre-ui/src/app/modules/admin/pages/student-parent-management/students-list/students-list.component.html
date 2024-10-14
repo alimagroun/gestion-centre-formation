@@ -1,1 +1,55 @@
-<p>students-list works!</p>
+<div class="card p-3">
+  <div class="text-center mb-3">
+    <h3>Liste des etudients</h3>
+  </div>
+  <div class="row align-items-center mb-3">
+    <div class="col-md-2">
+      <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div class="col-md-9 text-end">
+      <span class="text-muted">Total: {{ studentResponsePaged.totalElements }}</span>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead >
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Tel</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="loading">
+      <td colspan="2" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </td>
+    </tr>
+    <ng-container *ngFor="let p of studentResponsePaged.content! | paginate: { itemsPerPage: studentResponsePaged.size!, currentPage: page+1, totalItems: studentResponsePaged.totalElements };">
+      <tr>
+        <td>{{ p.firstName }}</td>
+        <td>{{ p.lastName  }}</td>
+        <td>{{ p.phoneNumber }}</td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="viewParentDetails(p)">Détails</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <pagination-controls
+    (pageChange)="loadPage($event)"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
+</div>

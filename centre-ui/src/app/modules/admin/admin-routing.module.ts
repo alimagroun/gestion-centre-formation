@@ -31,6 +31,9 @@ import {ParentsListComponent} from "./pages/student-parent-management/parents-li
 import {
   ParentDetailComponent
 } from "./pages/student-parent-management/parents-list/parent-detail/parent-detail.component";
+import {
+  StudentDetailComponent
+} from "./pages/student-parent-management/students-list/student-detail/student-detail.component";
 
 const routes: Routes = [
   {
@@ -182,6 +185,11 @@ const routes: Routes = [
           {
             path: '',
             component: StudentsListComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'student-details/:id',
+            component: StudentDetailComponent,
             canActivate: [authAdminGuard]
           },
         ],
