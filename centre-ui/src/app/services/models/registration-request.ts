@@ -6,7 +6,8 @@ import { StudentRequest } from '../models/student-request';
 export interface RegistrationRequest {
   addressRequest?: AddressRequest;
   documents?: Array<number>;
-  parentRequest?: ParentRequest;
+  fatherRequest?: ParentRequest;
+  motherRequest?: ParentRequest;
   registrationFees: number;
   remarks?: string;
   specialtyId: number;

@@ -6,10 +6,7 @@ import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.NotFoundException;
 import com.centre.poly.person.Repository.PersonRepository;
 import com.centre.poly.person.dto.*;
-import com.centre.poly.person.entity.Address;
-import com.centre.poly.person.entity.Parent;
-import com.centre.poly.person.entity.Person;
-import com.centre.poly.person.entity.Student;
+import com.centre.poly.person.entity.*;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
@@ -94,8 +91,8 @@ public class PersonService {
         return 1;
     }*/
 
-    public ParentResponse findParentByNum(String num) {
-        Parent parent = personRepository.findByPhoneNumber(num);
+    public ParentResponse findByPhoneNumberAndType(String num, ParentType type) {
+        Parent parent = personRepository.findByPhoneNumberAndType(num, type);
         if(parent != null){
             return ParentResponse.builder()
                     .id(parent.getId())
@@ -104,6 +101,9 @@ public class PersonService {
                     .email(parent.getEmail())
                     .phoneNumber(parent.getPhoneNumber())
                     .profession(parent.getProfession())
+                    .type(parent.getType())
+                    .maritalStatus(parent.getMaritalStatus())
+                    .isDeceased(parent.getIsDeceased())
                     .build();
         }else{
             throw new NotFoundException("Parent_not_found");
@@ -143,7 +143,7 @@ public class PersonService {
         userRepository.save(userStudent);
     }
 
-    public Student saveStudent(Student student, Parent parent, Address address) {
+    public Student saveStudent(Student student, Parent mother, Parent father, Address address) {
         if (isPhoneNumberUnique(student.getPhoneNumber())) {
             throw new DuplicateEntityException("Phone number "+student.getPhoneNumber()+" already exists");
         }
@@ -153,7 +153,9 @@ public class PersonService {
         }
 
         student.setAddress(address);
-        student.setParent(parent);
+        student.setMother(mother);
+        student.setFather(father);
+
         student = personRepository.save(student);
 
         createUserStudent(student);

@@ -4,6 +4,7 @@ import com.centre.poly.common.PageResponse;
 import com.centre.poly.person.dto.ParentDetailResponse;
 import com.centre.poly.person.dto.ParentResponse;
 import com.centre.poly.person.dto.StudentResponse;
+import com.centre.poly.person.entity.ParentType;
 import com.centre.poly.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,8 @@ public class PersonController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/findParentByNum")
-    public ResponseEntity<ParentResponse> findParentByNum(@RequestParam("num") String num) {
-        return ResponseEntity.ok().body(personService.findParentByNum(num));
+    public ResponseEntity<ParentResponse> findParentByNum(@RequestParam("num") String num, @RequestParam("type") ParentType type) {
+        return ResponseEntity.ok().body(personService.findByPhoneNumberAndType(num, type));
     }
 
     @GetMapping("/parent/findAllParentsPaged")

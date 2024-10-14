@@ -24,7 +24,8 @@ public class RegistrationDetailsResponse {
     private String specialtyName;
     private Double registrationFees;
     private StudentDetails student;
-    private ParentDetails parent;
+    private ParentDetails father;
+    private ParentDetails mother;
     private Address address;
     private List<DocumentRegistrationResponse> documentRegistrationResponseList;
 

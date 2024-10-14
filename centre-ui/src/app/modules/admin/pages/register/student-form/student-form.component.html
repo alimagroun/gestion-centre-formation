@@ -2,9 +2,13 @@
   <h2>Formulaire d'inscription d'etudient</h2>
   <form [formGroup]="studentForm">
     <div class="mb-3">
-      <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Prénom"
-             [ngClass]="{ 'is-invalid': studentForm.get('firstName')!.invalid && studentForm.get('firstName')!.touched }"
-      >
+      <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-person"></i>
+              </span> <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                             placeholder="Prénom"
+                             [ngClass]="{ 'is-invalid': studentForm.get('firstName')!.invalid && studentForm.get('firstName')!.touched }"
+      ></div>
       <div
         *ngIf="studentForm.get('firstName')?.invalid && (studentForm.get('firstName')?.dirty || studentForm.get('firstName')?.touched)"
         class="text-danger">
@@ -12,37 +16,60 @@
       </div>
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Nom"
-             [ngClass]="{ 'is-invalid': studentForm.get('lastName')!.invalid && studentForm.get('lastName')!.touched }">
+      <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-person"></i>
+              </span>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Nom"
+               [ngClass]="{ 'is-invalid': studentForm.get('lastName')!.invalid && studentForm.get('lastName')!.touched }">
+      </div>
       <div
-        *ngIf="studentForm.get('lastName')?.invalid && (studentForm.get('lastName')?.dirty || studentForm.get('lastName')?.touched)"
-        class="text-danger">
-        Le nom est requis.
-      </div>
+          *ngIf="studentForm.get('lastName')?.invalid && (studentForm.get('lastName')?.dirty || studentForm.get('lastName')?.touched)"
+          class="text-danger">
+          Le nom est requis.
+        </div>
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
-             placeholder="Numéro de téléphone">
-      <div *ngIf="studentForm.get('phoneNumber')?.invalid && (studentForm.get('phoneNumber')?.dirty || studentForm.get('phoneNumber')?.touched)"
-           class="text-danger">
-        <div *ngIf="studentForm.get('phoneNumber')?.hasError('required')">
-          Le numéro de téléphone est requis.
-        </div>
-        <div *ngIf="studentForm.get('phoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone valide.</div>
-        <div *ngIf="studentForm.get('phoneNumber')?.hasError('minlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
-        <div *ngIf="studentForm.get('phoneNumber')?.hasError('maxlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
+      <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+        <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+               placeholder="Numéro de téléphone">
+      </div>
+      <div
+          *ngIf="studentForm.get('phoneNumber')?.invalid && (studentForm.get('phoneNumber')?.dirty || studentForm.get('phoneNumber')?.touched)"
+          class="text-danger">
+          <div *ngIf="studentForm.get('phoneNumber')?.hasError('required')">
+            Le numéro de téléphone est requis.
+          </div>
+          <div *ngIf="studentForm.get('phoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone
+            valide.
+          </div>
+          <div *ngIf="studentForm.get('phoneNumber')?.hasError('minlength')">Le numéro de téléphone doit contenir 8
+            chiffres.
+          </div>
+          <div *ngIf="studentForm.get('phoneNumber')?.hasError('maxlength')">Le numéro de téléphone doit contenir 8
+            chiffres.
+          </div>
 
-      </div>
+        </div>
     </div>
     <div class="mb-3">
-      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Adresse email">
-      <div *ngIf="studentForm.get('email')?.invalid && (studentForm.get('email')?.dirty || studentForm.get('email')?.touched)"
-           class="text-danger">
-        <div *ngIf="studentForm.get('email')?.hasError('required')">
-          L'email est requis.
-        </div>
-        <div *ngIf="studentForm.get('email')?.hasError('email')">L'email doit être valide.</div>
+      <div class="input-group">
+               <span class="input-group-text">
+                &#64;
+              </span>
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Adresse email">
       </div>
+      <div
+          *ngIf="studentForm.get('email')?.invalid && (studentForm.get('email')?.dirty || studentForm.get('email')?.touched)"
+          class="text-danger">
+          <div *ngIf="studentForm.get('email')?.hasError('required')">
+            L'email est requis.
+          </div>
+          <div *ngIf="studentForm.get('email')?.hasError('email')">L'email doit être valide.</div>
+        </div>
     </div>
     <div class="mb-3">
       <select class="form-control" id="levelOfEducation" formControlName="levelOfEducation">

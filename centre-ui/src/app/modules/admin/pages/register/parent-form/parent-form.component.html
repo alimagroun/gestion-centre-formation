@@ -1,70 +1,328 @@
 <div class="container">
-  <h1>Formulaire d'Informations des Parents</h1>
-  <div *ngIf="showMsgSearchByTel" class="alert alert-success">
-    <span>Le parent avec le numéro de téléphone {{ parent.phoneNumber}} a été trouvé.</span>
-  </div>
+  <h1 class="text-center mb-5">Formulaire d'Informations des Parents</h1>
+
   <form [formGroup]="parentForm" autocomplete="off">
-    <div class="mb-3">
-      <input
-        type="tel"
-        class="form-control"
-        id="phoneNumber"
-        formControlName="phoneNumber"
-        placeholder="Entrez le numéro de téléphone"
-        autocomplete="off"
-        (input)="searchByTel()">
-      <div *ngIf="parentForm.get('phoneNumber')?.invalid && (parentForm.get('phoneNumber')?.dirty || parentForm.get('phoneNumber')?.touched)"
-           class="text-danger">
-        <div *ngIf="parentForm.get('phoneNumber')?.hasError('required')">
-          Le numéro de téléphone est requis.
+    <div class="row">
+
+      <!-- Section de la mère -->
+      <div class="col-md-6">
+        <h3 class="text-center"><span><i class="bx bx-female"></i></span> Informations de la Mère</h3>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+            <input
+              type="tel"
+              class="form-control"
+              id="motherPhoneNumber"
+              formControlName="motherPhoneNumber"
+              placeholder="Numéro de téléphone de la mère"
+              autocomplete="off"
+              (input)="searchMotherByTel()"
+            />
+          </div>
+          <div
+            *ngIf="parentForm.get('motherPhoneNumber')?.invalid && (parentForm.get('motherPhoneNumber')?.dirty || parentForm.get('motherPhoneNumber')?.touched)"
+            class="text-danger">
+            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('required')">Le numéro de téléphone est requis.
+            </div>
+            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone
+              valide.
+            </div>
+            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
+              chiffres.
+            </div>
+          </div>
         </div>
-        <div *ngIf="parentForm.get('phoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone valide.</div>
-        <div *ngIf="parentForm.get('phoneNumber')?.hasError('minlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
-        <div *ngIf="parentForm.get('phoneNumber')?.hasError('maxlength')">Le numéro de téléphone doit contenir 8 chiffres.</div>
 
-      </div>
-    </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="firstName"
-        formControlName="firstName"
-        placeholder="Entrez le prénom"
-        autocomplete="off"
-        [ngClass]="{ 'is-invalid': parentForm.get('firstName')!.invalid && parentForm.get('firstName')!.touched }"
-      >
-      <div *ngIf="parentForm.get('firstName')?.invalid && (parentForm.get('firstName')?.dirty || parentForm.get('firstName')?.touched)" class="text-danger">
-        Le prénom est requis.
-      </div>
-    </div>
 
-    <div class="mb-3">
-      <input
-        type="text"
-        class="form-control"
-        id="lastName"
-        formControlName="lastName"
-        placeholder="Entrez le nom">
-      <div *ngIf="parentForm.get('lastName')?.invalid && (parentForm.get('lastName')?.dirty || parentForm.get('lastName')?.touched)" class="text-danger">
-        Le nom est requis.
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        formControlName="email"
-        placeholder="Entrez l'email">
-      <div *ngIf="parentForm.get('email')?.invalid && (parentForm.get('email')?.dirty || parentForm.get('email')?.touched)"
-           class="text-danger">
-        <div *ngIf="parentForm.get('email')?.hasError('required')">
-          L'email est requis.
+        <div *ngIf="loadingMother" class="row justify-content-center align-items-center">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
-        <div *ngIf="parentForm.get('email')?.hasError('email')">L'email doit être valide.</div>
+
+        <div *ngIf="!loadingMother">
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bx bx-female"></i>
+
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="motherFirstName"
+                formControlName="motherFirstName"
+                placeholder="Prénom de la mère"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('motherFirstName')?.invalid && (parentForm.get('motherFirstName')?.dirty || parentForm.get('motherFirstName')?.touched)"
+              class="text-danger">
+              <div *ngIf="parentForm.get('motherFirstName')?.hasError('required')">Le prénom est requis.</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bx bx-female"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="motherLastName"
+                formControlName="motherLastName"
+                placeholder="Nom de la mère"
+              />
+              <div
+                *ngIf="parentForm.get('motherLastName')?.invalid && (parentForm.get('motherLastName')?.dirty || parentForm.get('motherLastName')?.touched)"
+                class="text-danger">
+                Le nom est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-briefcase"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="motherProfession"
+                formControlName="motherProfession"
+                placeholder="Profession de la mère"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('motherProfession')?.invalid && (parentForm.get('motherProfession')?.dirty || parentForm.get('motherProfession')?.touched)"
+              class="text-danger">
+              <div *ngIf="parentForm.get('motherProfession')?.hasError('required')">La profession est requise.</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <div class="input-group">
+               <span class="input-group-text">
+                &#64;
+              </span>
+              <input
+                type="email"
+                class="form-control"
+                id="motherEmail"
+                formControlName="motherEmail"
+                placeholder="Email de la mère"
+              />
+              <div
+                *ngIf="parentForm.get('motherEmail')?.invalid && (parentForm.get('motherEmail')?.dirty || parentForm.get('motherEmail')?.touched)"
+                class="text-danger">
+                <div *ngIf="parentForm.get('motherEmail')?.hasError('required')">L'email est requis.</div>
+                <div *ngIf="parentForm.get('motherEmail')?.hasError('email')">Veuillez entrer un email valide.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Section du père -->
+      <div class="col-md-6">
+        <h3 class="text-center"><span><i class="bi bi-person"></i></span> Informations du Père</h3>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+            <input
+              type="tel"
+              class="form-control"
+              id="fatherPhoneNumber"
+              formControlName="fatherPhoneNumber"
+              placeholder="Numéro de téléphone du père"
+              autocomplete="off"
+              (input)="searchFatherByTel()"
+            />
+          </div>
+          <div
+            *ngIf="parentForm.get('fatherPhoneNumber')?.invalid && (parentForm.get('fatherPhoneNumber')?.dirty || parentForm.get('fatherPhoneNumber')?.touched)"
+            class="text-danger">
+            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('required')">Le numéro de téléphone est
+              requis.
+            </div>
+            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de
+              téléphone valide.
+            </div>
+            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
+              chiffres.
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="loadingFather" class="row justify-content-center align-items-center">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loadingFather">
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-person"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="fatherFirstName"
+                formControlName="fatherFirstName"
+                placeholder="Prénom du père"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('fatherFirstName')?.invalid && (parentForm.get('fatherFirstName')?.dirty || parentForm.get('fatherFirstName')?.touched)"
+              class="text-danger">
+              Le prénom est requis.
+            </div>
+
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-person"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="fatherLastName"
+                formControlName="fatherLastName"
+                placeholder="Nom du père"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('fatherLastName')?.invalid && (parentForm.get('fatherLastName')?.dirty || parentForm.get('fatherLastName')?.touched)"
+              class="text-danger">
+              Le nom est requis.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-briefcase"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="fatherProfession"
+                formControlName="fatherProfession"
+                placeholder="Profession du père"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('fatherProfession')?.invalid && (parentForm.get('fatherProfession')?.dirty || parentForm.get('fatherProfession')?.touched)"
+              class="text-danger">
+              La profession est requise.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+               <span class="input-group-text">
+                &#64;
+              </span>
+              <input
+                type="email"
+                class="form-control"
+                id="fatherEmail"
+                formControlName="fatherEmail"
+                placeholder="Email du père"
+              />
+            </div>
+          </div>
+          <div
+            *ngIf="parentForm.get('fatherEmail')?.invalid && (parentForm.get('fatherEmail')?.dirty || parentForm.get('fatherEmail')?.touched)"
+            class="text-danger">
+            <div *ngIf="parentForm.get('fatherEmail')?.hasError('required')">L'email est requis.</div>
+            <div *ngIf="parentForm.get('fatherEmail')?.hasError('email')">Veuillez entrer un email valide.</div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 w-50">
+      <label class="form-label fw-bold">Statut matrimonial</label>
+      <label class="form-label fw-bold">État des parents</label>
+    </div>
+    <div class="d-flex w-50">
+      <div class="me-auto">
+        <div class="form-check mb-2">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="maritalStatus"
+            name="maritalStatus"
+            id="married"
+            value="MARRIED"
+          />
+          <label class="form-check-label" for="married">Marié(e)</label>
+        </div>
+        <div class="form-check mb-2">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="maritalStatus"
+            name="maritalStatus"
+            id="divorced"
+            value="DIVORCED"
+          />
+          <label class="form-check-label" for="divorced">Divorcé(e)</label>
+        </div>
+        <div *ngIf="parentForm.get('maritalStatus')?.invalid && parentForm.get('maritalStatus')?.touched" class="text-danger mt-2">
+          <i class="bi bi-exclamation-circle"></i> <strong>Le statut matrimonial est requis.</strong>
+        </div>
+      </div>
+
+      <div class="ms-auto">
+        <div class="form-check mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="motherDeceased"
+            id="motherDeceased"
+          />
+          <label class="form-check-label" for="motherDeceased">Mère décédée</label>
+        </div>
+
+        <div class="form-check mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="fatherDeceased"
+            id="fatherDeceased"
+          />
+          <label class="form-check-label" for="fatherDeceased">Père décédé</label>
+        </div>
       </div>
     </div>
+
+
+
+
+
   </form>
 </div>

@@ -12,11 +12,23 @@
       </div>
 
       <div *ngIf="!loading">
-        <h5 class="card-title">{{ parent.firstName + ' ' + parent.lastName }}</h5>
-        <p class="card-text"><strong>Email :</strong> {{ parent.email }}</p>
-        <p class="card-text"><strong>Téléphone :</strong> {{ parent.phoneNumber }}</p>
-        <p class="card-text"><strong>Profession :</strong> {{ parent.profession ? parent.profession : 'Non renseignée' }}</p>
+        <h5 class="card-title">
+          <i class="bi bi-person-fill"></i> {{ parent.firstName + ' ' + parent.lastName }}
+        </h5>
+        <p class="card-text">
+          <strong><i class="bi bi-envelope-fill"></i> Email :</strong> {{ parent.email }}
+        </p>
+        <p class="card-text">
+          <strong><i class="bi bi-telephone-fill"></i> Téléphone :</strong> {{ parent.phoneNumber }}
+        </p>
+        <p class="card-text">
+          <strong><i class="bi bi-briefcase-fill"></i> Profession :</strong> {{ parent.profession ? parent.profession : 'Non renseignée' }}
+        </p>
+        <p class="card-text">
+          <strong><i class="bi bi-heart-fill"></i> Statut matrimonial :</strong> {{ parent.maritalStatus ? parent.maritalStatus : 'Non renseigné' }}
+        </p>
       </div>
+
     </div>
   </div>
 

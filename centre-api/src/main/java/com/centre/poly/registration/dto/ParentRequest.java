@@ -1,5 +1,7 @@
 package com.centre.poly.registration.dto;
 
+import com.centre.poly.person.entity.MaritalStatus;
+import com.centre.poly.person.entity.ParentType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +24,15 @@ public record ParentRequest(Integer id,
 
                             @Email(message = "PARENT_EMAIL_NOT_VALID")
                             String email,
+
+                            @NotNull(message = "TYPE_REQUIRED")
+                            ParentType type,
+
+                            @NotNull(message = "MARTITAL_STATUS_REQUIRED")
+                            MaritalStatus maritalStatus,
+
+                            @NotNull(message = "isDeceased_REQUIRED")
+                            Boolean isDeceased,
 
                             String profession) {
 }

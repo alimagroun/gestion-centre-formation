@@ -1,5 +1,7 @@
 package com.centre.poly.registration.dto;
 
+import com.centre.poly.person.entity.MaritalStatus;
+import com.centre.poly.person.entity.ParentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +17,6 @@ public class ParentDetails {
     private String profession;
     private String phoneNumber;
     private String email;
+    private MaritalStatus maritalStatus;
+    private boolean isDeceased;
 }

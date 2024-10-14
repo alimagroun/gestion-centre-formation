@@ -22,9 +22,11 @@
     </div>
     <div *ngIf="currentStep === 1">
       <app-parent-form
-        [parent]="parent"
+        [mother]="mother"
+        [father]="father"
         (statusForm)="validationFormParent($event)"
-        (parentValidated)="setParentValidated($event)"
+        (motherRequest)="setMotherRequest($event)"
+        (fatherRequest)="setFatherRequest($event)"
       ></app-parent-form>
     </div>
     <div *ngIf="currentStep === 2">
@@ -55,7 +57,8 @@
     </div>
     <div *ngIf="currentStep === 6">
       <app-verification
-        [parentRequest]="parent"
+        [motherRequest]="mother"
+        [fatherRequest]="father"
         [studentRequest]="student"
         [addressRequest]="address"
         [documents]="documents"

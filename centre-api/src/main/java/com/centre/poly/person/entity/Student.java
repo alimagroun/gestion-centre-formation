@@ -1,6 +1,7 @@
 package com.centre.poly.person.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,13 @@ public class Student extends Person {
 
     private String levelOfEducation;
 
+
     @ManyToOne
-    private Parent parent;
+    @JoinColumn(name = "mother_id")
+    private Parent mother;
+
+    @ManyToOne
+    @JoinColumn(name = "father_id")
+    private Parent father;
+
 }

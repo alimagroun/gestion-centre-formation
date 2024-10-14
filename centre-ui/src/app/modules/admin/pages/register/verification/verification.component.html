@@ -1,22 +1,48 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-md-4">
-      <h3 class="custom-title">Parent</h3>
-      <p><strong>Email:</strong> {{ parentRequest.email }}</p>
-      <p><strong>First Name:</strong> {{ parentRequest.firstName }}</p>
-      <p><strong>Last Name:</strong> {{ parentRequest.lastName }}</p>
-      <p><strong>Phone Number:</strong> {{ parentRequest.phoneNumber }}</p>
-      <p><strong>Profession:</strong> {{ parentRequest.profession }}</p>
+      <h3 class="custom-title">
+        <i class="bi bi-person-fill"></i> Mère
+      </h3>
+      <p><strong><i class="bi bi-telephone-fill"></i> Numéro de téléphone :</strong> {{ motherRequest.phoneNumber }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Prénom :</strong> {{ motherRequest.firstName }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Nom :</strong> {{ motherRequest.lastName }}</p>
+      <p><strong><i class="bi bi-briefcase-fill"></i> Profession :</strong> {{ motherRequest.profession }}</p>
+      <p><strong><i class="bi bi-envelope-fill"></i> Email :</strong> {{ motherRequest.email }}</p>
     </div>
 
     <div class="col-md-4">
-      <h3 class="custom-title">Etudient</h3>
-      <p><strong>Email:</strong> {{ studentRequest.email }}</p>
-      <p><strong>First Name:</strong> {{ studentRequest.firstName }}</p>
-      <p><strong>Last Name:</strong> {{ studentRequest.lastName }}</p>
-      <p><strong>Level Of Education:</strong> {{ studentRequest.levelOfEducation }}</p>
-      <p><strong>Phone Number:</strong> {{ studentRequest.phoneNumber }}</p>
+      <h3 class="custom-title">
+        <i class="bi bi-person-fill"></i> Père
+      </h3>
+      <p><strong><i class="bi bi-telephone-fill"></i> Numéro de téléphone :</strong> {{ fatherRequest.phoneNumber }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Prénom :</strong> {{ fatherRequest.firstName }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Nom :</strong> {{ fatherRequest.lastName }}</p>
+      <p><strong><i class="bi bi-briefcase-fill"></i> Profession :</strong> {{ fatherRequest.profession }}</p>
+      <p><strong><i class="bi bi-envelope-fill"></i> Email :</strong> {{ fatherRequest.email }}</p>
     </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">
+        <i class="bi bi-people-fill"></i> Informations sur la famille
+      </h3>
+      <p><strong><i class="bi bi-heart-fill"></i> Statut matrimonial :</strong> {{ motherRequest.maritalStatus }}</p>
+      <p><strong><i class="bi bi-house-heart-fill"></i> État des parents :</strong></p>
+      <p><strong><i class="bi bi-person-x-fill"></i> Mère décédée :</strong> {{ motherRequest.isDeceased }}</p>
+      <p><strong><i class="bi bi-person-x-fill"></i> Père décédé :</strong> {{ fatherRequest.isDeceased }}</p>
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="custom-title">
+        <i class="bi bi-person-fill"></i> Étudiant
+      </h3>
+      <p><strong><i class="bi bi-envelope-fill"></i> Email :</strong> {{ studentRequest.email }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Prénom :</strong> {{ studentRequest.firstName }}</p>
+      <p><strong><i class="bi bi-person-fill"></i> Nom :</strong> {{ studentRequest.lastName }}</p>
+      <p><strong><i class="bi bi-book-fill"></i> Niveau d'éducation :</strong> {{ studentRequest.levelOfEducation }}</p>
+      <p><strong><i class="bi bi-telephone-fill"></i> Numéro de téléphone :</strong> {{ studentRequest.phoneNumber }}</p>
+    </div>
+
 
     <div class="col-md-4">
       <h3 class="custom-title">Adresse</h3>
@@ -33,7 +59,7 @@
     </div>
     <div class="col-md-4">
       <h3 class="custom-title">frais d'inscription</h3>
-      <span>{{registrationFeesFromChild}} + TND</span>
+      <span>{{registrationFeesFromChild}} TND</span>
     </div>
 
     <div class="col-md-4">

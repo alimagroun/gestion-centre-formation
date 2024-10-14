@@ -8,7 +8,11 @@ import java.util.List;
 
 public record RegistrationRequest(
         @Valid
-        ParentRequest parentRequest,
+        ParentRequest motherRequest,
+
+        @Valid
+        ParentRequest fatherRequest,
+
         @Valid
         StudentRequest studentRequest,
         @Valid

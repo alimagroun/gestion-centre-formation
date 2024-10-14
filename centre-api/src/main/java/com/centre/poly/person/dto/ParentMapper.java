@@ -22,6 +22,9 @@ public class ParentMapper {
         parent.setPhoneNumber(parentRequest.phoneNumber());
         parent.setEmail(parentRequest.email());
         parent.setProfession(parentRequest.profession());
+        parent.setType(parentRequest.type());
+        parent.setIsDeceased(parentRequest.isDeceased());
+        parent.setMaritalStatus(parentRequest.maritalStatus());
 
         return parent;
     }
@@ -44,6 +47,8 @@ public class ParentMapper {
         response.setPhoneNumber(parent.getPhoneNumber());
         response.setEmail(parent.getEmail());
         response.setProfession(parent.getProfession());
+        response.setIsDeceased(parent.getIsDeceased());
+        response.setMaritalStatus(parent.getMaritalStatus());
         response.setStudents(parent.getStudents().stream().map(studentMapper::toResponse).toList());
         return response;
     }

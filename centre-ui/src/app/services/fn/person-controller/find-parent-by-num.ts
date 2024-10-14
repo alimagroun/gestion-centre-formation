@@ -10,12 +10,14 @@ import { ParentResponse } from '../../models/parent-response';
 
 export interface FindParentByNum$Params {
   num: string;
+  type: 'FATHER' | 'MOTHER';
 }
 
 export function findParentByNum(http: HttpClient, rootUrl: string, params: FindParentByNum$Params, context?: HttpContext): Observable<StrictHttpResponse<ParentResponse>> {
   const rb = new RequestBuilder(rootUrl, findParentByNum.PATH, 'get');
   if (params) {
     rb.query('num', params.num, {});
+    rb.query('type', params.type, {});
   }
 
   return http.request(

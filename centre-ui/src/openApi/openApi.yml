@@ -1169,6 +1169,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "FATHER",
+                "MOTHER"
+              ]
+            }
           }
         ],
         "responses": {
@@ -1330,8 +1342,11 @@
       "ParentRequest": {
         "required": [
           "firstName",
+          "isDeceased",
           "lastName",
-          "phoneNumber"
+          "maritalStatus",
+          "phoneNumber",
+          "type"
         ],
         "type": "object",
         "properties": {
@@ -1353,6 +1368,23 @@
           "email": {
             "type": "string"
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FATHER",
+              "MOTHER"
+            ]
+          },
+          "maritalStatus": {
+            "type": "string",
+            "enum": [
+              "MARRIED",
+              "DIVORCED"
+            ]
+          },
+          "isDeceased": {
+            "type": "boolean"
+          },
           "profession": {
             "type": "string"
           }
@@ -1365,7 +1397,10 @@
         ],
         "type": "object",
         "properties": {
-          "parentRequest": {
+          "motherRequest": {
+            "$ref": "#/components/schemas/ParentRequest"
+          },
+          "fatherRequest": {
             "$ref": "#/components/schemas/ParentRequest"
           },
           "studentRequest": {
@@ -1954,6 +1989,16 @@
           },
           "email": {
             "type": "string"
+          },
+          "maritalStatus": {
+            "type": "string",
+            "enum": [
+              "MARRIED",
+              "DIVORCED"
+            ]
+          },
+          "deceased": {
+            "type": "boolean"
           }
         }
       },
@@ -1989,7 +2034,10 @@
           "student": {
             "$ref": "#/components/schemas/StudentDetails"
           },
-          "parent": {
+          "father": {
+            "$ref": "#/components/schemas/ParentDetails"
+          },
+          "mother": {
             "$ref": "#/components/schemas/ParentDetails"
           },
           "address": {
@@ -2097,8 +2145,25 @@
           "email": {
             "type": "string"
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FATHER",
+              "MOTHER"
+            ]
+          },
           "profession": {
             "type": "string"
+          },
+          "maritalStatus": {
+            "type": "string",
+            "enum": [
+              "MARRIED",
+              "DIVORCED"
+            ]
+          },
+          "isDeceased": {
+            "type": "boolean"
           },
           "students": {
             "type": "array",
@@ -2162,6 +2227,23 @@
           },
           "profession": {
             "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FATHER",
+              "MOTHER"
+            ]
+          },
+          "maritalStatus": {
+            "type": "string",
+            "enum": [
+              "MARRIED",
+              "DIVORCED"
+            ]
+          },
+          "isDeceased": {
+            "type": "boolean"
           }
         }
       },

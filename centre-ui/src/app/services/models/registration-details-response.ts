@@ -8,8 +8,9 @@ export interface RegistrationDetailsResponse {
   address?: Address;
   createdDate?: string;
   documentRegistrationResponseList?: Array<DocumentRegistrationResponse>;
+  father?: ParentDetails;
   id?: number;
-  parent?: ParentDetails;
+  mother?: ParentDetails;
   registrationFees?: number;
   remarks?: string;
   specialtyName?: string;

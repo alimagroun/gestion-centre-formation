@@ -36,13 +36,27 @@ public class RegistrationMapper {
                         .build()
         );
 
-        details.setParent(
+        details.setMother(
                 ParentDetails.builder()
-                        .id(registration.getStudent().getParent().getId())
-                        .fullName(registration.getStudent().getParent().getFirstName() + ' ' + registration.getStudent().getParent().getLastName())
-                        .profession(registration.getStudent().getParent().getProfession())
-                        .phoneNumber(registration.getStudent().getParent().getPhoneNumber())
-                        .email(registration.getStudent().getParent().getEmail())
+                        .id(registration.getStudent().getMother().getId())
+                        .fullName(registration.getStudent().getMother().getFirstName() + ' ' + registration.getStudent().getMother().getLastName())
+                        .profession(registration.getStudent().getMother().getProfession())
+                        .phoneNumber(registration.getStudent().getMother().getPhoneNumber())
+                        .email(registration.getStudent().getMother().getEmail())
+                        .isDeceased(registration.getStudent().getMother().getIsDeceased())
+                        .maritalStatus(registration.getStudent().getMother().getMaritalStatus())
+                        .build()
+        );
+
+        details.setFather(
+                ParentDetails.builder()
+                        .id(registration.getStudent().getFather().getId())
+                        .fullName(registration.getStudent().getFather().getFirstName() + ' ' + registration.getStudent().getFather().getLastName())
+                        .profession(registration.getStudent().getFather().getProfession())
+                        .phoneNumber(registration.getStudent().getFather().getPhoneNumber())
+                        .email(registration.getStudent().getFather().getEmail())
+                        .isDeceased(registration.getStudent().getFather().getIsDeceased())
+                        .maritalStatus(registration.getStudent().getFather().getMaritalStatus())
                         .build()
         );
 

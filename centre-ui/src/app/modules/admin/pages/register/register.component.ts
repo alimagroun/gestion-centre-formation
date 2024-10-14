@@ -39,7 +39,8 @@ import {ToastService} from "../../../../services/toast/toast.service";
 })
 export class RegisterComponent {
 
-  parent: ParentRequest = {lastName: "", phoneNumber: "", firstName: ""};
+  mother: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", isDeceased: false, maritalStatus:"MARRIED"};
+  father: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"FATHER", isDeceased: false, maritalStatus:"MARRIED"};
   student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
   address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
@@ -52,7 +53,7 @@ export class RegisterComponent {
   statusFormAddress = false;
   error : Array<string> = [];
 
-  currentStep: number = 4;
+  currentStep: number = 1;
   steps = [
     {name: 'Parent'},
     {name: 'Etudiant'},
@@ -122,7 +123,8 @@ export class RegisterComponent {
     this.loading = true
     this.registreRequest.addressRequest = this.address
     this.registreRequest.studentRequest = this.student
-    this.registreRequest.parentRequest = this.parent
+    this.registreRequest.motherRequest = this.mother
+    this.registreRequest.fatherRequest = this.father
     this.registreRequest.documents = this.documents.map(document => document.id!);
     this.registreRequest.registrationFees = this.registrationFeesFromChild
 
@@ -139,19 +141,39 @@ export class RegisterComponent {
     })
   }
 
-  setParentValidated(parent: ParentRequest) {
-    this.parent = parent
+  setMotherRequest(parent: ParentRequest) {
+    this.mother = parent
+  }
+
+  setFatherRequest(parent: ParentRequest) {
+    this.father = parent
   }
 
   async validation(): Promise<boolean> {
     this.error = [];
+    if (this.currentStep == 1 && this.mother.id == undefined && this.father.id == undefined) {
+      const isValidEmailMother = await this.validateEmail(this.mother.email!);
+      const isValidEmailFather = await this.validateEmail(this.father.email!);
 
-    if (this.currentStep == 1 && this.parent.id == undefined) {
-      const isValid = await this.validateEmail(this.parent.email!);
-      if (isValid) {
-        this.toastService.showError("Email "+ this.parent.email+" existe déjà");
+      if (isValidEmailMother) {
+        this.toastService.showError("Email "+ this.mother.email+" existe déjà");
         return false;
       }
+      if (isValidEmailFather) {
+        this.toastService.showError("Email "+ this.father.email+" existe déjà");
+        return false;
+      }
+
+      if( this.father.email && this.mother.email && this.father.email == this.mother.email) {
+        this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
+        return false;
+      }
+
+      if (this.father.phoneNumber === this.mother.phoneNumber) {
+        this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
+        return false;
+      }
+
     }
     else if(this.currentStep == 2) {
       const isValid = await this.validateEmail(this.student.email!);
@@ -165,10 +187,21 @@ export class RegisterComponent {
         return false;
       }
 
-      if(this.parent.phoneNumber == this.student.phoneNumber) {
+      if(this.mother.phoneNumber == this.student.phoneNumber || this.father.phoneNumber == this.student.phoneNumber) {
         this.toastService.showError("Le numéro de téléphone de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
+
+      if(this.mother.email && this.mother.email == this.student.email) {
+        this.toastService.showError("Email de l'étudiant ne peut pas être identique à celui du parent.")
+        return false;
+      }
+
+      if(this.father.email && this.father.email == this.student.email) {
+        this.toastService.showError("Email de l'étudiant ne peut pas être identique à celui du parent.")
+        return false;
+      }
+
     } else if (this.currentStep == 4) {
       if(this.registreRequest.specialtyId == 0){
         this.toastService.showError("Aucune spécialité sélectionnée. Veuillez en choisir une pour continuer.");
@@ -204,7 +237,4 @@ export class RegisterComponent {
       );
     });
   }
-
-
-
 }

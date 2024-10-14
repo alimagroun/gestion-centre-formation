@@ -56,8 +56,9 @@ public class RegistrationService {
         Address address = createAddressFromRequest(request.addressRequest());
 
         // Save Parent and Student entities
-        Parent parentSaved = personService.saveParent(parentMapper.toParent(request.parentRequest()), address);
-        Student studentSaved = personService.saveStudent(studentMapper.toStudent(request.studentRequest()),parentSaved,address);
+        Parent motherSaved = personService.saveParent(parentMapper.toParent(request.motherRequest()), address);
+        Parent fatherSaved = personService.saveParent(parentMapper.toParent(request.fatherRequest()), address);
+        Student studentSaved = personService.saveStudent(studentMapper.toStudent(request.studentRequest()), motherSaved, fatherSaved, address);
 
         // Retrieve and validate documents
         List<Document> documentList = getValidatedDocuments(request.documents());
@@ -99,13 +100,31 @@ public class RegistrationService {
     }
 
     private void validateParentStudentContactInfo(RegistrationRequest request) {
-        if(Objects.equals(request.parentRequest().phoneNumber(), request.studentRequest().phoneNumber())){
+
+        if(Objects.equals(request.fatherRequest().phoneNumber(), request.motherRequest().phoneNumber())){
             throw new DuplicateEntityException("The parent's phone number cannot be the same as the student's phone number.");
         }
 
-        if (!request.parentRequest().email().isEmpty() && !request.studentRequest().email().isEmpty() && Objects.equals(request.parentRequest().email(), request.studentRequest().email())){
-            throw new DuplicateEntityException("The parent's email cannot be the same as the student's email.");
+        if (!request.motherRequest().email().isEmpty() && Objects.equals(request.motherRequest().email(), request.studentRequest().email())) {
+            throw new DuplicateEntityException("The mother's email cannot be the same as the student's email.");
         }
+
+        if (!request.fatherRequest().email().isEmpty() && !request.motherRequest().email().isEmpty() && Objects.equals(request.fatherRequest().email(), request.motherRequest().email())) {
+            throw new DuplicateEntityException("The parent's email addresses cannot be the same.");
+        }
+
+        if(
+                Objects.equals(request.fatherRequest().phoneNumber(), request.studentRequest().phoneNumber())
+        || Objects.equals(request.motherRequest().phoneNumber(), request.studentRequest().phoneNumber())){
+            throw new DuplicateEntityException("The parent's phone number cannot be the same as the student's phone number.");
+        }
+
+
+        if (!request.fatherRequest().email().isEmpty() && Objects.equals(request.fatherRequest().email(), request.studentRequest().email())) {
+            throw new DuplicateEntityException("The father's email cannot be the same as the student's email.");
+        }
+
+
     }
 
     public PageResponse<RegistrationResponse> findAll(int page, int size) {

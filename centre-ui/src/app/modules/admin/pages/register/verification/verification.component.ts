@@ -17,7 +17,10 @@ import {DocumentResponse} from "../../../../../services/models/document-response
 export class VerificationComponent {
 
   @Input()
-  parentRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: ""}
+  motherRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", maritalStatus:"MARRIED", isDeceased:false}
+
+  @Input()
+  fatherRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", maritalStatus:"MARRIED", isDeceased:false}
 
   @Input()
   studentRequest : StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""}

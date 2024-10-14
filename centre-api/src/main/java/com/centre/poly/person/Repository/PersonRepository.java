@@ -1,6 +1,7 @@
 package com.centre.poly.person.Repository;
 
 import com.centre.poly.person.entity.Parent;
+import com.centre.poly.person.entity.ParentType;
 import com.centre.poly.person.entity.Person;
 import com.centre.poly.person.entity.Student;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,13 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("SELECT p FROM Parent p WHERE p.phoneNumber = :phoneNumber")
     Parent findByPhoneNumber(String phoneNumber);
 
+    @Query("SELECT p FROM Parent p WHERE p.phoneNumber = :phoneNumber and p.type = :type")
+    Parent findByPhoneNumberAndType(String phoneNumber, ParentType type);
+
     @Query("SELECT p FROM Parent p")
     Page<Person> findAllParentPaged(Pageable pageable);
 
-    @Query("SELECT s FROM Student s where s.parent.id = :parentId")
+    @Query("SELECT s FROM Student s where s.mother.id = :parentId or s.father.id =:parentId")
     List<Student> findAllStudentsByParentId(Long parentId);
 
     @Query("SELECT s FROM Student s")
