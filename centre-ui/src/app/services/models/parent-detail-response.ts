@@ -7,7 +7,7 @@ export interface ParentDetailResponse {
   id?: number;
   isDeceased?: boolean;
   lastName?: string;
-  maritalStatus?: 'MARRIED' | 'DIVORCED';
+  maritalStatus?: 'MARRIED' | 'DIVORCED' | 'WIDOWED';
   phoneNumber?: string;
   profession?: string;
   students?: Array<StudentResponse>;

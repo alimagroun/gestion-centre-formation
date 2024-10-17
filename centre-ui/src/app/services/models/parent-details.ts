@@ -5,7 +5,7 @@ export interface ParentDetails {
   email?: string;
   fullName?: string;
   id?: number;
-  maritalStatus?: 'MARRIED' | 'DIVORCED';
+  maritalStatus?: 'MARRIED' | 'DIVORCED' | 'WIDOWED';
   phoneNumber?: string;
   profession?: string;
 }

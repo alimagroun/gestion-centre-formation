@@ -6,7 +6,7 @@ export interface ParentRequest {
   id?: number;
   isDeceased: boolean;
   lastName: string;
-  maritalStatus: 'MARRIED' | 'DIVORCED';
+  maritalStatus: 'MARRIED' | 'DIVORCED' | 'WIDOWED';
   phoneNumber: string;
   profession?: string;
   type: 'FATHER' | 'MOTHER';
