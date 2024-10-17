@@ -11,7 +11,6 @@ import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -206,4 +205,8 @@ public class PersonService {
         return new PageResponse<>(studentList, studentsPage.getNumber(), studentsPage.getSize(), studentsPage.getTotalElements(), studentsPage.getTotalPages(), studentsPage.isFirst(), studentsPage.isLast());
     }
 
+    public StudentDetailsResponse findStudentById(Long studentId) {
+        Student student = personRepository.findStudentById(studentId).orElseThrow(()-> new NotFoundException("Student with ID " + studentId + " not found"));
+        return studentMapper.toDetailsResponse(student);
+    }
 }

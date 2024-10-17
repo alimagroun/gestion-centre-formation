@@ -3,6 +3,7 @@ package com.centre.poly.person.controller;
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.person.dto.ParentDetailResponse;
 import com.centre.poly.person.dto.ParentResponse;
+import com.centre.poly.person.dto.StudentDetailsResponse;
 import com.centre.poly.person.dto.StudentResponse;
 import com.centre.poly.person.entity.ParentType;
 import com.centre.poly.person.service.PersonService;
@@ -62,4 +63,10 @@ public class PersonController {
         return ResponseEntity.ok().body(personService.findAllStudentsPaged(page, size));
 
     }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<StudentDetailsResponse> findStudentById(@PathVariable Long studentId) {
+        return ResponseEntity.ok().body(personService.findStudentById(studentId));
+    }
+
 }

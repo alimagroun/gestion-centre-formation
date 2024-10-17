@@ -38,4 +38,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("select p from Parent p where p.id =:parentId")
     Optional<Parent> findByParentId(Long parentId);
+
+    @Query("select s from Student s where s.id =:studentId")
+    Optional<Student> findStudentById(Long studentId);
 }
