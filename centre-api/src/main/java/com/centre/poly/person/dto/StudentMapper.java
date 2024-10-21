@@ -74,4 +74,12 @@ public class StudentMapper {
         parentStatusDTO.setIsFatherDeceased(f.getIsDeceased());
         return parentStatusDTO;
     }
+
+    public StudentAllResponse toStudentAllResponse(Student student) {
+        StudentAllResponse response = new StudentAllResponse();
+        response.setId(student.getId());
+        response.setFirstName(student.getFirstName());
+        response.setLastName(student.getLastName());
+        return response;
+    }
 }

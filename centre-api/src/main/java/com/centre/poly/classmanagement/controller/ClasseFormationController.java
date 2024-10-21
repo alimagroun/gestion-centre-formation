@@ -1,6 +1,8 @@
 package com.centre.poly.classmanagement.controller;
 
 import com.centre.poly.classmanagement.dto.*;
+import com.centre.poly.classmanagement.entity.AcceleratedClass;
+import com.centre.poly.classmanagement.entity.AcceleratedClassEntry;
 import com.centre.poly.classmanagement.service.ClassService;
 import com.centre.poly.common.PageResponse;
 import jakarta.validation.Valid;
@@ -8,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,6 +44,16 @@ public class ClasseFormationController {
             @RequestParam(defaultValue = "10") int size) {
 
         return new ResponseEntity<>(classService.findAllAcceleratedClass(page, size), HttpStatus.OK);
+    }
+
+    @GetMapping("/accelerated-classes/all")
+    public ResponseEntity<List<AcceleratedClass>> findAllAcceleratedClasses() {
+        return ResponseEntity.ok(classService.findAll());
+    }
+
+    @PostMapping("/accelerated-classes/add")
+    public AcceleratedClassEntry addEntry(@RequestParam Long studentId, @RequestParam Long classId) {
+        return classService.addEntry(studentId, classId);
     }
 
 }

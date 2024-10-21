@@ -1,14 +1,17 @@
 package com.centre.poly.person.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.centre.poly.classmanagement.entity.AcceleratedClass;
+import com.centre.poly.classmanagement.entity.AcceleratedClassEntry;
+import com.centre.poly.classmanagement.entity.AccreditedClass;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Data
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

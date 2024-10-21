@@ -8,6 +8,9 @@ import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.InvalidRequestException;
 import com.centre.poly.exception.NotFoundException;
+import com.centre.poly.person.Repository.PersonRepository;
+import com.centre.poly.person.entity.Student;
+import com.centre.poly.person.service.PersonService;
 import com.centre.poly.schoolYear.SchoolYear;
 import com.centre.poly.schoolYear.SchoolYearRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +35,9 @@ public class ClassService {
     private final AccreditedClassRepository accreditedClassRepository;
     private final AcceleratedClassRepository acceleratedClassRepository;
     private final SpecialtyRepository specialtyRepository;
+    private final PersonService personService;
+    private final PersonRepository personRepository;
+    private final AcceleratedClassEntryRepository acceleratedClassEntryRepository;
 
     public Long saveAccreditedClass(AccreditedClassRequest request) {
 
@@ -46,7 +53,7 @@ public class ClassService {
 
     public Long saveAcceleratedClass(AcceleratedClassRequest request) {
 
-        if(request.getStartDate().isAfter(request.getEndDate())){
+        if (request.getStartDate().isAfter(request.getEndDate())) {
             throw new InvalidRequestException("End year must be greater than or equal to start year");
         }
 
@@ -71,5 +78,25 @@ public class ClassService {
         Page<AcceleratedClass> classeFormationPage = acceleratedClassRepository.findAll(pageable);
         List<AcceleratedClassResponse> list = classeFormationPage.stream().map(classMapper::toResponseAccreditedClass).toList();
         return new PageResponse<>(list, classeFormationPage.getNumber(), classeFormationPage.getSize(), classeFormationPage.getTotalElements(), classeFormationPage.getTotalPages(), classeFormationPage.isFirst(), classeFormationPage.isLast());
+    }
+
+    public List<AcceleratedClass> findAll() {
+        AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(Long.valueOf(1)).orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
+        return acceleratedClassRepository.findAll();
+    }
+
+    public AcceleratedClassEntry addEntry(Long studentId, Long classId) {
+        Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student not found"));
+        AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(classId).orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
+
+        Optional<AcceleratedClassEntry> verify = acceleratedClassRepository.findByStudentAndAcceleratedClass(studentId, classId);
+        if (verify.isPresent()) {
+            throw new DuplicateEntityException("student already exists in this class");
+        }
+
+        AcceleratedClassEntry entry = new AcceleratedClassEntry();
+        entry.setStudent(student);
+        entry.setAcceleratedClass(acceleratedClass);
+        return acceleratedClassEntryRepository.save(entry);
     }
 }

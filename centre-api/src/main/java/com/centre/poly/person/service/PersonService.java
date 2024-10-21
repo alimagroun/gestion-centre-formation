@@ -209,4 +209,10 @@ public class PersonService {
         Student student = personRepository.findStudentById(studentId).orElseThrow(()-> new NotFoundException("Student with ID " + studentId + " not found"));
         return studentMapper.toDetailsResponse(student);
     }
+
+    public List<StudentAllResponse> findAllStudent(){
+        List<Student> students = personRepository.findAllStudent();
+        return students.stream().map(studentMapper::toStudentAllResponse).toList();
+    }
+
 }
