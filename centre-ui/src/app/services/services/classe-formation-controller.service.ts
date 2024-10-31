@@ -9,8 +9,14 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { AcceleratedClass } from '../models/accelerated-class';
+import { AcceleratedClassEntry } from '../models/accelerated-class-entry';
+import { addEntry } from '../fn/classe-formation-controller/add-entry';
+import { AddEntry$Params } from '../fn/classe-formation-controller/add-entry';
 import { findAllAcceleratedClass } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { FindAllAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-accelerated-class';
+import { findAllAcceleratedClasses } from '../fn/classe-formation-controller/find-all-accelerated-classes';
+import { FindAllAcceleratedClasses$Params } from '../fn/classe-formation-controller/find-all-accelerated-classes';
 import { findAllAccreditedClass } from '../fn/classe-formation-controller/find-all-accredited-class';
 import { FindAllAccreditedClass$Params } from '../fn/classe-formation-controller/find-all-accredited-class';
 import { PageResponseAcceleratedClassResponse } from '../models/page-response-accelerated-class-response';
@@ -123,6 +129,56 @@ export class ClasseFormationControllerService extends BaseService {
   saveAcceleratedClass(params: SaveAcceleratedClass$Params, context?: HttpContext): Observable<number> {
     return this.saveAcceleratedClass$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `addEntry()` */
+  static readonly AddEntryPath = '/classe/accelerated-classes/add';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addEntry()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addEntry$Response(params: AddEntry$Params, context?: HttpContext): Observable<StrictHttpResponse<AcceleratedClassEntry>> {
+    return addEntry(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addEntry$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addEntry(params: AddEntry$Params, context?: HttpContext): Observable<AcceleratedClassEntry> {
+    return this.addEntry$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AcceleratedClassEntry>): AcceleratedClassEntry => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllAcceleratedClasses()` */
+  static readonly FindAllAcceleratedClassesPath = '/classe/accelerated-classes/all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllAcceleratedClasses()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllAcceleratedClasses$Response(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClass>>> {
+    return findAllAcceleratedClasses(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllAcceleratedClasses$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllAcceleratedClasses(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<Array<AcceleratedClass>> {
+    return this.findAllAcceleratedClasses$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<AcceleratedClass>>): Array<AcceleratedClass> => r.body)
     );
   }
 

@@ -37,6 +37,7 @@ export class StudentFormComponent {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email]),
     levelOfEducation : new FormControl('', [Validators.required]),
+    identityNumber: new FormControl(''),
     phoneNumber: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
@@ -57,6 +58,7 @@ export class StudentFormComponent {
         this._student.firstName = this.studentForm.get('firstName')!.value!;
         this._student.lastName = this.studentForm.get('lastName')!.value!;
         this._student.levelOfEducation = this.studentForm.get('levelOfEducation')!.value!;
+        this._student.identityNumber = this.studentForm.get("identityNumber")?.value!
         this.validationForm(true)
       }else{
         this.validationForm(false)
@@ -76,6 +78,7 @@ export class StudentFormComponent {
         email: this._student.email || '',
         phoneNumber: this._student.phoneNumber || '',
         levelOfEducation: this._student.levelOfEducation || '',
+        identityNumber: this._student.identityNumber || '',
       });
     }
   }

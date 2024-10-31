@@ -19,7 +19,7 @@ import java.util.List;
 public class Student extends Person {
 
     private String levelOfEducation;
-
+    private String identityNumber;
 
     @ManyToOne
     @JoinColumn(name = "mother_id")

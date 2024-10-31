@@ -23,12 +23,15 @@ import { findParentDetailById } from '../fn/person-controller/find-parent-detail
 import { FindParentDetailById$Params } from '../fn/person-controller/find-parent-detail-by-id';
 import { findStudentById } from '../fn/person-controller/find-student-by-id';
 import { FindStudentById$Params } from '../fn/person-controller/find-student-by-id';
+import { getAllStudents } from '../fn/person-controller/get-all-students';
+import { GetAllStudents$Params } from '../fn/person-controller/get-all-students';
 import { PageResponseParentResponse } from '../models/page-response-parent-response';
 import { PageResponseStudentResponse } from '../models/page-response-student-response';
 import { ParentDetailResponse } from '../models/parent-detail-response';
 import { ParentResponse } from '../models/parent-response';
 import { phoneNumberValidation } from '../fn/person-controller/phone-number-validation';
 import { PhoneNumberValidation$Params } from '../fn/person-controller/phone-number-validation';
+import { StudentAllResponse } from '../models/student-all-response';
 import { StudentDetailsResponse } from '../models/student-details-response';
 import { StudentResponse } from '../models/student-response';
 
@@ -110,6 +113,31 @@ export class PersonControllerService extends BaseService {
   findStudentById(params: FindStudentById$Params, context?: HttpContext): Observable<StudentDetailsResponse> {
     return this.findStudentById$Response(params, context).pipe(
       map((r: StrictHttpResponse<StudentDetailsResponse>): StudentDetailsResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllStudents()` */
+  static readonly GetAllStudentsPath = '/person/student/all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllStudents()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllStudents$Response(params?: GetAllStudents$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<StudentAllResponse>>> {
+    return getAllStudents(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllStudents$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllStudents(params?: GetAllStudents$Params, context?: HttpContext): Observable<Array<StudentAllResponse>> {
+    return this.getAllStudents$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<StudentAllResponse>>): Array<StudentAllResponse> => r.body)
     );
   }
 

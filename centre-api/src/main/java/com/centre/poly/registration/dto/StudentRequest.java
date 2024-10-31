@@ -24,6 +24,8 @@ public record StudentRequest(
 
         @NotNull(message = "STUDENT_LEVEL_OF_EDUCATION_REQUIRED")
         @NotEmpty(message = "STUDENT_LEVEL_OF_EDUCATION_REQUIRED")
-        String levelOfEducation
+        String levelOfEducation,
+
+        String identityNumber
 ) {
 }

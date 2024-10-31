@@ -1,5 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
+export { AcceleratedClass } from './models/accelerated-class';
+export { AcceleratedClassEntry } from './models/accelerated-class-entry';
 export { AcceleratedClassRequest } from './models/accelerated-class-request';
 export { AcceleratedClassResponse } from './models/accelerated-class-response';
 export { AccreditedClassRequest } from './models/accredited-class-request';
@@ -12,8 +14,10 @@ export { AuthenticationResponse } from './models/authentication-response';
 export { DocumentRegistrationResponse } from './models/document-registration-response';
 export { DocumentRequest } from './models/document-request';
 export { DocumentResponse } from './models/document-response';
+export { Domaine } from './models/domaine';
 export { DomaineRequest } from './models/domaine-request';
 export { DomaineResponse } from './models/domaine-response';
+export { FormationType } from './models/formation-type';
 export { FormationTypeRequest } from './models/formation-type-request';
 export { FormationTypeResponse } from './models/formation-type-response';
 export { PageResponseAcceleratedClassResponse } from './models/page-response-accelerated-class-response';
@@ -29,6 +33,7 @@ export { PageResponseSpecialtyResponse } from './models/page-response-specialty-
 export { PageResponseStudentResponse } from './models/page-response-student-response';
 export { PageResponseSubjectResponse } from './models/page-response-subject-response';
 export { PageResponseUserResponse } from './models/page-response-user-response';
+export { Parent } from './models/parent';
 export { ParentDetailResponse } from './models/parent-detail-response';
 export { ParentDetails } from './models/parent-details';
 export { ParentDto } from './models/parent-dto';
@@ -44,8 +49,11 @@ export { RoleRequest } from './models/role-request';
 export { RoleResponse } from './models/role-response';
 export { SchoolYearRequest } from './models/school-year-request';
 export { SchoolYearResponse } from './models/school-year-response';
+export { Specialty } from './models/specialty';
 export { SpecialtyRequest } from './models/specialty-request';
 export { SpecialtyResponse } from './models/specialty-response';
+export { Student } from './models/student';
+export { StudentAllResponse } from './models/student-all-response';
 export { StudentDetails } from './models/student-details';
 export { StudentDetailsResponse } from './models/student-details-response';
 export { StudentRequest } from './models/student-request';

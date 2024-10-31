@@ -694,6 +694,46 @@
         }
       }
     },
+    "/classe/accelerated-classes/add": {
+      "post": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "addEntry",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "classId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceleratedClassEntry"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/register": {
       "post": {
         "tags": [
@@ -1037,6 +1077,29 @@
         }
       }
     },
+    "/person/student/all": {
+      "get": {
+        "tags": [
+          "person-controller"
+        ],
+        "operationId": "getAllStudents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StudentAllResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/person/person/student": {
       "get": {
         "tags": [
@@ -1296,6 +1359,29 @@
           }
         }
       }
+    },
+    "/classe/accelerated-classes/all": {
+      "get": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "findAllAcceleratedClasses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AcceleratedClass"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1486,6 +1572,9 @@
           },
           "levelOfEducation": {
             "type": "string"
+          },
+          "identityNumber": {
+            "type": "string"
           }
         }
       },
@@ -1585,6 +1674,239 @@
           "endDate": {
             "type": "string",
             "format": "date"
+          }
+        }
+      },
+      "AcceleratedClass": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "specialty": {
+            "$ref": "#/components/schemas/Specialty"
+          },
+          "groupNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "AcceleratedClassEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "student": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "acceleratedClass": {
+            "$ref": "#/components/schemas/AcceleratedClass"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        }
+      },
+      "Domaine": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FormationType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Parent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "profession": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "FATHER",
+              "MOTHER"
+            ]
+          },
+          "maritalStatus": {
+            "type": "string",
+            "enum": [
+              "MARRIED",
+              "DIVORCED",
+              "WIDOWED"
+            ]
+          },
+          "isDeceased": {
+            "type": "boolean"
+          },
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            }
+          }
+        }
+      },
+      "Specialty": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "domaine": {
+            "$ref": "#/components/schemas/Domaine"
+          },
+          "formationType": {
+            "$ref": "#/components/schemas/FormationType"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "levelOfEducation": {
+            "type": "string"
+          },
+          "identityNumber": {
+            "type": "string"
+          },
+          "mother": {
+            "$ref": "#/components/schemas/Parent"
+          },
+          "father": {
+            "$ref": "#/components/schemas/Parent"
           }
         }
       },
@@ -1974,20 +2296,6 @@
           }
         }
       },
-      "Address": {
-        "type": "object",
-        "properties": {
-          "street": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "zipCode": {
-            "type": "string"
-          }
-        }
-      },
       "DocumentRegistrationResponse": {
         "type": "object",
         "properties": {
@@ -2195,6 +2503,21 @@
           },
           "parentStatus": {
             "$ref": "#/components/schemas/ParentStatusDTO"
+          }
+        }
+      },
+      "StudentAllResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
           }
         }
       },
