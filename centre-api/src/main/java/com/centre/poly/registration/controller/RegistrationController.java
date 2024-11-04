@@ -38,11 +38,11 @@ public class RegistrationController {
         return ResponseEntity.ok().body(registrationService.findById(id));
     }
 
-    /*@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{registrationId}/documents/{documentId}")
-    public ResponseEntity<Long> updateStatus(@PathVariable Long registrationId, @PathVariable Long documentId) {
+    public ResponseEntity<Long> addDocumentToRegistration(@PathVariable Long registrationId, @PathVariable Long documentId) {
         Long updatedRegistrationId = registrationService.addDocumentToRegistration(registrationId, documentId);
         return ResponseEntity.ok().body(updatedRegistrationId);
-    }*/
+    }
 
 }

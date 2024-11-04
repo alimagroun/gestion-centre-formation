@@ -55,6 +55,47 @@
         }
       }
     },
+    "/register/{registrationId}/documents/{documentId}": {
+      "put": {
+        "tags": [
+          "registration-controller"
+        ],
+        "operationId": "addDocumentToRegistration",
+        "parameters": [
+          {
+            "name": "registrationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/specialty": {
       "get": {
         "tags": [

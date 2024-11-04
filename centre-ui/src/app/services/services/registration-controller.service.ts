@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { addDocumentToRegistration } from '../fn/registration-controller/add-document-to-registration';
+import { AddDocumentToRegistration$Params } from '../fn/registration-controller/add-document-to-registration';
 import { findAllRegistrations } from '../fn/registration-controller/find-all-registrations';
 import { FindAllRegistrations$Params } from '../fn/registration-controller/find-all-registrations';
 import { findRegistrationById } from '../fn/registration-controller/find-registration-by-id';
@@ -22,6 +24,31 @@ import { RegistrationDetailsResponse } from '../models/registration-details-resp
 export class RegistrationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `addDocumentToRegistration()` */
+  static readonly AddDocumentToRegistrationPath = '/register/{registrationId}/documents/{documentId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addDocumentToRegistration()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addDocumentToRegistration$Response(params: AddDocumentToRegistration$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return addDocumentToRegistration(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addDocumentToRegistration$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  addDocumentToRegistration(params: AddDocumentToRegistration$Params, context?: HttpContext): Observable<number> {
+    return this.addDocumentToRegistration$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
   }
 
   /** Path part for operation `findAllRegistrations()` */

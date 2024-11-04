@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {DatePipe, NgClass, NgForOf} from "@angular/common";
+import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {RegistrationControllerService} from "../../../../../services/services/registration-controller.service";
 import {RegistrationDetailsResponse} from "../../../../../services/models/registration-details-response";
 import {DocumentsControllerService} from "../../../../../services/services/documents-controller.service";
 import {DocumentResponse} from "../../../../../services/models/document-response";
 import { forkJoin } from 'rxjs';
+import {ToastService} from "../../../../../services/toast/toast.service";
 
 @Component({
   selector: 'app-registration-details',
@@ -14,7 +15,8 @@ import { forkJoin } from 'rxjs';
     DatePipe,
     NgClass,
     NgForOf,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './registration-details.component.html',
   styleUrl: './registration-details.component.scss'
@@ -24,13 +26,14 @@ export class RegistrationDetailsComponent implements OnInit{
   registration : RegistrationDetailsResponse = {}
   documents : Array<DocumentResponse> = []
   remainingDocuments : Array<DocumentResponse> = []
-
+  selectedDocument : DocumentResponse = {}
   registrationId : number = 0
-
+  loader = false
   constructor(
     private registrationService : RegistrationControllerService,
     private documentService : DocumentsControllerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService : ToastService
   ) {
   }
 
@@ -81,5 +84,19 @@ export class RegistrationDetailsComponent implements OnInit{
   }
 
 
+  addDocumentToRegistration() {
+    this.loader = true
+    this.registrationService.addDocumentToRegistration({
+      registrationId: this.registrationId,
+      documentId: this.selectedDocument.id!
+    }).subscribe(res => {
+      this.loader = false
+      this.toastService.showSuccess("Ajouté avec succès");
+      this.findRegistrationAndDocuments();
+    })
+  }
 
+  addDocumentSelected(document: DocumentResponse) {
+    this.selectedDocument = document;
+  }
 }

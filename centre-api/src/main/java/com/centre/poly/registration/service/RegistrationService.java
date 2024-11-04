@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -168,12 +169,26 @@ public class RegistrationService {
         registrationDocumentEntryRepository.saveAll(documentEntries);
     }
 
-    /*public Long addDocumentToRegistration(Long registrationId, Long documentId){
+    public Long addDocumentToRegistration(Long registrationId, Long documentId){
+
+        // Validate the existence
         Registration registration = registrationRepository.findById(registrationId).orElseThrow(() -> new NotFoundException("Registration with ID " + registrationId + " not found"));
         Document document = documentsRepository.findById(documentId).orElseThrow(() -> new NotFoundException("Document " + documentId + " not found"));
-        registration.setDocuments(List.of(document));
-        return registrationRepository.save(registration).getId();
-    }*/
+
+        // Check if the document is already associated with the registration to prevent duplicates
+        Optional<RegistrationDocumentEntry> registrationDocumentEntry = registrationDocumentEntryRepository.findByRegistrationAndDocument(registrationId, documentId);
+        if(registrationDocumentEntry.isPresent()){
+            throw new DuplicateEntityException("The document with ID " + documentId + " already exists in this registration.");
+        }
+
+        // Create and save a new RegistrationDocumentEntry
+        return registrationDocumentEntryRepository.save(
+          RegistrationDocumentEntry.builder()
+                  .document(document)
+                  .registration(registration)
+                  .build()
+        ).getId();
+    }
 
 
 }
