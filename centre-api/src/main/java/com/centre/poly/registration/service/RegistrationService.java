@@ -17,9 +17,11 @@ import com.centre.poly.registration.dto.AddressRequest;
 import com.centre.poly.registration.dto.RegistrationDetailsResponse;
 import com.centre.poly.registration.dto.RegistrationRequest;
 import com.centre.poly.registration.dto.RegistrationResponse;
+import com.centre.poly.registration.entity.RegistrationDocumentEntry;
 import com.centre.poly.registration.entity.Registration;
 import com.centre.poly.registration.entity.RegistrationStatus;
 import com.centre.poly.registration.mapper.RegistrationMapper;
+import com.centre.poly.registration.repository.RegistrationDocumentEntryRepository;
 import com.centre.poly.registration.repository.RegistrationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +31,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,7 @@ public class RegistrationService {
     private final DocumentsRepository documentsRepository;
     private final RegistrationMapper registrationMapper;
     private final SpecialtyRepository specialtyRepository;
+    private final RegistrationDocumentEntryRepository registrationDocumentEntryRepository;
 
     @Transactional
     public Long save(RegistrationRequest request) {
@@ -69,15 +71,19 @@ public class RegistrationService {
         // Create and save Registration entity
         Registration registration = buildRegistration(studentSaved, documentList, request.remarks(), specialty, request.registrationFees());
 
-        return registrationRepository.save(registration).getId();
+        //Save registration
+        registration = registrationRepository.save(registration);
 
+        // Create and save registration documents entry
+       saveRegistrationDcuments(documentList, registration);
+
+       return registration.getId();
     }
 
     private Registration buildRegistration(Student student, List<Document> documents, String remarks, Specialty specialty, Double registrationFees) {
         Registration registration = new Registration();
         registration.setStudent(student);
         registration.setStatus(RegistrationStatus.IN_PROGRESS);
-        registration.setDocuments(documents);
         registration.setRegistrationFees(registrationFees);
         registration.setRemarks(remarks);
         registration.setSpecialty(specialty);
@@ -147,5 +153,27 @@ public class RegistrationService {
         Specialty specialty = specialtyRepository.findById(id).orElseThrow(() -> new NotFoundException("Specialty with ID " + id + " not found"));
         return specialty;
     }
+
+    private void saveRegistrationDcuments(List<Document> documentList, Registration registration){
+
+        List<RegistrationDocumentEntry> documentEntries = new ArrayList<>();
+
+        documentList.forEach(l->{
+            RegistrationDocumentEntry documentEntry = new RegistrationDocumentEntry();
+            documentEntry.setDocument(l);
+            documentEntry.setRegistration(registration);
+            documentEntries.add(documentEntry);
+        });
+
+        registrationDocumentEntryRepository.saveAll(documentEntries);
+    }
+
+    /*public Long addDocumentToRegistration(Long registrationId, Long documentId){
+        Registration registration = registrationRepository.findById(registrationId).orElseThrow(() -> new NotFoundException("Registration with ID " + registrationId + " not found"));
+        Document document = documentsRepository.findById(documentId).orElseThrow(() -> new NotFoundException("Document " + documentId + " not found"));
+        registration.setDocuments(List.of(document));
+        return registrationRepository.save(registration).getId();
+    }*/
+
 
 }

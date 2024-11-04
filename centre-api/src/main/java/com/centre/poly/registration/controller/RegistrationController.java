@@ -37,4 +37,12 @@ public class RegistrationController {
     public ResponseEntity<RegistrationDetailsResponse> findRegistrationById(@PathVariable Long id) {
         return ResponseEntity.ok().body(registrationService.findById(id));
     }
+
+    /*@PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{registrationId}/documents/{documentId}")
+    public ResponseEntity<Long> updateStatus(@PathVariable Long registrationId, @PathVariable Long documentId) {
+        Long updatedRegistrationId = registrationService.addDocumentToRegistration(registrationId, documentId);
+        return ResponseEntity.ok().body(updatedRegistrationId);
+    }*/
+
 }

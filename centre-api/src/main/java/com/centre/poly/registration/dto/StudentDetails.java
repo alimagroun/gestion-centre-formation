@@ -15,4 +15,5 @@ public class StudentDetails {
     private String levelOfEducation;
     private String phoneNumber;
     private String email;
+    private String identityNumber;
 }

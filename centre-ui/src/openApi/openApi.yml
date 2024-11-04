@@ -734,36 +734,6 @@
         }
       }
     },
-    "/auth/register": {
-      "post": {
-        "tags": [
-          "authentication-controller"
-        ],
-        "operationId": "register_1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "202": {
-            "description": "Accepted",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/auth/authenticate": {
       "post": {
         "tags": [
@@ -2409,6 +2379,9 @@
             "type": "string"
           },
           "email": {
+            "type": "string"
+          },
+          "identityNumber": {
             "type": "string"
           }
         }

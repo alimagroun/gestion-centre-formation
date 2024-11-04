@@ -39,9 +39,14 @@ public class Registration {
 
     private Double registrationFees;
 
+
     @ManyToOne
     @JoinColumn(name = "specialty_id", nullable = false)
     private Specialty specialty;
+
+    @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
+    List<RegistrationDocumentEntry> registrationDocumentEntries;
+
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -51,11 +56,4 @@ public class Registration {
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "registration_documents",
-            joinColumns = @JoinColumn(name = "registration_id"),
-            inverseJoinColumns = @JoinColumn(name = "document_id")
-    )
-    private List<Document> documents;
 }

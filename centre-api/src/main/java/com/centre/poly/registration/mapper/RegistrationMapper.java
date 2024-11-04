@@ -33,6 +33,7 @@ public class RegistrationMapper {
                         .levelOfEducation(registration.getStudent().getLevelOfEducation())
                         .phoneNumber(registration.getStudent().getPhoneNumber())
                         .email(registration.getStudent().getEmail())
+                        .identityNumber(registration.getStudent().getIdentityNumber())
                         .build()
         );
 
@@ -71,11 +72,11 @@ public class RegistrationMapper {
 
         //Documents
         List<DocumentRegistrationResponse> documents = new ArrayList<>();
-        registration.getDocuments().forEach(d -> {
+        registration.getRegistrationDocumentEntries().forEach(d -> {
             DocumentRegistrationResponse doc = new DocumentRegistrationResponse();
             doc.setId(d.getId());
-            doc.setDescription(d.getDescription());
-            doc.setName(d.getName());
+            doc.setDescription(d.getDocument().getDescription());
+            doc.setName(d.getDocument().getName());
             documents.add(doc);
         });
         details.setDocumentRegistrationResponseList(documents);
