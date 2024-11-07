@@ -30,4 +30,4 @@ export function findAllAccreditedClass(http: HttpClient, rootUrl: string, params
   );
 }
 
-findAllAccreditedClass.PATH = '/classe/accredited-classes';
+findAllAccreditedClass.PATH = '/class/accredited';

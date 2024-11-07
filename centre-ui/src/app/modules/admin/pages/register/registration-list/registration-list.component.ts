@@ -4,6 +4,12 @@ import {PageResponseRegistrationResponse} from "../../../../../services/models/p
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
 import {Router} from "@angular/router";
+import {RegistrationResponse} from "../../../../../services/models/registration-response";
+import {AcceleratedClassResponse} from "../../../../../services/models/accelerated-class-response";
+import {AccreditedClassResponse} from "../../../../../services/models/accredited-class-response";
+import {ClasseFormationControllerService} from "../../../../../services/services/classe-formation-controller.service";
+import {FormsModule} from "@angular/forms";
+import {ToastService} from "../../../../../services/toast/toast.service";
 
 @Component({
   selector: 'app-registration-list',
@@ -13,7 +19,8 @@ import {Router} from "@angular/router";
     NgIf,
     NgxPaginationModule,
     DatePipe,
-    NgClass
+    NgClass,
+    FormsModule
   ],
   templateUrl: './registration-list.component.html',
   styleUrl: './registration-list.component.scss'
@@ -23,12 +30,13 @@ export class RegistrationListComponent implements OnInit{
   registrationPage : PageResponseRegistrationResponse = {}
   page: number = 0;
   size: number = 10;
+  selectedRegistration : RegistrationResponse = {}
 
   loading: boolean = false;
 
   constructor(
     private registrationService : RegistrationControllerService,
-    private router : Router
+    private router : Router,
   ) {
   }
 

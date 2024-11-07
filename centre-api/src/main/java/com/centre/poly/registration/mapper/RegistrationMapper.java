@@ -13,7 +13,15 @@ public class RegistrationMapper {
 
     public RegistrationResponse toResponse(Registration registration) {
 
-        return RegistrationResponse.builder().id(registration.getId()).status(registration.getStatus()).createdDate(registration.getCreatedDate()).fullNameStudent(registration.getStudent().getFirstName() + ' ' + registration.getStudent().getLastName()).specialtyName(registration.getSpecialty().getFormationType().getName()+"-"+registration.getSpecialty().getDomaine().getName()).build();
+        return RegistrationResponse.builder()
+                .id(registration.getId())
+                .status(registration.getStatus())
+                .createdDate(registration.getCreatedDate())
+                .studentId(registration.getStudent().getId())
+                .fullNameStudent(registration.getStudent().getFirstName() + ' ' + registration.getStudent().getLastName())
+                .specialtyId(registration.getSpecialty().getId())
+                .specialtyName(registration.getSpecialty().getFormationType().getName()+"-"+registration.getSpecialty().getDomaine().getName())
+                .build();
     }
 
     public RegistrationDetailsResponse toRegistrationResponse(Registration registration) {
@@ -25,10 +33,11 @@ public class RegistrationMapper {
         details.setRemarks(registration.getRemarks());
         details.setRegistrationFees(registration.getRegistrationFees());
         details.setSpecialtyName(registration.getSpecialty().getFormationType().getName()+"-"+registration.getSpecialty().getDomaine().getName());
+        details.setSpecialtyId(registration.getSpecialty().getId());
 
         details.setStudent(
                 StudentDetails.builder()
-                        .id(registration.getId())
+                        .id(registration.getStudent().getId())
                         .fullName(registration.getStudent().getFirstName() + ' ' + registration.getStudent().getLastName())
                         .levelOfEducation(registration.getStudent().getLevelOfEducation())
                         .phoneNumber(registration.getStudent().getPhoneNumber())

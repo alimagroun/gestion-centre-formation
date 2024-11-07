@@ -13,6 +13,7 @@ export interface RegistrationDetailsResponse {
   mother?: ParentDetails;
   registrationFees?: number;
   remarks?: string;
+  specialtyId?: number;
   specialtyName?: string;
   status?: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
   student?: StudentDetails;

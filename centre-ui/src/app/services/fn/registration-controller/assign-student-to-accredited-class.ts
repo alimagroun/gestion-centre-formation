@@ -6,16 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AccreditedClassRequest } from '../../models/accredited-class-request';
 
-export interface SaveAccreditedClass$Params {
-      body: AccreditedClassRequest
+export interface AssignStudentToAccreditedClass$Params {
+  studentId: number;
+  accreditedClassId: number;
 }
 
-export function saveAccreditedClass(http: HttpClient, rootUrl: string, params: SaveAccreditedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-  const rb = new RequestBuilder(rootUrl, saveAccreditedClass.PATH, 'post');
+export function assignStudentToAccreditedClass(http: HttpClient, rootUrl: string, params: AssignStudentToAccreditedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, assignStudentToAccreditedClass.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.path('studentId', params.studentId, {});
+    rb.path('accreditedClassId', params.accreditedClassId, {});
   }
 
   return http.request(
@@ -28,4 +29,4 @@ export function saveAccreditedClass(http: HttpClient, rootUrl: string, params: S
   );
 }
 
-saveAccreditedClass.PATH = '/class/accredited';
+assignStudentToAccreditedClass.PATH = '/register/students/{studentId}/accredited-classes/{accreditedClassId}';

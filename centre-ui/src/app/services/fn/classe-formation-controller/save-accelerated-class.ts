@@ -28,4 +28,4 @@ export function saveAcceleratedClass(http: HttpClient, rootUrl: string, params: 
   );
 }
 
-saveAcceleratedClass.PATH = '/classe/accelerated-classes';
+saveAcceleratedClass.PATH = '/class/accelerated';

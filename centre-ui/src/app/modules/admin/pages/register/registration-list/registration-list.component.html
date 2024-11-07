@@ -18,7 +18,7 @@
   </div>
 
   <table class="table">
-    <thead >
+    <thead>
     <tr>
       <th>Nom de l'étudiant</th>
       <th>Date d'inscription</th>
@@ -35,7 +35,8 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let reg of registrationPage.content! | paginate: { itemsPerPage: registrationPage.size!, currentPage: page+1, totalItems: registrationPage.totalElements };">
+    <ng-container
+      *ngFor="let reg of registrationPage.content! | paginate: { itemsPerPage: registrationPage.size!, currentPage: page+1, totalItems: registrationPage.totalElements };">
       <tr>
         <td>{{ reg.fullNameStudent }}</td>
         <td>{{ reg.createdDate | date:'dd/MM/yyyy' }}</td>
@@ -46,7 +47,8 @@
         </span>
         <td>{{ reg.specialtyName }}</td>
         <td>
-          <button type="button" class="btn btn-primary" (click)="showRegistrationDetails(reg.id!)"> Voir les détails </button>
+          <button type="button" class="btn btn-primary" (click)="showRegistrationDetails(reg.id!)"> Voir les détails
+          </button>
         </td>
       </tr>
     </ng-container>

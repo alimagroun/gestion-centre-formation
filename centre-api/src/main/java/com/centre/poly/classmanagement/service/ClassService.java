@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,7 @@ public class ClassService {
     private final PersonService personService;
     private final PersonRepository personRepository;
     private final AcceleratedClassEntryRepository acceleratedClassEntryRepository;
+    //private final AcceleratedClassEntryRepository acceleratedClassEntryRepository;
 
     public Long saveAccreditedClass(AccreditedClassRequest request) {
 
@@ -76,7 +78,7 @@ public class ClassService {
     public PageResponse<AcceleratedClassResponse> findAllAcceleratedClass(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<AcceleratedClass> classeFormationPage = acceleratedClassRepository.findAll(pageable);
-        List<AcceleratedClassResponse> list = classeFormationPage.stream().map(classMapper::toResponseAccreditedClass).toList();
+        List<AcceleratedClassResponse> list = classeFormationPage.stream().map(classMapper::toResponseAccelerated).toList();
         return new PageResponse<>(list, classeFormationPage.getNumber(), classeFormationPage.getSize(), classeFormationPage.getTotalElements(), classeFormationPage.getTotalPages(), classeFormationPage.isFirst(), classeFormationPage.isLast());
     }
 
@@ -85,7 +87,7 @@ public class ClassService {
         return acceleratedClassRepository.findAll();
     }
 
-    public AcceleratedClassEntry addEntry(Long studentId, Long classId) {
+    /*public AcceleratedClassEntry addEntry(Long studentId, Long classId) {
         Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student not found"));
         AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(classId).orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
 
@@ -98,5 +100,31 @@ public class ClassService {
         entry.setStudent(student);
         entry.setAcceleratedClass(acceleratedClass);
         return acceleratedClassEntryRepository.save(entry);
+    }*/
+
+    public List<StudentAcceleratedClassResponse> findAllStudentAcceleratedClass(Long classId){
+        AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(classId).orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
+        List<AcceleratedClassEntry> entryList = acceleratedClassEntryRepository.findAllByClassId(classId);
+        List<StudentAcceleratedClassResponse> responseList =
+                entryList.stream().map(classMapper::toStudentAcceleratedClassResponse).toList();
+        return responseList;
+    }
+
+    public List<AccreditedClassResponse> findAllAccreditedClassBySpecialty(Long specialtyId) {
+
+        Specialty specialty = specialtyRepository.findById(specialtyId).orElseThrow(() -> new NotFoundException("Specialty not found"));
+        List<AccreditedClass> list = accreditedClassRepository.findAllBySpecialty(specialtyId);
+        List<AccreditedClassResponse> responses =
+                list.stream().map(classMapper::toResponseAccreditedClass).toList();
+        return responses;
+    }
+
+    public List<AcceleratedClassResponse> findAllAcceleratedClassBySpecialty(Long specialtyId) {
+
+        Specialty specialty = specialtyRepository.findById(specialtyId).orElseThrow(() -> new NotFoundException("Specialty not found"));
+        List<AcceleratedClass> list = acceleratedClassRepository.findAllBySpecialty(specialtyId);
+        List<AcceleratedClassResponse> responses =
+                list.stream().map(classMapper::toResponseAccelerated).toList();
+        return responses;
     }
 }

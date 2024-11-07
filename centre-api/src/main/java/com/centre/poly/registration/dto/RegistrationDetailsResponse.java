@@ -21,6 +21,7 @@ public class RegistrationDetailsResponse {
     private RegistrationStatus status;
     private String remarks;
     private LocalDateTime createdDate;
+    private Long specialtyId;
     private String specialtyName;
     private Double registrationFees;
     private StudentDetails student;

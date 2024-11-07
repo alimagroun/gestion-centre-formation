@@ -45,4 +45,26 @@ public class RegistrationController {
         return ResponseEntity.ok().body(updatedRegistrationId);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/students/{studentId}/accelerated-classes/{acceleratedClassId}")
+    public ResponseEntity<Long> assignStudentToAcceleratedClass(
+            @PathVariable Long studentId,
+            @PathVariable Long acceleratedClassId) {
+
+        Long entryId = registrationService.addStudentToAcceleratedClass(studentId, acceleratedClassId);
+        return ResponseEntity.ok().body(entryId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/students/{studentId}/accredited-classes/{accreditedClassId}")
+    public ResponseEntity<Long> assignStudentToAccreditedClass(
+            @PathVariable Long studentId,
+            @PathVariable Long accreditedClassId) {
+
+        Long entryId = registrationService.addStudentToAccreditClass(studentId, accreditedClassId);
+        return ResponseEntity.ok().body(entryId);
+    }
+
+
+
 }

@@ -7,6 +7,11 @@ import {DocumentsControllerService} from "../../../../../services/services/docum
 import {DocumentResponse} from "../../../../../services/models/document-response";
 import { forkJoin } from 'rxjs';
 import {ToastService} from "../../../../../services/toast/toast.service";
+import {RegistrationResponse} from "../../../../../services/models/registration-response";
+import {AcceleratedClassResponse} from "../../../../../services/models/accelerated-class-response";
+import {AccreditedClassResponse} from "../../../../../services/models/accredited-class-response";
+import {ClasseFormationControllerService} from "../../../../../services/services/classe-formation-controller.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-registration-details',
@@ -16,7 +21,9 @@ import {ToastService} from "../../../../../services/toast/toast.service";
     NgClass,
     NgForOf,
     RouterLink,
-    NgIf
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './registration-details.component.html',
   styleUrl: './registration-details.component.scss'
@@ -29,11 +36,22 @@ export class RegistrationDetailsComponent implements OnInit{
   selectedDocument : DocumentResponse = {}
   registrationId : number = 0
   loader = false
+
+  acceleratedClassList : Array<AcceleratedClassResponse> = []
+  isSelectedAcceleratedClass = false;
+
+  accreditedClassList : Array<AccreditedClassResponse> = []
+  isSelectedAccreditedClass = false;
+  selectedAcceleratedClassId: number = 0;
+  selectedAccreditedClassId : number = 0;
+  selectedAccreditedClass: any;
+
   constructor(
     private registrationService : RegistrationControllerService,
     private documentService : DocumentsControllerService,
     private route: ActivatedRoute,
-    private toastService : ToastService
+    private toastService : ToastService,
+    private classService : ClasseFormationControllerService,
   ) {
   }
 
@@ -98,5 +116,76 @@ export class RegistrationDetailsComponent implements OnInit{
 
   addDocumentSelected(document: DocumentResponse) {
     this.selectedDocument = document;
+  }
+
+  assignStudentToClass() {
+    if(this.isSelectedAcceleratedClass){
+      if(this.selectedAcceleratedClassId == 0){
+        this.toastService.showError("Veuillez sélectionner une classe.");
+        return;
+      }
+      this.loader = true
+      this.registrationService.assignStudentToAcceleratedClass(
+        {
+          studentId: this.registration.student?.id!,
+          acceleratedClassId: this.selectedAcceleratedClassId
+        }
+      ).subscribe(res => {
+        this.toastService.showSuccess("Ajouté avec succès")
+        this.loader = false
+      }, error => {
+        this.loader = false
+        if(error.error.errorMessage == "DUPLICATE_FOUND"){
+          this.toastService.showError("L'étudiant est déjà inscrit dans cette classe")
+        }
+      })
+    }else if(this.isSelectedAccreditedClass){
+      if(this.selectedAccreditedClassId == 0){
+        this.toastService.showError("Veuillez sélectionner une classe.");
+        return;
+      }
+      this.loader = true
+      this.registrationService.assignStudentToAccreditedClass(
+        {
+          studentId: this.registration.student?.id!,
+          accreditedClassId: this.selectedAccreditedClassId
+        }
+      ).subscribe(res => {
+        this.toastService.showSuccess("Ajouté avec succès")
+        this.loader = false
+      }, error => {
+        this.loader = false
+        if(error.error.errorMessage == "DUPLICATE_FOUND"){
+          this.toastService.showError("L'étudiant est déjà inscrit dans cette classe")
+        }
+      })
+    }
+  }
+
+  selectRadioAcceleratedClass() {
+    this.isSelectedAcceleratedClass = true;
+    this.classService.findAllAcceleratedClassBySpecialty(
+      {
+        specialtyId: this.registration.specialtyId!
+      }
+    ).subscribe(res => {
+      this.acceleratedClassList = res
+    })
+    this.isSelectedAccreditedClass = false;
+    this.selectedAccreditedClass = {}
+  }
+
+  selectRadioAccreditedClass() {
+    this.isSelectedAcceleratedClass = false;
+    this.selectedAcceleratedClassId = 0
+    this.isSelectedAccreditedClass = true;
+
+    this.classService.findAllAccreditedClassBySpecialty(
+      {
+        specialtyId: this.registration.specialtyId!
+      }
+    ).subscribe(res => {
+      this.accreditedClassList = res
+    })
   }
 }

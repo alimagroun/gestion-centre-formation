@@ -10,21 +10,27 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { AcceleratedClass } from '../models/accelerated-class';
-import { AcceleratedClassEntry } from '../models/accelerated-class-entry';
-import { addEntry } from '../fn/classe-formation-controller/add-entry';
-import { AddEntry$Params } from '../fn/classe-formation-controller/add-entry';
+import { AcceleratedClassResponse } from '../models/accelerated-class-response';
+import { AccreditedClassResponse } from '../models/accredited-class-response';
 import { findAllAcceleratedClass } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { FindAllAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-accelerated-class';
+import { findAllAcceleratedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
+import { FindAllAcceleratedClassBySpecialty$Params } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
 import { findAllAcceleratedClasses } from '../fn/classe-formation-controller/find-all-accelerated-classes';
 import { FindAllAcceleratedClasses$Params } from '../fn/classe-formation-controller/find-all-accelerated-classes';
 import { findAllAccreditedClass } from '../fn/classe-formation-controller/find-all-accredited-class';
 import { FindAllAccreditedClass$Params } from '../fn/classe-formation-controller/find-all-accredited-class';
+import { findAllAccreditedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
+import { FindAllAccreditedClassBySpecialty$Params } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
+import { findAllStudentAcceleratedClass } from '../fn/classe-formation-controller/find-all-student-accelerated-class';
+import { FindAllStudentAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-student-accelerated-class';
 import { PageResponseAcceleratedClassResponse } from '../models/page-response-accelerated-class-response';
 import { PageResponseAccreditedClassResponse } from '../models/page-response-accredited-class-response';
 import { saveAcceleratedClass } from '../fn/classe-formation-controller/save-accelerated-class';
 import { SaveAcceleratedClass$Params } from '../fn/classe-formation-controller/save-accelerated-class';
 import { saveAccreditedClass } from '../fn/classe-formation-controller/save-accredited-class';
 import { SaveAccreditedClass$Params } from '../fn/classe-formation-controller/save-accredited-class';
+import { StudentAcceleratedClassResponse } from '../models/student-accelerated-class-response';
 
 @Injectable({ providedIn: 'root' })
 export class ClasseFormationControllerService extends BaseService {
@@ -33,7 +39,7 @@ export class ClasseFormationControllerService extends BaseService {
   }
 
   /** Path part for operation `findAllAccreditedClass()` */
-  static readonly FindAllAccreditedClassPath = '/classe/accredited-classes';
+  static readonly FindAllAccreditedClassPath = '/class/accredited';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -58,7 +64,7 @@ export class ClasseFormationControllerService extends BaseService {
   }
 
   /** Path part for operation `saveAccreditedClass()` */
-  static readonly SaveAccreditedClassPath = '/classe/accredited-classes';
+  static readonly SaveAccreditedClassPath = '/class/accredited';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -83,7 +89,7 @@ export class ClasseFormationControllerService extends BaseService {
   }
 
   /** Path part for operation `findAllAcceleratedClass()` */
-  static readonly FindAllAcceleratedClassPath = '/classe/accelerated-classes';
+  static readonly FindAllAcceleratedClassPath = '/class/accelerated';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -108,7 +114,7 @@ export class ClasseFormationControllerService extends BaseService {
   }
 
   /** Path part for operation `saveAcceleratedClass()` */
-  static readonly SaveAcceleratedClassPath = '/classe/accelerated-classes';
+  static readonly SaveAcceleratedClassPath = '/class/accelerated';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -132,33 +138,83 @@ export class ClasseFormationControllerService extends BaseService {
     );
   }
 
-  /** Path part for operation `addEntry()` */
-  static readonly AddEntryPath = '/classe/accelerated-classes/add';
+  /** Path part for operation `findAllAccreditedClassBySpecialty()` */
+  static readonly FindAllAccreditedClassBySpecialtyPath = '/class/accredited/specialty/{specialtyId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `addEntry()` instead.
+   * To access only the response body, use `findAllAccreditedClassBySpecialty()` instead.
    *
    * This method doesn't expect any request body.
    */
-  addEntry$Response(params: AddEntry$Params, context?: HttpContext): Observable<StrictHttpResponse<AcceleratedClassEntry>> {
-    return addEntry(this.http, this.rootUrl, params, context);
+  findAllAccreditedClassBySpecialty$Response(params: FindAllAccreditedClassBySpecialty$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AccreditedClassResponse>>> {
+    return findAllAccreditedClassBySpecialty(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `addEntry$Response()` instead.
+   * To access the full response (for headers, for example), `findAllAccreditedClassBySpecialty$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  addEntry(params: AddEntry$Params, context?: HttpContext): Observable<AcceleratedClassEntry> {
-    return this.addEntry$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AcceleratedClassEntry>): AcceleratedClassEntry => r.body)
+  findAllAccreditedClassBySpecialty(params: FindAllAccreditedClassBySpecialty$Params, context?: HttpContext): Observable<Array<AccreditedClassResponse>> {
+    return this.findAllAccreditedClassBySpecialty$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<AccreditedClassResponse>>): Array<AccreditedClassResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllStudentAcceleratedClass()` */
+  static readonly FindAllStudentAcceleratedClassPath = '/class/accelerated/{classId}/students';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllStudentAcceleratedClass()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllStudentAcceleratedClass$Response(params: FindAllStudentAcceleratedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<StudentAcceleratedClassResponse>>> {
+    return findAllStudentAcceleratedClass(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllStudentAcceleratedClass$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllStudentAcceleratedClass(params: FindAllStudentAcceleratedClass$Params, context?: HttpContext): Observable<Array<StudentAcceleratedClassResponse>> {
+    return this.findAllStudentAcceleratedClass$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<StudentAcceleratedClassResponse>>): Array<StudentAcceleratedClassResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllAcceleratedClassBySpecialty()` */
+  static readonly FindAllAcceleratedClassBySpecialtyPath = '/class/accelerated/specialty/{specialtyId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllAcceleratedClassBySpecialty()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllAcceleratedClassBySpecialty$Response(params: FindAllAcceleratedClassBySpecialty$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClassResponse>>> {
+    return findAllAcceleratedClassBySpecialty(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllAcceleratedClassBySpecialty$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllAcceleratedClassBySpecialty(params: FindAllAcceleratedClassBySpecialty$Params, context?: HttpContext): Observable<Array<AcceleratedClassResponse>> {
+    return this.findAllAcceleratedClassBySpecialty$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<AcceleratedClassResponse>>): Array<AcceleratedClassResponse> => r.body)
     );
   }
 
   /** Path part for operation `findAllAcceleratedClasses()` */
-  static readonly FindAllAcceleratedClassesPath = '/classe/accelerated-classes/all';
+  static readonly FindAllAcceleratedClassesPath = '/class/accelerated/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

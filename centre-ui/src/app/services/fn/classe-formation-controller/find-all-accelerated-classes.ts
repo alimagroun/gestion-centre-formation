@@ -26,4 +26,4 @@ export function findAllAcceleratedClasses(http: HttpClient, rootUrl: string, par
   );
 }
 
-findAllAcceleratedClasses.PATH = '/classe/accelerated-classes/all';
+findAllAcceleratedClasses.PATH = '/class/accelerated/all';

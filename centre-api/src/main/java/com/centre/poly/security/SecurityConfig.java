@@ -38,10 +38,14 @@ public class SecurityConfig {
                                 "/configuration/security",
                                 "/swagger-ui/**",
                                 "/webjars/**",
-                                "/swagger-ui.html").permitAll().anyRequest().authenticated())
+                                "/swagger-ui.html",
+                                "/h2-console/**").permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+
+                // Disable frame options to allow access to the H2 console
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
         return http.build();
     }

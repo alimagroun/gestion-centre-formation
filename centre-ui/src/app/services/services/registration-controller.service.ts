@@ -11,6 +11,10 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addDocumentToRegistration } from '../fn/registration-controller/add-document-to-registration';
 import { AddDocumentToRegistration$Params } from '../fn/registration-controller/add-document-to-registration';
+import { assignStudentToAcceleratedClass } from '../fn/registration-controller/assign-student-to-accelerated-class';
+import { AssignStudentToAcceleratedClass$Params } from '../fn/registration-controller/assign-student-to-accelerated-class';
+import { assignStudentToAccreditedClass } from '../fn/registration-controller/assign-student-to-accredited-class';
+import { AssignStudentToAccreditedClass$Params } from '../fn/registration-controller/assign-student-to-accredited-class';
 import { findAllRegistrations } from '../fn/registration-controller/find-all-registrations';
 import { FindAllRegistrations$Params } from '../fn/registration-controller/find-all-registrations';
 import { findRegistrationById } from '../fn/registration-controller/find-registration-by-id';
@@ -97,6 +101,56 @@ export class RegistrationControllerService extends BaseService {
    */
   register(params: Register$Params, context?: HttpContext): Observable<number> {
     return this.register$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `assignStudentToAccreditedClass()` */
+  static readonly AssignStudentToAccreditedClassPath = '/register/students/{studentId}/accredited-classes/{accreditedClassId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `assignStudentToAccreditedClass()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignStudentToAccreditedClass$Response(params: AssignStudentToAccreditedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return assignStudentToAccreditedClass(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `assignStudentToAccreditedClass$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignStudentToAccreditedClass(params: AssignStudentToAccreditedClass$Params, context?: HttpContext): Observable<number> {
+    return this.assignStudentToAccreditedClass$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `assignStudentToAcceleratedClass()` */
+  static readonly AssignStudentToAcceleratedClassPath = '/register/students/{studentId}/accelerated-classes/{acceleratedClassId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `assignStudentToAcceleratedClass()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignStudentToAcceleratedClass$Response(params: AssignStudentToAcceleratedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return assignStudentToAcceleratedClass(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `assignStudentToAcceleratedClass$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  assignStudentToAcceleratedClass(params: AssignStudentToAcceleratedClass$Params, context?: HttpContext): Observable<number> {
+    return this.assignStudentToAcceleratedClass$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

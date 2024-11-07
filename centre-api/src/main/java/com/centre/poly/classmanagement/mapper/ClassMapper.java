@@ -36,13 +36,22 @@ public class ClassMapper {
         return response;
     }
 
-    public AcceleratedClassResponse toResponseAccreditedClass(AcceleratedClass entity){
+    public AcceleratedClassResponse toResponseAccelerated(AcceleratedClass entity){
         AcceleratedClassResponse response = new AcceleratedClassResponse();
         response.setId(entity.getId());
         response.setSpecialtyName(entity.getSpecialty().getFormationType().getName()+" "+entity.getSpecialty().getDomaine().getName());
         response.setGroupNumber(entity.getGroupNumber());
         response.setStartDate(entity.getStartDate());
         response.setEndDate(entity.getEndDate());
+        return response;
+    }
+
+
+    public StudentAcceleratedClassResponse toStudentAcceleratedClassResponse(AcceleratedClassEntry entry){
+        StudentAcceleratedClassResponse response = new StudentAcceleratedClassResponse();
+        response.setId(entry.getId());
+        response.setFirstNameStudent(entry.getStudent().getFirstName());
+        response.setLastNameStudent(entry.getStudent().getLastName());
         return response;
     }
 }

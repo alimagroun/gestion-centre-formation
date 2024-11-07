@@ -47,7 +47,6 @@ public class Registration {
     @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
     List<RegistrationDocumentEntry> registrationDocumentEntries;
 
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
