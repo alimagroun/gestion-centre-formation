@@ -51,12 +51,6 @@ public class ClasseFormationController {
         return ResponseEntity.ok(classService.findAll());
     }
 
-    @GetMapping("/accelerated/{classId}/students")
-    public ResponseEntity<List<StudentAcceleratedClassResponse>> findAllStudentAcceleratedClass(
-            @PathVariable Long classId) {
-        List<StudentAcceleratedClassResponse> responseList = classService.findAllStudentAcceleratedClass(classId);
-        return ResponseEntity.ok(responseList);
-    }
 
     @GetMapping("/accredited/specialty/{specialtyId}")
     public ResponseEntity<List<AccreditedClassResponse>> findAllAccreditedClassBySpecialty(
@@ -69,6 +63,20 @@ public class ClasseFormationController {
     public ResponseEntity<List<AcceleratedClassResponse>> findAllAcceleratedClassBySpecialty(
             @PathVariable Long specialtyId) {
         List<AcceleratedClassResponse> responseList = classService.findAllAcceleratedClassBySpecialty(specialtyId);
+        return ResponseEntity.ok(responseList);
+    }
+
+    @GetMapping("/accelerated/{classId}/students")
+    public ResponseEntity<List<ClassStudentResponse>> findAllStudentByAcceleratedClassId(
+            @PathVariable Long classId) {
+        List<ClassStudentResponse> responseList = classService.findAllStudentByAcceleratedClassId(classId);
+        return ResponseEntity.ok(responseList);
+    }
+
+    @GetMapping("/accredited/{classId}/students")
+    public ResponseEntity<List<ClassStudentResponse>> findAllStudentByAccreditedClassId(
+            @PathVariable Long classId) {
+        List<ClassStudentResponse> responseList = classService.findAllStudentByAccreditedClassId(classId);
         return ResponseEntity.ok(responseList);
     }
 

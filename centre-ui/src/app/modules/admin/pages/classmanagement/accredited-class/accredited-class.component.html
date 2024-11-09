@@ -27,6 +27,7 @@
       <th>Nom de spécialité</th>
       <th>Niveau d'année</th>
       <th>Numéro de groupe</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +44,9 @@
         <td>{{ c.specialtyName }}</td>
         <td>{{ c.yearLevel }}</td>
         <td>{{ c.groupNumber }}</td>
+        <button class="btn btn-outline-primary" (click)="showStudents(c)">
+          <i class="bi bi-eye"></i>  Voir les étudiants
+        </button>
       </tr>
     </ng-container>
     </tbody>

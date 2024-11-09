@@ -12,6 +12,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { AcceleratedClass } from '../models/accelerated-class';
 import { AcceleratedClassResponse } from '../models/accelerated-class-response';
 import { AccreditedClassResponse } from '../models/accredited-class-response';
+import { ClassStudentResponse } from '../models/class-student-response';
 import { findAllAcceleratedClass } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { FindAllAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { findAllAcceleratedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
@@ -22,15 +23,16 @@ import { findAllAccreditedClass } from '../fn/classe-formation-controller/find-a
 import { FindAllAccreditedClass$Params } from '../fn/classe-formation-controller/find-all-accredited-class';
 import { findAllAccreditedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
 import { FindAllAccreditedClassBySpecialty$Params } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
-import { findAllStudentAcceleratedClass } from '../fn/classe-formation-controller/find-all-student-accelerated-class';
-import { FindAllStudentAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-student-accelerated-class';
+import { findAllStudentByAcceleratedClassId } from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
+import { FindAllStudentByAcceleratedClassId$Params } from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
+import { findAllStudentByAccreditedClassId } from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
+import { FindAllStudentByAccreditedClassId$Params } from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
 import { PageResponseAcceleratedClassResponse } from '../models/page-response-accelerated-class-response';
 import { PageResponseAccreditedClassResponse } from '../models/page-response-accredited-class-response';
 import { saveAcceleratedClass } from '../fn/classe-formation-controller/save-accelerated-class';
 import { SaveAcceleratedClass$Params } from '../fn/classe-formation-controller/save-accelerated-class';
 import { saveAccreditedClass } from '../fn/classe-formation-controller/save-accredited-class';
 import { SaveAccreditedClass$Params } from '../fn/classe-formation-controller/save-accredited-class';
-import { StudentAcceleratedClassResponse } from '../models/student-accelerated-class-response';
 
 @Injectable({ providedIn: 'root' })
 export class ClasseFormationControllerService extends BaseService {
@@ -138,6 +140,31 @@ export class ClasseFormationControllerService extends BaseService {
     );
   }
 
+  /** Path part for operation `findAllStudentByAccreditedClassId()` */
+  static readonly FindAllStudentByAccreditedClassIdPath = '/class/accredited/{classId}/students';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllStudentByAccreditedClassId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllStudentByAccreditedClassId$Response(params: FindAllStudentByAccreditedClassId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassStudentResponse>>> {
+    return findAllStudentByAccreditedClassId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllStudentByAccreditedClassId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllStudentByAccreditedClassId(params: FindAllStudentByAccreditedClassId$Params, context?: HttpContext): Observable<Array<ClassStudentResponse>> {
+    return this.findAllStudentByAccreditedClassId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ClassStudentResponse>>): Array<ClassStudentResponse> => r.body)
+    );
+  }
+
   /** Path part for operation `findAllAccreditedClassBySpecialty()` */
   static readonly FindAllAccreditedClassBySpecialtyPath = '/class/accredited/specialty/{specialtyId}';
 
@@ -163,28 +190,28 @@ export class ClasseFormationControllerService extends BaseService {
     );
   }
 
-  /** Path part for operation `findAllStudentAcceleratedClass()` */
-  static readonly FindAllStudentAcceleratedClassPath = '/class/accelerated/{classId}/students';
+  /** Path part for operation `findAllStudentByAcceleratedClassId()` */
+  static readonly FindAllStudentByAcceleratedClassIdPath = '/class/accelerated/{classId}/students';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllStudentAcceleratedClass()` instead.
+   * To access only the response body, use `findAllStudentByAcceleratedClassId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAllStudentAcceleratedClass$Response(params: FindAllStudentAcceleratedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<StudentAcceleratedClassResponse>>> {
-    return findAllStudentAcceleratedClass(this.http, this.rootUrl, params, context);
+  findAllStudentByAcceleratedClassId$Response(params: FindAllStudentByAcceleratedClassId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassStudentResponse>>> {
+    return findAllStudentByAcceleratedClassId(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAllStudentAcceleratedClass$Response()` instead.
+   * To access the full response (for headers, for example), `findAllStudentByAcceleratedClassId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAllStudentAcceleratedClass(params: FindAllStudentAcceleratedClass$Params, context?: HttpContext): Observable<Array<StudentAcceleratedClassResponse>> {
-    return this.findAllStudentAcceleratedClass$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<StudentAcceleratedClassResponse>>): Array<StudentAcceleratedClassResponse> => r.body)
+  findAllStudentByAcceleratedClassId(params: FindAllStudentByAcceleratedClassId$Params, context?: HttpContext): Observable<Array<ClassStudentResponse>> {
+    return this.findAllStudentByAcceleratedClassId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ClassStudentResponse>>): Array<ClassStudentResponse> => r.body)
     );
   }
 

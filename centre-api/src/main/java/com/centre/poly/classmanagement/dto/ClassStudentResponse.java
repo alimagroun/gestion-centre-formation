@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentAcceleratedClassResponse {
-
-    Long id;
-    String firstNameStudent;
-    String lastNameStudent;
+public class ClassStudentResponse {
+    Long studentId;
+    String firstName;
+    String lastName;
+    String phoneNumber;
+    String className;
 }

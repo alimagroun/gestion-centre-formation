@@ -34,6 +34,12 @@ import {
 import {
   StudentDetailComponent
 } from "./pages/student-parent-management/students-list/student-detail/student-detail.component";
+import {
+  AcceleratedStudentsListComponent
+} from "./pages/classmanagement/accelerated-class/accelerated-students-list/accelerated-students-list.component";
+import {
+  AccreditedStudentsListComponent
+} from "./pages/classmanagement/accredited-class/accredited-students-list/accredited-students-list.component";
 
 const routes: Routes = [
   {
@@ -159,6 +165,11 @@ const routes: Routes = [
             path: 'addClassAccredited',
             component: AddClassComponent,
             canActivate: [authAdminGuard]
+          },
+          {
+            path: 'AccreditedStudentsList/:id',
+            component: AccreditedStudentsListComponent,
+            canActivate: [authAdminGuard]
           }
         ],
       },
@@ -174,6 +185,11 @@ const routes: Routes = [
           {
             path: 'addClassAccelerated',
             component: AddClassAcceleratedComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'studentsList/:id',
+            component: AcceleratedStudentsListComponent,
             canActivate: [authAdminGuard]
           }
         ],

@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { StudentAcceleratedClassResponse } from '../../models/student-accelerated-class-response';
+import { ClassStudentResponse } from '../../models/class-student-response';
 
-export interface FindAllStudentAcceleratedClass$Params {
+export interface FindAllStudentByAcceleratedClassId$Params {
   classId: number;
 }
 
-export function findAllStudentAcceleratedClass(http: HttpClient, rootUrl: string, params: FindAllStudentAcceleratedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<StudentAcceleratedClassResponse>>> {
-  const rb = new RequestBuilder(rootUrl, findAllStudentAcceleratedClass.PATH, 'get');
+export function findAllStudentByAcceleratedClassId(http: HttpClient, rootUrl: string, params: FindAllStudentByAcceleratedClassId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassStudentResponse>>> {
+  const rb = new RequestBuilder(rootUrl, findAllStudentByAcceleratedClassId.PATH, 'get');
   if (params) {
     rb.path('classId', params.classId, {});
   }
@@ -23,9 +23,9 @@ export function findAllStudentAcceleratedClass(http: HttpClient, rootUrl: string
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<StudentAcceleratedClassResponse>>;
+      return r as StrictHttpResponse<Array<ClassStudentResponse>>;
     })
   );
 }
 
-findAllStudentAcceleratedClass.PATH = '/class/accelerated/{classId}/students';
+findAllStudentByAcceleratedClassId.PATH = '/class/accelerated/{classId}/students';

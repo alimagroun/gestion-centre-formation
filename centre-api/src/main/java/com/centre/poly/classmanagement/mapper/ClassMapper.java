@@ -46,12 +46,32 @@ public class ClassMapper {
         return response;
     }
 
+    public ClassStudentResponse toClassStudentResponse(AcceleratedClassEntry entry){
+        ClassStudentResponse response = new ClassStudentResponse();
+        response.setStudentId(entry.getStudent().getId());
+        response.setFirstName(entry.getStudent().getFirstName());
+        response.setLastName(entry.getStudent().getLastName());
+        response.setPhoneNumber(entry.getStudent().getPhoneNumber());
+        response.setClassName(
+                entry.getAcceleratedClass().getSpecialty().getFormationType().getName()
+                        + " - "+ entry.getAcceleratedClass().getSpecialty().getDomaine().getName()
+                        + " - G"+entry.getAcceleratedClass().getGroupNumber()
+        );
+        return response;
+    }
 
-    public StudentAcceleratedClassResponse toStudentAcceleratedClassResponse(AcceleratedClassEntry entry){
-        StudentAcceleratedClassResponse response = new StudentAcceleratedClassResponse();
-        response.setId(entry.getId());
-        response.setFirstNameStudent(entry.getStudent().getFirstName());
-        response.setLastNameStudent(entry.getStudent().getLastName());
+    public ClassStudentResponse toClassStudentResponse(AccreditedClassEntry entry){
+        ClassStudentResponse response = new ClassStudentResponse();
+        response.setStudentId(entry.getStudent().getId());
+        response.setFirstName(entry.getStudent().getFirstName());
+        response.setLastName(entry.getStudent().getLastName());
+        response.setPhoneNumber(entry.getStudent().getPhoneNumber());
+        response.setClassName(
+                entry.getAccreditedClass().getSpecialty().getFormationType().getName()
+                + " - " + entry.getAccreditedClass().getSpecialty().getDomaine().getName()
+                + " Niveau:" + entry.getAccreditedClass().getYearLevel()
+                + " - G"+entry.getAccreditedClass().getGroupNumber()
+        );
         return response;
     }
 }

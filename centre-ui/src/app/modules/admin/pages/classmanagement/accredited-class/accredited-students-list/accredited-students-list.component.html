@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">{{ studentsList[0].className  }}</h5>
+  </div>
+  <div class="card-body">
+    <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && studentsList && studentsList.length > 0; else noData">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Téléphone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of studentsList">
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.lastName }}</td>
+          <td>{{ student.phoneNumber }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p class="text-muted">Aucun étudiant trouvé.</p>
+    </ng-template>
+  </div>
+</div>

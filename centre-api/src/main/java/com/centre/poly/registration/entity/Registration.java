@@ -39,7 +39,6 @@ public class Registration {
 
     private Double registrationFees;
 
-
     @ManyToOne
     @JoinColumn(name = "specialty_id", nullable = false)
     private Specialty specialty;

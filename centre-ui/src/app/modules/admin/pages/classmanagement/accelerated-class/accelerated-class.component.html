@@ -27,6 +27,7 @@
       <th>Date de début</th>
       <th>Date de fin</th>
       <th>Numéro de groupe</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +44,9 @@
         <td>{{ c.startDate }}</td>
         <td>{{ c.endDate }}</td>
         <td>{{ c.groupNumber }}</td>
+        <button class="btn btn-outline-primary" (click)="showStudents(c)">
+          <i class="bi bi-eye"></i>  Voir les étudiants
+        </button>
       </tr>
     </ng-container>
     </tbody>

@@ -5,7 +5,8 @@ import {
 import {ClasseFormationControllerService} from "../../../../../services/services/classe-formation-controller.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {AcceleratedClassResponse} from "../../../../../services/models/accelerated-class-response";
 
 @Component({
   selector: 'app-accelerated-class',
@@ -27,7 +28,8 @@ export class AcceleratedClassComponent {
   loading: boolean = false;
 
   constructor(
-    private classService: ClasseFormationControllerService
+    private classService: ClasseFormationControllerService,
+    private router : Router
   ) {
   }
 
@@ -54,5 +56,9 @@ export class AcceleratedClassComponent {
   changePageSize(event: any) {
     this.size = parseInt(event.target.value, 10);
     this.findAllClasse();
+  }
+
+  showStudents(c: AcceleratedClassResponse) {
+    this.router.navigate(['admin/acceleratedClass/studentsList', c.id]);
   }
 }

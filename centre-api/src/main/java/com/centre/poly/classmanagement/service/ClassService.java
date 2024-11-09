@@ -39,6 +39,7 @@ public class ClassService {
     private final PersonService personService;
     private final PersonRepository personRepository;
     private final AcceleratedClassEntryRepository acceleratedClassEntryRepository;
+    private final AccreditedClassEntryRepository accreditedClassEntryRepository;
     //private final AcceleratedClassEntryRepository acceleratedClassEntryRepository;
 
     public Long saveAccreditedClass(AccreditedClassRequest request) {
@@ -102,13 +103,6 @@ public class ClassService {
         return acceleratedClassEntryRepository.save(entry);
     }*/
 
-    public List<StudentAcceleratedClassResponse> findAllStudentAcceleratedClass(Long classId){
-        AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(classId).orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
-        List<AcceleratedClassEntry> entryList = acceleratedClassEntryRepository.findAllByClassId(classId);
-        List<StudentAcceleratedClassResponse> responseList =
-                entryList.stream().map(classMapper::toStudentAcceleratedClassResponse).toList();
-        return responseList;
-    }
 
     public List<AccreditedClassResponse> findAllAccreditedClassBySpecialty(Long specialtyId) {
 
@@ -127,4 +121,18 @@ public class ClassService {
                 list.stream().map(classMapper::toResponseAccelerated).toList();
         return responses;
     }
+
+    public List<ClassStudentResponse> findAllStudentByAcceleratedClassId(Long classId) {
+        List<AcceleratedClassEntry> entryList = acceleratedClassEntryRepository.findAllByClassId(classId);
+        List<ClassStudentResponse> responses = entryList.stream().map(classMapper::toClassStudentResponse).toList();
+        return responses;
+    }
+
+    public List<ClassStudentResponse> findAllStudentByAccreditedClassId(Long classId) {
+        List<AccreditedClassEntry> entryList = accreditedClassEntryRepository.findAllByClassId(classId);
+        List<ClassStudentResponse> responses = entryList.stream().map(classMapper::toClassStudentResponse).toList();
+        return responses;
+    }
+
+
 }
