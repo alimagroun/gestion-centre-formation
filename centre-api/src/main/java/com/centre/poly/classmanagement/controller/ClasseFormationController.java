@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -80,9 +81,23 @@ public class ClasseFormationController {
         return ResponseEntity.ok(responseList);
     }
 
-    /*@PostMapping("/accelerated-classes/add")
-    public AcceleratedClassEntry addEntry(@RequestParam Long studentId, @RequestParam Long classId) {
-        return classService.addEntry(studentId, classId);
-    }*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/students/{studentId}/accelerated-classes/{acceleratedClassId}")
+    public ResponseEntity<Long> addStudentToAcceleratedClass(
+            @PathVariable Long studentId,
+            @PathVariable Long acceleratedClassId) {
 
+        Long entryId = classService.addStudentToAcceleratedClass(studentId, acceleratedClassId);
+        return ResponseEntity.ok().body(entryId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/students/{studentId}/accredited-classes/{accreditedClassId}")
+    public ResponseEntity<Long> addStudentToAccreditedClass(
+            @PathVariable Long studentId,
+            @PathVariable Long accreditedClassId) {
+
+        Long entryId = classService.addStudentToAccreditClass(studentId, accreditedClassId);
+        return ResponseEntity.ok().body(entryId);
+    }
 }

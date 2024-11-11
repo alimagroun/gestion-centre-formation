@@ -11,4 +11,5 @@ public class StudentAllResponse {
     Long id;
     String firstName;
     String lastName;
+    String fullName;
 }

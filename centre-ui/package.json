@@ -23,6 +23,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.6",
     "@auth0/angular-jwt": "^5.2.0",
+    "@ng-select/ng-select": "^13.9.1",
     "express": "^4.18.2",
     "ng-openapi-gen": "^0.51.0",
     "ngx-pagination": "^6.0.3",

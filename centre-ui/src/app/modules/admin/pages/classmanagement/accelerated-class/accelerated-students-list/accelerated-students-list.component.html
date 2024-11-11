@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="card-title">{{ studentsList[0].className  }}</h5>
+    <h5 class="card-title">{{ classStudentResponses[0].className  }}</h5>
   </div>
   <div class="card-body">
     <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
@@ -9,7 +9,27 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && studentsList && studentsList.length > 0; else noData">
+    <div class="col-md-3">
+      <ng-select
+        class="form-select bootstrap-select"
+        [items]="studentsList"
+        bindLabel="fullName"
+        bindValue="id"
+        [(ngModel)]="selectedStudentId"
+        [searchable]="true"
+        [fixedPlaceholder]="false"
+        placeholder="Choisir un étudiant"
+      >
+      </ng-select>
+      <button class="btn btn-success mt-2" (click)="addStudentToClass()">
+        <div *ngIf="loader" class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span *ngIf="!loader">Ajouter</span>
+      </button>
+    </div>
+
+    <div *ngIf="!isLoading && classStudentResponses && classStudentResponses.length > 0; else noData">
       <table class="table table-striped">
         <thead>
         <tr>
@@ -19,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let student of studentsList">
+        <tr *ngFor="let student of classStudentResponses">
           <td>{{ student.firstName }}</td>
           <td>{{ student.lastName }}</td>
           <td>{{ student.phoneNumber }}</td>

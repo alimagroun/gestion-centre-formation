@@ -80,6 +80,7 @@ public class StudentMapper {
         response.setId(student.getId());
         response.setFirstName(student.getFirstName());
         response.setLastName(student.getLastName());
+        response.setFullName(student.getFirstName()+" "+student.getLastName());
         return response;
     }
 }

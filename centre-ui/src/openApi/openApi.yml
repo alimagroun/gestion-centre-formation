@@ -675,6 +675,88 @@
         }
       }
     },
+    "/class/students/{studentId}/accredited-classes/{accreditedClassId}": {
+      "post": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "addStudentToAccreditedClass",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "accreditedClassId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/class/students/{studentId}/accelerated-classes/{acceleratedClassId}": {
+      "post": {
+        "tags": [
+          "classe-formation-controller"
+        ],
+        "operationId": "addStudentToAcceleratedClass",
+        "parameters": [
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "acceleratedClassId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/class/accredited": {
       "get": {
         "tags": [
@@ -2502,6 +2584,9 @@
             "type": "string"
           },
           "lastName": {
+            "type": "string"
+          },
+          "fullName": {
             "type": "string"
           }
         }

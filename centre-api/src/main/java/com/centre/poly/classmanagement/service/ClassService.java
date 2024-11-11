@@ -134,5 +134,41 @@ public class ClassService {
         return responses;
     }
 
+    public Long addStudentToAcceleratedClass(Long studentId, Long acceleratedClassId){
+
+        // Validate the existence
+        Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
+        AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(acceleratedClassId).orElseThrow(() -> new NotFoundException("AcceleratedClass " + acceleratedClassId + " not found"));
+
+        // Check if student is already associated with this class
+        Optional<AcceleratedClassEntry> acceleratedClassEntry = acceleratedClassEntryRepository.findByStudentAndClass(studentId, acceleratedClassId);
+        if(acceleratedClassEntry.isPresent()){
+            throw new DuplicateEntityException("The student is already enrolled in this class.");
+        }
+
+        AcceleratedClassEntry classEntry = new AcceleratedClassEntry();
+        classEntry.setStudent(student);
+        classEntry.setAcceleratedClass(acceleratedClass);
+        return acceleratedClassEntryRepository.save(classEntry).getId();
+    }
+
+    public Long addStudentToAccreditClass(Long studentId, Long accreditClassId){
+
+        // Validate the existence
+        Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
+        AccreditedClass accreditedClass = accreditedClassRepository.findById(accreditClassId).orElseThrow(() -> new NotFoundException("AcceleratedClass " + accreditClassId + " not found"));
+
+        // Check if student is already associated with this class
+        Optional<AccreditedClassEntry> accreditedClassEntry = accreditedClassEntryRepository.findByStudentAndClass(studentId, accreditClassId);
+        if(accreditedClassEntry.isPresent()){
+            throw new DuplicateEntityException("The student is already enrolled in this class.");
+        }
+
+        AccreditedClassEntry classEntry = new AccreditedClassEntry();
+        classEntry.setStudent(student);
+        classEntry.setAccreditedClass(accreditedClass);
+        return accreditedClassEntryRepository.save(classEntry).getId();
+    }
+
 
 }
