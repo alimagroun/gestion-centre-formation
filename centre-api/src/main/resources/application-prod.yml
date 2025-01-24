@@ -1,1 +1,26 @@
-spring.application.name=centre-api
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/centre-formation
+    username: prod_admin
+    password: 9FD;ci|7P%q,&|28j$8#
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8088
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 2592000000
+  cors:
+    origins: http://poly-school-service.s3-website-us-east-1.amazonaws.com/

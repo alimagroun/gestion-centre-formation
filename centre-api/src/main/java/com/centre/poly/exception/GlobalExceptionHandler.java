@@ -1,5 +1,6 @@
 package com.centre.poly.exception;
 
+import com.centre.poly.registration.exception.ValidationParentException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -58,6 +59,17 @@ public class GlobalExceptionHandler {
                         .errorCode(NOT_FOUND.getCode())
                         .errorMessage(NOT_FOUND.getDescription())
                         .errorDescription(exp.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ValidationParentException.class)
+    public ResponseEntity<ExceptionResponse> validationParentException(ValidationParentException exp) {
+        return ResponseEntity.status(NOT_FOUND.getHttpStatus()).body(
+                ExceptionResponse.builder()
+                        .errorCode(NOT_FOUND.getCode())
+                        .errorMessage(NOT_FOUND.getDescription())
+                        .errorDescription(exp.getErrors().toString())
                         .build()
         );
     }
