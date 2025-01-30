@@ -7,18 +7,18 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface AssignStudentToAcceleratedClass$Params {
-  studentId: number;
+export interface UpdateRegistrationStatus$Params {
   registrationId: number;
-  acceleratedClassId: number;
+  statusChangeReason: string;
+  status: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
 }
 
-export function assignStudentToAcceleratedClass(http: HttpClient, rootUrl: string, params: AssignStudentToAcceleratedClass$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-  const rb = new RequestBuilder(rootUrl, assignStudentToAcceleratedClass.PATH, 'post');
+export function updateRegistrationStatus(http: HttpClient, rootUrl: string, params: UpdateRegistrationStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, updateRegistrationStatus.PATH, 'patch');
   if (params) {
-    rb.path('studentId', params.studentId, {});
-    rb.path('registrationId', params.registrationId, {});
-    rb.path('acceleratedClassId', params.acceleratedClassId, {});
+    rb.query('registrationId', params.registrationId, {});
+    rb.query('statusChangeReason', params.statusChangeReason, {});
+    rb.query('status', params.status, {});
   }
 
   return http.request(
@@ -31,4 +31,4 @@ export function assignStudentToAcceleratedClass(http: HttpClient, rootUrl: strin
   );
 }
 
-assignStudentToAcceleratedClass.PATH = '/register/{registrationId}/students/{studentId}/accelerated-classes/{acceleratedClassId}';
+updateRegistrationStatus.PATH = '/register/status';

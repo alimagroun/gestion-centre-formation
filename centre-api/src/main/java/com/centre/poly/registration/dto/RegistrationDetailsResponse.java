@@ -28,6 +28,8 @@ public class RegistrationDetailsResponse {
     private ParentDetails father;
     private ParentDetails mother;
     private Address address;
+    private Boolean isAffected;
+    private String statusChangeReason;
     private List<DocumentRegistrationResponse> documentRegistrationResponseList;
 
 

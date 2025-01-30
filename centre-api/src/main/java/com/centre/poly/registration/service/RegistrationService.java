@@ -68,11 +68,11 @@ public class RegistrationService {
         Parent motherSaved = null;
         Parent fatherSaved = null;
 
-        if (request.motherRequest() != null) {
+        if (request.motherRequest().isChecked()) {
             motherSaved = personService.saveParent(parentMapper.toParent(request.motherRequest()), address);
         }
 
-        if (request.fatherRequest() != null) {
+        if (request.fatherRequest().isChecked()) {
             fatherSaved = personService.saveParent(parentMapper.toParent(request.fatherRequest()), address);
         }
 
@@ -89,6 +89,7 @@ public class RegistrationService {
         Registration registration = buildRegistration(studentSaved, documentList, request.remarks(), specialty, request.registrationFees());
 
         //Save registration
+        registration.setIsAffected(false);
         registration = registrationRepository.save(registration);
 
         // Create and save registration documents entry
@@ -123,7 +124,7 @@ public class RegistrationService {
 
         request.validateParents();
 
-        if (request.motherRequest() != null && request.fatherRequest() != null) {
+        if (request.motherRequest().isChecked() && request.fatherRequest().isChecked()) {
             if (Objects.equals(request.fatherRequest().phoneNumber(), request.motherRequest().phoneNumber())) {
                 throw new DuplicateEntityException("The parent's phone number cannot be the same as the student's phone number.");
             }
@@ -138,7 +139,7 @@ public class RegistrationService {
             }
         }
 
-        if (request.motherRequest() != null) {
+        if (request.motherRequest().isChecked()) {
             if (
                     !request.motherRequest().email().isEmpty() &&
                      Objects.equals(request.motherRequest().email(), request.studentRequest().email())
@@ -154,7 +155,7 @@ public class RegistrationService {
 
         }
 
-        if (request.fatherRequest() != null) {
+        if (request.fatherRequest().isChecked()) {
             if (
                     !request.fatherRequest().email().isEmpty() &&
                     Objects.equals(request.fatherRequest().email(), request.studentRequest().email())
@@ -221,11 +222,13 @@ public class RegistrationService {
         return registrationDocumentEntryRepository.save(RegistrationDocumentEntry.builder().document(document).registration(registration).build()).getId();
     }
 
-    public Long addStudentToAcceleratedClass(Long studentId, Long acceleratedClassId) {
+    @Transactional
+    public Long addStudentToAcceleratedClass(Long studentId, Long registrationId, Long acceleratedClassId) {
 
         // Validate the existence
         Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
         AcceleratedClass acceleratedClass = acceleratedClassRepository.findById(acceleratedClassId).orElseThrow(() -> new NotFoundException("AcceleratedClass " + acceleratedClassId + " not found"));
+        Registration registration = registrationRepository.findById(registrationId).orElseThrow(() -> new NotFoundException("Registration " + registrationId + " not found"));
 
         // Check if student is already associated with this class
         Optional<AcceleratedClassEntry> acceleratedClassEntry = acceleratedClassEntryRepository.findByStudentAndClass(studentId, acceleratedClassId);
@@ -233,17 +236,21 @@ public class RegistrationService {
             throw new DuplicateEntityException("The student is already enrolled in this class.");
         }
 
+        registration.setIsAffected(true);
+        registrationRepository.save(registration);
+
         AcceleratedClassEntry classEntry = new AcceleratedClassEntry();
         classEntry.setStudent(student);
         classEntry.setAcceleratedClass(acceleratedClass);
         return acceleratedClassEntryRepository.save(classEntry).getId();
     }
 
-    public Long addStudentToAccreditClass(Long studentId, Long accreditClassId) {
+    public Long addStudentToAccreditClass(Long studentId, Long registrationId, Long accreditClassId) {
 
         // Validate the existence
         Student student = personRepository.findStudentById(studentId).orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
         AccreditedClass accreditedClass = accreditedClassRepository.findById(accreditClassId).orElseThrow(() -> new NotFoundException("AcceleratedClass " + accreditClassId + " not found"));
+        Registration registration = registrationRepository.findById(registrationId).orElseThrow(() -> new NotFoundException("Registration " + registrationId + " not found"));
 
         // Check if student is already associated with this class
         Optional<AccreditedClassEntry> accreditedClassEntry = accreditedClassEntryRepository.findByStudentAndClass(studentId, accreditClassId);
@@ -251,10 +258,24 @@ public class RegistrationService {
             throw new DuplicateEntityException("The student is already enrolled in this class.");
         }
 
+        registration.setIsAffected(true);
+        registrationRepository.save(registration);
+
         AccreditedClassEntry classEntry = new AccreditedClassEntry();
         classEntry.setStudent(student);
         classEntry.setAccreditedClass(accreditedClass);
         return accreditedClassEntryRepository.save(classEntry).getId();
+    }
+
+    public Long updateRegistrationStatus(Long registrationId, RegistrationStatus status, String statusChangeReason) {
+        Registration registration = registrationRepository.findById(registrationId)
+                .orElseThrow(() -> new NotFoundException("Registration not found with id: " + registrationId));
+
+        registration.setStatus(status);
+        registration.setStatusChangeReason(statusChangeReason);
+        registration = registrationRepository.save(registration);
+
+        return registration.getId();
     }
 
 }

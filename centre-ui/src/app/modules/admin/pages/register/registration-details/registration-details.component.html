@@ -17,7 +17,10 @@
           }">
           {{ getStatusText(registration.status!) }}
         </span>
-        <button type="button" class="btn btn-success  ms-2" data-bs-toggle="modal"
+        <button *ngIf="registration.status != 'CANCELLED'" type="button" class="btn btn-warning me-2 ms-2" data-bs-toggle="modal" data-bs-target="#statusModal">
+          Changer le statut
+        </button>
+        <button *ngIf="!registration.isAffected" type="button" class="btn btn-success  ms-2" data-bs-toggle="modal"
                 data-bs-target="#modelAffected">
           <i class="bi bi-person-plus"></i> Affecter à une classe
         </button>
@@ -83,9 +86,17 @@
           </ul>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-3">
           <h5 class="text-primary">Spécialité</h5>
           <span>{{ registration.specialtyName }}</span>
+        </div>
+
+        <div class="col-md-3">
+          <h5 class="text-primary">Affectée</h5>
+          <span *ngIf="registration.isAffected; else notAffected" class="badge bg-success">Oui</span>
+          <ng-template #notAffected>
+            <span class="badge bg-danger">Non</span>
+          </ng-template>
         </div>
 
       </div>
@@ -96,6 +107,7 @@
         <div class="col-md-12">
           <h5 class="text-primary">Remarques</h5>
           <p class="text-muted">{{ registration.remarks }}</p>
+          <p class="text-muted">{{ registration.statusChangeReason }}</p>
         </div>
       </div>
     </div>
@@ -172,6 +184,38 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assignStudentToClass()">Confirmer l'affectation</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="statusModalLabel">Changer le statut de l'inscription</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="statusChangeForm">
+          <div class="mb-3">
+            <label for="statusSelect" class="form-label">Sélectionnez le nouveau statut :</label>
+            <select class="form-select" id="statusSelect" name="statusSelect" [(ngModel)]="selectedStatus">
+              <option value="COMPLETED">Complétée</option>
+              <option value="CANCELLED">Annulée</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="statusReason" class="form-label">Raison (optionnelle) :</label>
+            <textarea
+              class="form-control" id="statusReason" name="statusReason" [(ngModel)]="statusChangeReason" rows="3">
+            </textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="submitStatusChange()">Enregistrer</button>
       </div>
     </div>
   </div>

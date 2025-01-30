@@ -45,6 +45,8 @@ export class RegistrationDetailsComponent implements OnInit{
   selectedAcceleratedClassId: number = 0;
   selectedAccreditedClassId : number = 0;
   selectedAccreditedClass: any;
+  selectedStatus: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED' = 'IN_PROGRESS';
+  statusChangeReason: string | null = null;
 
   constructor(
     private registrationService : RegistrationControllerService,
@@ -77,8 +79,10 @@ export class RegistrationDetailsComponent implements OnInit{
   }
 
   findRegistrationById(){
+    this.loader = true
     this.registrationService.findRegistrationById({id :this.registrationId}).subscribe(res=>{
       this.registration = res
+      this.loader = false
     })
   }
 
@@ -128,10 +132,12 @@ export class RegistrationDetailsComponent implements OnInit{
       this.registrationService.assignStudentToAcceleratedClass(
         {
           studentId: this.registration.student?.id!,
+          registrationId: this.registrationId,
           acceleratedClassId: this.selectedAcceleratedClassId
         }
       ).subscribe(res => {
         this.toastService.showSuccess("Ajouté avec succès")
+        this.findRegistrationById()
         this.loader = false
       }, error => {
         this.loader = false
@@ -148,10 +154,12 @@ export class RegistrationDetailsComponent implements OnInit{
       this.registrationService.assignStudentToAccreditedClass(
         {
           studentId: this.registration.student?.id!,
+          registrationId: this.registrationId,
           accreditedClassId: this.selectedAccreditedClassId
         }
       ).subscribe(res => {
         this.toastService.showSuccess("Ajouté avec succès")
+        this.findRegistrationById()
         this.loader = false
       }, error => {
         this.loader = false
@@ -186,6 +194,18 @@ export class RegistrationDetailsComponent implements OnInit{
       }
     ).subscribe(res => {
       this.accreditedClassList = res
+    })
+  }
+
+  submitStatusChange() {
+    this.loader = true
+    this.registrationService.updateRegistrationStatus({
+        registrationId: this.registrationId,
+        statusChangeReason: this.statusChangeReason!,
+        status: this.selectedStatus!
+      }).subscribe(res => {
+      this.findRegistrationById()
+        this.loader = false
     })
   }
 }

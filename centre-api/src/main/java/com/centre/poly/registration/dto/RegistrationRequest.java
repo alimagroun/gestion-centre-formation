@@ -29,15 +29,15 @@ public record RegistrationRequest(
 
         public void validateParents() {
                 List<String> errors = new ArrayList<>();
-                if(motherRequest == null && fatherRequest == null){
+                if(!motherRequest.isChecked() && !fatherRequest.isChecked()){
                         errors.add("AT_LEAST_ONE_PARENT_REQUIRED");
                         throw new ValidationParentException(errors);
                 }
-                if (motherRequest != null) {
+                if (motherRequest.isChecked()) {
                         motherRequest.validate();
                 }
 
-                if (fatherRequest != null) {
+                if (fatherRequest.isChecked()) {
                         fatherRequest.validate();
                 }
 

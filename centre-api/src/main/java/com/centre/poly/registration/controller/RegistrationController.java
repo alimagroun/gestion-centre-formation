@@ -4,6 +4,7 @@ import com.centre.poly.common.PageResponse;
 import com.centre.poly.registration.dto.RegistrationDetailsResponse;
 import com.centre.poly.registration.dto.RegistrationRequest;
 import com.centre.poly.registration.dto.RegistrationResponse;
+import com.centre.poly.registration.entity.RegistrationStatus;
 import com.centre.poly.registration.service.RegistrationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,25 +47,35 @@ public class RegistrationController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/students/{studentId}/accelerated-classes/{acceleratedClassId}")
+    @PostMapping("/{registrationId}/students/{studentId}/accelerated-classes/{acceleratedClassId}")
     public ResponseEntity<Long> assignStudentToAcceleratedClass(
             @PathVariable Long studentId,
+            @PathVariable Long registrationId,
             @PathVariable Long acceleratedClassId) {
 
-        Long entryId = registrationService.addStudentToAcceleratedClass(studentId, acceleratedClassId);
+        Long entryId = registrationService.addStudentToAcceleratedClass(studentId, registrationId, acceleratedClassId);
         return ResponseEntity.ok().body(entryId);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/students/{studentId}/accredited-classes/{accreditedClassId}")
+    @PostMapping("/{registrationId}/students/{studentId}/accredited-classes/{accreditedClassId}")
     public ResponseEntity<Long> assignStudentToAccreditedClass(
             @PathVariable Long studentId,
+            @PathVariable Long registrationId,
             @PathVariable Long accreditedClassId) {
 
-        Long entryId = registrationService.addStudentToAccreditClass(studentId, accreditedClassId);
+        Long entryId = registrationService.addStudentToAccreditClass(studentId, registrationId, accreditedClassId);
         return ResponseEntity.ok().body(entryId);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PatchMapping("/status")
+    public ResponseEntity<Long> updateRegistrationStatus(
+            @RequestParam Long registrationId,
+            @RequestParam(required = false) String statusChangeReason,
+            @RequestParam RegistrationStatus status) {
+        Long updatedRegistrationId = registrationService.updateRegistrationStatus(registrationId, status, statusChangeReason);
+        return ResponseEntity.ok().body(updatedRegistrationId);
+    }
 
 }

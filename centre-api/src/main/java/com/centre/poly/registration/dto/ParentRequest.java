@@ -21,7 +21,9 @@ public record ParentRequest(
         ParentType type,
         MaritalStatus maritalStatus,
         Boolean isDeceased,
-        String profession) {
+        String profession,
+        boolean isChecked
+    ) {
 
     private static final Pattern EMAIL_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
