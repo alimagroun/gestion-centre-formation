@@ -10,11 +10,13 @@ export interface RegistrationDetailsResponse {
   documentRegistrationResponseList?: Array<DocumentRegistrationResponse>;
   father?: ParentDetails;
   id?: number;
+  isAffected?: boolean;
   mother?: ParentDetails;
   registrationFees?: number;
   remarks?: string;
   specialtyId?: number;
   specialtyName?: string;
   status?: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
+  statusChangeReason?: string;
   student?: StudentDetails;
 }

@@ -34,6 +34,8 @@ public class RegistrationMapper {
         details.setRegistrationFees(registration.getRegistrationFees());
         details.setSpecialtyName(registration.getSpecialty().getFormationType().getName()+"-"+registration.getSpecialty().getDomaine().getName());
         details.setSpecialtyId(registration.getSpecialty().getId());
+        details.setIsAffected(registration.getIsAffected());
+        details.setStatusChangeReason(registration.getStatusChangeReason());
 
         details.setStudent(
                 StudentDetails.builder()
@@ -46,29 +48,33 @@ public class RegistrationMapper {
                         .build()
         );
 
-        details.setMother(
-                ParentDetails.builder()
-                        .id(registration.getStudent().getMother().getId())
-                        .fullName(registration.getStudent().getMother().getFirstName() + ' ' + registration.getStudent().getMother().getLastName())
-                        .profession(registration.getStudent().getMother().getProfession())
-                        .phoneNumber(registration.getStudent().getMother().getPhoneNumber())
-                        .email(registration.getStudent().getMother().getEmail())
-                        .isDeceased(registration.getStudent().getMother().getIsDeceased())
-                        .maritalStatus(registration.getStudent().getMother().getMaritalStatus())
-                        .build()
-        );
+        if (registration.getStudent().getMother() != null) {
+            details.setMother(
+                    ParentDetails.builder()
+                            .id(registration.getStudent().getMother().getId())
+                            .fullName(registration.getStudent().getMother().getFirstName() + " " + registration.getStudent().getMother().getLastName())
+                            .profession(registration.getStudent().getMother().getProfession())
+                            .phoneNumber(registration.getStudent().getMother().getPhoneNumber())
+                            .email(registration.getStudent().getMother().getEmail())
+                            .isDeceased(registration.getStudent().getMother().getIsDeceased())
+                            .maritalStatus(registration.getStudent().getMother().getMaritalStatus())
+                            .build()
+            );
+        }
 
-        details.setFather(
-                ParentDetails.builder()
-                        .id(registration.getStudent().getFather().getId())
-                        .fullName(registration.getStudent().getFather().getFirstName() + ' ' + registration.getStudent().getFather().getLastName())
-                        .profession(registration.getStudent().getFather().getProfession())
-                        .phoneNumber(registration.getStudent().getFather().getPhoneNumber())
-                        .email(registration.getStudent().getFather().getEmail())
-                        .isDeceased(registration.getStudent().getFather().getIsDeceased())
-                        .maritalStatus(registration.getStudent().getFather().getMaritalStatus())
-                        .build()
-        );
+        if(registration.getStudent().getFather() != null) {
+            details.setFather(
+                    ParentDetails.builder()
+                            .id(registration.getStudent().getFather().getId())
+                            .fullName(registration.getStudent().getFather().getFirstName() + ' ' + registration.getStudent().getFather().getLastName())
+                            .profession(registration.getStudent().getFather().getProfession())
+                            .phoneNumber(registration.getStudent().getFather().getPhoneNumber())
+                            .email(registration.getStudent().getFather().getEmail())
+                            .isDeceased(registration.getStudent().getFather().getIsDeceased())
+                            .maritalStatus(registration.getStudent().getFather().getMaritalStatus())
+                            .build()
+            );
+        }
 
         details.setAddress(
                 Address.builder()

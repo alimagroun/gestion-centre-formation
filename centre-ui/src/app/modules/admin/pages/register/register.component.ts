@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ParentFormComponent} from "./parent-form/parent-form.component";
 import {StudentFormComponent} from "./student-form/student-form.component";
@@ -39,8 +39,8 @@ import {ToastService} from "../../../../services/toast/toast.service";
 })
 export class RegisterComponent {
 
-  mother: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", isDeceased: false, maritalStatus:"MARRIED"};
-  father: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"FATHER", isDeceased: false, maritalStatus:"MARRIED"};
+  mother: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
+  father: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"FATHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
   student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
   address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
@@ -51,6 +51,7 @@ export class RegisterComponent {
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
+
   error : Array<string> = [];
 
   currentStep: number = 1;
@@ -114,7 +115,6 @@ export class RegisterComponent {
 
   onSpecialtySelected(specialty: SpecialtyResponse) {
     this.selectedSpecialty = specialty;
-    console.log(this.selectedSpecialty)
     this.registreRequest.specialtyId = specialty.id!
     this.specialtyName = specialty.formationTypeName + "-" + specialty.domaineName
   }
@@ -152,10 +152,16 @@ export class RegisterComponent {
   async validation(): Promise<boolean> {
     this.error = [];
     if (this.currentStep == 1 && this.mother.id == undefined && this.father.id == undefined) {
-      const isValidEmailMother = await this.validateEmail(this.mother.email!);
-      const isValidEmailFather = await this.validateEmail(this.father.email!);
+      let isValidEmailMother = false
+        if(this.mother.email != null){
+          isValidEmailMother = await this.validateEmail(this.mother.email!);
+        }
 
-      if (isValidEmailMother) {
+      let isValidEmailFather = false
+      if(this.father.email != null){
+        isValidEmailFather = await this.validateEmail(this.father.email!);
+      }
+      if (this.mother.isChecked && isValidEmailMother) {
         this.toastService.showError("Email "+ this.mother.email+" existe déjà");
         return false;
       }
@@ -164,13 +170,18 @@ export class RegisterComponent {
         return false;
       }
 
-      if( this.father.email && this.mother.email && this.father.email == this.mother.email) {
+      if(this.mother.isChecked && this.father.isChecked && this.father.email && this.mother.email && this.father.email == this.mother.email) {
         this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
         return false;
       }
 
-      if (this.father.phoneNumber === this.mother.phoneNumber) {
+      if (this.mother.isChecked && this.father.isChecked&& this.father.phoneNumber === this.mother.phoneNumber) {
         this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
+        return false;
+      }
+
+      if(!this.mother.isChecked && !this.father.isChecked){
+        this.toastService.showError("Vous devez renseigner au moins les informations de la mère ou du père.");
         return false;
       }
 

@@ -6,7 +6,16 @@
 
       <!-- Section de la mère -->
       <div class="col-md-6">
-        <h3 class="text-center"><span><i class="bx bx-female"></i></span> Informations de la Mère</h3>
+        <h3 class="text-center">
+          <input
+            type="checkbox"
+            id="isMotherChecked"
+            class="form-check-input"
+            formControlName="isMotherChecked"
+            (change)="toggleMotherForm($event)"
+          >
+          <span><i class="bx bx-female"></i></span> Informations de la Mère
+        </h3>
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text">
@@ -132,10 +141,18 @@
         </div>
       </div>
 
-
       <!-- Section du père -->
       <div class="col-md-6">
-        <h3 class="text-center"><span><i class="bi bi-person"></i></span> Informations du Père</h3>
+        <h3 class="text-center">
+          <input
+            type="checkbox"
+            id="isFatherChecked"
+            class="form-check-input"
+            formControlName="isFatherChecked"
+            (change)="toggleFatherForm($event)"
+          >
+          <span><i class="bi bi-person"></i></span> Informations du Père
+        </h3>
         <div class="mb-3">
           <div class="input-group">
             <span class="input-group-text">
@@ -319,10 +336,5 @@
         </div>
       </div>
     </div>
-
-
-
-
-
   </form>
 </div>

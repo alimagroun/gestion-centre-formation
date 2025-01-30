@@ -35,9 +35,13 @@ public class Registration {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus status;
 
+    private String statusChangeReason;
+
     private String remarks;
 
     private Double registrationFees;
+
+    private Boolean isAffected;
 
     @ManyToOne
     @JoinColumn(name = "specialty_id", nullable = false)

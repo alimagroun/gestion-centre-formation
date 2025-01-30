@@ -1,16 +1,15 @@
 package com.centre.poly.registration.dto;
 
+import com.centre.poly.registration.exception.ValidationParentException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record RegistrationRequest(
-        @Valid
-        ParentRequest motherRequest,
 
-        @Valid
+        ParentRequest motherRequest,
         ParentRequest fatherRequest,
 
         @Valid
@@ -27,4 +26,20 @@ public record RegistrationRequest(
         String remarks,
         List<Long> documents
 ) {
+
+        public void validateParents() {
+                List<String> errors = new ArrayList<>();
+                if(!motherRequest.isChecked() && !fatherRequest.isChecked()){
+                        errors.add("AT_LEAST_ONE_PARENT_REQUIRED");
+                        throw new ValidationParentException(errors);
+                }
+                if (motherRequest.isChecked()) {
+                        motherRequest.validate();
+                }
+
+                if (fatherRequest.isChecked()) {
+                        fatherRequest.validate();
+                }
+
+        }
 }

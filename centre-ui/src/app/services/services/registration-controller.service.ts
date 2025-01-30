@@ -23,6 +23,8 @@ import { PageResponseRegistrationResponse } from '../models/page-response-regist
 import { register } from '../fn/registration-controller/register';
 import { Register$Params } from '../fn/registration-controller/register';
 import { RegistrationDetailsResponse } from '../models/registration-details-response';
+import { updateRegistrationStatus } from '../fn/registration-controller/update-registration-status';
+import { UpdateRegistrationStatus$Params } from '../fn/registration-controller/update-registration-status';
 
 @Injectable({ providedIn: 'root' })
 export class RegistrationControllerService extends BaseService {
@@ -106,7 +108,7 @@ export class RegistrationControllerService extends BaseService {
   }
 
   /** Path part for operation `assignStudentToAccreditedClass()` */
-  static readonly AssignStudentToAccreditedClassPath = '/register/students/{studentId}/accredited-classes/{accreditedClassId}';
+  static readonly AssignStudentToAccreditedClassPath = '/register/{registrationId}/students/{studentId}/accredited-classes/{accreditedClassId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -131,7 +133,7 @@ export class RegistrationControllerService extends BaseService {
   }
 
   /** Path part for operation `assignStudentToAcceleratedClass()` */
-  static readonly AssignStudentToAcceleratedClassPath = '/register/students/{studentId}/accelerated-classes/{acceleratedClassId}';
+  static readonly AssignStudentToAcceleratedClassPath = '/register/{registrationId}/students/{studentId}/accelerated-classes/{acceleratedClassId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -151,6 +153,31 @@ export class RegistrationControllerService extends BaseService {
    */
   assignStudentToAcceleratedClass(params: AssignStudentToAcceleratedClass$Params, context?: HttpContext): Observable<number> {
     return this.assignStudentToAcceleratedClass$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `updateRegistrationStatus()` */
+  static readonly UpdateRegistrationStatusPath = '/register/status';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateRegistrationStatus()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateRegistrationStatus$Response(params: UpdateRegistrationStatus$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return updateRegistrationStatus(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateRegistrationStatus$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateRegistrationStatus(params: UpdateRegistrationStatus$Params, context?: HttpContext): Observable<number> {
+    return this.updateRegistrationStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

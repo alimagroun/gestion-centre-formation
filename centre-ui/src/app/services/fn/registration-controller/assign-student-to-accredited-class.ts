@@ -9,6 +9,7 @@ import { RequestBuilder } from '../../request-builder';
 
 export interface AssignStudentToAccreditedClass$Params {
   studentId: number;
+  registrationId: number;
   accreditedClassId: number;
 }
 
@@ -16,6 +17,7 @@ export function assignStudentToAccreditedClass(http: HttpClient, rootUrl: string
   const rb = new RequestBuilder(rootUrl, assignStudentToAccreditedClass.PATH, 'post');
   if (params) {
     rb.path('studentId', params.studentId, {});
+    rb.path('registrationId', params.registrationId, {});
     rb.path('accreditedClassId', params.accreditedClassId, {});
   }
 
@@ -29,4 +31,4 @@ export function assignStudentToAccreditedClass(http: HttpClient, rootUrl: string
   );
 }
 
-assignStudentToAccreditedClass.PATH = '/register/students/{studentId}/accredited-classes/{accreditedClassId}';
+assignStudentToAccreditedClass.PATH = '/register/{registrationId}/students/{studentId}/accredited-classes/{accreditedClassId}';
