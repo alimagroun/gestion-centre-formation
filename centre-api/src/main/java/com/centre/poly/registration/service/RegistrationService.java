@@ -26,6 +26,7 @@ import com.centre.poly.registration.repository.RegistrationDocumentEntryReposito
 import com.centre.poly.registration.repository.RegistrationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RegistrationService {
 
     private final RegistrationRepository registrationRepository;
@@ -57,6 +59,7 @@ public class RegistrationService {
 
     @Transactional
     public Long save(RegistrationRequest request) {
+        log.info("Starting registration process for student: {}", request);
 
         // Validate parent and student phone number and email
         checkRequestValidation(request);
@@ -95,6 +98,7 @@ public class RegistrationService {
         // Create and save registration documents entry
         saveRegistrationDcuments(documentList, registration);
 
+        log.info("Registration process completed for student: {}", registration);
         return registration.getId();
     }
 
