@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
 
 spring:
   datasource:
@@ -25,3 +25,9 @@ application:
       expiration: 2592000000
   cors:
     origins: http://poly-school-service.s3-website-us-east-1.amazonaws.com/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

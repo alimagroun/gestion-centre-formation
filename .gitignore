@@ -1,2 +1,7 @@
 poly-api/src/main/resources/application.yml
 centre-api/TODO.md
+centre-api/docker-compose.yml
+centre-api/Dockerfile
+centre-api/docker-compose.yml
+logs/centre-formation.log
+centre-ui/src/environments/environment.prod.ts
