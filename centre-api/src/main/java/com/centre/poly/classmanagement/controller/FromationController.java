@@ -15,26 +15,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("formation")
 public class FromationController {
-
+    
     private final FormationTypeService formationTypeService;
-
+    
     @PostMapping
     public ResponseEntity<Long> saveFormation(@Valid @RequestBody FormationTypeRequest request) {
-        return ResponseEntity.ok().body(formationTypeService.save(request));
+        return ResponseEntity.ok()
+                             .body(formationTypeService.save(request));
     }
-
+    
     @GetMapping
     public ResponseEntity<PageResponse<FormationTypeResponse>> findAllFormation(
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size
-    ){
-        return ResponseEntity.ok().body(formationTypeService.findAllPageabale(page, size));
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok()
+                             .body(formationTypeService.findAllPageabale(page, size));
     }
-
+    
     @GetMapping(value = "/allList")
     public ResponseEntity<List<FormationTypeResponse>> findAllFormationsList() {
-        return ResponseEntity.ok().body(formationTypeService.findAll());
+        return ResponseEntity.ok()
+                             .body(formationTypeService.findAll());
     }
-
-
+    
+    
 }

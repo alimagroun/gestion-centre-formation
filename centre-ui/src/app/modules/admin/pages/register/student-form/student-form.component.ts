@@ -18,10 +18,10 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class StudentFormComponent {
 
-  private _student : StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
+  private _student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
 
   @Input()
-  set student(value : StudentRequest) {
+  set student(value: StudentRequest) {
     this._student = value;
   }
 
@@ -36,7 +36,7 @@ export class StudentFormComponent {
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email]),
-    levelOfEducation : new FormControl('', [Validators.required]),
+    levelOfEducation: new FormControl('', [Validators.required]),
     identityNumber: new FormControl(''),
     phoneNumber: new FormControl('', [
       Validators.required,
@@ -60,7 +60,7 @@ export class StudentFormComponent {
         this._student.levelOfEducation = this.studentForm.get('levelOfEducation')!.value!;
         this._student.identityNumber = this.studentForm.get("identityNumber")?.value!
         this.validationForm(true)
-      }else{
+      } else {
         this.validationForm(false)
       }
     });
@@ -83,7 +83,7 @@ export class StudentFormComponent {
     }
   }
 
-  validationForm(status : boolean) {
+  validationForm(status: boolean) {
     this.statusForm.emit(status);
   }
 }

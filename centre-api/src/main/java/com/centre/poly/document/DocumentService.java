@@ -13,26 +13,37 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DocumentService {
-
-
+    
+    
     private final DocumentsRepository documentsRepository;
     private final DocumentMapper documentMapper;
-
+    
     public Long save(DocumentRequest documentRequest) {
         Document document = documentMapper.toDocument(documentRequest);
-        return documentsRepository.save(document).getId();
+        return documentsRepository.save(document)
+                                  .getId();
     }
-
+    
     public PageResponse<DocumentResponse> findAllPageable(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdDate");
         Page<Document> documents = documentsRepository.findAll(pageable);
-        List<DocumentResponse> documentResponses = documents.stream().map(documentMapper::toResponse).toList();
-        return new PageResponse<>(documentResponses, documents.getNumber(), documents.getSize(), documents.getTotalElements(), documents.getTotalPages(), documents.isFirst(), documents.isLast());
+        List<DocumentResponse> documentResponses = documents.stream()
+                                                            .map(documentMapper::toResponse)
+                                                            .toList();
+        return new PageResponse<>(documentResponses,
+                                  documents.getNumber(),
+                                  documents.getSize(),
+                                  documents.getTotalElements(),
+                                  documents.getTotalPages(),
+                                  documents.isFirst(),
+                                  documents.isLast());
     }
-
-    public List<DocumentResponse> findAll(){
+    
+    public List<DocumentResponse> findAll() {
         List<Document> documents = documentsRepository.findAll();
-        List<DocumentResponse> documentResponses = documents.stream().map(documentMapper::toResponse).toList();
+        List<DocumentResponse> documentResponses = documents.stream()
+                                                            .map(documentMapper::toResponse)
+                                                            .toList();
         return documentResponses;
     }
 }

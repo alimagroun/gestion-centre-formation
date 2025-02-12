@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class UserResponse {
-
+    
     private Integer id;
     private String userName;
     private boolean isEnabled;

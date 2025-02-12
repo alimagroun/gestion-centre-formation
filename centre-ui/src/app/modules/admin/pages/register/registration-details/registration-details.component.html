@@ -8,7 +8,9 @@
     <div class="card-header text-primary mb-3">
       <div class="d-flex  align-items-center">
         <h4 class="mb-0 me-5">
-          <button class="btn btn-primary" routerLink="../../registrationList"> <i class="bi bi-arrow-left"></i></button>  Détails de l'inscription </h4>
+          <button class="btn btn-primary" routerLink="../../registrationList"><i class="bi bi-arrow-left"></i></button>
+          Détails de l'inscription
+        </h4>
         <span
           [ngClass]="{
             'badge bg-warning text-dark': registration.status === 'IN_PROGRESS',
@@ -17,7 +19,8 @@
           }">
           {{ getStatusText(registration.status!) }}
         </span>
-        <button *ngIf="registration.status != 'CANCELLED'" type="button" class="btn btn-warning me-2 ms-2" data-bs-toggle="modal" data-bs-target="#statusModal">
+        <button *ngIf="registration.status != 'CANCELLED'" type="button" class="btn btn-warning me-2 ms-2"
+                data-bs-toggle="modal" data-bs-target="#statusModal">
           Changer le statut
         </button>
         <button *ngIf="!registration.isAffected" type="button" class="btn btn-success  ms-2" data-bs-toggle="modal"
@@ -31,10 +34,13 @@
         <div class="col-md-6">
           <h5 class="text-primary">Informations sur l'élève</h5>
           <p><i class="bi bi-person"></i> <strong> Nom :</strong> {{ registration.student?.fullName }}</p>
-          <p><i class="bi bi-book"></i> <strong> Niveau d'éducation :</strong> {{ registration.student?.levelOfEducation }}</p>
-          <p><i class="bi bi-telephone"></i> <strong> Numéro de téléphone :</strong> {{ registration.student?.phoneNumber }}</p>
+          <p><i class="bi bi-book"></i> <strong> Niveau d'éducation
+            :</strong> {{ registration.student?.levelOfEducation }}</p>
+          <p><i class="bi bi-telephone"></i> <strong> Numéro de téléphone
+            :</strong> {{ registration.student?.phoneNumber }}</p>
           <p><i class="bi bi-envelope"></i> <strong> Email :</strong> {{ registration.student?.email }}</p>
-          <p><i class="bi bi-credit-card"></i> <strong> Numéro d'identité :</strong> {{ registration.student?.identityNumber }}</p>
+          <p><i class="bi bi-credit-card"></i> <strong> Numéro d'identité
+            :</strong> {{ registration.student?.identityNumber }}</p>
         </div>
 
         <div class="col-md-6">
@@ -78,7 +84,7 @@
               <span><i class="bi bi-file-earmark-text"></i> <strong class="text-danger">X {{ document.name }}
                 :</strong> {{ document.description }}</span>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                (click)="addDocumentSelected(document)"
+                      (click)="addDocumentSelected(document)"
               >
                 Ajouter
               </button>
@@ -100,7 +106,6 @@
         </div>
 
       </div>
-
 
 
       <div class="row mb-4">
@@ -131,7 +136,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDocumentToRegistration()">Confirmer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addDocumentToRegistration()">
+          Confirmer
+        </button>
       </div>
     </div>
   </div>
@@ -177,12 +184,14 @@
           id="selectedAccreditedClass"
           [disabled]="!isSelectedAccreditedClass" class="form-select" aria-label="Default select example">
           <option *ngFor="let c of accreditedClassList" [value]="c.id">
-            {{ c.schoolYear + " - " +c.specialtyName + " - G" +c.groupNumber + " - Niveau " + c.yearLevel}}
+            {{ c.schoolYear + " - " + c.specialtyName + " - G" + c.groupNumber + " - Niveau " + c.yearLevel }}
           </option>
         </select>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assignStudentToClass()">Confirmer l'affectation</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assignStudentToClass()">
+            Confirmer l'affectation
+          </button>
         </div>
       </div>
     </div>
@@ -215,7 +224,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="submitStatusChange()">Enregistrer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="submitStatusChange()">
+          Enregistrer
+        </button>
       </div>
     </div>
   </div>

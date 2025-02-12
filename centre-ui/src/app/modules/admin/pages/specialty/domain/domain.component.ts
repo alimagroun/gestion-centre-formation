@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PageResponseDomaineResponse} from "../../../../../services/models/page-response-domaine-response";
 import {DomaineControllerService} from "../../../../../services/services/domaine-controller.service";
 import {NgForOf, NgIf} from "@angular/common";

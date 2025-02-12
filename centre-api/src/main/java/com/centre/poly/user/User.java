@@ -30,35 +30,39 @@ import static jakarta.persistence.FetchType.EAGER;
 @Table(name = "_user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence",
+                       sequenceName = "user_sequence",
+                       allocationSize = 1)
     private Integer id;
-
+    
     @Column(unique = true)
     private String userName;
     private String password;
     private boolean isEnabled;
-
+    
     @ManyToMany(fetch = EAGER)
     private List<Role> roles;
-
+    
     @OneToOne
     private Person person;
-
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
-
+    
     @Override
     public String getName() {
         return this.userName;
     }
-
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles
@@ -66,17 +70,17 @@ public class User implements UserDetails, Principal {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
-
+    
     @Override
     public String getPassword() {
         return this.password;
     }
-
+    
     @Override
     public String getUsername() {
         return this.userName;
     }
-
+    
     @Override
     public boolean isEnabled() {
         return isEnabled;

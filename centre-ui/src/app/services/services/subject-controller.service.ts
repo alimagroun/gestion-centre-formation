@@ -1,19 +1,19 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { getAllSubjects } from '../fn/subject-controller/get-all-subjects';
-import { GetAllSubjects$Params } from '../fn/subject-controller/get-all-subjects';
-import { PageResponseSubjectResponse } from '../models/page-response-subject-response';
+import {getAllSubjects} from '../fn/subject-controller/get-all-subjects';
+import {GetAllSubjects$Params} from '../fn/subject-controller/get-all-subjects';
+import {PageResponseSubjectResponse} from '../models/page-response-subject-response';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class SubjectControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

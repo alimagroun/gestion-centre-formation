@@ -17,15 +17,32 @@ import {PersonControllerService} from "../../../../../services/services/person-c
 })
 export class ParentFormComponent implements OnInit {
 
-  private _mother :ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
-  private _father :ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"FATHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
-  loadingMother= false;
-  loadingFather= false;
+  private _mother: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "MOTHER",
+    isDeceased: false,
+    maritalStatus: "MARRIED",
+    isChecked: false
+  };
+  private _father: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "FATHER",
+    isDeceased: false,
+    maritalStatus: "MARRIED",
+    isChecked: false
+  };
+  loadingMother = false;
+  loadingFather = false;
 
   @Input()
   set mother(value: ParentRequest) {
     this._mother = value;
   }
+
   get mother(): ParentRequest {
     return this._mother!;
   }
@@ -34,6 +51,7 @@ export class ParentFormComponent implements OnInit {
   set father(value: ParentRequest) {
     this._father = value;
   }
+
   get father(): ParentRequest {
     return this._father!;
   }
@@ -43,24 +61,24 @@ export class ParentFormComponent implements OnInit {
   @Output() fatherRequest: EventEmitter<ParentRequest> = new EventEmitter<ParentRequest>();
 
   parentForm = new FormGroup({
-    motherFirstName: new FormControl({ value: '', disabled: true }, [Validators.required]),
-    motherLastName: new FormControl({ value: '', disabled: true }, [Validators.required]),
-    motherEmail: new FormControl({ value: '', disabled: true }, [Validators.email]),
-    motherProfession:new FormControl({ value: '', disabled: true }, [Validators.required]),
+    motherFirstName: new FormControl({value: '', disabled: true}, [Validators.required]),
+    motherLastName: new FormControl({value: '', disabled: true}, [Validators.required]),
+    motherEmail: new FormControl({value: '', disabled: true}, [Validators.email]),
+    motherProfession: new FormControl({value: '', disabled: true}, [Validators.required]),
     isMotherChecked: new FormControl(false),
-    motherPhoneNumber: new FormControl({ value: '', disabled: true }, [
+    motherPhoneNumber: new FormControl({value: '', disabled: true}, [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(8),
       Validators.pattern(/^[0-9]*$/)
     ]),
 
-    fatherFirstName: new FormControl({ value: '', disabled: true }, [Validators.required]),
-    fatherLastName: new FormControl({ value: '', disabled: true }, [Validators.required]),
-    fatherEmail: new FormControl({ value: '', disabled: true }, [Validators.email]),
-    fatherProfession:new FormControl({ value: '', disabled: true }, [Validators.required]),
+    fatherFirstName: new FormControl({value: '', disabled: true}, [Validators.required]),
+    fatherLastName: new FormControl({value: '', disabled: true}, [Validators.required]),
+    fatherEmail: new FormControl({value: '', disabled: true}, [Validators.email]),
+    fatherProfession: new FormControl({value: '', disabled: true}, [Validators.required]),
     isFatherChecked: new FormControl(false),
-    fatherPhoneNumber: new FormControl({ value: '', disabled: true }, [
+    fatherPhoneNumber: new FormControl({value: '', disabled: true}, [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(8),
@@ -169,20 +187,20 @@ export class ParentFormComponent implements OnInit {
   searchMotherByTel() {
     this.loadingMother = true
     let num = this.parentForm.get('motherPhoneNumber')?.value ?? '';
-    this.parentService.findParentByNum({num:num, type:"MOTHER"}).subscribe(
+    this.parentService.findParentByNum({num: num, type: "MOTHER"}).subscribe(
       res => {
-       this._mother = {
-         lastName: res.lastName!,
-         phoneNumber: res.phoneNumber!,
-         firstName : res.firstName!,
-         email : res.email,
-         id: res.id,
-         profession: res.profession,
-         type: res.type!,
-         maritalStatus: res.maritalStatus!,
-         isDeceased: res.isDeceased!,
-       }
-       this.updateForm()
+        this._mother = {
+          lastName: res.lastName!,
+          phoneNumber: res.phoneNumber!,
+          firstName: res.firstName!,
+          email: res.email,
+          id: res.id,
+          profession: res.profession,
+          type: res.type!,
+          maritalStatus: res.maritalStatus!,
+          isDeceased: res.isDeceased!,
+        }
+        this.updateForm()
         this.setMotherRequeste(this._mother)
         this.loadingMother = false
       },
@@ -197,7 +215,7 @@ export class ParentFormComponent implements OnInit {
   searchFatherByTel() {
     this.loadingFather = true
     let num = this.parentForm.get('fatherPhoneNumber')?.value ?? '';
-    this.parentService.findParentByNum({num:num, type:"FATHER"}).subscribe(
+    this.parentService.findParentByNum({num: num, type: "FATHER"}).subscribe(
       res => {
         this._father = {
           lastName: res.lastName!,
@@ -242,9 +260,9 @@ export class ParentFormComponent implements OnInit {
         control?.disable();
       }
     });
-    if(isChecked){
+    if (isChecked) {
       this._mother!.isChecked = true
-    }else{
+    } else {
       this._mother!.isChecked = false
     }
   }
@@ -268,9 +286,9 @@ export class ParentFormComponent implements OnInit {
         control?.reset();
         control?.disable();
       }
-      if(isChecked){
+      if (isChecked) {
         this._father!.isChecked = true
-      }else{
+      } else {
         this._father!.isChecked = false
       }
     });

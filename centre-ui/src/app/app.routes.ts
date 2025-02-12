@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {LoginComponent} from "./pages/login/login.component";
 import {authGuard} from "./services/guard/auth.guard";
 import {authAdminGuard} from "./services/guard/auth-admin.guard";

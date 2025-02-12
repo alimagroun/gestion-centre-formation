@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {
   ClasseFormationControllerService
 } from "../../../../../../services/services/classe-formation-controller.service";
-import {ActivatedRoute} from "@angular/router";import {ClassStudentResponse} from "../../../../../../services/models/class-student-response";
+import {ActivatedRoute} from "@angular/router";
+import {ClassStudentResponse} from "../../../../../../services/models/class-student-response";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {PersonControllerService} from "../../../../../../services/services/person-controller.service";
 import {NgSelectModule} from "@ng-select/ng-select";
@@ -66,7 +67,7 @@ export class AcceleratedStudentsListComponent implements OnInit {
 
   addStudentToClass() {
     this.loader = true
-    if(this.selectedStudentId == null){
+    if (this.selectedStudentId == null) {
       this.toastService.showError("Veuillez sélectionner un étudiant avant de l'ajouter à la classe.");
       this.loader = false
       return;

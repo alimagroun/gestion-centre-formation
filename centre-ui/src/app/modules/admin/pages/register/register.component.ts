@@ -39,20 +39,36 @@ import {ToastService} from "../../../../services/toast/toast.service";
 })
 export class RegisterComponent {
 
-  mother: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
-  father: ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"FATHER", isDeceased: false, maritalStatus:"MARRIED", isChecked: false};
+  mother: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "MOTHER",
+    isDeceased: false,
+    maritalStatus: "MARRIED",
+    isChecked: false
+  };
+  father: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "FATHER",
+    isDeceased: false,
+    maritalStatus: "MARRIED",
+    isChecked: false
+  };
   student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
   address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
   registrationFeesFromChild: number = 0;
   specialtyName = ""
-  selectedSpecialty : SpecialtyResponse = {}
-  registreRequest : RegistrationRequest = {specialtyId:0, registrationFees:0}
+  selectedSpecialty: SpecialtyResponse = {}
+  registreRequest: RegistrationRequest = {specialtyId: 0, registrationFees: 0}
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
 
-  error : Array<string> = [];
+  error: Array<string> = [];
 
   currentStep: number = 1;
   steps = [
@@ -63,12 +79,12 @@ export class RegisterComponent {
     {name: 'Documents'},
     {name: 'Vérification'},
   ];
-  loading= false;
+  loading = false;
 
   constructor(
-    private registerService : RegistrationControllerService,
-    private personService : PersonControllerService,
-    private toastService : ToastService,
+    private registerService: RegistrationControllerService,
+    private personService: PersonControllerService,
+    private toastService: ToastService,
     private router: Router
   ) {
   }
@@ -130,11 +146,11 @@ export class RegisterComponent {
 
     this.registerService.register(
       {
-        body : this.registreRequest
+        body: this.registreRequest
       }
     ).pipe(
       finalize(() => this.loading = false)
-    ).subscribe(res=>{
+    ).subscribe(res => {
       this.loading = false
       this.toastService.showSuccess("Ajout effectué avec succès !");
       this.router.navigate(['admin/registrationList']);
@@ -153,68 +169,67 @@ export class RegisterComponent {
     this.error = [];
     if (this.currentStep == 1 && this.mother.id == undefined && this.father.id == undefined) {
       let isValidEmailMother = false
-        if(this.mother.email != null){
-          isValidEmailMother = await this.validateEmail(this.mother.email!);
-        }
+      if (this.mother.email != null) {
+        isValidEmailMother = await this.validateEmail(this.mother.email!);
+      }
 
       let isValidEmailFather = false
-      if(this.father.email != null){
+      if (this.father.email != null) {
         isValidEmailFather = await this.validateEmail(this.father.email!);
       }
       if (this.mother.isChecked && isValidEmailMother) {
-        this.toastService.showError("Email "+ this.mother.email+" existe déjà");
+        this.toastService.showError("Email " + this.mother.email + " existe déjà");
         return false;
       }
       if (isValidEmailFather) {
-        this.toastService.showError("Email "+ this.father.email+" existe déjà");
+        this.toastService.showError("Email " + this.father.email + " existe déjà");
         return false;
       }
 
-      if(this.mother.isChecked && this.father.isChecked && this.father.email && this.mother.email && this.father.email == this.mother.email) {
+      if (this.mother.isChecked && this.father.isChecked && this.father.email && this.mother.email && this.father.email == this.mother.email) {
         this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
         return false;
       }
 
-      if (this.mother.isChecked && this.father.isChecked&& this.father.phoneNumber === this.mother.phoneNumber) {
+      if (this.mother.isChecked && this.father.isChecked && this.father.phoneNumber === this.mother.phoneNumber) {
         this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
         return false;
       }
 
-      if(!this.mother.isChecked && !this.father.isChecked){
+      if (!this.mother.isChecked && !this.father.isChecked) {
         this.toastService.showError("Vous devez renseigner au moins les informations de la mère ou du père.");
         return false;
       }
 
-    }
-    else if(this.currentStep == 2) {
+    } else if (this.currentStep == 2) {
       const isValid = await this.validateEmail(this.student.email!);
-      const isTelValid = await  this.validateTel(this.student.phoneNumber!);
+      const isTelValid = await this.validateTel(this.student.phoneNumber!);
       if (isValid) {
-        this.toastService.showError("Email "+ this.student.email+" existe déjà");
+        this.toastService.showError("Email " + this.student.email + " existe déjà");
         return false;
       }
       if (isTelValid) {
-        this.toastService.showError("Le numéro de téléphone "+ this.student.phoneNumber+" existe déjà");
+        this.toastService.showError("Le numéro de téléphone " + this.student.phoneNumber + " existe déjà");
         return false;
       }
 
-      if(this.mother.phoneNumber == this.student.phoneNumber || this.father.phoneNumber == this.student.phoneNumber) {
+      if (this.mother.phoneNumber == this.student.phoneNumber || this.father.phoneNumber == this.student.phoneNumber) {
         this.toastService.showError("Le numéro de téléphone de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
 
-      if(this.mother.email && this.mother.email == this.student.email) {
+      if (this.mother.email && this.mother.email == this.student.email) {
         this.toastService.showError("Email de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
 
-      if(this.father.email && this.father.email == this.student.email) {
+      if (this.father.email && this.father.email == this.student.email) {
         this.toastService.showError("Email de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
 
     } else if (this.currentStep == 4) {
-      if(this.registreRequest.specialtyId == 0){
+      if (this.registreRequest.specialtyId == 0) {
         this.toastService.showError("Aucune spécialité sélectionnée. Veuillez en choisir une pour continuer.");
         return false;
       }
@@ -225,7 +240,7 @@ export class RegisterComponent {
 
   async validateEmail(email: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.personService.emailValidation({ email }).subscribe(
+      this.personService.emailValidation({email}).subscribe(
         (res) => {
           resolve(res);
         },
@@ -238,7 +253,7 @@ export class RegisterComponent {
 
   async validateTel(phoneNumber: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.personService.phoneNumberValidation({ phoneNumber }).subscribe(
+      this.personService.phoneNumberValidation({phoneNumber}).subscribe(
         (res) => {
           resolve(res);
         },

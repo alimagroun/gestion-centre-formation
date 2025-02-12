@@ -5,7 +5,7 @@ import {RegistrationControllerService} from "../../../../../services/services/re
 import {RegistrationDetailsResponse} from "../../../../../services/models/registration-details-response";
 import {DocumentsControllerService} from "../../../../../services/services/documents-controller.service";
 import {DocumentResponse} from "../../../../../services/models/document-response";
-import { forkJoin } from 'rxjs';
+import {forkJoin} from 'rxjs';
 import {ToastService} from "../../../../../services/toast/toast.service";
 import {RegistrationResponse} from "../../../../../services/models/registration-response";
 import {AcceleratedClassResponse} from "../../../../../services/models/accelerated-class-response";
@@ -28,32 +28,32 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
   templateUrl: './registration-details.component.html',
   styleUrl: './registration-details.component.scss'
 })
-export class RegistrationDetailsComponent implements OnInit{
+export class RegistrationDetailsComponent implements OnInit {
 
-  registration : RegistrationDetailsResponse = {}
-  documents : Array<DocumentResponse> = []
-  remainingDocuments : Array<DocumentResponse> = []
-  selectedDocument : DocumentResponse = {}
-  registrationId : number = 0
+  registration: RegistrationDetailsResponse = {}
+  documents: Array<DocumentResponse> = []
+  remainingDocuments: Array<DocumentResponse> = []
+  selectedDocument: DocumentResponse = {}
+  registrationId: number = 0
   loader = false
 
-  acceleratedClassList : Array<AcceleratedClassResponse> = []
+  acceleratedClassList: Array<AcceleratedClassResponse> = []
   isSelectedAcceleratedClass = false;
 
-  accreditedClassList : Array<AccreditedClassResponse> = []
+  accreditedClassList: Array<AccreditedClassResponse> = []
   isSelectedAccreditedClass = false;
   selectedAcceleratedClassId: number = 0;
-  selectedAccreditedClassId : number = 0;
+  selectedAccreditedClassId: number = 0;
   selectedAccreditedClass: any;
   selectedStatus: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED' = 'IN_PROGRESS';
   statusChangeReason: string | null = null;
 
   constructor(
-    private registrationService : RegistrationControllerService,
-    private documentService : DocumentsControllerService,
+    private registrationService: RegistrationControllerService,
+    private documentService: DocumentsControllerService,
     private route: ActivatedRoute,
-    private toastService : ToastService,
-    private classService : ClasseFormationControllerService,
+    private toastService: ToastService,
+    private classService: ClasseFormationControllerService,
   ) {
   }
 
@@ -64,7 +64,7 @@ export class RegistrationDetailsComponent implements OnInit{
 
   async findRegistrationAndDocuments() {
     try {
-      const registrationResponse = await this.registrationService.findRegistrationById({ id: this.registrationId }).toPromise();
+      const registrationResponse = await this.registrationService.findRegistrationById({id: this.registrationId}).toPromise();
       this.registration = registrationResponse!;
 
       const documentsResponse = await this.documentService.findAllDocuments().toPromise();
@@ -78,16 +78,16 @@ export class RegistrationDetailsComponent implements OnInit{
     }
   }
 
-  findRegistrationById(){
+  findRegistrationById() {
     this.loader = true
-    this.registrationService.findRegistrationById({id :this.registrationId}).subscribe(res=>{
+    this.registrationService.findRegistrationById({id: this.registrationId}).subscribe(res => {
       this.registration = res
       this.loader = false
     })
   }
 
-  findAllDocuments(){
-    this.documentService.findAllDocuments().subscribe(res=>{
+  findAllDocuments() {
+    this.documentService.findAllDocuments().subscribe(res => {
       this.documents = res
     })
   }
@@ -123,8 +123,8 @@ export class RegistrationDetailsComponent implements OnInit{
   }
 
   assignStudentToClass() {
-    if(this.isSelectedAcceleratedClass){
-      if(this.selectedAcceleratedClassId == 0){
+    if (this.isSelectedAcceleratedClass) {
+      if (this.selectedAcceleratedClassId == 0) {
         this.toastService.showError("Veuillez sélectionner une classe.");
         return;
       }
@@ -141,12 +141,12 @@ export class RegistrationDetailsComponent implements OnInit{
         this.loader = false
       }, error => {
         this.loader = false
-        if(error.error.errorMessage == "DUPLICATE_FOUND"){
+        if (error.error.errorMessage == "DUPLICATE_FOUND") {
           this.toastService.showError("L'étudiant est déjà inscrit dans cette classe")
         }
       })
-    }else if(this.isSelectedAccreditedClass){
-      if(this.selectedAccreditedClassId == 0){
+    } else if (this.isSelectedAccreditedClass) {
+      if (this.selectedAccreditedClassId == 0) {
         this.toastService.showError("Veuillez sélectionner une classe.");
         return;
       }
@@ -163,7 +163,7 @@ export class RegistrationDetailsComponent implements OnInit{
         this.loader = false
       }, error => {
         this.loader = false
-        if(error.error.errorMessage == "DUPLICATE_FOUND"){
+        if (error.error.errorMessage == "DUPLICATE_FOUND") {
           this.toastService.showError("L'étudiant est déjà inscrit dans cette classe")
         }
       })
@@ -200,12 +200,12 @@ export class RegistrationDetailsComponent implements OnInit{
   submitStatusChange() {
     this.loader = true
     this.registrationService.updateRegistrationStatus({
-        registrationId: this.registrationId,
-        statusChangeReason: this.statusChangeReason!,
-        status: this.selectedStatus!
-      }).subscribe(res => {
+      registrationId: this.registrationId,
+      statusChangeReason: this.statusChangeReason!,
+      status: this.selectedStatus!
+    }).subscribe(res => {
       this.findRegistrationById()
-        this.loader = false
+      this.loader = false
     })
   }
 }

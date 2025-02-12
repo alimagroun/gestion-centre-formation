@@ -43,7 +43,8 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let sy of school_years_response.content! | paginate: { itemsPerPage: school_years_response.size!, currentPage: page+1, totalItems: school_years_response.totalElements };">
+    <ng-container
+      *ngFor="let sy of school_years_response.content! | paginate: { itemsPerPage: school_years_response.size!, currentPage: page+1, totalItems: school_years_response.totalElements };">
       <tr>
         <td>{{ sy.start_year }}</td>
         <td>{{ sy.end_year }}</td>
@@ -72,7 +73,8 @@
 </div>
 
 <!-- Modale Bootstrap de confirmation -->
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true" #confirmModal>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true"
+     #confirmModal>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

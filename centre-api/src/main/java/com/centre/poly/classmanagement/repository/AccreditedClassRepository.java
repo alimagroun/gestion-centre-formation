@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public interface AccreditedClassRepository extends JpaRepository<AccreditedClass, Long> {
-
-
+    
+    
     @Query("select c from AccreditedClass c where c.specialty.id = :specialtyId")
     List<AccreditedClass> findAllBySpecialty(Long specialtyId);
 }

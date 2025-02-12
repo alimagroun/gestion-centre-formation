@@ -2,7 +2,9 @@
   <div class="form-floating mb-3">
     <input type="text" id="city" formControlName="city" class="form-control" placeholder="Ville"
            [ngClass]="{ 'is-invalid': addressForm.get('city')!.invalid && addressForm.get('city')!.touched }">
-    <div *ngIf="addressForm.get('city')?.invalid && (addressForm.get('city')?.dirty || addressForm.get('city')?.touched)" class="text-danger">
+    <div
+      *ngIf="addressForm.get('city')?.invalid && (addressForm.get('city')?.dirty || addressForm.get('city')?.touched)"
+      class="text-danger">
       Ville est requise.
     </div>
     <label for="city">Ville</label>
@@ -11,7 +13,9 @@
   <div class="form-floating mb-3">
     <input type="text" id="street" formControlName="street" class="form-control" placeholder="Rue"
            [ngClass]="{ 'is-invalid': addressForm.get('street')!.invalid && addressForm.get('street')!.touched }">
-    <div *ngIf="addressForm.get('street')?.invalid && (addressForm.get('street')?.dirty || addressForm.get('street')?.touched)" class="text-danger">
+    <div
+      *ngIf="addressForm.get('street')?.invalid && (addressForm.get('street')?.dirty || addressForm.get('street')?.touched)"
+      class="text-danger">
       Rue est requise.
     </div>
     <label for="street">Rue</label>
@@ -20,7 +24,9 @@
   <div class="form-floating mb-3">
     <input type="text" id="zipCode" formControlName="zipCode" class="form-control" placeholder="Code Postal"
            [ngClass]="{ 'is-invalid': addressForm.get('zipCode')!.invalid && addressForm.get('zipCode')!.touched }">
-    <div *ngIf="addressForm.get('zipCode')?.invalid && (addressForm.get('zipCode')?.dirty || addressForm.get('zipCode')?.touched)" class="text-danger">
+    <div
+      *ngIf="addressForm.get('zipCode')?.invalid && (addressForm.get('zipCode')?.dirty || addressForm.get('zipCode')?.touched)"
+      class="text-danger">
       Code Postal est requis.
     </div>
     <label for="zipCode">Code Postal</label>

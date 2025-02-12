@@ -1,4 +1,4 @@
-export interface Menu{
+export interface Menu {
   id?: string;
   titre?: string;
   icon?: string;

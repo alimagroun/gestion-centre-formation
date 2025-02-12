@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HttpTokenService } from './http-token.service';
+import {HttpTokenService} from './http-token.service';
 
 describe('HttpTokenService', () => {
   let service: HttpTokenService;

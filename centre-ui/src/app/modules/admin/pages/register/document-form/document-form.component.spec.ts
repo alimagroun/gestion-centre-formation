@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DocumentFormComponent } from './document-form.component';
+import {DocumentFormComponent} from './document-form.component';
 
 describe('DocumentFormComponent', () => {
   let component: DocumentFormComponent;
@@ -10,7 +10,7 @@ describe('DocumentFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DocumentFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DocumentFormComponent);
     component = fixture.componentInstance;

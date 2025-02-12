@@ -1,21 +1,21 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { findAllRoles } from '../fn/role-controller/find-all-roles';
-import { FindAllRoles$Params } from '../fn/role-controller/find-all-roles';
-import { PageResponseRoleResponse } from '../models/page-response-role-response';
-import { saveRole } from '../fn/role-controller/save-role';
-import { SaveRole$Params } from '../fn/role-controller/save-role';
+import {findAllRoles} from '../fn/role-controller/find-all-roles';
+import {FindAllRoles$Params} from '../fn/role-controller/find-all-roles';
+import {PageResponseRoleResponse} from '../models/page-response-role-response';
+import {saveRole} from '../fn/role-controller/save-role';
+import {SaveRole$Params} from '../fn/role-controller/save-role';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class RoleControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

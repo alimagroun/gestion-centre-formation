@@ -22,12 +22,12 @@ export class AddressFormComponent implements OnInit {
   set address(value: AddressRequest) {
     this._address = value;
   }
+
   get address(): AddressRequest {
     return this._address;
   }
 
   @Output() statusForm: EventEmitter<boolean> = new EventEmitter<boolean>();
-
 
 
   addressForm = new FormGroup({
@@ -61,12 +61,13 @@ export class AddressFormComponent implements OnInit {
         this._address.street = this.addressForm.get('street')!.value!;
         this._address.zipCode = this.addressForm.get('zipCode')!.value!;
         this.validationForm(true)
-      }else{
+      } else {
         this.validationForm(false)
       }
     });
   }
-  validationForm(status : boolean) {
+
+  validationForm(status: boolean) {
     this.statusForm.emit(status);
   }
 }

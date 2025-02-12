@@ -12,18 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Parent extends Person {
-
+    
     private String profession;
-
+    
     @Enumerated(EnumType.STRING)
     private ParentType type;
-
+    
     @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
-
+    
     private Boolean isDeceased;
-
+    
     @OneToMany(fetch = FetchType.LAZY)
     private List<Student> students;
-
+    
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ToastService} from "../../services/toast/toast.service";
 import {NgClass} from "@angular/common";
 
@@ -17,7 +17,8 @@ export class ToastComponent {
   toastMessage = '';
   isError = false;
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService) {
+  }
 
   ngOnInit(): void {
     this.toastService.toastState.subscribe((toast) => {

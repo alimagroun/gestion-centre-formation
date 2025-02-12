@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class RegistrationResponse {
-
+    
     private Long id;
     private RegistrationStatus status;
     private Long specialtyId;
@@ -21,5 +21,5 @@ public class RegistrationResponse {
     private LocalDateTime createdDate;
     private Long studentId;
     private String fullNameStudent;
-
+    
 }

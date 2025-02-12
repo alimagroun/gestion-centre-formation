@@ -23,15 +23,15 @@ public record ParentRequest(
         Boolean isDeceased,
         String profession,
         boolean isChecked
-    ) {
-
+) {
+    
     private static final Pattern EMAIL_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$",
             Pattern.CASE_INSENSITIVE);
-
+    
     public void validate() {
         List<String> errors = new ArrayList<>();
-
+        
         if (firstName == null || firstName.isEmpty()) {
             errors.add("PARENT_FIRST_NAME_REQUIRED");
         }
@@ -41,7 +41,8 @@ public record ParentRequest(
         if (phoneNumber == null || phoneNumber.isEmpty() || phoneNumber.length() != 8) {
             errors.add("PARENT_PHONE_NUMBER_SIZE_MUST_BE_8");
         }
-        if (!email.isEmpty() && !EMAIL_REGEX.matcher(email).matches()) {
+        if (!email.isEmpty() && !EMAIL_REGEX.matcher(email)
+                                            .matches()) {
             errors.add("PARENT_EMAIL_NOT_VALID");
         }
         if (type == null) {
@@ -53,7 +54,7 @@ public record ParentRequest(
         if (isDeceased == null) {
             errors.add("isDeceased_REQUIRED");
         }
-
+        
         if (!errors.isEmpty()) {
             throw new ValidationParentException(errors);
         }

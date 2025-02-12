@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AccreditedStudentsListComponent } from './accredited-students-list.component';
+import {AccreditedStudentsListComponent} from './accredited-students-list.component';
 
 describe('AccreditedStudentsListComponent', () => {
   let component: AccreditedStudentsListComponent;
@@ -10,7 +10,7 @@ describe('AccreditedStudentsListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AccreditedStudentsListComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AccreditedStudentsListComponent);
     component = fixture.componentInstance;

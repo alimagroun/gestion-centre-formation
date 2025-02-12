@@ -1,28 +1,28 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { findAll1 } from '../fn/school-year-controller/find-all-1';
-import { FindAll1$Params } from '../fn/school-year-controller/find-all-1';
-import { findAllList } from '../fn/school-year-controller/find-all-list';
-import { FindAllList$Params } from '../fn/school-year-controller/find-all-list';
-import { findById } from '../fn/school-year-controller/find-by-id';
-import { FindById$Params } from '../fn/school-year-controller/find-by-id';
-import { PageResponseSchoolYearResponse } from '../models/page-response-school-year-response';
-import { save } from '../fn/school-year-controller/save';
-import { Save$Params } from '../fn/school-year-controller/save';
-import { SchoolYearResponse } from '../models/school-year-response';
-import { setDefault } from '../fn/school-year-controller/set-default';
-import { SetDefault$Params } from '../fn/school-year-controller/set-default';
+import {findAll1} from '../fn/school-year-controller/find-all-1';
+import {FindAll1$Params} from '../fn/school-year-controller/find-all-1';
+import {findAllList} from '../fn/school-year-controller/find-all-list';
+import {FindAllList$Params} from '../fn/school-year-controller/find-all-list';
+import {findById} from '../fn/school-year-controller/find-by-id';
+import {FindById$Params} from '../fn/school-year-controller/find-by-id';
+import {PageResponseSchoolYearResponse} from '../models/page-response-school-year-response';
+import {save} from '../fn/school-year-controller/save';
+import {Save$Params} from '../fn/school-year-controller/save';
+import {SchoolYearResponse} from '../models/school-year-response';
+import {setDefault} from '../fn/school-year-controller/set-default';
+import {SetDefault$Params} from '../fn/school-year-controller/set-default';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class SchoolYearControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

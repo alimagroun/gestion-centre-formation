@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
@@ -6,13 +6,14 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 })
 export class TokenService {
 
-  constructor() { }
-
-  set token(token : string){
-    localStorage.setItem("token",token);
+  constructor() {
   }
 
-  get token(){
+  set token(token: string) {
+    localStorage.setItem("token", token);
+  }
+
+  get token() {
     return localStorage.getItem("token") as string;
   }
 

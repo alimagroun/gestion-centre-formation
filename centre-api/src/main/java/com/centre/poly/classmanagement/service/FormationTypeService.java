@@ -19,28 +19,43 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FormationTypeService {
-
+    
     private final FormationTypeRepository formationTypeRepository;
     private final FormationTypeMapper formationTypeMapper;
-
-    public Long save(FormationTypeRequest request){
-
-        FormationType exist  = formationTypeRepository.findByNameIgnoreCase(request.name());
-        if(exist != null){
+    
+    public Long save(FormationTypeRequest request) {
+        
+        FormationType exist = formationTypeRepository.findByNameIgnoreCase(request.name());
+        if (exist != null) {
             throw new DuplicateEntityException("Formation type with name " + request.name() + " already exists");
         }
-
-        return formationTypeRepository.save(formationTypeMapper.toRequest(request)).getId();
+        
+        return formationTypeRepository.save(formationTypeMapper.toRequest(request))
+                                      .getId();
     }
-
-    public PageResponse<FormationTypeResponse> findAllPageabale(int page, int size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+    
+    public PageResponse<FormationTypeResponse> findAllPageabale(int page, int size) {
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<FormationType> formationPage = formationTypeRepository.findAll(pageable);
-        List<FormationTypeResponse> list = formationPage.stream().map(formationTypeMapper::toResponse).toList();
-        return new PageResponse<>(list, formationPage.getNumber(), formationPage.getSize(), formationPage.getTotalElements(), formationPage.getTotalPages(), formationPage.isFirst(), formationPage.isLast());
+        List<FormationTypeResponse> list = formationPage.stream()
+                                                        .map(formationTypeMapper::toResponse)
+                                                        .toList();
+        return new PageResponse<>(list,
+                                  formationPage.getNumber(),
+                                  formationPage.getSize(),
+                                  formationPage.getTotalElements(),
+                                  formationPage.getTotalPages(),
+                                  formationPage.isFirst(),
+                                  formationPage.isLast());
     }
-
-    public List<FormationTypeResponse> findAll(){
-        return this.formationTypeRepository.findAll().stream().map(formationTypeMapper::toResponse).toList();
+    
+    public List<FormationTypeResponse> findAll() {
+        return this.formationTypeRepository.findAll()
+                                           .stream()
+                                           .map(formationTypeMapper::toResponse)
+                                           .toList();
     }
 }

@@ -1,24 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { DocumentResponse } from '../models/document-response';
-import { findAllDocuments } from '../fn/documents-controller/find-all-documents';
-import { FindAllDocuments$Params } from '../fn/documents-controller/find-all-documents';
-import { findAllDocumentsPageable } from '../fn/documents-controller/find-all-documents-pageable';
-import { FindAllDocumentsPageable$Params } from '../fn/documents-controller/find-all-documents-pageable';
-import { PageResponseDocumentResponse } from '../models/page-response-document-response';
-import { saveDocument } from '../fn/documents-controller/save-document';
-import { SaveDocument$Params } from '../fn/documents-controller/save-document';
+import {DocumentResponse} from '../models/document-response';
+import {findAllDocuments} from '../fn/documents-controller/find-all-documents';
+import {FindAllDocuments$Params} from '../fn/documents-controller/find-all-documents';
+import {findAllDocumentsPageable} from '../fn/documents-controller/find-all-documents-pageable';
+import {FindAllDocumentsPageable$Params} from '../fn/documents-controller/find-all-documents-pageable';
+import {PageResponseDocumentResponse} from '../models/page-response-document-response';
+import {saveDocument} from '../fn/documents-controller/save-document';
+import {SaveDocument$Params} from '../fn/documents-controller/save-document';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class DocumentsControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

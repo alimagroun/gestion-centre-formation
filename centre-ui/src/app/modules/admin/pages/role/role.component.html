@@ -18,7 +18,7 @@
   </div>
 
   <table class="table table-hover">
-    <thead >
+    <thead>
     <tr>
       <th>Nom du rôle</th>
       <th>Description</th>
@@ -32,7 +32,8 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let role of roleResponse.content! | paginate: { itemsPerPage: roleResponse.size!, currentPage: page+1, totalItems: roleResponse.totalElements };">
+    <ng-container
+      *ngFor="let role of roleResponse.content! | paginate: { itemsPerPage: roleResponse.size!, currentPage: page+1, totalItems: roleResponse.totalElements };">
       <tr>
         <td>{{ role.name }}</td>
         <td>{{ role.description }}</td>

@@ -14,15 +14,16 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './specialty-form.component.html',
   styleUrl: './specialty-form.component.scss'
 })
-export class SpecialtyFormComponent implements OnInit{
+export class SpecialtyFormComponent implements OnInit {
 
-  specialtyList : Array<SpecialtyResponse> = []
+  specialtyList: Array<SpecialtyResponse> = []
 
   @Input()
   selectedSpecialty: SpecialtyResponse | undefined = {}
 
   @Output()
   specialtySelected = new EventEmitter<SpecialtyResponse>();
+
   onSpecialtyChange() {
     if (this.selectedSpecialty) {
       this.specialtySelected.emit(this.selectedSpecialty);
@@ -30,7 +31,7 @@ export class SpecialtyFormComponent implements OnInit{
   }
 
   constructor(
-    private specialtyService : SpecialtyControllerService
+    private specialtyService: SpecialtyControllerService
   ) {
   }
 
@@ -38,13 +39,12 @@ export class SpecialtyFormComponent implements OnInit{
     this.findAllSpecialty()
   }
 
-  findAllSpecialty(){
+  findAllSpecialty() {
     this.specialtyService.findAll().subscribe(res => {
       this.specialtyList = res
       this.selectedSpecialty = this.specialtyList.find(specialty => specialty.id === this.selectedSpecialty!.id);
     })
   }
-
 
 
 }

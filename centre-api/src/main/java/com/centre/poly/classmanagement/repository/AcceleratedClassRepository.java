@@ -10,11 +10,11 @@ import java.util.Optional;
 
 
 public interface AcceleratedClassRepository extends JpaRepository<AcceleratedClass, Long> {
-
-
+    
+    
     @Query("select c from AcceleratedClassEntry c where c.student.id = :studentId and c.acceleratedClass.id = :classId")
     Optional<AcceleratedClassEntry> findByStudentAndAcceleratedClass(Long studentId, Long classId);
-
+    
     @Query("select c from AcceleratedClass c" +
             " where c.specialty.id = :specialtyId")
     List<AcceleratedClass> findAllBySpecialty(Long specialtyId);

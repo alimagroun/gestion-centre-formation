@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { AcceleratedClassResponse } from '../models/accelerated-class-response';
+import {AcceleratedClassResponse} from '../models/accelerated-class-response';
+
 export interface PageResponseAcceleratedClassResponse {
   content?: Array<AcceleratedClassResponse>;
   first?: boolean;

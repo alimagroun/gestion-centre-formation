@@ -13,7 +13,8 @@
         <label for="specialty">Spécialité</label>
         <select id="specialty" class="form-control" [(ngModel)]="selectSpecialty" name="specialty">
           <option [ngValue]="undefined" disabled>Choisir une formation...</option>
-          <option *ngFor="let sp of specialtyList" [value]="sp.id">{{ sp.formationTypeName +"-"+sp.domaineName }}</option>
+          <option *ngFor="let sp of specialtyList" [value]="sp.id">{{ sp.formationTypeName + "-" + sp.domaineName }}
+          </option>
         </select>
       </div>
 

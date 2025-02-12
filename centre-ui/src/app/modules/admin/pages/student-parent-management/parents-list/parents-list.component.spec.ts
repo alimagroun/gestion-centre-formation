@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParentsListComponent } from './parents-list.component';
+import {ParentsListComponent} from './parents-list.component';
 
 describe('ParentsListComponent', () => {
   let component: ParentsListComponent;
@@ -10,7 +10,7 @@ describe('ParentsListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ParentsListComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ParentsListComponent);
     component = fixture.componentInstance;

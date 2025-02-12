@@ -1,41 +1,41 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { emailValidation } from '../fn/person-controller/email-validation';
-import { EmailValidation$Params } from '../fn/person-controller/email-validation';
-import { findAllParentsPaged } from '../fn/person-controller/find-all-parents-paged';
-import { FindAllParentsPaged$Params } from '../fn/person-controller/find-all-parents-paged';
-import { findAllStudentsByParentId } from '../fn/person-controller/find-all-students-by-parent-id';
-import { FindAllStudentsByParentId$Params } from '../fn/person-controller/find-all-students-by-parent-id';
-import { findAllStudentsPaged } from '../fn/person-controller/find-all-students-paged';
-import { FindAllStudentsPaged$Params } from '../fn/person-controller/find-all-students-paged';
-import { findParentByNum } from '../fn/person-controller/find-parent-by-num';
-import { FindParentByNum$Params } from '../fn/person-controller/find-parent-by-num';
-import { findParentDetailById } from '../fn/person-controller/find-parent-detail-by-id';
-import { FindParentDetailById$Params } from '../fn/person-controller/find-parent-detail-by-id';
-import { findStudentById } from '../fn/person-controller/find-student-by-id';
-import { FindStudentById$Params } from '../fn/person-controller/find-student-by-id';
-import { getAllStudents } from '../fn/person-controller/get-all-students';
-import { GetAllStudents$Params } from '../fn/person-controller/get-all-students';
-import { PageResponseParentResponse } from '../models/page-response-parent-response';
-import { PageResponseStudentResponse } from '../models/page-response-student-response';
-import { ParentDetailResponse } from '../models/parent-detail-response';
-import { ParentResponse } from '../models/parent-response';
-import { phoneNumberValidation } from '../fn/person-controller/phone-number-validation';
-import { PhoneNumberValidation$Params } from '../fn/person-controller/phone-number-validation';
-import { StudentAllResponse } from '../models/student-all-response';
-import { StudentDetailsResponse } from '../models/student-details-response';
-import { StudentResponse } from '../models/student-response';
+import {emailValidation} from '../fn/person-controller/email-validation';
+import {EmailValidation$Params} from '../fn/person-controller/email-validation';
+import {findAllParentsPaged} from '../fn/person-controller/find-all-parents-paged';
+import {FindAllParentsPaged$Params} from '../fn/person-controller/find-all-parents-paged';
+import {findAllStudentsByParentId} from '../fn/person-controller/find-all-students-by-parent-id';
+import {FindAllStudentsByParentId$Params} from '../fn/person-controller/find-all-students-by-parent-id';
+import {findAllStudentsPaged} from '../fn/person-controller/find-all-students-paged';
+import {FindAllStudentsPaged$Params} from '../fn/person-controller/find-all-students-paged';
+import {findParentByNum} from '../fn/person-controller/find-parent-by-num';
+import {FindParentByNum$Params} from '../fn/person-controller/find-parent-by-num';
+import {findParentDetailById} from '../fn/person-controller/find-parent-detail-by-id';
+import {FindParentDetailById$Params} from '../fn/person-controller/find-parent-detail-by-id';
+import {findStudentById} from '../fn/person-controller/find-student-by-id';
+import {FindStudentById$Params} from '../fn/person-controller/find-student-by-id';
+import {getAllStudents} from '../fn/person-controller/get-all-students';
+import {GetAllStudents$Params} from '../fn/person-controller/get-all-students';
+import {PageResponseParentResponse} from '../models/page-response-parent-response';
+import {PageResponseStudentResponse} from '../models/page-response-student-response';
+import {ParentDetailResponse} from '../models/parent-detail-response';
+import {ParentResponse} from '../models/parent-response';
+import {phoneNumberValidation} from '../fn/person-controller/phone-number-validation';
+import {PhoneNumberValidation$Params} from '../fn/person-controller/phone-number-validation';
+import {StudentAllResponse} from '../models/student-all-response';
+import {StudentDetailsResponse} from '../models/student-details-response';
+import {StudentResponse} from '../models/student-response';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class PersonControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

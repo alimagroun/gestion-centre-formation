@@ -16,24 +16,28 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Specialty {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialty_sequence")
-    @SequenceGenerator(name = "specialty_sequence", sequenceName = "specialty_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "specialty_sequence")
+    @SequenceGenerator(name = "specialty_sequence",
+                       sequenceName = "specialty_sequence",
+                       allocationSize = 1)
     private Long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "specialty_id")
     private Domaine domaine;
-
+    
     @ManyToOne
     @JoinColumn(name = "formation_type_id")
     private FormationType formationType;
-
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
-
+    
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;

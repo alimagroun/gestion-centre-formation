@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 public class teacher extends Person {
-
+    
     private String diplomasObtained;
 }

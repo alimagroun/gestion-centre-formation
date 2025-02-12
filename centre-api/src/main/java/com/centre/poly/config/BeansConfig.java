@@ -24,12 +24,12 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class BeansConfig {
-
+    
     private final UserDetailsService userDetailsService;
-
+    
     @Value("${application.cors.origins:*}")
     private List<String> allowedOrigin;
-
+    
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -37,22 +37,22 @@ public class BeansConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
+    
     @Bean
     public AuditorAware<Integer> auditorAware() {
         return new ApplicationAuditAware();
     }
-
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

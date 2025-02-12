@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
@@ -22,7 +22,7 @@ export class AddDomainComponent {
 
   domaineRequest: DomaineRequest = {name: '', description: ''}
   validationErrors: { [key: string]: string } = {};
-  error= ""
+  error = ""
   loading = false
 
   constructor(
@@ -54,7 +54,7 @@ export class AddDomainComponent {
         }
         console.log(error.error)
         if (error.error) {
-          if(error.error.errorMessage == "DUPLICATE_FOUND")
+          if (error.error.errorMessage == "DUPLICATE_FOUND")
             this.error = "Domaine existe déjà";
         }
       }

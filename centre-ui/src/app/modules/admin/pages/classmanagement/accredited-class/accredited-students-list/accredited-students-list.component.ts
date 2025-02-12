@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ClassStudentResponse} from "../../../../../../services/models/class-student-response";
 import {ActivatedRoute} from "@angular/router";
 import {
@@ -26,7 +26,7 @@ import {FormsModule} from "@angular/forms";
 export class AccreditedStudentsListComponent {
 
   classId: string | null = null;
-  studentsList : Array<ClassStudentResponse> = [];
+  studentsList: Array<ClassStudentResponse> = [];
   isLoading: boolean = true;
   selectedStudentId: number | null = null;
   loader = false;
@@ -36,7 +36,8 @@ export class AccreditedStudentsListComponent {
     private classService: ClasseFormationControllerService,
     private studentService: PersonControllerService,
     private toastService: ToastService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.classId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -47,7 +48,7 @@ export class AccreditedStudentsListComponent {
   findAllStudentByClass() {
     if (this.classId) {
       this.classService.findAllStudentByAccreditedClassId(
-        {classId:  Number(this.classId)}
+        {classId: Number(this.classId)}
       ).subscribe(students => {
         this.studentsList = students;
         this.isLoading = false;
@@ -63,7 +64,7 @@ export class AccreditedStudentsListComponent {
 
   addStudentToClass() {
     this.loader = true
-    if(this.selectedStudentId == null){
+    if (this.selectedStudentId == null) {
       this.toastService.showError("Veuillez sélectionner un étudiant avant de l'ajouter à la classe.");
       this.loader = false
       return;

@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { SpecialtyResponse } from '../models/specialty-response';
+import {SpecialtyResponse} from '../models/specialty-response';
+
 export interface PageResponseSpecialtyResponse {
   content?: Array<SpecialtyResponse>;
   first?: boolean;

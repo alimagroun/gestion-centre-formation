@@ -309,7 +309,8 @@
           />
           <label class="form-check-label" for="divorced">Divorcé(e)</label>
         </div>
-        <div *ngIf="parentForm.get('maritalStatus')?.invalid && parentForm.get('maritalStatus')?.touched" class="text-danger mt-2">
+        <div *ngIf="parentForm.get('maritalStatus')?.invalid && parentForm.get('maritalStatus')?.touched"
+             class="text-danger mt-2">
           <i class="bi bi-exclamation-circle"></i> <strong>Le statut matrimonial est requis.</strong>
         </div>
       </div>

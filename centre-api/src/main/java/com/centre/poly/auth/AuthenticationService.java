@@ -20,21 +20,24 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
+    
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
-
+    
+    
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
+        var auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(),
+                                                                                              request.getPassword()));
         var claims = new HashMap<String, Object>();
         var user = ((User) auth.getPrincipal());
         claims.put("userName", user.getUsername());
-
+        
         var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
-        return AuthenticationResponse.builder().token(jwtToken).build();
+        return AuthenticationResponse.builder()
+                                     .token(jwtToken)
+                                     .build();
     }
-
-
+    
+    
 }
 

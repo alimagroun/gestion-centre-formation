@@ -16,38 +16,40 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './document-form.component.html',
   styleUrl: './document-form.component.scss'
 })
-export class DocumentFormComponent implements OnInit{
+export class DocumentFormComponent implements OnInit {
 
-  pageDocument : PageResponseDocumentResponse = {}
-  documents : Array<DocumentResponse> = []
+  pageDocument: PageResponseDocumentResponse = {}
+  documents: Array<DocumentResponse> = []
 
   @Input()
   registrationFeesAmount = 0
 
   loader = false
   @Input()
-  listDocumentsSelected : Array<DocumentResponse> = [];
+  listDocumentsSelected: Array<DocumentResponse> = [];
   selectedDocumentIds: number[] = [];
 
   @Output() registrationFeesChange = new EventEmitter<number>();
+
   onFeesAmountChange(): void {
     this.registrationFeesChange.emit(this.registrationFeesAmount);
   }
 
   @Output() listIdDocument: EventEmitter<Array<DocumentResponse>> = new EventEmitter<Array<DocumentResponse>>();
-  outputListIdDocument(documents : Array<DocumentResponse>) {
+
+  outputListIdDocument(documents: Array<DocumentResponse>) {
     this.listIdDocument.emit(documents);
   }
 
 
   constructor(
-    private documentService : DocumentsControllerService
+    private documentService: DocumentsControllerService
   ) {
   }
 
-  findAll(){
+  findAll() {
     this.loader = true
-    this.documentService.findAllDocuments().subscribe(res=>{
+    this.documentService.findAllDocuments().subscribe(res => {
       this.documents = res
       this.loader = false
     })

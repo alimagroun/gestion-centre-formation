@@ -1,12 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { StrictHttpResponse } from '../../strict-http-response';
-import { RequestBuilder } from '../../request-builder';
+import {HttpClient, HttpContext, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {StrictHttpResponse} from '../../strict-http-response';
+import {RequestBuilder} from '../../request-builder';
 
-import { AcceleratedClassResponse } from '../../models/accelerated-class-response';
+import {AcceleratedClassResponse} from '../../models/accelerated-class-response';
 
 export interface FindAllAcceleratedClassBySpecialty$Params {
   specialtyId: number;
@@ -19,7 +19,7 @@ export function findAllAcceleratedClassBySpecialty(http: HttpClient, rootUrl: st
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({responseType: 'json', accept: 'application/json', context})
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {

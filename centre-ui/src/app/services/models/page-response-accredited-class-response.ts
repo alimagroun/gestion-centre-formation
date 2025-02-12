@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { AccreditedClassResponse } from '../models/accredited-class-response';
+import {AccreditedClassResponse} from '../models/accredited-class-response';
+
 export interface PageResponseAccreditedClassResponse {
   content?: Array<AccreditedClassResponse>;
   first?: boolean;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {Menu} from "./Menu";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -144,7 +144,9 @@ export class MenuComponent {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
+
   navigate(menu: Menu) {
     this.router.navigate([menu.url]);
   }

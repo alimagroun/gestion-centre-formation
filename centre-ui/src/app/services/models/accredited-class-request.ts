@@ -1,4 +1,5 @@
 /* tslint:disable */
+
 /* eslint-disable */
 export interface AccreditedClassRequest {
   groupNumber?: number;

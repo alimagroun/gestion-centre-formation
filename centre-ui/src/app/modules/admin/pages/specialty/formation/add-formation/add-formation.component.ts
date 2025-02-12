@@ -21,7 +21,7 @@ export class AddFormationComponent {
 
   formationRequest: FormationTypeRequest = {name: '', description: ''}
   validationErrors: { [key: string]: string } = {};
-  error= ""
+  error = ""
   loading = false
 
   constructor(
@@ -51,10 +51,10 @@ export class AddFormationComponent {
             }
           });
         }
-      console.log(error.error)
+        console.log(error.error)
         if (error.error) {
-          if(error.error.errorMessage == "DUPLICATE_FOUND")
-          this.error = "Formation existe déjà";
+          if (error.error.errorMessage == "DUPLICATE_FOUND")
+            this.error = "Formation existe déjà";
         }
       }
     )

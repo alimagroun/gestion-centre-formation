@@ -1,32 +1,34 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { addDocumentToRegistration } from '../fn/registration-controller/add-document-to-registration';
-import { AddDocumentToRegistration$Params } from '../fn/registration-controller/add-document-to-registration';
-import { assignStudentToAcceleratedClass } from '../fn/registration-controller/assign-student-to-accelerated-class';
-import { AssignStudentToAcceleratedClass$Params } from '../fn/registration-controller/assign-student-to-accelerated-class';
-import { assignStudentToAccreditedClass } from '../fn/registration-controller/assign-student-to-accredited-class';
-import { AssignStudentToAccreditedClass$Params } from '../fn/registration-controller/assign-student-to-accredited-class';
-import { findAllRegistrations } from '../fn/registration-controller/find-all-registrations';
-import { FindAllRegistrations$Params } from '../fn/registration-controller/find-all-registrations';
-import { findRegistrationById } from '../fn/registration-controller/find-registration-by-id';
-import { FindRegistrationById$Params } from '../fn/registration-controller/find-registration-by-id';
-import { PageResponseRegistrationResponse } from '../models/page-response-registration-response';
-import { register } from '../fn/registration-controller/register';
-import { Register$Params } from '../fn/registration-controller/register';
-import { RegistrationDetailsResponse } from '../models/registration-details-response';
-import { updateRegistrationStatus } from '../fn/registration-controller/update-registration-status';
-import { UpdateRegistrationStatus$Params } from '../fn/registration-controller/update-registration-status';
+import {addDocumentToRegistration} from '../fn/registration-controller/add-document-to-registration';
+import {AddDocumentToRegistration$Params} from '../fn/registration-controller/add-document-to-registration';
+import {assignStudentToAcceleratedClass} from '../fn/registration-controller/assign-student-to-accelerated-class';
+import {
+  AssignStudentToAcceleratedClass$Params
+} from '../fn/registration-controller/assign-student-to-accelerated-class';
+import {assignStudentToAccreditedClass} from '../fn/registration-controller/assign-student-to-accredited-class';
+import {AssignStudentToAccreditedClass$Params} from '../fn/registration-controller/assign-student-to-accredited-class';
+import {findAllRegistrations} from '../fn/registration-controller/find-all-registrations';
+import {FindAllRegistrations$Params} from '../fn/registration-controller/find-all-registrations';
+import {findRegistrationById} from '../fn/registration-controller/find-registration-by-id';
+import {FindRegistrationById$Params} from '../fn/registration-controller/find-registration-by-id';
+import {PageResponseRegistrationResponse} from '../models/page-response-registration-response';
+import {register} from '../fn/registration-controller/register';
+import {Register$Params} from '../fn/registration-controller/register';
+import {RegistrationDetailsResponse} from '../models/registration-details-response';
+import {updateRegistrationStatus} from '../fn/registration-controller/update-registration-status';
+import {UpdateRegistrationStatus$Params} from '../fn/registration-controller/update-registration-status';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class RegistrationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

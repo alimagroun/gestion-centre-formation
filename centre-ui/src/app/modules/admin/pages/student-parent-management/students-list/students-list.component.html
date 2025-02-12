@@ -18,7 +18,7 @@
   </div>
 
   <table class="table table-hover">
-    <thead >
+    <thead>
     <tr>
       <th>Nom</th>
       <th>Prénom</th>
@@ -34,10 +34,11 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let p of studentResponsePaged.content! | paginate: { itemsPerPage: studentResponsePaged.size!, currentPage: page+1, totalItems: studentResponsePaged.totalElements };">
+    <ng-container
+      *ngFor="let p of studentResponsePaged.content! | paginate: { itemsPerPage: studentResponsePaged.size!, currentPage: page+1, totalItems: studentResponsePaged.totalElements };">
       <tr>
         <td>{{ p.firstName }}</td>
-        <td>{{ p.lastName  }}</td>
+        <td>{{ p.lastName }}</td>
         <td>{{ p.phoneNumber }}</td>
         <td>
           <button class="btn btn-info btn-sm" (click)="viewParentDetails(p)">Détails</button>

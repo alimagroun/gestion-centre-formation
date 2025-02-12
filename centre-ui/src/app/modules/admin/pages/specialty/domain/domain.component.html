@@ -21,7 +21,7 @@
   </div>
 
   <table class="table table-hover">
-    <thead >
+    <thead>
     <tr>
       <th>Nom</th>
       <th>Description</th>
@@ -35,7 +35,8 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let d of domainResponse.content! | paginate: { itemsPerPage: domainResponse.size!, currentPage: page+1, totalItems: domainResponse.totalElements };">
+    <ng-container
+      *ngFor="let d of domainResponse.content! | paginate: { itemsPerPage: domainResponse.size!, currentPage: page+1, totalItems: domainResponse.totalElements };">
       <tr>
         <td>{{ d.name }}</td>
         <td>{{ d.description }}</td>

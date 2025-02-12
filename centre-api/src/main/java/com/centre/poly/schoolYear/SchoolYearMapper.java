@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SchoolYearMapper {
-
+    
     public SchoolYearResponse toResponse(SchoolYear schoolYear) {
         SchoolYearResponse response = new SchoolYearResponse();
         response.setId(schoolYear.getId());
@@ -13,7 +13,7 @@ public class SchoolYearMapper {
         response.setIsDefault(schoolYear.getIsDefault());
         return response;
     }
-
+    
     public SchoolYear toRequest(SchoolYearRequest request) {
         SchoolYear schoolYear = new SchoolYear();
         schoolYear.setStartYear(request.startYear());

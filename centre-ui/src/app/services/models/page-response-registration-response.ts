@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { RegistrationResponse } from '../models/registration-response';
+import {RegistrationResponse} from '../models/registration-response';
+
 export interface PageResponseRegistrationResponse {
   content?: Array<RegistrationResponse>;
   first?: boolean;

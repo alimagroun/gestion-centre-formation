@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SpecialtyResponse} from "../../../../../../services/models/specialty-response";
 import {SpecialtyControllerService} from "../../../../../../services/services/specialty-controller.service";
 import {
@@ -24,17 +24,17 @@ import {NgForOf, NgIf} from "@angular/common";
 })
 export class AddClassAcceleratedComponent {
 
-  specialtyList : Array<SpecialtyResponse> = []
+  specialtyList: Array<SpecialtyResponse> = []
   selectSpecialty: any;
   groupNumber: any;
-  classRequest : AcceleratedClassRequest = {specialtyId: 0, groupNumber: 0, startDate:"", endDate:""}
+  classRequest: AcceleratedClassRequest = {specialtyId: 0, groupNumber: 0, startDate: "", endDate: ""}
   loader = false
 
   constructor(
-    private specialtyService : SpecialtyControllerService,
-    private classService : ClasseFormationControllerService,
-    private toastService : ToastService,
-    private router : Router
+    private specialtyService: SpecialtyControllerService,
+    private classService: ClasseFormationControllerService,
+    private toastService: ToastService,
+    private router: Router
   ) {
   }
 
@@ -42,7 +42,7 @@ export class AddClassAcceleratedComponent {
     this.findAllSpecialty()
   }
 
-  findAllSpecialty(){
+  findAllSpecialty() {
     this.specialtyService.findAll().subscribe(res => {
       this.specialtyList = res
     })
@@ -56,7 +56,7 @@ export class AddClassAcceleratedComponent {
       this.loader = false
       return;
     }
-    if( this.classRequest.startDate > this.classRequest.endDate ){
+    if (this.classRequest.startDate > this.classRequest.endDate) {
       this.toastService.showError("Date de fin doit être supérieure ou égale à date de début")
       this.loader = false
       return;
@@ -64,10 +64,10 @@ export class AddClassAcceleratedComponent {
     this.classRequest.groupNumber = this.groupNumber
     this.classRequest.specialtyId = this.selectSpecialty
 
-    this.classService.saveAcceleratedClass({body:this.classRequest}).subscribe(res => {
+    this.classService.saveAcceleratedClass({body: this.classRequest}).subscribe(res => {
       this.toastService.showSuccess("Ajouter avec succée")
       this.router.navigate(['admin/acceleratedClass']);
-    },error => {
+    }, error => {
       this.loader = false
       this.toastService.showError("Classe existe déjà.")
     })

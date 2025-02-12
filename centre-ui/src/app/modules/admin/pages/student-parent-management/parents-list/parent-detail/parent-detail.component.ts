@@ -14,16 +14,16 @@ import {NgForOf, NgIf} from "@angular/common";
   templateUrl: './parent-detail.component.html',
   styleUrl: './parent-detail.component.scss'
 })
-export class ParentDetailComponent implements OnInit{
+export class ParentDetailComponent implements OnInit {
 
   parentId: string | null = null;
-  parent : ParentDetailResponse = {}
-  loading= true;
+  parent: ParentDetailResponse = {}
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
-    private parentService : PersonControllerService
-    ) {
+    private parentService: PersonControllerService
+  ) {
   }
 
   ngOnInit(): void {
@@ -33,8 +33,8 @@ export class ParentDetailComponent implements OnInit{
     this.getParentDetail()
   }
 
-  getParentDetail(){
-    this.parentService.findParentDetailById({parentId:Number(this.parentId)}).subscribe(res => {
+  getParentDetail() {
+    this.parentService.findParentDetailById({parentId: Number(this.parentId)}).subscribe(res => {
       this.loading = false
       this.parent = res
     })

@@ -1,24 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { findAllFormation } from '../fn/fromation-controller/find-all-formation';
-import { FindAllFormation$Params } from '../fn/fromation-controller/find-all-formation';
-import { findAllFormationsList } from '../fn/fromation-controller/find-all-formations-list';
-import { FindAllFormationsList$Params } from '../fn/fromation-controller/find-all-formations-list';
-import { FormationTypeResponse } from '../models/formation-type-response';
-import { PageResponseFormationTypeResponse } from '../models/page-response-formation-type-response';
-import { saveFormation } from '../fn/fromation-controller/save-formation';
-import { SaveFormation$Params } from '../fn/fromation-controller/save-formation';
+import {findAllFormation} from '../fn/fromation-controller/find-all-formation';
+import {FindAllFormation$Params} from '../fn/fromation-controller/find-all-formation';
+import {findAllFormationsList} from '../fn/fromation-controller/find-all-formations-list';
+import {FindAllFormationsList$Params} from '../fn/fromation-controller/find-all-formations-list';
+import {FormationTypeResponse} from '../models/formation-type-response';
+import {PageResponseFormationTypeResponse} from '../models/page-response-formation-type-response';
+import {saveFormation} from '../fn/fromation-controller/save-formation';
+import {SaveFormation$Params} from '../fn/fromation-controller/save-formation';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class FromationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

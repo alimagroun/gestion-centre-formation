@@ -18,23 +18,27 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Document {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_sequence")
-    @SequenceGenerator(name = "document_sequence", sequenceName = "document_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "document_sequence")
+    @SequenceGenerator(name = "document_sequence",
+                       sequenceName = "document_sequence",
+                       allocationSize = 1)
     private Long id;
-
-
+    
+    
     String name;
-
+    
     String description;
-
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
-
+    
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
-
+    
 }

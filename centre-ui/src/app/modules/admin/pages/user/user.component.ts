@@ -15,16 +15,16 @@ import {NgxPaginationModule} from "ngx-pagination";
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
 
-  userRespone : PageResponseUserResponse = {}
+  userRespone: PageResponseUserResponse = {}
   page: number = 0;
   size: number = 10;
 
   loading: boolean = false;
 
   constructor(
-    private userService : UserControllerService
+    private userService: UserControllerService
   ) {
   }
 
@@ -32,12 +32,12 @@ export class UserComponent implements OnInit{
     this.findUserPaginated();
   }
 
-  findUserPaginated(){
+  findUserPaginated() {
     this.loading = true;
     this.userService.findAllUsers({
       page: this.page,
       size: this.size
-    }).subscribe(res=>{
+    }).subscribe(res => {
       this.userRespone = res
       this.loading = false;
     })

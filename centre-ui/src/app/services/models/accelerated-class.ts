@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Specialty } from '../models/specialty';
+import {Specialty} from '../models/specialty';
+
 export interface AcceleratedClass {
   createdDate?: string;
   endDate?: string;

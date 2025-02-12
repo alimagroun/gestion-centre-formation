@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddClassAcceleratedComponent } from './add-class-accelerated.component';
+import {AddClassAcceleratedComponent} from './add-class-accelerated.component';
 
 describe('AddClassAcceleratedComponent', () => {
   let component: AddClassAcceleratedComponent;
@@ -10,7 +10,7 @@ describe('AddClassAcceleratedComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AddClassAcceleratedComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AddClassAcceleratedComponent);
     component = fixture.componentInstance;

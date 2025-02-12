@@ -1,24 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { DomaineResponse } from '../models/domaine-response';
-import { findAllDomain } from '../fn/domaine-controller/find-all-domain';
-import { FindAllDomain$Params } from '../fn/domaine-controller/find-all-domain';
-import { findAllDomainsList } from '../fn/domaine-controller/find-all-domains-list';
-import { FindAllDomainsList$Params } from '../fn/domaine-controller/find-all-domains-list';
-import { PageResponseDomaineResponse } from '../models/page-response-domaine-response';
-import { saveDomain } from '../fn/domaine-controller/save-domain';
-import { SaveDomain$Params } from '../fn/domaine-controller/save-domain';
+import {DomaineResponse} from '../models/domaine-response';
+import {findAllDomain} from '../fn/domaine-controller/find-all-domain';
+import {FindAllDomain$Params} from '../fn/domaine-controller/find-all-domain';
+import {findAllDomainsList} from '../fn/domaine-controller/find-all-domains-list';
+import {FindAllDomainsList$Params} from '../fn/domaine-controller/find-all-domains-list';
+import {PageResponseDomaineResponse} from '../models/page-response-domaine-response';
+import {saveDomain} from '../fn/domaine-controller/save-domain';
+import {SaveDomain$Params} from '../fn/domaine-controller/save-domain';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class DomaineControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

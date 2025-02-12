@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-import { DocumentResponse } from '../models/document-response';
+import {DocumentResponse} from '../models/document-response';
+
 export interface PageResponseDocumentResponse {
   content?: Array<DocumentResponse>;
   first?: boolean;

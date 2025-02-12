@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Employer extends Person {
-
+    
     private String jobTitle;
-
+    
 }

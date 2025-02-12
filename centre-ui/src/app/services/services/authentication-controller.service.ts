@@ -1,19 +1,19 @@
 /* tslint:disable */
 /* eslint-disable */
-import { HttpClient, HttpContext } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {HttpClient, HttpContext} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
 
-import { authenticate } from '../fn/authentication-controller/authenticate';
-import { Authenticate$Params } from '../fn/authentication-controller/authenticate';
-import { AuthenticationResponse } from '../models/authentication-response';
+import {authenticate} from '../fn/authentication-controller/authenticate';
+import {Authenticate$Params} from '../fn/authentication-controller/authenticate';
+import {AuthenticationResponse} from '../models/authentication-response';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

@@ -7,7 +7,7 @@ public record DomaineRequest(
         @NotNull(message = "NAME_NOT_NULL")
         @NotEmpty(message = "NAME_NOT_NULL")
         String name,
-
+        
         @NotNull(message = "DESCRIPTION_NOT_NULL")
         @NotEmpty(message = "DESCRIPTION_NOT_NULL")
         String description

@@ -21,7 +21,7 @@
   </div>
 
   <table class="table table-hover">
-    <thead >
+    <thead>
     <tr>
       <th>Formation</th>
       <th>Domaine</th>
@@ -35,7 +35,8 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let s of specialtyResponse.content! | paginate: { itemsPerPage: specialtyResponse.size!, currentPage: page+1, totalItems: specialtyResponse.totalElements };">
+    <ng-container
+      *ngFor="let s of specialtyResponse.content! | paginate: { itemsPerPage: specialtyResponse.size!, currentPage: page+1, totalItems: specialtyResponse.totalElements };">
       <tr>
         <td>{{ s.formationTypeName }}</td>
         <td>{{ s.domaineName }}</td>

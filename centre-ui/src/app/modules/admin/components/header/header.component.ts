@@ -11,13 +11,11 @@ import {DOCUMENT} from "@angular/common";
 export class HeaderComponent {
 
   constructor(@Inject(DOCUMENT) private document: Document,
-
   ) {
   }
 
 
-  sidebarToggle()
-  {
+  sidebarToggle() {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }

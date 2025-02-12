@@ -41,7 +41,8 @@
       <p><strong><i class="bi bi-person-fill"></i> Prénom :</strong> {{ studentRequest.firstName }}</p>
       <p><strong><i class="bi bi-person-fill"></i> Nom :</strong> {{ studentRequest.lastName }}</p>
       <p><strong><i class="bi bi-book-fill"></i> Niveau d'éducation :</strong> {{ studentRequest.levelOfEducation }}</p>
-      <p><strong><i class="bi bi-telephone-fill"></i> Numéro de téléphone :</strong> {{ studentRequest.phoneNumber }}</p>
+      <p><strong><i class="bi bi-telephone-fill"></i> Numéro de téléphone :</strong> {{ studentRequest.phoneNumber }}
+      </p>
     </div>
 
 
@@ -55,17 +56,17 @@
     <div class="col-md-4">
       <h3 class="custom-title">Liste des documents</h3>
       <p *ngFor="let doc of documents">
-        <span>{{doc.name}}</span>
+        <span>{{ doc.name }}</span>
       </p>
     </div>
     <div class="col-md-4">
       <h3 class="custom-title">frais d'inscription</h3>
-      <span>{{registrationFeesFromChild}} TND</span>
+      <span>{{ registrationFeesFromChild }} TND</span>
     </div>
 
     <div class="col-md-4">
       <h3 class="custom-title">Specialité</h3>
-      <span>{{specialtyName}}</span>
+      <span>{{ specialtyName }}</span>
     </div>
 
   </div>

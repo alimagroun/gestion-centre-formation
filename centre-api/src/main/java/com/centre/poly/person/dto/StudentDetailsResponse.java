@@ -16,12 +16,12 @@ public class StudentDetailsResponse {
     private String phoneNumber;
     private String email;
     private String levelOfEducation;
-
+    
     private AddressDTO address;
     private ParentDTO mother;
     private ParentDTO father;
-
+    
     private ParentStatusDTO parentStatus;
-
-
+    
+    
 }

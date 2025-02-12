@@ -14,15 +14,15 @@ import java.util.List;
 @RequestMapping("school-years")
 @RequiredArgsConstructor
 public class SchoolYearController {
-
+    
     private final SchoolYearService schoolYearService;
-
+    
     @PostMapping
     public ResponseEntity<Long> save(@Valid @RequestBody SchoolYearRequest request) {
         Long id = schoolYearService.save(request);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
-
+    
     @GetMapping
     public ResponseEntity<PageResponse<SchoolYearResponse>> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -30,19 +30,19 @@ public class SchoolYearController {
         PageResponse<SchoolYearResponse> response = schoolYearService.findAllPagebale(page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<SchoolYearResponse> findById(@PathVariable Long id) {
         SchoolYearResponse response = schoolYearService.findById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    
     @PutMapping("/{id}/default")
     public ResponseEntity<Void> setDefault(@PathVariable Long id) {
         schoolYearService.toDefault(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @GetMapping("/all")
     public ResponseEntity<List<SchoolYearResponse>> findAllList() {
         return new ResponseEntity<>(schoolYearService.findAll(), HttpStatus.OK);

@@ -22,40 +22,47 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Registration {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registration_sequence")
-    @SequenceGenerator(name = "registration_sequence", sequenceName = "registration_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "registration_sequence")
+    @SequenceGenerator(name = "registration_sequence",
+                       sequenceName = "registration_sequence",
+                       allocationSize = 1)
     private Long id;
-
+    
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id",
+                nullable = false)
     private Student student;
-
+    
     @Enumerated(EnumType.STRING)
     private RegistrationStatus status;
-
+    
     private String statusChangeReason;
-
+    
     private String remarks;
-
+    
     private Double registrationFees;
-
+    
     private Boolean isAffected;
-
+    
     @ManyToOne
-    @JoinColumn(name = "specialty_id", nullable = false)
+    @JoinColumn(name = "specialty_id",
+                nullable = false)
     private Specialty specialty;
-
-    @OneToMany(mappedBy = "registration", cascade = CascadeType.ALL)
+    
+    @OneToMany(mappedBy = "registration",
+               cascade = CascadeType.ALL)
     List<RegistrationDocumentEntry> registrationDocumentEntries;
-
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
-
+    
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
-
+    
 }
