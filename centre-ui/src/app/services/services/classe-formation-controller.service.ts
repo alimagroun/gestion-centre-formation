@@ -1,60 +1,44 @@
 /* tslint:disable */
 /* eslint-disable */
-import {HttpClient, HttpContext} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import {BaseService} from '../base-service';
-import {ApiConfiguration} from '../api-configuration';
-import {StrictHttpResponse} from '../strict-http-response';
+import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
 
-import {AcceleratedClass} from '../models/accelerated-class';
-import {AcceleratedClassResponse} from '../models/accelerated-class-response';
-import {AccreditedClassResponse} from '../models/accredited-class-response';
-import {addStudentToAcceleratedClass} from '../fn/classe-formation-controller/add-student-to-accelerated-class';
-import {AddStudentToAcceleratedClass$Params} from '../fn/classe-formation-controller/add-student-to-accelerated-class';
-import {addStudentToAccreditedClass} from '../fn/classe-formation-controller/add-student-to-accredited-class';
-import {AddStudentToAccreditedClass$Params} from '../fn/classe-formation-controller/add-student-to-accredited-class';
-import {ClassStudentResponse} from '../models/class-student-response';
-import {findAllAcceleratedClass} from '../fn/classe-formation-controller/find-all-accelerated-class';
-import {FindAllAcceleratedClass$Params} from '../fn/classe-formation-controller/find-all-accelerated-class';
-import {
-  findAllAcceleratedClassBySpecialty
-} from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
-import {
-  FindAllAcceleratedClassBySpecialty$Params
-} from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
-import {findAllAcceleratedClasses} from '../fn/classe-formation-controller/find-all-accelerated-classes';
-import {FindAllAcceleratedClasses$Params} from '../fn/classe-formation-controller/find-all-accelerated-classes';
-import {findAllAccreditedClass} from '../fn/classe-formation-controller/find-all-accredited-class';
-import {FindAllAccreditedClass$Params} from '../fn/classe-formation-controller/find-all-accredited-class';
-import {
-  findAllAccreditedClassBySpecialty
-} from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
-import {
-  FindAllAccreditedClassBySpecialty$Params
-} from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
-import {
-  findAllStudentByAcceleratedClassId
-} from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
-import {
-  FindAllStudentByAcceleratedClassId$Params
-} from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
-import {
-  findAllStudentByAccreditedClassId
-} from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
-import {
-  FindAllStudentByAccreditedClassId$Params
-} from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
-import {PageResponseAcceleratedClassResponse} from '../models/page-response-accelerated-class-response';
-import {PageResponseAccreditedClassResponse} from '../models/page-response-accredited-class-response';
-import {saveAcceleratedClass} from '../fn/classe-formation-controller/save-accelerated-class';
-import {SaveAcceleratedClass$Params} from '../fn/classe-formation-controller/save-accelerated-class';
-import {saveAccreditedClass} from '../fn/classe-formation-controller/save-accredited-class';
-import {SaveAccreditedClass$Params} from '../fn/classe-formation-controller/save-accredited-class';
+import { AcceleratedClass } from '../models/accelerated-class';
+import { AcceleratedClassResponse } from '../models/accelerated-class-response';
+import { AccreditedClassResponse } from '../models/accredited-class-response';
+import { addStudentToAcceleratedClass } from '../fn/classe-formation-controller/add-student-to-accelerated-class';
+import { AddStudentToAcceleratedClass$Params } from '../fn/classe-formation-controller/add-student-to-accelerated-class';
+import { addStudentToAccreditedClass } from '../fn/classe-formation-controller/add-student-to-accredited-class';
+import { AddStudentToAccreditedClass$Params } from '../fn/classe-formation-controller/add-student-to-accredited-class';
+import { ClassStudentResponse } from '../models/class-student-response';
+import { findAllAcceleratedClass } from '../fn/classe-formation-controller/find-all-accelerated-class';
+import { FindAllAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-accelerated-class';
+import { findAllAcceleratedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
+import { FindAllAcceleratedClassBySpecialty$Params } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
+import { findAllAcceleratedClasses } from '../fn/classe-formation-controller/find-all-accelerated-classes';
+import { FindAllAcceleratedClasses$Params } from '../fn/classe-formation-controller/find-all-accelerated-classes';
+import { findAllAccreditedClass } from '../fn/classe-formation-controller/find-all-accredited-class';
+import { FindAllAccreditedClass$Params } from '../fn/classe-formation-controller/find-all-accredited-class';
+import { findAllAccreditedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
+import { FindAllAccreditedClassBySpecialty$Params } from '../fn/classe-formation-controller/find-all-accredited-class-by-specialty';
+import { findAllStudentByAcceleratedClassId } from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
+import { FindAllStudentByAcceleratedClassId$Params } from '../fn/classe-formation-controller/find-all-student-by-accelerated-class-id';
+import { findAllStudentByAccreditedClassId } from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
+import { FindAllStudentByAccreditedClassId$Params } from '../fn/classe-formation-controller/find-all-student-by-accredited-class-id';
+import { PageResponseAcceleratedClassResponse } from '../models/page-response-accelerated-class-response';
+import { PageResponseAccreditedClassResponse } from '../models/page-response-accredited-class-response';
+import { saveAcceleratedClass } from '../fn/classe-formation-controller/save-accelerated-class';
+import { SaveAcceleratedClass$Params } from '../fn/classe-formation-controller/save-accelerated-class';
+import { saveAccreditedClass } from '../fn/classe-formation-controller/save-accredited-class';
+import { SaveAccreditedClass$Params } from '../fn/classe-formation-controller/save-accredited-class';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ClasseFormationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

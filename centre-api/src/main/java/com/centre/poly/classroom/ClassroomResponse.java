@@ -10,9 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClassroomResponse {
-    
-    private Long id;
-    private String name;
-    private String type;
-    
+
+  private Long id;
+  private String name;
+  private ClassroomType type;
 }

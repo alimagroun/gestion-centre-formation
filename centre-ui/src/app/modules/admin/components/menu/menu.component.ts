@@ -141,7 +141,22 @@ export class MenuComponent {
           url: 'admin/parents',
         },
       ],
+    },
+    {
+      id: '7',
+      "titre": "Gestion des salles de classe",
+      "icon": "bi bi-door-closed",
+      url: '',
+      sousMenu: [
+        {
+          id: '71',
+          "titre": "Liste des salles",
+          icon: '',
+          "url": "admin/classrooms"
+        },
+      ],
     }
+
   ];
 
   constructor(private router: Router) {

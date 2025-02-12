@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {StudentResponse} from '../models/student-response';
-
+import { StudentResponse } from '../models/student-response';
 export interface ParentDetailResponse {
   email?: string;
   firstName?: string;

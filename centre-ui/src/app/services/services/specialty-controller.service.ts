@@ -1,24 +1,24 @@
 /* tslint:disable */
 /* eslint-disable */
-import {HttpClient, HttpContext} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { HttpClient, HttpContext } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import {BaseService} from '../base-service';
-import {ApiConfiguration} from '../api-configuration';
-import {StrictHttpResponse} from '../strict-http-response';
+import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
 
-import {findAll} from '../fn/specialty-controller/find-all';
-import {FindAll$Params} from '../fn/specialty-controller/find-all';
-import {findAllSpecialtyPageable} from '../fn/specialty-controller/find-all-specialty-pageable';
-import {FindAllSpecialtyPageable$Params} from '../fn/specialty-controller/find-all-specialty-pageable';
-import {PageResponseSpecialtyResponse} from '../models/page-response-specialty-response';
-import {saveSpecialty} from '../fn/specialty-controller/save-specialty';
-import {SaveSpecialty$Params} from '../fn/specialty-controller/save-specialty';
-import {SpecialtyResponse} from '../models/specialty-response';
+import { findAll } from '../fn/specialty-controller/find-all';
+import { FindAll$Params } from '../fn/specialty-controller/find-all';
+import { findAllSpecialtyPageable } from '../fn/specialty-controller/find-all-specialty-pageable';
+import { FindAllSpecialtyPageable$Params } from '../fn/specialty-controller/find-all-specialty-pageable';
+import { PageResponseSpecialtyResponse } from '../models/page-response-specialty-response';
+import { saveSpecialty } from '../fn/specialty-controller/save-specialty';
+import { SaveSpecialty$Params } from '../fn/specialty-controller/save-specialty';
+import { SpecialtyResponse } from '../models/specialty-response';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SpecialtyControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);

@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {RoleResponse} from '../models/role-response';
-
+import { RoleResponse } from '../models/role-response';
 export interface PageResponseRoleResponse {
   content?: Array<RoleResponse>;
   first?: boolean;

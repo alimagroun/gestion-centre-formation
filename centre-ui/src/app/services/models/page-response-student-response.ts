@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {StudentResponse} from '../models/student-response';
-
+import { StudentResponse } from '../models/student-response';
 export interface PageResponseStudentResponse {
   content?: Array<StudentResponse>;
   first?: boolean;

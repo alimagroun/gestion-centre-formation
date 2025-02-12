@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {UserResponse} from '../models/user-response';
-
+import { UserResponse } from '../models/user-response';
 export interface PageResponseUserResponse {
   content?: Array<UserResponse>;
   first?: boolean;

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {IndexComponent} from "./pages/index/index.component";
-import {authGuard} from "../../services/guard/auth.guard";
 import {authAdminGuard} from "../../services/guard/auth-admin.guard";
 import {RoleComponent} from "./pages/role/role.component";
 import {RegisterComponent} from "./pages/register/register.component";
@@ -40,6 +39,8 @@ import {
 import {
   AccreditedStudentsListComponent
 } from "./pages/classmanagement/accredited-class/accredited-students-list/accredited-students-list.component";
+import {ClassRoomComponent} from "./pages/class-room/class-room.component";
+import {AddClassRoomComponent} from "./pages/class-room/add-class-room/add-class-room.component";
 
 const routes: Routes = [
   {
@@ -225,6 +226,22 @@ const routes: Routes = [
             canActivate: [authAdminGuard]
           },
         ],
+      },
+      {
+        path: 'classrooms',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: ClassRoomComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addClassRoom',
+            component: AddClassRoomComponent,
+            canActivate: [authAdminGuard]
+          }
+        ]
       },
     ]
   }

@@ -1,10 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import {Address} from '../models/address';
-import {DocumentRegistrationResponse} from '../models/document-registration-response';
-import {ParentDetails} from '../models/parent-details';
-import {StudentDetails} from '../models/student-details';
-
+import { Address } from '../models/address';
+import { DocumentRegistrationResponse } from '../models/document-registration-response';
+import { ParentDetails } from '../models/parent-details';
+import { StudentDetails } from '../models/student-details';
 export interface RegistrationDetailsResponse {
   address?: Address;
   createdDate?: string;
