@@ -17,61 +17,72 @@ import java.util.List;
 
 @Configuration
 public class AdminUserConfig {
-
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    
     @Autowired
     private UserRepository userRepository;
-
+    
     @Autowired
     RoleRepository roleRepository;
-
+    
     @Autowired
     PersonRepository personRepository;
-
+    
     @Bean
     public CommandLineRunner createAdminUser() {
         return args -> {
-            if(!roleRepository.findByName("ROLE_ADMIN").isPresent()) {
-                roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
+            if (!roleRepository.findByName("ROLE_ADMIN")
+                               .isPresent()) {
+                roleRepository.save(Role.builder()
+                                        .name("ROLE_ADMIN")
+                                        .build());
             }
-
-            if(!roleRepository.findByName("ROLE_PARENT").isPresent()) {
-                roleRepository.save(Role.builder().name("ROLE_PARENT").build());
+            
+            if (!roleRepository.findByName("ROLE_PARENT")
+                               .isPresent()) {
+                roleRepository.save(Role.builder()
+                                        .name("ROLE_PARENT")
+                                        .build());
             }
-
-            if(!roleRepository.findByName("ROLE_STUDENT").isPresent()) {
-                roleRepository.save(Role.builder().name("ROLE_STUDENT").build());
+            
+            if (!roleRepository.findByName("ROLE_STUDENT")
+                               .isPresent()) {
+                roleRepository.save(Role.builder()
+                                        .name("ROLE_STUDENT")
+                                        .build());
             }
-
-            if (userRepository.findByUserName("admin").isEmpty()) {
-
+            
+            if (userRepository.findByUserName("admin")
+                              .isEmpty()) {
+                
                 Employer employer = new Employer();
                 employer.setFirstName("Ahmed");
                 employer.setLastName("Tiba");
                 employer.setJobTitle("Admin");
-
-
+                
+                
                 Address address = new Address();
                 address.setCity("Sahline");
                 address.setStreet("rue hedi chaker");
                 address.setZipCode("5012");
                 employer.setAddress(address);
-
+                
                 personRepository.save(employer);
-
-
+                
+                
                 User admin = new User();
                 admin.setUserName("admin");
                 admin.setPassword(passwordEncoder.encode("12345678"));
-                admin.setRoles(List.of(roleRepository.findByName("ROLE_ADMIN").get()));
+                admin.setRoles(List.of(roleRepository.findByName("ROLE_ADMIN")
+                                                     .get()));
                 admin.setEnabled(true);
                 admin.setPerson(employer);
                 userRepository.save(admin);
             }
         };
     }
-
-
+    
+    
 }

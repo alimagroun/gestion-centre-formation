@@ -13,18 +13,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class AccreditedClassEntry {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accredited_class_sequence")
-    @SequenceGenerator(name = "accredited_class_sequence", sequenceName = "accredited_class_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "accredited_class_sequence")
+    @SequenceGenerator(name = "accredited_class_sequence",
+                       sequenceName = "accredited_class_sequence",
+                       allocationSize = 1)
     private Long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
+    
     @ManyToOne
     @JoinColumn(name = "accreditedClass_class_id")
     private AccreditedClass accreditedClass;
-
+    
 }

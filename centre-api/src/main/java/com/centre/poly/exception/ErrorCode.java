@@ -23,7 +23,7 @@ public enum ErrorCode {
     private final String description;
     @Getter
     private final HttpStatus httpStatus;
-
+    
     ErrorCode(int code, HttpStatus httpStatus, String description) {
         this.code = code;
         this.description = description;

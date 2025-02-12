@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 
 @Injectable({
@@ -10,10 +10,10 @@ export class ToastService {
   public toastState = this.toastSubject.asObservable();
 
   showSuccess(message: string) {
-    this.toastSubject.next({ message, isError: false });
+    this.toastSubject.next({message, isError: false});
   }
 
   showError(message: string) {
-    this.toastSubject.next({ message, isError: true });
+    this.toastSubject.next({message, isError: true});
   }
 }

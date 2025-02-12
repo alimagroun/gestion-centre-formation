@@ -23,11 +23,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PersonService {
-
-
+    
+    
     private final ParentMapper parentMapper;
     private final PersonRepository personRepository;
-
+    
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -89,130 +89,165 @@ public class PersonService {
         });
         return 1;
     }*/
-
+    
     public ParentResponse findByPhoneNumberAndType(String num, ParentType type) {
         Parent parent = personRepository.findByPhoneNumberAndType(num, type);
-        if(parent != null){
+        if (parent != null) {
             return ParentResponse.builder()
-                    .id(parent.getId())
-                    .firstName(parent.getFirstName())
-                    .lastName(parent.getLastName())
-                    .email(parent.getEmail())
-                    .phoneNumber(parent.getPhoneNumber())
-                    .profession(parent.getProfession())
-                    .type(parent.getType())
-                    .maritalStatus(parent.getMaritalStatus())
-                    .isDeceased(parent.getIsDeceased())
-                    .build();
-        }else{
+                                 .id(parent.getId())
+                                 .firstName(parent.getFirstName())
+                                 .lastName(parent.getLastName())
+                                 .email(parent.getEmail())
+                                 .phoneNumber(parent.getPhoneNumber())
+                                 .profession(parent.getProfession())
+                                 .type(parent.getType())
+                                 .maritalStatus(parent.getMaritalStatus())
+                                 .isDeceased(parent.getIsDeceased())
+                                 .build();
+        } else {
             throw new NotFoundException("Parent_not_found");
         }
-
+        
     }
-
+    
     public Parent saveParent(Parent parent, Address address) {
         Parent parentSaved = personRepository.findByPhoneNumber(parent.getPhoneNumber());
-        if(parentSaved == null){
+        if (parentSaved == null) {
             if (isPhoneNumberUnique(parent.getPhoneNumber())) {
-                throw new DuplicateEntityException("Phone number "+parent.getPhoneNumber()+" already exists");
+                throw new DuplicateEntityException("Phone number " + parent.getPhoneNumber() + " already exists");
             }
-
-            if(!parent.getEmail().isEmpty() && isEmailUnique(parent.getEmail())) {
-                throw new DuplicateEntityException("Email "+parent.getEmail()+" already exists");
+            
+            if (!parent.getEmail()
+                       .isEmpty() && isEmailUnique(parent.getEmail())) {
+                throw new DuplicateEntityException("Email " + parent.getEmail() + " already exists");
             }
-
+            
             parent.setAddress(address);
             parent.setProfession(parent.getProfession());
             parent = personRepository.save(parent);
-
+            
             createUserParent(parent);
-
+            
             return parent;
         }
         return parentSaved;
     }
-
-    public void createUserParent(Parent parent){
+    
+    public void createUserParent(Parent parent) {
         User userStudent = new User();
         userStudent.setUserName(parent.getPhoneNumber());
         userStudent.setPassword(passwordEncoder.encode(parent.getPhoneNumber()));
-        userStudent.setRoles(List.of(roleRepository.findByName("ROLE_PARENT").get()));
+        userStudent.setRoles(List.of(roleRepository.findByName("ROLE_PARENT")
+                                                   .get()));
         userStudent.setEnabled(true);
         userStudent.setPerson(parent);
         userRepository.save(userStudent);
     }
-
+    
     public Student saveStudent(Student student, Parent mother, Parent father, Address address) {
         if (isPhoneNumberUnique(student.getPhoneNumber())) {
-            throw new DuplicateEntityException("Phone number "+student.getPhoneNumber()+" already exists");
+            throw new DuplicateEntityException("Phone number " + student.getPhoneNumber() + " already exists");
         }
-
-        if(!student.getEmail().isEmpty() && isEmailUnique(student.getEmail())) {
-            throw new DuplicateEntityException("Email "+student.getEmail()+" already exists");
+        
+        if (!student.getEmail()
+                    .isEmpty() && isEmailUnique(student.getEmail())) {
+            throw new DuplicateEntityException("Email " + student.getEmail() + " already exists");
         }
-
+        
         student.setAddress(address);
         student.setMother(mother);
         student.setFather(father);
-
+        
         student = personRepository.save(student);
-
+        
         createUserStudent(student);
-
+        
         return student;
     }
-
-    public void createUserStudent(Student student){
+    
+    public void createUserStudent(Student student) {
         User userStudent = new User();
         userStudent.setUserName(student.getPhoneNumber());
         userStudent.setPassword(passwordEncoder.encode(student.getPhoneNumber()));
-        userStudent.setRoles(List.of(roleRepository.findByName("ROLE_STUDENT").get()));
+        userStudent.setRoles(List.of(roleRepository.findByName("ROLE_STUDENT")
+                                                   .get()));
         userStudent.setEnabled(true);
         userStudent.setPerson(student);
         userRepository.save(userStudent);
     }
-
+    
     public Boolean isPhoneNumberUnique(String phoneNumber) {
         return personRepository.existsByPhoneNumber(phoneNumber);
     }
-
+    
     public Boolean isEmailUnique(String email) {
         return personRepository.existByEmail(email);
     }
-
+    
     public PageResponse<ParentResponse> findAllParentsPaged(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<Person> parentsPage = personRepository.findAllParentPaged(pageable);
-        List<ParentResponse> parentResponses = parentsPage.stream().map(parentMapper::toResponse).toList();
-        return new PageResponse<>(parentResponses, parentsPage.getNumber(), parentsPage.getSize(), parentsPage.getTotalElements(), parentsPage.getTotalPages(), parentsPage.isFirst(), parentsPage.isLast());
+        List<ParentResponse> parentResponses = parentsPage.stream()
+                                                          .map(parentMapper::toResponse)
+                                                          .toList();
+        return new PageResponse<>(parentResponses,
+                                  parentsPage.getNumber(),
+                                  parentsPage.getSize(),
+                                  parentsPage.getTotalElements(),
+                                  parentsPage.getTotalPages(),
+                                  parentsPage.isFirst(),
+                                  parentsPage.isLast());
     }
-
+    
     public List<StudentResponse> findAllStudentsByParentId(Long parentId) {
-        List<StudentResponse> studentList = personRepository.findAllStudentsByParentId(parentId).stream().map(studentMapper::toResponse).toList();
+        List<StudentResponse> studentList = personRepository.findAllStudentsByParentId(parentId)
+                                                            .stream()
+                                                            .map(studentMapper::toResponse)
+                                                            .toList();
         return studentList;
     }
-
+    
     public ParentDetailResponse findParentDetailById(Long parentId) {
-        Parent parent = personRepository.findByParentId(parentId).orElseThrow(()-> new NotFoundException("Parent with ID " + parentId + " not found"));
+        Parent parent = personRepository.findByParentId(parentId)
+                                        .orElseThrow(() -> new NotFoundException(
+                                                "Parent with ID " + parentId + " not found"));
         parent.setStudents(personRepository.findAllStudentsByParentId(parentId));
         return parentMapper.toDetailResponse(parent);
     }
-
+    
     public PageResponse<StudentResponse> findAllStudentsPaged(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<Student> studentsPage = personRepository.findAllStudentPaged(pageable);
-        List<StudentResponse> studentList = studentsPage.stream().map(studentMapper::toResponse).toList();
-        return new PageResponse<>(studentList, studentsPage.getNumber(), studentsPage.getSize(), studentsPage.getTotalElements(), studentsPage.getTotalPages(), studentsPage.isFirst(), studentsPage.isLast());
+        List<StudentResponse> studentList = studentsPage.stream()
+                                                        .map(studentMapper::toResponse)
+                                                        .toList();
+        return new PageResponse<>(studentList,
+                                  studentsPage.getNumber(),
+                                  studentsPage.getSize(),
+                                  studentsPage.getTotalElements(),
+                                  studentsPage.getTotalPages(),
+                                  studentsPage.isFirst(),
+                                  studentsPage.isLast());
     }
-
+    
     public StudentDetailsResponse findStudentById(Long studentId) {
-        Student student = personRepository.findStudentById(studentId).orElseThrow(()-> new NotFoundException("Student with ID " + studentId + " not found"));
+        Student student = personRepository.findStudentById(studentId)
+                                          .orElseThrow(() -> new NotFoundException(
+                                                  "Student with ID " + studentId + " not found"));
         return studentMapper.toDetailsResponse(student);
     }
-
-    public List<StudentAllResponse> findAllStudent(){
+    
+    public List<StudentAllResponse> findAllStudent() {
         List<Student> students = personRepository.findAllStudent();
-        return students.stream().map(studentMapper::toStudentAllResponse).toList();
+        return students.stream()
+                       .map(studentMapper::toStudentAllResponse)
+                       .toList();
     }
-
+    
 }

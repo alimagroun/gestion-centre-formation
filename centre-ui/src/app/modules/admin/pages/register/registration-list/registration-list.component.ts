@@ -25,18 +25,18 @@ import {ToastService} from "../../../../../services/toast/toast.service";
   templateUrl: './registration-list.component.html',
   styleUrl: './registration-list.component.scss'
 })
-export class RegistrationListComponent implements OnInit{
+export class RegistrationListComponent implements OnInit {
 
-  registrationPage : PageResponseRegistrationResponse = {}
+  registrationPage: PageResponseRegistrationResponse = {}
   page: number = 0;
   size: number = 10;
-  selectedRegistration : RegistrationResponse = {}
+  selectedRegistration: RegistrationResponse = {}
 
   loading: boolean = false;
 
   constructor(
-    private registrationService : RegistrationControllerService,
-    private router : Router,
+    private registrationService: RegistrationControllerService,
+    private router: Router,
   ) {
   }
 
@@ -44,7 +44,7 @@ export class RegistrationListComponent implements OnInit{
     this.findAllResgitration();
   }
 
-  findAllResgitration(){
+  findAllResgitration() {
     this.loading = true;
     this.registrationPage.content = []
     this.registrationService.findAllRegistrations({
@@ -66,7 +66,7 @@ export class RegistrationListComponent implements OnInit{
     this.findAllResgitration();
   }
 
-  showRegistrationDetails(id: number ) {
+  showRegistrationDetails(id: number) {
     this.router.navigate(['admin/registrationDetails', id]);
   }
 }

@@ -38,14 +38,15 @@
         </div>
       </td>
     </tr>
-    <ng-container *ngFor="let c of classAcceleratedResponse.content! | paginate: { itemsPerPage: classAcceleratedResponse.size!, currentPage: page+1, totalItems: classAcceleratedResponse.totalElements };">
+    <ng-container
+      *ngFor="let c of classAcceleratedResponse.content! | paginate: { itemsPerPage: classAcceleratedResponse.size!, currentPage: page+1, totalItems: classAcceleratedResponse.totalElements };">
       <tr>
         <td>{{ c.specialtyName }}</td>
         <td>{{ c.startDate }}</td>
         <td>{{ c.endDate }}</td>
         <td>{{ c.groupNumber }}</td>
         <button class="btn btn-outline-primary" (click)="showStudents(c)">
-          <i class="bi bi-eye"></i>  Voir les étudiants
+          <i class="bi bi-eye"></i> Voir les étudiants
         </button>
       </tr>
     </ng-container>

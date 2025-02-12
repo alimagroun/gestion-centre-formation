@@ -10,33 +10,33 @@ import java.util.List;
 
 @Service
 public class UserMapper {
-
+    
     public UserResponse toResponse(User user) {
         return UserResponse.builder()
-                .id(user.getId())
-                .userName(user.getUsername())
-                .createdDate(user.getCreatedDate())
-                .person(toPerson(user.getPerson()))
-                .roles(user.getRoles())
-                .build();
+                           .id(user.getId())
+                           .userName(user.getUsername())
+                           .createdDate(user.getCreatedDate())
+                           .person(toPerson(user.getPerson()))
+                           .roles(user.getRoles())
+                           .build();
     }
-
-    private PersonResponse toPerson(Person person){
+    
+    private PersonResponse toPerson(Person person) {
         return PersonResponse.builder()
-                .id(person.getId())
-                .firstName(person.getFirstName())
-                .lastName(person.getLastName())
-                .type(getTypePerson(person))
-                .build();
+                             .id(person.getId())
+                             .firstName(person.getFirstName())
+                             .lastName(person.getLastName())
+                             .type(getTypePerson(person))
+                             .build();
     }
-
-    private String getTypePerson(Person person){
+    
+    private String getTypePerson(Person person) {
         String type = null;
         if (person instanceof Student) {
             type = "STUDENT";
         } else if (person instanceof Parent) {
             type = "PARENT";
-        }else {
+        } else {
             type = "ADMIN";
         }
         return type;

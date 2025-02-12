@@ -17,22 +17,36 @@ import {DocumentResponse} from "../../../../../services/models/document-response
 export class VerificationComponent {
 
   @Input()
-  motherRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", maritalStatus:"MARRIED", isDeceased:false}
+  motherRequest: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "MOTHER",
+    maritalStatus: "MARRIED",
+    isDeceased: false
+  }
 
   @Input()
-  fatherRequest : ParentRequest = {lastName: "", phoneNumber: "", firstName: "", type:"MOTHER", maritalStatus:"MARRIED", isDeceased:false}
+  fatherRequest: ParentRequest = {
+    lastName: "",
+    phoneNumber: "",
+    firstName: "",
+    type: "MOTHER",
+    maritalStatus: "MARRIED",
+    isDeceased: false
+  }
 
   @Input()
-  studentRequest : StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""}
+  studentRequest: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""}
 
   @Input()
-  addressRequest : AddressRequest = {city: "", street: "", zipCode: ""}
+  addressRequest: AddressRequest = {city: "", street: "", zipCode: ""}
 
   @Input()
   documents: Array<DocumentResponse> = []
 
   @Input()
-  specialtyName : string = ""
+  specialtyName: string = ""
 
   @Input()
   registrationFeesFromChild: number = 0;

@@ -9,7 +9,7 @@ import { RequestBuilder } from '../../request-builder';
 
 export interface UpdateRegistrationStatus$Params {
   registrationId: number;
-  statusChangeReason: string;
+  statusChangeReason?: string;
   status: 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
 }
 

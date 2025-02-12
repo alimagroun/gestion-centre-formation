@@ -7,70 +7,109 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClassMapper {
-
-    public AccreditedClass toAccreditedClass(AccreditedClassRequest request){
+    
+    public AccreditedClass toAccreditedClass(AccreditedClassRequest request) {
         return AccreditedClass.builder()
-                .specialty(Specialty.builder().id(request.getSpecialtyId()).build())
-                .schoolYear(SchoolYear.builder().id(request.getSchoolYearId()).build())
-                .yearLevel(request.getYearLevel())
-                .groupNumber(request.getGroupNumber())
-                .build();
+                              .specialty(Specialty.builder()
+                                                  .id(request.getSpecialtyId())
+                                                  .build())
+                              .schoolYear(SchoolYear.builder()
+                                                    .id(request.getSchoolYearId())
+                                                    .build())
+                              .yearLevel(request.getYearLevel())
+                              .groupNumber(request.getGroupNumber())
+                              .build();
     }
-
-    public AcceleratedClass toAcceleratedClass(AcceleratedClassRequest request){
+    
+    public AcceleratedClass toAcceleratedClass(AcceleratedClassRequest request) {
         return AcceleratedClass.builder()
-                .specialty(Specialty.builder().id(request.getSpecialtyId()).build())
-                .startDate(request.getStartDate())
-                .endDate(request.getEndDate())
-                .groupNumber(request.getGroupNumber())
-                .build();
+                               .specialty(Specialty.builder()
+                                                   .id(request.getSpecialtyId())
+                                                   .build())
+                               .startDate(request.getStartDate())
+                               .endDate(request.getEndDate())
+                               .groupNumber(request.getGroupNumber())
+                               .build();
     }
-
-    public AccreditedClassResponse toResponseAccreditedClass(AccreditedClass entity){
+    
+    public AccreditedClassResponse toResponseAccreditedClass(AccreditedClass entity) {
         AccreditedClassResponse response = new AccreditedClassResponse();
         response.setId(entity.getId());
-        response.setSpecialtyName(entity.getSpecialty().getFormationType().getName()+" "+entity.getSpecialty().getDomaine().getName());
+        response.setSpecialtyName(entity.getSpecialty()
+                                        .getFormationType()
+                                        .getName() + " " + entity.getSpecialty()
+                                                                 .getDomaine()
+                                                                 .getName());
         response.setYearLevel(entity.getYearLevel());
-        response.setSchoolYear(entity.getSchoolYear().getStartYear()+ "-" + entity.getSchoolYear().getEndYear());
+        response.setSchoolYear(entity.getSchoolYear()
+                                     .getStartYear() + "-" + entity.getSchoolYear()
+                                                                   .getEndYear());
         response.setGroupNumber(entity.getGroupNumber());
         return response;
     }
-
-    public AcceleratedClassResponse toResponseAccelerated(AcceleratedClass entity){
+    
+    public AcceleratedClassResponse toResponseAccelerated(AcceleratedClass entity) {
         AcceleratedClassResponse response = new AcceleratedClassResponse();
         response.setId(entity.getId());
-        response.setSpecialtyName(entity.getSpecialty().getFormationType().getName()+" "+entity.getSpecialty().getDomaine().getName());
+        response.setSpecialtyName(entity.getSpecialty()
+                                        .getFormationType()
+                                        .getName() + " " + entity.getSpecialty()
+                                                                 .getDomaine()
+                                                                 .getName());
         response.setGroupNumber(entity.getGroupNumber());
         response.setStartDate(entity.getStartDate());
         response.setEndDate(entity.getEndDate());
         return response;
     }
-
-    public ClassStudentResponse toClassStudentResponse(AcceleratedClassEntry entry){
+    
+    public ClassStudentResponse toClassStudentResponse(AcceleratedClassEntry entry) {
         ClassStudentResponse response = new ClassStudentResponse();
-        response.setStudentId(entry.getStudent().getId());
-        response.setFirstName(entry.getStudent().getFirstName());
-        response.setLastName(entry.getStudent().getLastName());
-        response.setPhoneNumber(entry.getStudent().getPhoneNumber());
+        response.setStudentId(entry.getStudent()
+                                   .getId());
+        response.setFirstName(entry.getStudent()
+                                   .getFirstName());
+        response.setLastName(entry.getStudent()
+                                  .getLastName());
+        response.setPhoneNumber(entry.getStudent()
+                                     .getPhoneNumber());
         response.setClassName(
-                entry.getAcceleratedClass().getSpecialty().getFormationType().getName()
-                        + " - "+ entry.getAcceleratedClass().getSpecialty().getDomaine().getName()
-                        + " - G"+entry.getAcceleratedClass().getGroupNumber()
+                entry.getAcceleratedClass()
+                     .getSpecialty()
+                     .getFormationType()
+                     .getName()
+                        + " - " + entry.getAcceleratedClass()
+                                       .getSpecialty()
+                                       .getDomaine()
+                                       .getName()
+                        + " - G" + entry.getAcceleratedClass()
+                                        .getGroupNumber()
         );
         return response;
     }
-
-    public ClassStudentResponse toClassStudentResponse(AccreditedClassEntry entry){
+    
+    public ClassStudentResponse toClassStudentResponse(AccreditedClassEntry entry) {
         ClassStudentResponse response = new ClassStudentResponse();
-        response.setStudentId(entry.getStudent().getId());
-        response.setFirstName(entry.getStudent().getFirstName());
-        response.setLastName(entry.getStudent().getLastName());
-        response.setPhoneNumber(entry.getStudent().getPhoneNumber());
+        response.setStudentId(entry.getStudent()
+                                   .getId());
+        response.setFirstName(entry.getStudent()
+                                   .getFirstName());
+        response.setLastName(entry.getStudent()
+                                  .getLastName());
+        response.setPhoneNumber(entry.getStudent()
+                                     .getPhoneNumber());
         response.setClassName(
-                entry.getAccreditedClass().getSpecialty().getFormationType().getName()
-                + " - " + entry.getAccreditedClass().getSpecialty().getDomaine().getName()
-                + " Niveau:" + entry.getAccreditedClass().getYearLevel()
-                + " - G"+entry.getAccreditedClass().getGroupNumber()
+                entry.getAccreditedClass()
+                     .getSpecialty()
+                     .getFormationType()
+                     .getName()
+                        + " - " + entry.getAccreditedClass()
+                                       .getSpecialty()
+                                       .getDomaine()
+                                       .getName()
+                        + " Niveau:" + entry.getAccreditedClass()
+                                            .getYearLevel()
+                        + " - G" + entry.getAccreditedClass()
+                                        .getGroupNumber()
         );
         return response;
     }

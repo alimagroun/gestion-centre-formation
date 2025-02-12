@@ -23,7 +23,8 @@ export class RoleComponent implements OnInit {
 
   loading: boolean = false;
 
-  constructor(private roleService: RoleControllerService) {}
+  constructor(private roleService: RoleControllerService) {
+  }
 
   ngOnInit(): void {
     this.findRolePaginated();

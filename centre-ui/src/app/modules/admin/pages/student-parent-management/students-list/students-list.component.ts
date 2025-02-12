@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PersonControllerService} from "../../../../../services/services/person-controller.service";
 import {Router} from "@angular/router";
 import {ParentResponse} from "../../../../../services/models/parent-response";
@@ -27,7 +27,8 @@ export class StudentsListComponent {
 
   constructor(
     private personService: PersonControllerService,
-    private router: Router) {}
+    private router: Router) {
+  }
 
   ngOnInit(): void {
     this.findAllStudentsPaged();
@@ -56,6 +57,6 @@ export class StudentsListComponent {
   }
 
   viewParentDetails(p: ParentResponse) {
-    this.router.navigate(['admin','students', 'student-details', p.id]);
+    this.router.navigate(['admin', 'students', 'student-details', p.id]);
   }
 }

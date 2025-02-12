@@ -25,36 +25,53 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SpecialtyService {
-
+    
     private final DomaineRepository domaineRepository;
     private final FormationTypeRepository formationTypeRepository;
     private final SpecialtyRepository specialtyRepository;
     private final SpecialtyMapper specialtyMapper;
-
-    public Long save(SpecialtyRequest request){
-
+    
+    public Long save(SpecialtyRequest request) {
+        
         Domaine domaine = domaineRepository.findById(request.domaineId())
-                .orElseThrow(() -> new NotFoundException("Domaine not found"));
+                                           .orElseThrow(() -> new NotFoundException("Domaine not found"));
         FormationType formationType = formationTypeRepository.findById(request.formationTypeId())
-                .orElseThrow(() -> new NotFoundException("Formation Type not found"));
-
-        Optional<Specialty> existingSpecialty = specialtyRepository.findByDomaineAndFormationType(domaine, formationType);
+                                                             .orElseThrow(() -> new NotFoundException(
+                                                                     "Formation Type not found"));
+        
+        Optional<Specialty> existingSpecialty = specialtyRepository.findByDomaineAndFormationType(domaine,
+                                                                                                  formationType);
         if (existingSpecialty.isPresent()) {
             throw new DuplicateEntityException("Specialty with this domain and formation type already exists.");
         }
-
-        return specialtyRepository.save(specialtyMapper.toRequest(request)).getId();
+        
+        return specialtyRepository.save(specialtyMapper.toRequest(request))
+                                  .getId();
     }
-
+    
     public PageResponse<SpecialtyResponse> findAllPageable(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<Specialty> specialtyPage = specialtyRepository.findAll(pageable);
-        List<SpecialtyResponse> specialtyResponseList = specialtyPage.stream().map(specialtyMapper::toResponse).toList();
-        return new PageResponse<>(specialtyResponseList, specialtyPage.getNumber(), specialtyPage.getSize(), specialtyPage.getTotalElements(), specialtyPage.getTotalPages(), specialtyPage.isFirst(), specialtyPage.isLast());
-
+        List<SpecialtyResponse> specialtyResponseList = specialtyPage.stream()
+                                                                     .map(specialtyMapper::toResponse)
+                                                                     .toList();
+        return new PageResponse<>(specialtyResponseList,
+                                  specialtyPage.getNumber(),
+                                  specialtyPage.getSize(),
+                                  specialtyPage.getTotalElements(),
+                                  specialtyPage.getTotalPages(),
+                                  specialtyPage.isFirst(),
+                                  specialtyPage.isLast());
+        
     }
-
+    
     public List<SpecialtyResponse> findAll() {
-        return specialtyRepository.findAll().stream().map(specialtyMapper::toResponse).toList();
+        return specialtyRepository.findAll()
+                                  .stream()
+                                  .map(specialtyMapper::toResponse)
+                                  .toList();
     }
 }

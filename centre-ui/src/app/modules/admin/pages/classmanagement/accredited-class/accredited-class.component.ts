@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   PageResponseAccreditedClassResponse
 } from "../../../../../services/models/page-response-accredited-class-response";
@@ -29,7 +29,7 @@ export class AccreditedClassComponent {
 
   constructor(
     private classService: ClasseFormationControllerService,
-    private router : Router
+    private router: Router
   ) {
   }
 

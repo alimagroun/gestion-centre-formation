@@ -15,23 +15,26 @@ import java.util.List;
 @RequestMapping("specialty")
 @RequiredArgsConstructor
 public class SpecialtyController {
-
+    
     private final SpecialtyService specialtyService;
-
+    
     @PostMapping
     public ResponseEntity<Long> saveSpecialty(@Valid @RequestBody SpecialtyRequest request) {
-        return ResponseEntity.ok().body(specialtyService.save(request));
+        return ResponseEntity.ok()
+                             .body(specialtyService.save(request));
     }
-
+    
     @GetMapping
     public ResponseEntity<PageResponse<SpecialtyResponse>> findAllSpecialtyPageable(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok().body(specialtyService.findAllPageable(page, size));
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok()
+                             .body(specialtyService.findAllPageable(page, size));
     }
-
+    
     @GetMapping("/findAll")
-    public ResponseEntity<List<SpecialtyResponse>> findAll(){
-        return ResponseEntity.ok().body(specialtyService.findAll());
+    public ResponseEntity<List<SpecialtyResponse>> findAll() {
+        return ResponseEntity.ok()
+                             .body(specialtyService.findAll());
     }
 }

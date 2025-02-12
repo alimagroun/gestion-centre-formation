@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class RegistrationDetailsResponse {
-
+    
     private Long id;
     private RegistrationStatus status;
     private String remarks;
@@ -31,6 +31,6 @@ public class RegistrationDetailsResponse {
     private Boolean isAffected;
     private String statusChangeReason;
     private List<DocumentRegistrationResponse> documentRegistrationResponseList;
-
-
+    
+    
 }

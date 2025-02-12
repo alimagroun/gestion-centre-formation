@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SchoolYearRequest} from "../../../../../services/models/school-year-request";
 import {Router, RouterLink} from "@angular/router";
 import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
@@ -19,8 +19,8 @@ import {SchoolYearControllerService} from "../../../../../services/services/scho
 })
 export class AddSchoolYearComponent {
 
-  schoolYearRequest : SchoolYearRequest = {startYear:0, endYear:0};
-  errorMsg : string = ""
+  schoolYearRequest: SchoolYearRequest = {startYear: 0, endYear: 0};
+  errorMsg: string = ""
 
   //validator
   schoolYearForm = new FormGroup({
@@ -35,8 +35,8 @@ export class AddSchoolYearComponent {
   });
 
   constructor(
-    private schoolYearService : SchoolYearControllerService,
-    private router : Router
+    private schoolYearService: SchoolYearControllerService,
+    private router: Router
   ) {
   }
 
@@ -44,16 +44,16 @@ export class AddSchoolYearComponent {
     if (this.schoolYearForm.valid) {
       const startYear = this.schoolYearForm.get('startYear')?.value;
       const endYear = this.schoolYearForm.get('endYear')?.value;
-      if(endYear! < startYear! || startYear!+1 != endYear!){
+      if (endYear! < startYear! || startYear! + 1 != endYear!) {
         this.errorMsg = "L'année de fin doit être égale à l'année de début +1.";
-      }else{
-        this.schoolYearRequest = {startYear:Number(startYear), endYear:Number(endYear)};
+      } else {
+        this.schoolYearRequest = {startYear: Number(startYear), endYear: Number(endYear)};
         this.schoolYearService.save(
           {body: this.schoolYearRequest}
-        ).subscribe(res=>{
+        ).subscribe(res => {
           this.router.navigate(['admin/school-year']);
         }, error => {
-          if(error.error.errorMessage == "DUPLICATE_FOUND"){
+          if (error.error.errorMessage == "DUPLICATE_FOUND") {
             this.errorMsg = "Un enregistrement similaire existe déjà. Veuillez vérifier les informations et réessayer."
           }
         })

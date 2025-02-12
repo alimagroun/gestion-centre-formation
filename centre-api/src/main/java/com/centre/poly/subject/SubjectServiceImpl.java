@@ -14,10 +14,10 @@ import com.centre.poly.exception.NotFoundException;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
-
+    
     private final SubjectRepository subjectRepository;
     private final SubjectMapper subjectMapper;
-
+    
     public SubjectServiceImpl(SubjectRepository subjectRepository, SubjectMapper subjectMapper) {
         this.subjectRepository = subjectRepository;
         this.subjectMapper = subjectMapper;
@@ -27,35 +27,44 @@ public class SubjectServiceImpl implements SubjectService {
     public Subject saveSubject(Subject subject) {
         return subjectRepository.save(subject);
     }
-
+    
     @Override
     public Optional<Subject> getSubjectById(Long id) {
         return subjectRepository.findById(id);
     }
-
+    
     @Override
     public PageResponse<SubjectResponse> getAllSubjects(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<Subject> subjects = subjectRepository.findAll(pageable);
         List<SubjectResponse> subjectResponses = subjects.stream()
-                .map(subjectMapper::toSubjectResponse)
-                .toList();
-        return new PageResponse<>(subjectResponses, subjects.getNumber(), subjects.getSize(), subjects.getTotalElements(), subjects.getTotalPages(), subjects.isFirst(), subjects.isLast());
+                                                         .map(subjectMapper::toSubjectResponse)
+                                                         .toList();
+        return new PageResponse<>(subjectResponses,
+                                  subjects.getNumber(),
+                                  subjects.getSize(),
+                                  subjects.getTotalElements(),
+                                  subjects.getTotalPages(),
+                                  subjects.isFirst(),
+                                  subjects.isLast());
     }
-
+    
     @Override
     public Subject updateSubject(Long id, Subject subject) {
         return subjectRepository.findById(id)
-                .map(existingSubject -> {
-                    existingSubject.setName(subject.getName());
-                    existingSubject.setDescription(subject.getDescription());
-                    existingSubject.setPdfFilePath(subject.getPdfFilePath());
-                    existingSubject.setWordFilePath(subject.getWordFilePath());
-                    return subjectRepository.save(existingSubject);
-                })
-                .orElseThrow(() -> new NotFoundException("Subject not found with id " + id));
+                                .map(existingSubject -> {
+                                    existingSubject.setName(subject.getName());
+                                    existingSubject.setDescription(subject.getDescription());
+                                    existingSubject.setPdfFilePath(subject.getPdfFilePath());
+                                    existingSubject.setWordFilePath(subject.getWordFilePath());
+                                    return subjectRepository.save(existingSubject);
+                                })
+                                .orElseThrow(() -> new NotFoundException("Subject not found with id " + id));
     }
-
+    
     @Override
     public void deleteSubject(Long id) {
         if (!subjectRepository.existsById(id)) {

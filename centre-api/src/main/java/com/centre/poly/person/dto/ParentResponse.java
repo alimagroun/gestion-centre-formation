@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ParentResponse {
-
+    
     private Long id;
     private String firstName;
     private String lastName;
@@ -24,5 +24,5 @@ public class ParentResponse {
     private ParentType type;
     private MaritalStatus maritalStatus;
     private Boolean isDeceased;
-
+    
 }

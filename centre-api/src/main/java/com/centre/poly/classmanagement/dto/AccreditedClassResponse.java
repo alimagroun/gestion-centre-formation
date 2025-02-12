@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class AccreditedClassResponse {
-
+    
     private Long id;
     private String specialtyName;
     private String schoolYear;

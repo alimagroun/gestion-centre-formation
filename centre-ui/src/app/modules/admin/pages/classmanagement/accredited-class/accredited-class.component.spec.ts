@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AccreditedClassComponent } from './accredited-class.component';
+import {AccreditedClassComponent} from './accredited-class.component';
 
 describe('AccreditedClassComponent', () => {
   let component: AccreditedClassComponent;
@@ -10,7 +10,7 @@ describe('AccreditedClassComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AccreditedClassComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AccreditedClassComponent);
     component = fixture.componentInstance;

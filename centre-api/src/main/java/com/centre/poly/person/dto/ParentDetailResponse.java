@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ParentDetailResponse {
-
+    
     private Long id;
     private String firstName;
     private String lastName;
@@ -25,5 +25,5 @@ public class ParentDetailResponse {
     private MaritalStatus maritalStatus;
     private Boolean isDeceased;
     private List<StudentResponse> students;
-
+    
 }

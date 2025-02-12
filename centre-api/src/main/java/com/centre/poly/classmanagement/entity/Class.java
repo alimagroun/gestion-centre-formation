@@ -18,24 +18,28 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Class {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "class_sequence")
-    @SequenceGenerator(name = "class_sequence", sequenceName = "class_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "class_sequence")
+    @SequenceGenerator(name = "class_sequence",
+                       sequenceName = "class_sequence",
+                       allocationSize = 1)
     private Long id;
-
+    
     @ManyToOne
     @JoinColumn(name = "specialty_id")
     private Specialty specialty;
-
+    
     @Column(nullable = false)
     private int groupNumber;
-
-
+    
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
-
+    
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;

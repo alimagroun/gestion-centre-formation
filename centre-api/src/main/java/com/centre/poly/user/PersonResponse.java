@@ -14,5 +14,5 @@ public class PersonResponse {
     private String firstName;
     private String lastName;
     private String type;
-
+    
 }

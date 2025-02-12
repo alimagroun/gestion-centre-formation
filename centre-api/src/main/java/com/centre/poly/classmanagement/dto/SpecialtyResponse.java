@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SpecialtyResponse {
-
+    
     private Long id;
     private String domaineName;
     private String formationTypeName;

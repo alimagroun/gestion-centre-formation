@@ -5,23 +5,30 @@ services:
     environment:
       POSTGRES_USER: prod_admin
       POSTGRES_PASSWORD: 9FD;ci|7P%q,&|28j$8#
-      PGDATA: /var/lib/postgres/data
       POSTGRES_DB: centre-formation
     volumes:
-      - postgres:/data/postgres
+      - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
       - centre-formation-network
     restart: unless-stopped
 
-  bsn-api:
+  centre-api:
     container_name: centre-api
-    image: ahmedtiba1993/centre-api:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ahmedtiba1993/centre-api:v2
     ports:
       - 8088:8088
     networks:
       - centre-formation-network
+    environment:
+      PROFILE: prod
+      DB_URL: jdbc:postgresql://poly_postgres:5432/centre-formation
+    volumes:
+      - centre-formation-logs:/app/logs
     depends_on:
       - postgres
 
@@ -32,4 +39,6 @@ networks:
 volumes:
   postgres:
     name: postgres-data
+    driver: local
+  centre-formation-logs:
     driver: local

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DocumentRegistrationResponse {
-
+    
     private Long id;
     private String name;
     private String description;

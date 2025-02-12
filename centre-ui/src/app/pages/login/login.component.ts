@@ -18,7 +18,7 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
 
   authRequest: AuthenticationRequest = {userName: '', password: ''};
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     console.log(this.tokenService.userRoles)
-    if(this.tokenService.isTokenValid()){
-      if(this.tokenService.userRoles.includes("ROLE_ADMIN")){
+    if (this.tokenService.isTokenValid()) {
+      if (this.tokenService.userRoles.includes("ROLE_ADMIN")) {
         this.router.navigate(['admin']);
       }
     }
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit{
         this.tokenService.token = res.token as string;
 
         //Redirect
-        if(this.tokenService.userRoles[0] == "ROLE_ADMIN"){
+        if (this.tokenService.userRoles[0] == "ROLE_ADMIN") {
           this.router.navigate(['admin']);
         }
       }, error: err => {
@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit{
       }
     });
   }
-
 
 
 }

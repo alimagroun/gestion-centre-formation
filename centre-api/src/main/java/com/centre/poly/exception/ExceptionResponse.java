@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ExceptionResponse {
-
+    
     private Integer errorCode;
     private String errorMessage;
     private String errorDescription;

@@ -7,15 +7,21 @@
     <form [formGroup]="loginForm">
       <div class="mb-3">
         <label for="username" class="form-label">Nom d'utilisateur</label>
-        <input type="text" formControlName="username" class="form-control" name="username" id="username" placeholder="Entrez votre email">
-        <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="text-danger">
+        <input type="text" formControlName="username" class="form-control" name="username" id="username"
+               placeholder="Entrez votre email">
+        <div
+          *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)"
+          class="text-danger">
           Nom d'utilisateur requis.
         </div>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Mot de passe</label>
-        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
-        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger">
+        <input type="password" formControlName="password" class="form-control" id="password"
+               placeholder="Entrez votre mot de passe">
+        <div
+          *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+          class="text-danger">
           <div *ngIf="loginForm.get('password')?.hasError('required')">
             Mot de passe requis.
           </div>
@@ -24,9 +30,10 @@
           </div>
         </div>
       </div>
-      <button type="submit" [disabled]="!loginForm.valid || buttonLoading" (click)="login()" class="btn btn-primary btn-login">
+      <button type="submit" [disabled]="!loginForm.valid || buttonLoading" (click)="login()"
+              class="btn btn-primary btn-login">
         <span *ngIf="!buttonLoading">Connexion</span>
-        <div  *ngIf="buttonLoading">
+        <div *ngIf="buttonLoading">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
           Chargement...
         </div>

@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
-
+    
     private final AuthenticationService service;
-
+    
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
     }
-
+    
 }
 

@@ -26,12 +26,12 @@
       </div>
       <button type="submit" class="btn btn-primary" (click)="add()">
         <span *ngIf="!loading">Ajouter</span>
-        <div  *ngIf="loading">
+        <div *ngIf="loading">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
           Chargement...
         </div>
       </button>
-      <button type="reset" class="btn btn-danger ms-3" >vider</button>
+      <button type="reset" class="btn btn-danger ms-3">vider</button>
     </form>
   </div>
 </div>

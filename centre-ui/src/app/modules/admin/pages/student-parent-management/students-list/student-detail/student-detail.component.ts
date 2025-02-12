@@ -10,14 +10,14 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss'
 })
-export class StudentDetailComponent implements OnInit{
+export class StudentDetailComponent implements OnInit {
 
-  studentDetail : StudentDetailsResponse = {}
+  studentDetail: StudentDetailsResponse = {}
   studentId: string | null = null;
 
   constructor(
     private personService: PersonControllerService,
-    private route : ActivatedRoute,
+    private route: ActivatedRoute,
   ) {
   }
 
@@ -28,8 +28,8 @@ export class StudentDetailComponent implements OnInit{
     this.findStudentDetail()
   }
 
-  findStudentDetail(){
-    this.personService.findStudentById({studentId:Number(this.studentId)}).subscribe(res => {
+  findStudentDetail() {
+    this.personService.findStudentById({studentId: Number(this.studentId)}).subscribe(res => {
       this.studentDetail = res
     })
   }

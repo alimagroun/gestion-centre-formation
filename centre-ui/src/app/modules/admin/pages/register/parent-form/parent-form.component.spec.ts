@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParentFormComponent } from './parent-form.component';
+import {ParentFormComponent} from './parent-form.component';
 
 describe('ParentFormComponent', () => {
   let component: ParentFormComponent;
@@ -10,7 +10,7 @@ describe('ParentFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ParentFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ParentFormComponent);
     component = fixture.componentInstance;

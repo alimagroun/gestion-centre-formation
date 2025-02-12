@@ -19,28 +19,43 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class DomaineService {
-
+    
     private final DomaineRepository domaineRepository;
     private final DomaineMapper domaineMapper;
-
-    public Long save(DomaineRequest request){
-
-        Domaine exist  = domaineRepository.findByName(request.name());
-        if(exist != null){
+    
+    public Long save(DomaineRequest request) {
+        
+        Domaine exist = domaineRepository.findByName(request.name());
+        if (exist != null) {
             throw new DuplicateEntityException("Domaine with name " + request.name() + " already exists");
         }
-
-        return domaineRepository.save(domaineMapper.toRequest(request)).getId();
+        
+        return domaineRepository.save(domaineMapper.toRequest(request))
+                                .getId();
     }
-
-    public PageResponse<DomaineResponse> findAllPageable(int page, int size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+    
+    public PageResponse<DomaineResponse> findAllPageable(int page, int size) {
+        Pageable pageable = PageRequest.of(page,
+                                           size,
+                                           Sort.by("createdDate")
+                                               .descending());
         Page<Domaine> domainePage = domaineRepository.findAll(pageable);
-        List<DomaineResponse> list = domainePage.stream().map(domaineMapper::toResponse).toList();
-        return new PageResponse<>(list, domainePage.getNumber(), domainePage.getSize(), domainePage.getTotalElements(), domainePage.getTotalPages(), domainePage.isFirst(), domainePage.isLast());
+        List<DomaineResponse> list = domainePage.stream()
+                                                .map(domaineMapper::toResponse)
+                                                .toList();
+        return new PageResponse<>(list,
+                                  domainePage.getNumber(),
+                                  domainePage.getSize(),
+                                  domainePage.getTotalElements(),
+                                  domainePage.getTotalPages(),
+                                  domainePage.isFirst(),
+                                  domainePage.isLast());
     }
-
-    public List<DomaineResponse> findAll(){
-        return domaineRepository.findAll().stream().map(domaineMapper::toResponse).toList();
+    
+    public List<DomaineResponse> findAll() {
+        return domaineRepository.findAll()
+                                .stream()
+                                .map(domaineMapper::toResponse)
+                                .toList();
     }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DomaineResponse {
-
+    
     private Long id;
     private String name;
     private String description;

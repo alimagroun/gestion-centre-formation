@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ParentStatusDTO {
-
+    
     private MaritalStatus maritalStatus;
     private Boolean isFatherDeceased;
     private Boolean isMatherDeceased;
-
+    
 }

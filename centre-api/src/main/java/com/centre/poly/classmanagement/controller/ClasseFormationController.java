@@ -18,86 +18,88 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("class")
 public class ClasseFormationController {
-
+    
     private final ClassService classService;
-
+    
     @PostMapping("/accredited")
     public ResponseEntity<Long> saveAccreditedClass(@RequestBody @Valid AccreditedClassRequest request) {
         return new ResponseEntity<>(classService.saveAccreditedClass(request), HttpStatus.CREATED);
     }
-
+    
     @PostMapping("/accelerated")
     public ResponseEntity<Long> saveAcceleratedClass(@RequestBody @Valid AcceleratedClassRequest request) {
         return new ResponseEntity<>(classService.saveAcceleratedClass(request), HttpStatus.CREATED);
     }
-
+    
     @GetMapping("/accredited")
     public ResponseEntity<PageResponse<AccreditedClassResponse>> findAllAccreditedClass(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-
+        
         return new ResponseEntity<>(classService.findAllAccreditedClass(page, size), HttpStatus.OK);
     }
-
+    
     @GetMapping("/accelerated")
     public ResponseEntity<PageResponse<AcceleratedClassResponse>> findAllAcceleratedClass(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-
+        
         return new ResponseEntity<>(classService.findAllAcceleratedClass(page, size), HttpStatus.OK);
     }
-
+    
     @GetMapping("/accelerated/all")
     public ResponseEntity<List<AcceleratedClass>> findAllAcceleratedClasses() {
         return ResponseEntity.ok(classService.findAll());
     }
-
-
+    
+    
     @GetMapping("/accredited/specialty/{specialtyId}")
     public ResponseEntity<List<AccreditedClassResponse>> findAllAccreditedClassBySpecialty(
             @PathVariable Long specialtyId) {
         List<AccreditedClassResponse> responseList = classService.findAllAccreditedClassBySpecialty(specialtyId);
         return ResponseEntity.ok(responseList);
     }
-
+    
     @GetMapping("/accelerated/specialty/{specialtyId}")
     public ResponseEntity<List<AcceleratedClassResponse>> findAllAcceleratedClassBySpecialty(
             @PathVariable Long specialtyId) {
         List<AcceleratedClassResponse> responseList = classService.findAllAcceleratedClassBySpecialty(specialtyId);
         return ResponseEntity.ok(responseList);
     }
-
+    
     @GetMapping("/accelerated/{classId}/students")
     public ResponseEntity<List<ClassStudentResponse>> findAllStudentByAcceleratedClassId(
             @PathVariable Long classId) {
         List<ClassStudentResponse> responseList = classService.findAllStudentByAcceleratedClassId(classId);
         return ResponseEntity.ok(responseList);
     }
-
+    
     @GetMapping("/accredited/{classId}/students")
     public ResponseEntity<List<ClassStudentResponse>> findAllStudentByAccreditedClassId(
             @PathVariable Long classId) {
         List<ClassStudentResponse> responseList = classService.findAllStudentByAccreditedClassId(classId);
         return ResponseEntity.ok(responseList);
     }
-
+    
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/students/{studentId}/accelerated-classes/{acceleratedClassId}")
     public ResponseEntity<Long> addStudentToAcceleratedClass(
             @PathVariable Long studentId,
             @PathVariable Long acceleratedClassId) {
-
+        
         Long entryId = classService.addStudentToAcceleratedClass(studentId, acceleratedClassId);
-        return ResponseEntity.ok().body(entryId);
+        return ResponseEntity.ok()
+                             .body(entryId);
     }
-
+    
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/students/{studentId}/accredited-classes/{accreditedClassId}")
     public ResponseEntity<Long> addStudentToAccreditedClass(
             @PathVariable Long studentId,
             @PathVariable Long accreditedClassId) {
-
+        
         Long entryId = classService.addStudentToAccreditClass(studentId, accreditedClassId);
-        return ResponseEntity.ok().body(entryId);
+        return ResponseEntity.ok()
+                             .body(entryId);
     }
 }

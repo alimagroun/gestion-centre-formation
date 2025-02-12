@@ -12,11 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class AcceleratedClassResponse {
-
+    
     private Long id;
     private String specialtyName;
     private int groupNumber;
     private LocalDate startDate;
     private LocalDate endDate;
-
+    
 }

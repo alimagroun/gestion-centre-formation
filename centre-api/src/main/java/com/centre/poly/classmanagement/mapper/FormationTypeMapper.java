@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FormationTypeMapper {
-
-    public FormationType toRequest(FormationTypeRequest request){
+    
+    public FormationType toRequest(FormationTypeRequest request) {
         FormationType formationType = new FormationType();
         formationType.setName(request.name());
         formationType.setDescription(request.description());
         return formationType;
     }
-
-    public FormationTypeResponse toResponse(FormationType formationType){
+    
+    public FormationTypeResponse toResponse(FormationType formationType) {
         FormationTypeResponse formationTypeResponse = new FormationTypeResponse();
         formationTypeResponse.setId(formationType.getId());
         formationTypeResponse.setName(formationType.getName());
         formationTypeResponse.setDescription(formationType.getDescription());
         return formationTypeResponse;
     }
-
+    
 }

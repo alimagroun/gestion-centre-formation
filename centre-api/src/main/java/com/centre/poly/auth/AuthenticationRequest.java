@@ -12,14 +12,15 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AuthenticationRequest {
-
+    
     @NotNull(message = "USER_NAME_REQUIRED")
     @NotEmpty(message = "USER_NAME_REQUIRED")
     private String userName;
-
+    
     @NotEmpty(message = "PASSWORD_REQUIRED")
     @NotNull(message = "PASSWORD_REQUIRED")
-    @Size(min = 8, message = "PASSWORD_SIZE_8")
+    @Size(min = 8,
+          message = "PASSWORD_SIZE_8")
     private String password;
 }
 

@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ClasseFormationResponse {
-
+    
     private Long id;
     private String formationName;
     private String domaineName;

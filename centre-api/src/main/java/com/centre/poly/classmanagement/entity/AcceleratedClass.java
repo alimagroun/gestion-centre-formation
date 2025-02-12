@@ -20,11 +20,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class AcceleratedClass extends Class {
-
+    
     @Column(nullable = false)
     private LocalDate startDate;
-
+    
     @Column(nullable = false)
     private LocalDate endDate;
-
+    
 }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddFormationComponent } from './add-formation.component';
+import {AddFormationComponent} from './add-formation.component';
 
 describe('AddFormationComponent', () => {
   let component: AddFormationComponent;
@@ -10,7 +10,7 @@ describe('AddFormationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AddFormationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AddFormationComponent);
     component = fixture.componentInstance;

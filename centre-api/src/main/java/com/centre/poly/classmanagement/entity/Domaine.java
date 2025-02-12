@@ -16,21 +16,26 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Domaine {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "domaine_sequence")
-    @SequenceGenerator(name = "domaine_sequence", sequenceName = "domaine_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                    generator = "domaine_sequence")
+    @SequenceGenerator(name = "domaine_sequence",
+                       sequenceName = "domaine_sequence",
+                       allocationSize = 1)
     private Long id;
-
-    @Column(nullable = false, unique = true)
+    
+    @Column(nullable = false,
+            unique = true)
     private String name; // Informatique, Electronique, etc.
-
+    
     private String description;
-
+    
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,
+            updatable = false)
     private LocalDateTime createdDate;
-
+    
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;

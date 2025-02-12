@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class SchoolYearResponse {
-
+    
     private Long id;
-
+    
     private Integer start_year;
-
+    
     private Integer end_year;
-
+    
     private Boolean isDefault;
 }

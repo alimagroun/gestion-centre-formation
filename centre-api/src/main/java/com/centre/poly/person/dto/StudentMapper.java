@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentMapper {
-
+    
     public Student toStudent(StudentRequest request) {
         Student student = new Student();
         student.setFirstName(request.firstName());
@@ -16,11 +16,11 @@ public class StudentMapper {
         student.setPhoneNumber(request.phoneNumber());
         student.setEmail(request.email());
         student.setLevelOfEducation(request.levelOfEducation());
-
+        
         return student;
-
+        
     }
-
+    
     public StudentResponse toResponse(Student student) {
         StudentResponse response = new StudentResponse();
         response.setId(student.getId());
@@ -30,7 +30,7 @@ public class StudentMapper {
         response.setLevelOfEducation(student.getLevelOfEducation());
         return response;
     }
-
+    
     public StudentDetailsResponse toDetailsResponse(Student student) {
         StudentDetailsResponse response = new StudentDetailsResponse();
         response.setId(student.getId());
@@ -39,15 +39,15 @@ public class StudentMapper {
         response.setPhoneNumber(student.getPhoneNumber());
         response.setEmail(student.getEmail());
         response.setLevelOfEducation(student.getLevelOfEducation());
-
+        
         response.setAddress(toAddressDTO(student.getAddress()));
         response.setMother(toParentDTO(student.getMother()));
         response.setFather(toParentDTO(student.getFather()));
-
+        
         response.setParentStatus(toParentStatusDTO(student.getMother(), student.getFather()));
         return response;
     }
-
+    
     private ParentDTO toParentDTO(Parent p) {
         ParentDTO parentDTO = new ParentDTO();
         parentDTO.setId(p.getId());
@@ -58,7 +58,7 @@ public class StudentMapper {
         parentDTO.setProfession(p.getProfession());
         return parentDTO;
     }
-
+    
     private AddressDTO toAddressDTO(Address a) {
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setCity(a.getCity());
@@ -66,7 +66,7 @@ public class StudentMapper {
         addressDTO.setZipCode(a.getZipCode());
         return addressDTO;
     }
-
+    
     private ParentStatusDTO toParentStatusDTO(Parent m, Parent f) {
         ParentStatusDTO parentStatusDTO = new ParentStatusDTO();
         parentStatusDTO.setMaritalStatus(m.getMaritalStatus());
@@ -74,13 +74,13 @@ public class StudentMapper {
         parentStatusDTO.setIsFatherDeceased(f.getIsDeceased());
         return parentStatusDTO;
     }
-
+    
     public StudentAllResponse toStudentAllResponse(Student student) {
         StudentAllResponse response = new StudentAllResponse();
         response.setId(student.getId());
         response.setFirstName(student.getFirstName());
         response.setLastName(student.getLastName());
-        response.setFullName(student.getFirstName()+" "+student.getLastName());
+        response.setFullName(student.getFirstName() + " " + student.getLastName());
         return response;
     }
 }

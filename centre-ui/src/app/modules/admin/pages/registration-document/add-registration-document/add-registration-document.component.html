@@ -13,7 +13,7 @@
         <input type="text" [ngClass]="{'border border-danger': errors['name']}" id="name" name="name"
                [(ngModel)]="document.name" class="form-control"
                (input)="clearError('name')"
-                placeholder="Entrez le nom"/>
+               placeholder="Entrez le nom"/>
         <span *ngIf="errors['name']" class="text-danger">{{ errors['name'] }}</span>
       </div>
       <div class="mb-3">
@@ -25,12 +25,12 @@
       </div>
       <button type="submit" class="btn btn-primary" (click)="add()">
         <span *ngIf="!loading">Ajouter</span>
-        <div  *ngIf="loading">
+        <div *ngIf="loading">
           <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
           Chargement...
         </div>
       </button>
-      <button type="reset" class="btn btn-danger ms-3" >vider</button>
+      <button type="reset" class="btn btn-danger ms-3">vider</button>
     </form>
   </div>
 </div>

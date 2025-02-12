@@ -9,19 +9,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SpecialtyMapper {
-
+    
     public Specialty toRequest(SpecialtyRequest request) {
         return Specialty.builder()
-                .domaine(Domaine.builder().id(request.domaineId()).build())
-                .formationType(FormationType.builder().id(request.formationTypeId()).build())
-                .build();
+                        .domaine(Domaine.builder()
+                                        .id(request.domaineId())
+                                        .build())
+                        .formationType(FormationType.builder()
+                                                    .id(request.formationTypeId())
+                                                    .build())
+                        .build();
     }
-
+    
     public SpecialtyResponse toResponse(Specialty specialty) {
         SpecialtyResponse response = new SpecialtyResponse();
         response.setId(specialty.getId());
-        response.setDomaineName(specialty.getDomaine().getName());
-        response.setFormationTypeName(specialty.getFormationType().getName());
+        response.setDomaineName(specialty.getDomaine()
+                                         .getName());
+        response.setFormationTypeName(specialty.getFormationType()
+                                               .getName());
         return response;
     }
 }

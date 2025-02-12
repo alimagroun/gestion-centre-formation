@@ -19,9 +19,9 @@ import {finalize} from "rxjs";
   templateUrl: './school-year.component.html',
   styleUrl: './school-year.component.scss'
 })
-export class SchoolYearComponent implements OnInit{
+export class SchoolYearComponent implements OnInit {
 
-  school_years_response : PageResponseSchoolYearResponse = {}
+  school_years_response: PageResponseSchoolYearResponse = {}
   selectedSchoolYear: any;
   page: number = 0;
   size: number = 10;
@@ -30,7 +30,7 @@ export class SchoolYearComponent implements OnInit{
   @ViewChild('confirmModal') confirmModal!: ElementRef;
 
   constructor(
-    private school_years_service : SchoolYearControllerService,
+    private school_years_service: SchoolYearControllerService,
     private renderer: Renderer2
   ) {
   }
@@ -39,16 +39,16 @@ export class SchoolYearComponent implements OnInit{
     this.findAllPaginated();
   }
 
-  findAllPaginated(){
+  findAllPaginated() {
     this.loading = true
-    this.school_years_service.findAll1({page:this.page, size:this.size})
+    this.school_years_service.findAll1({page: this.page, size: this.size})
       .pipe(
         finalize(() => this.loading = false)
       )
-      .subscribe(res=>{
-      this.loading = false
-      this.school_years_response = res
-    })
+      .subscribe(res => {
+        this.loading = false
+        this.school_years_response = res
+      })
   }
 
 
@@ -70,7 +70,7 @@ export class SchoolYearComponent implements OnInit{
     })
   }
 
-  closeModel(){
+  closeModel() {
     this.renderer.setProperty(this.confirmModal.nativeElement, 'style', 'display: none');
     this.renderer.removeClass(this.confirmModal.nativeElement, 'show');
     this.renderer.setAttribute(this.confirmModal.nativeElement, 'aria-hidden', 'true');

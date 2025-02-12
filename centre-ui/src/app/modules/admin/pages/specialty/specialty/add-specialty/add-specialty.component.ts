@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormationTypeResponse} from "../../../../../../services/models/formation-type-response";
 import {DomaineResponse} from "../../../../../../services/models/domaine-response";
 import {DomaineControllerService} from "../../../../../../services/services/domaine-controller.service";
@@ -25,10 +25,10 @@ import {ToastService} from "../../../../../../services/toast/toast.service";
 })
 export class AddSpecialtyComponent {
 
-  formationList : Array<FormationTypeResponse> = []
-  domainList :  Array<DomaineResponse> = []
+  formationList: Array<FormationTypeResponse> = []
+  domainList: Array<DomaineResponse> = []
 
-  specialtyRequest : SpecialtyRequest = {domaineId:0 ,formationTypeId:0 }
+  specialtyRequest: SpecialtyRequest = {domaineId: 0, formationTypeId: 0}
   selectedFormation: any;
   selectedDomaine: any;
 
@@ -37,11 +37,11 @@ export class AddSpecialtyComponent {
   loader = false
 
   constructor(
-    private formationService : FromationControllerService,
+    private formationService: FromationControllerService,
     private domainService: DomaineControllerService,
     private specialtyService: SpecialtyControllerService,
     private toastService: ToastService,
-    private router : Router,
+    private router: Router,
   ) {
   }
 
@@ -50,13 +50,13 @@ export class AddSpecialtyComponent {
     this.findAllDomaine()
   }
 
-  findAllFormation(){
+  findAllFormation() {
     this.formationService.findAllFormationsList().subscribe(res => {
       this.formationList = res
     })
   }
 
-  findAllDomaine(){
+  findAllDomaine() {
     this.domainService.findAllDomainsList().subscribe(res => {
       this.domainList = res
     })
@@ -68,11 +68,11 @@ export class AddSpecialtyComponent {
       domaineId: this.selectedDomaine,
       formationTypeId: this.selectedFormation,
     }
-    this.specialtyService.saveSpecialty({body:this.specialtyRequest}).subscribe(res => {
+    this.specialtyService.saveSpecialty({body: this.specialtyRequest}).subscribe(res => {
       this.toastService.showSuccess("Ajouté avec succès");
       this.router.navigate(['/admin/specialty'])
     }, error => {
-      if(error.error.errorMessage == "DUPLICATE_FOUND"){
+      if (error.error.errorMessage == "DUPLICATE_FOUND") {
         this.toastService.showError("Cette spécialité existe déjà");
       }
       this.loader = false

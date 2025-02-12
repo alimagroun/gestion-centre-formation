@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {DocumentResponse} from "../../../../services/models/document-response";
 import {DocumentsControllerService} from "../../../../services/services/documents-controller.service";
 import {PageResponseDocumentResponse} from "../../../../services/models/page-response-document-response";
@@ -20,13 +20,13 @@ import {RouterLink} from "@angular/router";
 })
 export class RegistrationDocumentComponent {
 
-  document : PageResponseDocumentResponse = {}
-  page : number = 0;
-  size : number = 10;
+  document: PageResponseDocumentResponse = {}
+  page: number = 0;
+  size: number = 10;
   loading: boolean = false;
 
   constructor(
-    private documentService : DocumentsControllerService
+    private documentService: DocumentsControllerService
   ) {
   }
 

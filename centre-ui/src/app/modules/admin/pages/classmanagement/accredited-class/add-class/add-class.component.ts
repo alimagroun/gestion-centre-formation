@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormationTypeResponse} from "../../../../../../services/models/formation-type-response";
 import {DomaineResponse} from "../../../../../../services/models/domaine-response";
 import {SchoolYearResponse} from "../../../../../../services/models/school-year-response";
@@ -28,21 +28,21 @@ import {ToastService} from "../../../../../../services/toast/toast.service";
 })
 export class AddClassComponent {
 
-  specialtyList : Array<SpecialtyResponse> = []
-  schoolYearList : Array<SchoolYearResponse> = []
+  specialtyList: Array<SpecialtyResponse> = []
+  schoolYearList: Array<SchoolYearResponse> = []
   selectSpecialty: any;
   selectedSchoolYear: any;
   groupNumber: any;
-  classeRequest : AccreditedClassRequest = {specialtyId: 0, groupNumber: 0, schoolYearId: 0}
+  classeRequest: AccreditedClassRequest = {specialtyId: 0, groupNumber: 0, schoolYearId: 0}
   loader = false
   selectedClassLevel: any;
 
   constructor(
-    private specialtyService : SpecialtyControllerService,
+    private specialtyService: SpecialtyControllerService,
     private schoolYearService: SchoolYearControllerService,
-    private classeService : ClasseFormationControllerService,
-    private toastService : ToastService,
-    private router : Router
+    private classeService: ClasseFormationControllerService,
+    private toastService: ToastService,
+    private router: Router
   ) {
   }
 
@@ -51,13 +51,13 @@ export class AddClassComponent {
     this.findAllSchoolYear()
   }
 
-  findAllSpecialty(){
+  findAllSpecialty() {
     this.specialtyService.findAll().subscribe(res => {
       this.specialtyList = res
     })
   }
 
-  findAllSchoolYear(){
+  findAllSchoolYear() {
     this.schoolYearService.findAllList().subscribe(res => {
       this.schoolYearList = res
     })
@@ -66,7 +66,7 @@ export class AddClassComponent {
   saveClasse() {
     this.loader = true
     if (!this.selectSpecialty || !this.selectedClassLevel || !this.groupNumber || !this.selectedSchoolYear) {
-     this.toastService.showError("Veuillez remplir tous les champs obligatoires.")
+      this.toastService.showError("Veuillez remplir tous les champs obligatoires.")
       this.loader = false
       return;
     }
@@ -78,10 +78,10 @@ export class AddClassComponent {
       yearLevel: this.selectedClassLevel
     };
 
-    this.classeService.saveAccreditedClass({body:this.classeRequest}).subscribe(res => {
+    this.classeService.saveAccreditedClass({body: this.classeRequest}).subscribe(res => {
       this.toastService.showSuccess("Ajouter avec succée")
       this.router.navigate(['admin/accreditedClass']);
-    },error => {
+    }, error => {
       this.loader = false
       this.toastService.showError("Classe existe déjà.")
     })

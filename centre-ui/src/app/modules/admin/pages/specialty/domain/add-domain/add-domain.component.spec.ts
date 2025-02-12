@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddDomainComponent } from './add-domain.component';
+import {AddDomainComponent} from './add-domain.component';
 
 describe('AddDomainComponent', () => {
   let component: AddDomainComponent;
@@ -10,7 +10,7 @@ describe('AddDomainComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AddDomainComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AddDomainComponent);
     component = fixture.componentInstance;

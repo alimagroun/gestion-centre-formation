@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {PageResponseParentResponse} from "../../../../../services/models/page-response-parent-response";
 import {PersonControllerService} from "../../../../../services/services/person-controller.service";
 import {NgForOf, NgIf} from "@angular/common";
@@ -27,7 +27,8 @@ export class ParentsListComponent {
 
   constructor(
     private personService: PersonControllerService,
-    private router: Router) {}
+    private router: Router) {
+  }
 
   ngOnInit(): void {
     this.findAllParentsPaged();
@@ -56,6 +57,6 @@ export class ParentsListComponent {
   }
 
   viewParentDetails(p: ParentResponse) {
-    this.router.navigate(['admin','parents', 'parent-details', p.id]);
+    this.router.navigate(['admin', 'parents', 'parent-details', p.id]);
   }
 }

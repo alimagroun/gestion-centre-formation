@@ -5,6 +5,7 @@ export { RoleControllerService } from './services/role-controller.service';
 export { FromationControllerService } from './services/fromation-controller.service';
 export { DomaineControllerService } from './services/domaine-controller.service';
 export { DocumentsControllerService } from './services/documents-controller.service';
+export { ClassroomControllerService } from './services/classroom-controller.service';
 export { ClasseFormationControllerService } from './services/classe-formation-controller.service';
 export { AuthenticationControllerService } from './services/authentication-controller.service';
 export { UserControllerService } from './services/user-controller.service';

@@ -15,26 +15,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("domaine")
 public class DomaineController {
-
+    
     private final DomaineService domaineService;
-
+    
     @PostMapping
     public ResponseEntity<Long> saveDomain(@Valid @RequestBody DomaineRequest request) {
-        return ResponseEntity.ok().body(domaineService.save(request));
+        return ResponseEntity.ok()
+                             .body(domaineService.save(request));
     }
-
+    
     @GetMapping
     public ResponseEntity<PageResponse<DomaineResponse>> findAllDomain(
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size
-    ){
-        return ResponseEntity.ok().body(domaineService.findAllPageable(page, size));
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok()
+                             .body(domaineService.findAllPageable(page, size));
     }
-
+    
     @GetMapping(value = "/allList")
     public ResponseEntity<List<DomaineResponse>> findAllDomainsList() {
-        return ResponseEntity.ok().body(domaineService.findAll());
+        return ResponseEntity.ok()
+                             .body(domaineService.findAll());
     }
-
-
+    
+    
 }

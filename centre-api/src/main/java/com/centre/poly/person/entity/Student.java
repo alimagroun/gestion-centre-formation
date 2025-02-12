@@ -17,16 +17,16 @@ import java.util.List;
 @Entity
 @Builder
 public class Student extends Person {
-
+    
     private String levelOfEducation;
     private String identityNumber;
-
+    
     @ManyToOne
     @JoinColumn(name = "mother_id")
     private Parent mother;
-
+    
     @ManyToOne
     @JoinColumn(name = "father_id")
     private Parent father;
-
+    
 }

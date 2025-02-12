@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   PageResponseAcceleratedClassResponse
 } from "../../../../../services/models/page-response-accelerated-class-response";
@@ -29,7 +29,7 @@ export class AcceleratedClassComponent {
 
   constructor(
     private classService: ClasseFormationControllerService,
-    private router : Router
+    private router: Router
   ) {
   }
 
