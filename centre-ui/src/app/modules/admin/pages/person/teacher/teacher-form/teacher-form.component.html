@@ -1,0 +1,174 @@
+<div class="container mt-4">
+  <div class="card p-4">
+
+    <div class="d-flex align-items-center justify-content-center bg-primary text-white py-3 rounded shadow-sm mb-4">
+      <button type="button" class="btn btn-outline-light me-5" [routerLink]="['..']">
+        <i class="bi bi-arrow-left"></i> Retour
+      </button>
+      <i class="bi bi-person-plus fs-3 me-2"></i>
+      <h3 class="mb-0 fw-bold text-uppercase">Ajouter un enseignant</h3>
+    </div>
+
+    <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+      <fieldset class="border p-3 rounded mb-3">
+        <legend class="float-none w-auto px-2">Informations de l'enseignant</legend>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" formControlName="firstName" placeholder="Prénom">
+            </div>
+            <div
+              *ngIf="teacherForm.get('firstName')?.invalid && (teacherForm.get('firstName')?.dirty || teacherForm.get('firstName')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('firstName')?.hasError('required')">Le prénom est requis.</div>
+              <div *ngIf="teacherForm.get('firstName')?.hasError('minlength')">Minimum 2 caractères.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" formControlName="lastName" placeholder="Nom">
+            </div>
+            <div
+              *ngIf="teacherForm.get('lastName')?.invalid && (teacherForm.get('lastName')?.dirty || teacherForm.get('lastName')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('lastName')?.hasError('required')">Le nom est requis.</div>
+              <div *ngIf="teacherForm.get('lastName')?.hasError('minlength')">Minimum 2 caractères.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+              <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone">
+            </div>
+            <div
+              *ngIf="teacherForm.get('phoneNumber')?.invalid && (teacherForm.get('phoneNumber')?.dirty || teacherForm.get('phoneNumber')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('phoneNumber')?.hasError('required')">Le téléphone est requis.</div>
+              <div *ngIf="teacherForm.get('phoneNumber')?.hasError('pattern')">8 chiffres requis.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" formControlName="email" placeholder="E-mail">
+            </div>
+            <div
+              *ngIf="teacherForm.get('email')?.invalid && (teacherForm.get('email')?.dirty || teacherForm.get('email')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('email')?.hasError('required')">L'email est requis.</div>
+              <div *ngIf="teacherForm.get('email')?.hasError('email')">Format invalide.</div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="border p-3 rounded mb-3">
+        <legend class="float-none w-auto px-2">Spécialité & Diplôme</legend>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-file-earmark-text"></i></span>
+              <select class="form-select" formControlName="diplomasObtained">
+                <option value="" selected disabled>Choisir un diplôme</option>
+                <option value="Licence">Licence</option>
+                <option value="Master">Master</option>
+                <option value="Ingénieur">Ingénieur</option>
+                <option value="Doctorat">Doctorat</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div
+              *ngIf="teacherForm.get('diplomasObtained')?.invalid && (teacherForm.get('diplomasObtained')?.dirty || teacherForm.get('diplomasObtained')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('diplomasObtained')?.hasError('required')">Le diplôme est requis.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-award"></i></span>
+              <select class="form-select" formControlName="speciality">
+                <option value="" selected disabled>Choisir une spécialité</option>
+                <option
+                  *ngFor="let spec of ['Informatique', 'Électronique', 'Mécanique', 'Économie et Gestion', 'Français', 'Anglais', 'Autre']"
+                  [value]="spec">
+                  {{ spec }}
+                </option>
+              </select>
+            </div>
+            <div
+              *ngIf="teacherForm.get('speciality')?.invalid && (teacherForm.get('speciality')?.dirty || teacherForm.get('speciality')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('speciality')?.hasError('required')">La spécialité est requise.</div>
+            </div>
+          </div>
+        </div>
+
+      </fieldset>
+
+      <fieldset class="border p-3 rounded mb-3">
+        <legend class="float-none w-auto px-2">Adresse</legend>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+              <input type="text" class="form-control" formControlName="street" placeholder="Rue">
+            </div>
+            <div
+              *ngIf="teacherForm.get('street')?.invalid && (teacherForm.get('street')?.dirty || teacherForm.get('street')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('street')?.hasError('required')">La rue est requise.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-building"></i></span>
+              <input type="text" class="form-control" formControlName="city" placeholder="Ville">
+            </div>
+            <div
+              *ngIf="teacherForm.get('city')?.invalid && (teacherForm.get('city')?.dirty || teacherForm.get('city')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('city')?.hasError('required')">La ville est requise.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-mailbox"></i></span>
+              <input type="text" class="form-control" formControlName="postalCode" placeholder="Code Postal">
+            </div>
+            <div
+              *ngIf="teacherForm.get('postalCode')?.invalid && (teacherForm.get('postalCode')?.dirty || teacherForm.get('postalCode')?.touched)"
+              class="text-danger">
+              <div *ngIf="teacherForm.get('postalCode')?.hasError('required')">Le code postal est requis.</div>
+              <div *ngIf="teacherForm.get('postalCode')?.hasError('pattern')">Le code postal doit contenir exactement 4
+                chiffres.
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="teacherForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+          <i *ngIf="!isLoading" class="bi bi-check-circle"></i> Ajouter
+        </button>
+        <button type="reset" class="btn btn-secondary" (click)="teacherForm.reset()" [disabled]="isLoading">
+          <i class="bi bi-x-circle"></i> Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

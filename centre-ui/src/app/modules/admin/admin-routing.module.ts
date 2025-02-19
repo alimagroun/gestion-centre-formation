@@ -25,14 +25,10 @@ import {AcceleratedClassComponent} from "./pages/classmanagement/accelerated-cla
 import {
   AddClassAcceleratedComponent
 } from "./pages/classmanagement/accelerated-class/add-class-accelerated/add-class-accelerated.component";
-import {StudentsListComponent} from "./pages/student-parent-management/students-list/students-list.component";
-import {ParentsListComponent} from "./pages/student-parent-management/parents-list/parents-list.component";
-import {
-  ParentDetailComponent
-} from "./pages/student-parent-management/parents-list/parent-detail/parent-detail.component";
-import {
-  StudentDetailComponent
-} from "./pages/student-parent-management/students-list/student-detail/student-detail.component";
+import {StudentsListComponent} from "./pages/person/students-list/students-list.component";
+import {ParentsListComponent} from "./pages/person/parents-list/parents-list.component";
+import {ParentDetailComponent} from "./pages/person/parents-list/parent-detail/parent-detail.component";
+import {StudentDetailComponent} from "./pages/person/students-list/student-detail/student-detail.component";
 import {
   AcceleratedStudentsListComponent
 } from "./pages/classmanagement/accelerated-class/accelerated-students-list/accelerated-students-list.component";
@@ -41,6 +37,8 @@ import {
 } from "./pages/classmanagement/accredited-class/accredited-students-list/accredited-students-list.component";
 import {ClassRoomComponent} from "./pages/class-room/class-room.component";
 import {AddClassRoomComponent} from "./pages/class-room/add-class-room/add-class-room.component";
+import {TeacherListComponent} from "./pages/person/teacher/teacher-list/teacher-list.component";
+import {TeacherFormComponent} from "./pages/person/teacher/teacher-form/teacher-form.component";
 
 const routes: Routes = [
   {
@@ -225,6 +223,17 @@ const routes: Routes = [
             component: ParentDetailComponent,
             canActivate: [authAdminGuard]
           },
+        ],
+      },
+      {
+        path: 'teachers',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: TeacherListComponent,
+            canActivate: [authAdminGuard]
+          }, {path: 'add', component: TeacherFormComponent}
         ],
       },
       {

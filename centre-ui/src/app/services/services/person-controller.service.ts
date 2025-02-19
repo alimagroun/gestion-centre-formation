@@ -9,6 +9,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { addTeacher } from '../fn/person-controller/add-teacher';
+import { AddTeacher$Params } from '../fn/person-controller/add-teacher';
+import { ApiResponseObject } from '../models/api-response-object';
 import { emailValidation } from '../fn/person-controller/email-validation';
 import { EmailValidation$Params } from '../fn/person-controller/email-validation';
 import { findAllParentsPaged } from '../fn/person-controller/find-all-parents-paged';
@@ -17,6 +20,8 @@ import { findAllStudentsByParentId } from '../fn/person-controller/find-all-stud
 import { FindAllStudentsByParentId$Params } from '../fn/person-controller/find-all-students-by-parent-id';
 import { findAllStudentsPaged } from '../fn/person-controller/find-all-students-paged';
 import { FindAllStudentsPaged$Params } from '../fn/person-controller/find-all-students-paged';
+import { findAllTeachersPaged } from '../fn/person-controller/find-all-teachers-paged';
+import { FindAllTeachersPaged$Params } from '../fn/person-controller/find-all-teachers-paged';
 import { findParentByNum } from '../fn/person-controller/find-parent-by-num';
 import { FindParentByNum$Params } from '../fn/person-controller/find-parent-by-num';
 import { findParentDetailById } from '../fn/person-controller/find-parent-detail-by-id';
@@ -27,6 +32,7 @@ import { getAllStudents } from '../fn/person-controller/get-all-students';
 import { GetAllStudents$Params } from '../fn/person-controller/get-all-students';
 import { PageResponseParentResponse } from '../models/page-response-parent-response';
 import { PageResponseStudentResponse } from '../models/page-response-student-response';
+import { PageResponseTeacherResponse } from '../models/page-response-teacher-response';
 import { ParentDetailResponse } from '../models/parent-detail-response';
 import { ParentResponse } from '../models/parent-response';
 import { phoneNumberValidation } from '../fn/person-controller/phone-number-validation';
@@ -39,6 +45,56 @@ import { StudentResponse } from '../models/student-response';
 export class PersonControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `findAllTeachersPaged()` */
+  static readonly FindAllTeachersPagedPath = '/person/teacher';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllTeachersPaged()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllTeachersPaged$Response(params?: FindAllTeachersPaged$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseTeacherResponse>> {
+    return findAllTeachersPaged(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllTeachersPaged$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllTeachersPaged(params?: FindAllTeachersPaged$Params, context?: HttpContext): Observable<PageResponseTeacherResponse> {
+    return this.findAllTeachersPaged$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseTeacherResponse>): PageResponseTeacherResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `addTeacher()` */
+  static readonly AddTeacherPath = '/person/teacher';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addTeacher()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addTeacher$Response(params: AddTeacher$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseObject>> {
+    return addTeacher(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addTeacher$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  addTeacher(params: AddTeacher$Params, context?: HttpContext): Observable<ApiResponseObject> {
+    return this.addTeacher$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ApiResponseObject>): ApiResponseObject => r.body)
+    );
   }
 
   /** Path part for operation `phoneNumberValidation()` */

@@ -37,6 +37,7 @@ export { PageResponseSchoolYearResponse } from './models/page-response-school-ye
 export { PageResponseSpecialtyResponse } from './models/page-response-specialty-response';
 export { PageResponseStudentResponse } from './models/page-response-student-response';
 export { PageResponseSubjectResponse } from './models/page-response-subject-response';
+export { PageResponseTeacherResponse } from './models/page-response-teacher-response';
 export { PageResponseUserResponse } from './models/page-response-user-response';
 export { ParentDetailResponse } from './models/parent-detail-response';
 export { ParentDetails } from './models/parent-details';
@@ -62,4 +63,6 @@ export { StudentDetailsResponse } from './models/student-details-response';
 export { StudentRequest } from './models/student-request';
 export { StudentResponse } from './models/student-response';
 export { SubjectResponse } from './models/subject-response';
+export { TeacherRequest } from './models/teacher-request';
+export { TeacherResponse } from './models/teacher-response';
 export { UserResponse } from './models/user-response';

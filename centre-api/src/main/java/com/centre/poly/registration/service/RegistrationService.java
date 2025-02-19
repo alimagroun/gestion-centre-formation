@@ -8,11 +8,11 @@ import com.centre.poly.document.DocumentsRepository;
 import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.NotFoundException;
 import com.centre.poly.person.Repository.PersonRepository;
-import com.centre.poly.person.dto.ParentMapper;
-import com.centre.poly.person.dto.StudentMapper;
 import com.centre.poly.person.entity.Address;
 import com.centre.poly.person.entity.Parent;
 import com.centre.poly.person.entity.Student;
+import com.centre.poly.person.mapper.ParentMapper;
+import com.centre.poly.person.mapper.StudentMapper;
 import com.centre.poly.person.service.PersonService;
 import com.centre.poly.registration.dto.AddressRequest;
 import com.centre.poly.registration.dto.RegistrationDetailsResponse;
@@ -25,6 +25,10 @@ import com.centre.poly.registration.mapper.RegistrationMapper;
 import com.centre.poly.registration.repository.RegistrationDocumentEntryRepository;
 import com.centre.poly.registration.repository.RegistrationRepository;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -32,11 +36,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -124,7 +124,7 @@ export class MenuComponent {
     },
     {
       id: '6',
-      titre: "Gestion des étudiants et parents",
+      titre: "Gestion des personne",
       icon: 'bi bi-person-bounding-box',
       url: '',
       sousMenu: [
@@ -140,6 +140,12 @@ export class MenuComponent {
           icon: '',
           url: 'admin/parents',
         },
+        {
+          "id": "63",
+          "titre": "Liste des enseignants",
+          "icon": "",
+          "url": "admin/teachers"
+        }
       ],
     },
     {
