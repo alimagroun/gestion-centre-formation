@@ -5,6 +5,7 @@
       <div class="input-group">
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
+                <span class="text-danger">*</span>
               </span> <input type="text" class="form-control" id="firstName" formControlName="firstName"
                              placeholder="Prénom"
                              [ngClass]="{ 'is-invalid': studentForm.get('firstName')!.invalid && studentForm.get('firstName')!.touched }"
@@ -19,6 +20,7 @@
       <div class="input-group">
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
+                <span class="text-danger">*</span>
               </span>
         <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Nom"
                [ngClass]="{ 'is-invalid': studentForm.get('lastName')!.invalid && studentForm.get('lastName')!.touched }">
@@ -27,6 +29,23 @@
         *ngIf="studentForm.get('lastName')?.invalid && (studentForm.get('lastName')?.dirty || studentForm.get('lastName')?.touched)"
         class="text-danger">
         Le nom est requis.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="input-group">
+    <span class="input-group-text">
+      <i class="bi bi-calendar"></i>
+      <span class="text-danger">*</span>
+    </span>
+        <input type="date" class="form-control" id="birthDate" formControlName="birthDate">
+      </div>
+      <div
+        *ngIf="studentForm.get('birthDate')?.invalid && (studentForm.get('birthDate')?.dirty || studentForm.get('birthDate')?.touched)"
+        class="text-danger">
+        <div *ngIf="studentForm.get('birthDate')?.hasError('required')">
+          La date de naissance est requise.
+        </div>
       </div>
     </div>
 
@@ -44,6 +63,7 @@
       <div class="input-group">
             <span class="input-group-text">
               <i class="bi bi-telephone"></i>
+              <span class="text-danger">*</span>
             </span>
         <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
                placeholder="Numéro de téléphone">
@@ -84,7 +104,10 @@
     </div>
     <div class="mb-3">
       <select class="form-control" id="levelOfEducation" formControlName="levelOfEducation">
-        <option value="" disabled selected>Niveau d'éducation</option>
+        <option value="" disabled selected>
+          Niveau d'éducation
+          <span class="text-danger">*</span>
+        </option>
         <option value="7eme">7ème</option>
         <option value="8eme">8ème</option>
         <option value="9eme">9ème</option>

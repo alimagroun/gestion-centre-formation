@@ -1340,6 +1340,36 @@
         }
       }
     },
+    "/person/validation/identity-number": {
+      "get": {
+        "tags": [
+          "person-controller"
+        ],
+        "operationId": "identityNumberValidation",
+        "parameters": [
+          {
+            "name": "identityNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/person/validation/email": {
       "get": {
         "tags": [
@@ -2044,6 +2074,7 @@
       },
       "StudentRequest": {
         "required": [
+          "birthDate",
           "firstName",
           "lastName",
           "levelOfEducation",
@@ -2070,6 +2101,10 @@
           },
           "identityNumber": {
             "type": "string"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },

@@ -4,7 +4,6 @@
   <form [formGroup]="parentForm" autocomplete="off">
     <div class="row">
 
-      <!-- Section de la mère -->
       <div class="col-md-6">
         <h3 class="text-center">
           <input
@@ -16,50 +15,13 @@
           >
           <span><i class="bx bx-female"></i></span> Informations de la Mère
         </h3>
-        <div class="mb-3">
-          <div class="input-group">
-            <span class="input-group-text">
-              <i class="bi bi-telephone"></i>
-            </span>
-            <input
-              type="tel"
-              class="form-control"
-              id="motherPhoneNumber"
-              formControlName="motherPhoneNumber"
-              placeholder="Numéro de téléphone de la mère"
-              autocomplete="off"
-              (input)="searchMotherByTel()"
-            />
-          </div>
-          <div
-            *ngIf="parentForm.get('motherPhoneNumber')?.invalid && (parentForm.get('motherPhoneNumber')?.dirty || parentForm.get('motherPhoneNumber')?.touched)"
-            class="text-danger">
-            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('required')">Le numéro de téléphone est requis.
-            </div>
-            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de téléphone
-              valide.
-            </div>
-            <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
-              chiffres.
-            </div>
-          </div>
-        </div>
 
-
-        <div *ngIf="loadingMother" class="row justify-content-center align-items-center">
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="!loadingMother">
+        <div>
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text">
                 <i class="bx bx-female"></i>
-
+                <span class="text-danger">*</span>
               </span>
               <input
                 type="text"
@@ -81,6 +43,7 @@
             <div class="input-group">
               <span class="input-group-text">
                 <i class="bx bx-female"></i>
+                <span class="text-danger">*</span>
               </span>
               <input
                 type="text"
@@ -89,10 +52,39 @@
                 formControlName="motherLastName"
                 placeholder="Nom de la mère"
               />
-              <div
-                *ngIf="parentForm.get('motherLastName')?.invalid && (parentForm.get('motherLastName')?.dirty || parentForm.get('motherLastName')?.touched)"
-                class="text-danger">
-                Le nom est requis.
+            </div>
+            <div
+              *ngIf="parentForm.get('motherLastName')?.invalid && (parentForm.get('motherLastName')?.dirty || parentForm.get('motherLastName')?.touched)"
+              class="text-danger">
+              Le nom est requis.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+              <input
+                type="tel"
+                class="form-control"
+                id="motherPhoneNumber"
+                formControlName="motherPhoneNumber"
+                placeholder="Numéro de téléphone de la mère"
+                autocomplete="off"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('motherPhoneNumber')?.invalid && (parentForm.get('motherPhoneNumber')?.dirty || parentForm.get('motherPhoneNumber')?.touched)"
+              class="text-danger">
+              <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('required')">Le numéro de téléphone est requis.
+              </div>
+              <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de
+                téléphone
+                valide.
+              </div>
+              <div *ngIf="parentForm.get('motherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
+                chiffres.
               </div>
             </div>
           </div>
@@ -116,7 +108,6 @@
               <div *ngIf="parentForm.get('motherProfession')?.hasError('required')">La profession est requise.</div>
             </div>
           </div>
-
 
           <div class="mb-3">
             <div class="input-group">
@@ -153,49 +144,13 @@
           >
           <span><i class="bi bi-person"></i></span> Informations du Père
         </h3>
-        <div class="mb-3">
-          <div class="input-group">
-            <span class="input-group-text">
-              <i class="bi bi-telephone"></i>
-            </span>
-            <input
-              type="tel"
-              class="form-control"
-              id="fatherPhoneNumber"
-              formControlName="fatherPhoneNumber"
-              placeholder="Numéro de téléphone du père"
-              autocomplete="off"
-              (input)="searchFatherByTel()"
-            />
-          </div>
-          <div
-            *ngIf="parentForm.get('fatherPhoneNumber')?.invalid && (parentForm.get('fatherPhoneNumber')?.dirty || parentForm.get('fatherPhoneNumber')?.touched)"
-            class="text-danger">
-            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('required')">Le numéro de téléphone est
-              requis.
-            </div>
-            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de
-              téléphone valide.
-            </div>
-            <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
-              chiffres.
-            </div>
-          </div>
-        </div>
 
-        <div *ngIf="loadingFather" class="row justify-content-center align-items-center">
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="!loadingFather">
+        <div>
           <div class="mb-3">
             <div class="input-group">
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
+                <span class="text-danger">*</span>
               </span>
               <input
                 type="text"
@@ -217,6 +172,7 @@
             <div class="input-group">
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
+                <span class="text-danger">*</span>
               </span>
               <input
                 type="text"
@@ -232,6 +188,36 @@
               Le nom est requis.
             </div>
           </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-telephone"></i>
+            </span>
+              <input
+                type="tel"
+                class="form-control"
+                id="fatherPhoneNumber"
+                formControlName="fatherPhoneNumber"
+                placeholder="Numéro de téléphone du père"
+                autocomplete="off"
+              />
+            </div>
+            <div
+              *ngIf="parentForm.get('fatherPhoneNumber')?.invalid && (parentForm.get('fatherPhoneNumber')?.dirty || parentForm.get('fatherPhoneNumber')?.touched)"
+              class="text-danger">
+              <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('required')">Le numéro de téléphone est
+                requis.
+              </div>
+              <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('pattern')">Veuillez entrer un numéro de
+                téléphone valide.
+              </div>
+              <div *ngIf="parentForm.get('fatherPhoneNumber')?.hasError('minlength')">Le numéro doit contenir 8
+                chiffres.
+              </div>
+            </div>
+          </div>
+
 
           <div class="mb-3">
             <div class="input-group">

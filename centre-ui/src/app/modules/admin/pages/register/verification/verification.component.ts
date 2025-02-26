@@ -37,7 +37,7 @@ export class VerificationComponent {
   }
 
   @Input()
-  studentRequest: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""}
+  studentRequest: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: "", birthDate: ""}
 
   @Input()
   addressRequest: AddressRequest = {city: "", street: "", zipCode: ""}

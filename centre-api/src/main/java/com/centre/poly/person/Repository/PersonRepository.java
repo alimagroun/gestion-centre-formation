@@ -18,6 +18,10 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
       "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Person p WHERE p.email = :email")
   boolean existByEmail(String email);
 
+  @Query(
+      "SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Person p WHERE p.identityNumber = :identityNumber")
+  boolean existsByIdentityNumber(String identityNumber);
+
   @Query("SELECT p FROM Parent p WHERE p.phoneNumber = :phoneNumber")
   Parent findByPhoneNumber(String phoneNumber);
 
@@ -44,4 +48,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
   @Query("select s from Student s")
   List<Student> findAllStudent();
+
+  @Query("select s from Student s where s.phoneNumber = :phoneNumber")
+  Optional<Student> findStudentByPhoneNumber(String phoneNumber);
 }

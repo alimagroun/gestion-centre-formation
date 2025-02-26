@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StudentDetails {
-    private Long id;
-    private String fullName;
-    private String levelOfEducation;
-    private String phoneNumber;
-    private String email;
-    private String identityNumber;
+  private Long id;
+  private String fullName;
+  private String levelOfEducation;
+  private String phoneNumber;
+  private String email;
+  private String identityNumber;
 }

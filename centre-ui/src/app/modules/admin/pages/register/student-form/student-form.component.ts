@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {StudentRequest} from "../../../../../services/models/student-request";
-import {ParentRequest} from "../../../../../services/models/parent-request";
 import {NgClass, NgIf} from "@angular/common";
 
 @Component({
@@ -18,7 +17,13 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class StudentFormComponent {
 
-  private _student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
+  private _student: StudentRequest = {
+    firstName: "",
+    lastName: "",
+    levelOfEducation: "",
+    phoneNumber: "",
+    birthDate: ""
+  };
 
   @Input()
   set student(value: StudentRequest) {
@@ -31,10 +36,10 @@ export class StudentFormComponent {
 
   @Output() statusForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
   studentForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
+    birthDate: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.email]),
     levelOfEducation: new FormControl('', [Validators.required]),
     identityNumber: new FormControl(''),
@@ -57,6 +62,7 @@ export class StudentFormComponent {
         this._student.phoneNumber = this.studentForm.get('phoneNumber')!.value!;
         this._student.firstName = this.studentForm.get('firstName')!.value!;
         this._student.lastName = this.studentForm.get('lastName')!.value!;
+        this._student.birthDate = this.studentForm.get('birthDate')!.value!;
         this._student.levelOfEducation = this.studentForm.get('levelOfEducation')!.value!;
         this._student.identityNumber = this.studentForm.get("identityNumber")?.value!
         this.validationForm(true)
@@ -76,6 +82,7 @@ export class StudentFormComponent {
         firstName: this._student.firstName || '',
         lastName: this._student.lastName || '',
         email: this._student.email || '',
+        birthDate: this._student.birthDate || '',
         phoneNumber: this._student.phoneNumber || '',
         levelOfEducation: this._student.levelOfEducation || '',
         identityNumber: this._student.identityNumber || '',

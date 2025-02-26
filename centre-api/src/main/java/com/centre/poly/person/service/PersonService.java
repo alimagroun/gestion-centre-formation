@@ -14,6 +14,7 @@ import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
 import java.util.List;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -242,7 +243,6 @@ public class PersonService {
   public void createUserAccount(Person person, String roleName) {
     User user = new User();
     user.setUserName(person.getPhoneNumber());
-    user.setPassword(passwordEncoder.encode(person.getPhoneNumber()));
     user.setRoles(
         List.of(
             roleRepository
@@ -250,7 +250,24 @@ public class PersonService {
                 .orElseThrow(() -> new NotFoundException("Role not found: " + roleName))));
     user.setEnabled(true);
     user.setPerson(person);
+    user.setPassword(
+        passwordEncoder.encode(
+            generateUniqueUsername(person.getFirstName(), person.getLastName())));
     userRepository.save(user);
+  }
+
+  public String generateUniqueUsername(String firstName, String lastName) {
+    Random random = new Random();
+    String username;
+    do {
+      int randomNumber = 1000 + random.nextInt(9000);
+      username =
+          firstName.substring(0, Math.min(3, firstName.length())).toLowerCase()
+              + lastName.substring(0, Math.min(3, lastName.length())).toLowerCase()
+              + randomNumber;
+    } while (userRepository.existsByUserName(username));
+
+    return username;
   }
 
   public PageResponse<TeacherResponse> getTeachersPage(int page, int size) {
@@ -266,5 +283,13 @@ public class PersonService {
         teacherPage.getTotalPages(),
         teacherPage.isFirst(),
         teacherPage.isLast());
+  }
+
+  public Student getStudentByPhone(String phone) {
+    return personRepository.findStudentByPhoneNumber(phone).get();
+  }
+
+  public Boolean isIdentityNumberUnique(String identityNumber) {
+    return personRepository.existsByIdentityNumber(identityNumber);
   }
 }

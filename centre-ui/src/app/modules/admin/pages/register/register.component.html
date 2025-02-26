@@ -21,20 +21,19 @@
       <span *ngFor="let msg of error">{{ msg }}</span>
     </div>
     <div *ngIf="currentStep === 1">
+      <app-student-form
+        [student]="student"
+        (statusForm)="validationFormStudent($event)"
+      ></app-student-form>
+    </div>
+    <div *ngIf="currentStep === 2">
       <app-parent-form
         [mother]="mother"
         [father]="father"
         (statusForm)="validationFormParent($event)"
         (motherRequest)="setMotherRequest($event)"
         (fatherRequest)="setFatherRequest($event)"
-
       ></app-parent-form>
-    </div>
-    <div *ngIf="currentStep === 2">
-      <app-student-form
-        [student]="student"
-        (statusForm)="validationFormStudent($event)"
-      ></app-student-form>
     </div>
     <div *ngIf="currentStep === 3">
       <app-address-form
@@ -71,10 +70,15 @@
 
   <div class="mt-3">
     <button class="btn btn-secondary" (click)="prevStep()" [disabled]="currentStep === 1">Précédent</button>
-    <button *ngIf="currentStep != steps.length" class="btn btn-primary ms-5" (click)="nextStep()"
-            [disabled]="(currentStep == 1 && !statusFormParent)
-            || (currentStep == 2 && !statusFormStudent)
-             || (currentStep == 3 && !statusFormAddress)">Suivant
+    <button *ngIf="currentStep != steps.length" class="btn btn-primary ms-5"
+            (click)="nextStep()"
+            [disabled]="(currentStep == 1 && !statusFormStudent)
+        || (currentStep == 2 && !statusFormParent)
+        || (currentStep == 3 && !statusFormAddress) || isLoading">
+
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+
+      {{ isLoading ? 'Vérification...' : 'Suivant' }}
     </button>
     <button *ngIf="currentStep === steps.length" type="button" class="btn btn-success ms-5" data-bs-toggle="modal"
             data-bs-target="#confirmationModal">

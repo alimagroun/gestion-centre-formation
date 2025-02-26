@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Component} from '@angular/core';
+import {ReactiveFormsModule} from "@angular/forms";
 import {ParentFormComponent} from "./parent-form/parent-form.component";
 import {StudentFormComponent} from "./student-form/student-form.component";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -57,7 +57,7 @@ export class RegisterComponent {
     maritalStatus: "MARRIED",
     isChecked: false
   };
-  student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: ""};
+  student: StudentRequest = {firstName: "", lastName: "", levelOfEducation: "", phoneNumber: "", birthDate: ""};
   address: AddressRequest = {city: "", street: "", zipCode: ""}
   documents: Array<DocumentResponse> = []
   registrationFeesFromChild: number = 0;
@@ -67,13 +67,14 @@ export class RegisterComponent {
   statusFormParent = false;
   statusFormStudent = false;
   statusFormAddress = false;
+  isLoading = false;
 
   error: Array<string> = [];
 
   currentStep: number = 1;
   steps = [
-    {name: 'Parent'},
     {name: 'Etudiant'},
+    {name: 'Parent'},
     {name: 'Adresse'},
     {name: 'Spécialité'},
     {name: 'Documents'},
@@ -95,7 +96,7 @@ export class RegisterComponent {
 
   async nextStep() {
     const isValid = await this.validation();
-    if (isValid && (this.statusFormParent || this.statusFormStudent || this.statusFormAddress)) {
+    if (isValid && (this.statusFormStudent || this.statusFormParent || this.statusFormAddress)) {
       if (this.currentStep < this.steps.length) {
         this.currentStep++;
       }
@@ -114,6 +115,7 @@ export class RegisterComponent {
   }
 
   validationFormStudent(status: boolean) {
+    console.log(status)
     this.statusFormStudent = status;
   }
 
@@ -166,45 +168,14 @@ export class RegisterComponent {
   }
 
   async validation(): Promise<boolean> {
+    this.isLoading = true;
     this.error = [];
-    if (this.currentStep == 1 && this.mother.id == undefined && this.father.id == undefined) {
-      let isValidEmailMother = false
-      if (this.mother.email != null) {
-        isValidEmailMother = await this.validateEmail(this.mother.email!);
-      }
-
-      let isValidEmailFather = false
-      if (this.father.email != null) {
-        isValidEmailFather = await this.validateEmail(this.father.email!);
-      }
-      if (this.mother.isChecked && isValidEmailMother) {
-        this.toastService.showError("Email " + this.mother.email + " existe déjà");
-        return false;
-      }
-      if (isValidEmailFather) {
-        this.toastService.showError("Email " + this.father.email + " existe déjà");
-        return false;
-      }
-
-      if (this.mother.isChecked && this.father.isChecked && this.father.email && this.mother.email && this.father.email == this.mother.email) {
-        this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
-        return false;
-      }
-
-      if (this.mother.isChecked && this.father.isChecked && this.father.phoneNumber === this.mother.phoneNumber) {
-        this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
-        return false;
-      }
-
-      if (!this.mother.isChecked && !this.father.isChecked) {
-        this.toastService.showError("Vous devez renseigner au moins les informations de la mère ou du père.");
-        return false;
-      }
-
-    } else if (this.currentStep == 2) {
-      const isValid = await this.validateEmail(this.student.email!);
+    if (this.currentStep == 1) {
+      const isEmailValid = await this.validateEmail(this.student.email!);
       const isTelValid = await this.validateTel(this.student.phoneNumber!);
-      if (isValid) {
+      const isIdentityNumberValid = await this.validateIdentityNumber(this.student.identityNumber!);
+
+      if (isEmailValid) {
         this.toastService.showError("Email " + this.student.email + " existe déjà");
         return false;
       }
@@ -212,8 +183,12 @@ export class RegisterComponent {
         this.toastService.showError("Le numéro de téléphone " + this.student.phoneNumber + " existe déjà");
         return false;
       }
+      if (isIdentityNumberValid) {
+        this.toastService.showError("CIN " + this.student.identityNumber + " existe déjà");
+        return false;
+      }
 
-      if (this.mother.phoneNumber == this.student.phoneNumber || this.father.phoneNumber == this.student.phoneNumber) {
+      /*if (this.mother.phoneNumber == this.student.phoneNumber || this.father.phoneNumber == this.student.phoneNumber) {
         this.toastService.showError("Le numéro de téléphone de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
       }
@@ -226,8 +201,106 @@ export class RegisterComponent {
       if (this.father.email && this.father.email == this.student.email) {
         this.toastService.showError("Email de l'étudiant ne peut pas être identique à celui du parent.")
         return false;
+      }*/
+    } else if (this.currentStep == 2) {
+
+      const isFatherChecked = this.father.isChecked;
+      const fatherPhoneNumber = this.father.phoneNumber;
+      const fatherEmail = this.father.email;
+
+      const isMotherChecked = this.mother.isChecked;
+      const motherPhoneNumber = this.mother.phoneNumber;
+      const motherEmail = this.mother.email;
+
+      const studentPhoneNumber = this.student.phoneNumber;
+      const studentEmail = this.student.email;
+
+      const isMotherEmailValid = await this.validateEmail(this.mother.email!);
+      const isFatherEmailValid = await this.validateEmail(this.mother.email!);
+      const isMotherTelValid = await this.validateTel(this.mother.phoneNumber!);
+      const isFatherTelValid = await this.validateTel(this.mother.phoneNumber!);
+
+      //check if the parent's phone number
+      if (isMotherChecked && motherPhoneNumber != null) {
+        if (studentPhoneNumber == motherPhoneNumber) {
+          this.toastService.showError("Le numéro de téléphone " + motherPhoneNumber + " existe déjà");
+          this.isLoading = false;
+          return false;
+        }
       }
 
+      if (isFatherChecked && fatherPhoneNumber != null) {
+        if (studentPhoneNumber == fatherPhoneNumber) {
+          this.toastService.showError("Le numéro de téléphone " + fatherPhoneNumber + " existe déjà");
+          this.isLoading = false;
+          return false;
+        }
+      }
+
+      if (isFatherChecked && fatherPhoneNumber != null
+        && isMotherChecked && motherPhoneNumber != null
+      ) {
+        if (fatherPhoneNumber == motherPhoneNumber) {
+          this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
+          this.isLoading = false;
+          return false;
+        }
+      }
+
+      if (isMotherTelValid) {
+        this.toastService.showError("Le numéro de téléphone " + this.mother.phoneNumber + " existe déjà");
+        this.isLoading = false;
+        return false;
+      }
+
+      if (isFatherTelValid) {
+        this.toastService.showError("Le numéro de téléphone " + this.father.phoneNumber + " existe déjà");
+        this.isLoading = false;
+        return false;
+      }
+
+      //check the parent's email
+      if (isMotherChecked && motherEmail != null) {
+        if (studentEmail == motherEmail) {
+          this.toastService.showError("Email " + motherEmail + " existe déjà");
+          this.isLoading = false;
+          return false;
+        }
+      }
+
+      if (isFatherChecked && fatherEmail != null) {
+        if (studentEmail == fatherEmail) {
+          this.toastService.showError("Le numéro de téléphone " + fatherEmail + " existe déjà");
+          this.isLoading = false;
+          return false;
+        }
+      }
+
+      if (isFatherChecked && fatherEmail != null
+        && isMotherChecked && motherEmail != null
+      ) {
+        if (fatherEmail == motherEmail) {
+          this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
+          this.isLoading = false;
+          return false;
+        }
+      }
+      if (isMotherEmailValid) {
+        this.toastService.showError("Email " + this.student.email + " existe déjà");
+        this.isLoading = false;
+        return false;
+      }
+      if (isFatherEmailValid) {
+        this.toastService.showError("Email " + this.student.email + " existe déjà");
+        this.isLoading = false;
+        return false;
+      }
+
+      if (!isMotherChecked && !isFatherChecked) {
+        this.toastService.showError("Vous devez renseigner au moins les informations de la mère ou du père.");
+        this.isLoading = false;
+        return false;
+      }
     } else if (this.currentStep == 4) {
       if (this.registreRequest.specialtyId == 0) {
         this.toastService.showError("Aucune spécialité sélectionnée. Veuillez en choisir une pour continuer.");
@@ -235,10 +308,14 @@ export class RegisterComponent {
       }
     }
 
+    this.isLoading = false;
     return true;
   }
 
   async validateEmail(email: string): Promise<boolean> {
+    if (!email) {
+      return false;
+    }
     return new Promise((resolve, reject) => {
       this.personService.emailValidation({email}).subscribe(
         (res) => {
@@ -252,9 +329,13 @@ export class RegisterComponent {
   }
 
   async validateTel(phoneNumber: string): Promise<boolean> {
+    if (!phoneNumber) {
+      return false;
+    }
     return new Promise((resolve, reject) => {
       this.personService.phoneNumberValidation({phoneNumber}).subscribe(
         (res) => {
+          this.isLoading = false;
           resolve(res);
         },
         (error) => {
@@ -263,4 +344,23 @@ export class RegisterComponent {
       );
     });
   }
+
+  async validateIdentityNumber(identityNumber: string): Promise<boolean> {
+    if (!identityNumber) {
+      return false;
+    }
+    return new Promise((resolve, reject) => {
+      this.personService.identityNumberValidation({identityNumber}).subscribe(
+        (res) => {
+          this.isLoading = false;
+          resolve(res);
+        },
+        (error) => {
+          reject(false);
+        }
+      );
+    });
+  }
+
+
 }

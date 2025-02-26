@@ -29,6 +29,11 @@ public class PersonController {
     return ResponseEntity.ok().body(personService.isEmailUnique(email));
   }
 
+  @GetMapping(value = "/validation/identity-number")
+  public ResponseEntity<Boolean> identityNumberValidation(@RequestParam String identityNumber) {
+    return ResponseEntity.ok().body(personService.isIdentityNumberUnique(identityNumber));
+  }
+
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/findParentByNum")
   public ResponseEntity<ParentResponse> findParentByNum(

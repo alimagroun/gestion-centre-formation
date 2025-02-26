@@ -30,6 +30,8 @@ import { findStudentById } from '../fn/person-controller/find-student-by-id';
 import { FindStudentById$Params } from '../fn/person-controller/find-student-by-id';
 import { getAllStudents } from '../fn/person-controller/get-all-students';
 import { GetAllStudents$Params } from '../fn/person-controller/get-all-students';
+import { identityNumberValidation } from '../fn/person-controller/identity-number-validation';
+import { IdentityNumberValidation$Params } from '../fn/person-controller/identity-number-validation';
 import { PageResponseParentResponse } from '../models/page-response-parent-response';
 import { PageResponseStudentResponse } from '../models/page-response-student-response';
 import { PageResponseTeacherResponse } from '../models/page-response-teacher-response';
@@ -118,6 +120,31 @@ export class PersonControllerService extends BaseService {
    */
   phoneNumberValidation(params: PhoneNumberValidation$Params, context?: HttpContext): Observable<boolean> {
     return this.phoneNumberValidation$Response(params, context).pipe(
+      map((r: StrictHttpResponse<boolean>): boolean => r.body)
+    );
+  }
+
+  /** Path part for operation `identityNumberValidation()` */
+  static readonly IdentityNumberValidationPath = '/person/validation/identity-number';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `identityNumberValidation()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  identityNumberValidation$Response(params: IdentityNumberValidation$Params, context?: HttpContext): Observable<StrictHttpResponse<boolean>> {
+    return identityNumberValidation(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `identityNumberValidation$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  identityNumberValidation(params: IdentityNumberValidation$Params, context?: HttpContext): Observable<boolean> {
+    return this.identityNumberValidation$Response(params, context).pipe(
       map((r: StrictHttpResponse<boolean>): boolean => r.body)
     );
   }

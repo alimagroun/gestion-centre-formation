@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, output, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgClass, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {ParentRequest} from "../../../../../services/models/parent-request";
 import {PersonControllerService} from "../../../../../services/services/person-controller.service";
 
@@ -35,8 +35,6 @@ export class ParentFormComponent implements OnInit {
     maritalStatus: "MARRIED",
     isChecked: false
   };
-  loadingMother = false;
-  loadingFather = false;
 
   @Input()
   set mother(value: ParentRequest) {
@@ -64,10 +62,9 @@ export class ParentFormComponent implements OnInit {
     motherFirstName: new FormControl({value: '', disabled: true}, [Validators.required]),
     motherLastName: new FormControl({value: '', disabled: true}, [Validators.required]),
     motherEmail: new FormControl({value: '', disabled: true}, [Validators.email]),
-    motherProfession: new FormControl({value: '', disabled: true}, [Validators.required]),
+    motherProfession: new FormControl({value: '', disabled: true}),
     isMotherChecked: new FormControl(false),
     motherPhoneNumber: new FormControl({value: '', disabled: true}, [
-      Validators.required,
       Validators.minLength(8),
       Validators.maxLength(8),
       Validators.pattern(/^[0-9]*$/)
@@ -76,16 +73,15 @@ export class ParentFormComponent implements OnInit {
     fatherFirstName: new FormControl({value: '', disabled: true}, [Validators.required]),
     fatherLastName: new FormControl({value: '', disabled: true}, [Validators.required]),
     fatherEmail: new FormControl({value: '', disabled: true}, [Validators.email]),
-    fatherProfession: new FormControl({value: '', disabled: true}, [Validators.required]),
+    fatherProfession: new FormControl({value: '', disabled: true}),
     isFatherChecked: new FormControl(false),
     fatherPhoneNumber: new FormControl({value: '', disabled: true}, [
-      Validators.required,
       Validators.minLength(8),
       Validators.maxLength(8),
       Validators.pattern(/^[0-9]*$/)
     ]),
 
-    maritalStatus: new FormControl('', [Validators.required]),
+    maritalStatus: new FormControl(''),
     motherDeceased: new FormControl(false),
     fatherDeceased: new FormControl(false),
   });
@@ -102,7 +98,6 @@ export class ParentFormComponent implements OnInit {
 
   updateForm() {
     if (this.mother.isChecked) {
-      console.log(this._mother)
 
       this.parentForm.get('motherFirstName')?.enable();
       this.parentForm.get('motherLastName')?.enable();
@@ -176,7 +171,7 @@ export class ParentFormComponent implements OnInit {
     this.statusForm.emit(status);
   }
 
-  setMotherRequeste(parent: ParentRequest) {
+  /*setMotherRequeste(parent: ParentRequest) {
     this.motherRequest.emit(parent);
   }
 
@@ -238,7 +233,7 @@ export class ParentFormComponent implements OnInit {
         console.error('Erreur lors de la recherche du parent', error);
       }
     );
-  }
+  }*/
 
   toggleMotherForm(event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
