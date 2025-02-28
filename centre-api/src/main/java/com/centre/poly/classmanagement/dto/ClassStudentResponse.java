@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ClassStudentResponse {
-    Long studentId;
-    String firstName;
-    String lastName;
-    String phoneNumber;
-    String className;
+  Long studentId;
+  String firstName;
+  String lastName;
+  String studentPhoneNumber;
+  String fatherPhoneNumber;
+  String motherPhoneNumber;
+  String educationLevel;
 }

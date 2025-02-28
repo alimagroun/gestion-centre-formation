@@ -5,7 +5,7 @@
             (ngModelChange)="onSpecialtyChange()">
       <option [ngValue]="undefined" disabled>Sélectionner une spécialité</option>
       <option *ngFor="let specialty of specialtyList" [ngValue]="specialty">
-        {{ specialty.domaineName }} - {{ specialty.formationTypeName }}
+        {{ specialty.formationTypeName }} - {{ specialty.domaineName }}
       </option>
     </select>
   </div>

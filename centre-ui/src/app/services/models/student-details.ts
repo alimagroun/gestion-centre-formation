@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface StudentDetails {
+  dateOfBirth?: string;
   email?: string;
   fullName?: string;
   id?: number;

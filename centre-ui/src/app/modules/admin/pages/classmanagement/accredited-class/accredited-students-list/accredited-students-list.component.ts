@@ -26,7 +26,8 @@ import {FormsModule} from "@angular/forms";
 export class AccreditedStudentsListComponent {
 
   classId: string | null = null;
-  studentsList: Array<ClassStudentResponse> = [];
+  classStudentResponses: Array<ClassStudentResponse> = [];
+  studentsList: Array<StudentAllResponse> = [];
   isLoading: boolean = true;
   selectedStudentId: number | null = null;
   loader = false;
@@ -50,7 +51,7 @@ export class AccreditedStudentsListComponent {
       this.classService.findAllStudentByAccreditedClassId(
         {classId: Number(this.classId)}
       ).subscribe(students => {
-        this.studentsList = students;
+        this.classStudentResponses = students;
         this.isLoading = false;
       });
     }

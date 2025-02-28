@@ -2820,6 +2820,10 @@
           },
           "identityNumber": {
             "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -3448,10 +3452,16 @@
           "lastName": {
             "type": "string"
           },
-          "phoneNumber": {
+          "studentPhoneNumber": {
             "type": "string"
           },
-          "className": {
+          "fatherPhoneNumber": {
+            "type": "string"
+          },
+          "motherPhoneNumber": {
+            "type": "string"
+          },
+          "educationLevel": {
             "type": "string"
           }
         }

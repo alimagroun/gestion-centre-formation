@@ -1,9 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface ClassStudentResponse {
-  className?: string;
+  educationLevel?: string;
+  fatherPhoneNumber?: string;
   firstName?: string;
   lastName?: string;
-  phoneNumber?: string;
+  motherPhoneNumber?: string;
   studentId?: number;
+  studentPhoneNumber?: string;
 }

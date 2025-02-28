@@ -1,14 +1,13 @@
 services:
   postgres:
-    container_name: my-postgres
+    container_name: poly_postgres
     image: postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      PGDATA: /var/lib/postgres/data
       POSTGRES_DB: centre-formation
     volumes:
-      - postgres:/data/postgres
+      - postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -22,4 +21,6 @@ networks:
 volumes:
   postgres:
     name: postgres-data
+    driver: local
+  centre-formation-logs:
     driver: local

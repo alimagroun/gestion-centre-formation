@@ -221,7 +221,7 @@ export class RegisterComponent {
       const isFatherTelValid = await this.validateTel(this.mother.phoneNumber!);
 
       //check if the parent's phone number
-      if (isMotherChecked && motherPhoneNumber != null) {
+      if (isMotherChecked && motherPhoneNumber) {
         if (studentPhoneNumber == motherPhoneNumber) {
           this.toastService.showError("Le numéro de téléphone " + motherPhoneNumber + " existe déjà");
           this.isLoading = false;
@@ -229,7 +229,7 @@ export class RegisterComponent {
         }
       }
 
-      if (isFatherChecked && fatherPhoneNumber != null) {
+      if (isFatherChecked && fatherPhoneNumber) {
         if (studentPhoneNumber == fatherPhoneNumber) {
           this.toastService.showError("Le numéro de téléphone " + fatherPhoneNumber + " existe déjà");
           this.isLoading = false;
@@ -237,8 +237,8 @@ export class RegisterComponent {
         }
       }
 
-      if (isFatherChecked && fatherPhoneNumber != null
-        && isMotherChecked && motherPhoneNumber != null
+      if (isFatherChecked && fatherPhoneNumber
+        && isMotherChecked && motherPhoneNumber
       ) {
         if (fatherPhoneNumber == motherPhoneNumber) {
           this.toastService.showError("Le numéro de téléphone de la mère doit être différent de celui du père.");
@@ -260,7 +260,7 @@ export class RegisterComponent {
       }
 
       //check the parent's email
-      if (isMotherChecked && motherEmail != null) {
+      if (isMotherChecked && motherEmail) {
         if (studentEmail == motherEmail) {
           this.toastService.showError("Email " + motherEmail + " existe déjà");
           this.isLoading = false;
@@ -268,16 +268,16 @@ export class RegisterComponent {
         }
       }
 
-      if (isFatherChecked && fatherEmail != null) {
+      if (isFatherChecked && fatherEmail) {
         if (studentEmail == fatherEmail) {
-          this.toastService.showError("Le numéro de téléphone " + fatherEmail + " existe déjà");
+          this.toastService.showError("Email " + fatherEmail + " existe déjà");
           this.isLoading = false;
           return false;
         }
       }
 
-      if (isFatherChecked && fatherEmail != null
-        && isMotherChecked && motherEmail != null
+      if (isFatherChecked && fatherEmail
+        && isMotherChecked && motherEmail
       ) {
         if (fatherEmail == motherEmail) {
           this.toastService.showError("L'e-mail de la mère doit être différent de l'e-mail du père.");
@@ -286,12 +286,12 @@ export class RegisterComponent {
         }
       }
       if (isMotherEmailValid) {
-        this.toastService.showError("Email " + this.student.email + " existe déjà");
+        this.toastService.showError("Email " + this.mother.email + " existe déjà");
         this.isLoading = false;
         return false;
       }
       if (isFatherEmailValid) {
-        this.toastService.showError("Email " + this.student.email + " existe déjà");
+        this.toastService.showError("Email " + this.father.email + " existe déjà");
         this.isLoading = false;
         return false;
       }

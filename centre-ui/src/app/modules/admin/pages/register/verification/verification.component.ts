@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ParentRequest} from "../../../../../services/models/parent-request";
 import {StudentRequest} from "../../../../../services/models/student-request";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {AddressRequest} from "../../../../../services/models/address-request";
 import {DocumentResponse} from "../../../../../services/models/document-response";
 
@@ -9,7 +9,11 @@ import {DocumentResponse} from "../../../../../services/models/document-response
   selector: 'app-verification',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    DatePipe,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault
   ],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.scss'

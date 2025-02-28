@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="card-title">{{ studentsList[0].className }}</h5>
+    <!--    <h5 class="card-title">{{ studentsList[0].className }}</h5>-->
   </div>
   <div class="card-body">
     <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
@@ -29,20 +29,22 @@
       </button>
     </div>
 
-    <div *ngIf="!isLoading && studentsList && studentsList.length > 0; else noData">
+    <div *ngIf="!isLoading && classStudentResponses && classStudentResponses.length > 0; else noData">
       <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col">Prénom</th>
-          <th scope="col">Nom</th>
-          <th scope="col">Téléphone</th>
+          <th scope="col">Nom et Prénom</th>
+          <th scope="col">Téléphone Élève</th>
+          <th scope="col">Téléphone Mère</th>
+          <th scope="col">Téléphone Père</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let student of studentsList">
-          <td>{{ student.firstName }}</td>
-          <td>{{ student.lastName }}</td>
-          <td>{{ student.phoneNumber }}</td>
+        <tr *ngFor="let student of classStudentResponses">
+          <td>{{ student.firstName }} {{ student.lastName }}</td>
+          <td>{{ student.studentPhoneNumber }}</td>
+          <td>{{ student.motherPhoneNumber }}</td>
+          <td>{{ student.fatherPhoneNumber }}</td>
         </tr>
         </tbody>
       </table>
