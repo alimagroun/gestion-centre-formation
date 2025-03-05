@@ -10,6 +10,7 @@ import {ToastService} from "../../../../../../services/toast/toast.service";
 import {StudentAllResponse} from "../../../../../../services/models/student-all-response";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {FormsModule} from "@angular/forms";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-accredited-students-list',
@@ -31,7 +32,8 @@ export class AccreditedStudentsListComponent {
   isLoading: boolean = true;
   selectedStudentId: number | null = null;
   loader = false;
-
+  loading: boolean = false;
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     private classService: ClasseFormationControllerService,
@@ -85,6 +87,25 @@ export class AccreditedStudentsListComponent {
         this.toastService.showError("L'étudiant est déjà inscrit dans cette classe")
       }
     })
+  }
+
+  exportToPDF() {
+    this.loading = true;
+    this.classService.exportClassStudentsAsPdf(
+      {
+        classId: Number(this.classId),
+        isAccelerated: false,
+        isAccredited: true
+      }
+    )
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (response) => {
+        },
+        error: (err) => {
+          console.error("Erreur lors du téléchargement du PDF", err);
+        }
+      });
   }
 
 }

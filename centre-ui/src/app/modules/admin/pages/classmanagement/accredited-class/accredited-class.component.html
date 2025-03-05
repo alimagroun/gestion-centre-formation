@@ -32,7 +32,7 @@
     </thead>
     <tbody>
     <tr *ngIf="loading">
-      <td colspan="4" class="text-center">
+      <td colspan="5" class="text-center">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
@@ -45,9 +45,11 @@
         <td>{{ c.specialtyName }}</td>
         <td>{{ c.yearLevel }}</td>
         <td>{{ c.groupNumber }}</td>
-        <button class="btn btn-outline-primary" (click)="showStudents(c)">
-          <i class="bi bi-eye"></i> Voir les étudiants
-        </button>
+        <td>
+          <button class="btn btn-outline-primary" (click)="showStudents(c)">
+            <i class="bi bi-eye"></i> Voir les étudiants
+          </button>
+        </td>
       </tr>
     </ng-container>
     </tbody>

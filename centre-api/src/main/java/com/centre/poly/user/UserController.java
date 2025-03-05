@@ -13,17 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("user")
 public class UserController {
-    
-    private final UserService userService;
-    
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<PageResponse<UserResponse>> findAllUsers(@RequestParam(name = "page",
-                                                                                 defaultValue = "0",
-                                                                                 required = false) int page,
-                                                                   @RequestParam(name = "size",
-                                                                                 defaultValue = "10",
-                                                                                 required = false) int size) {
-        return ResponseEntity.ok(userService.findAll(page, size));
-    }
+
+  private final UserService userService;
+
+  @GetMapping
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public ResponseEntity<PageResponse<UserResponse>> findAllUsers(
+      @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+      @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
+    return ResponseEntity.ok(userService.findAll(page, size));
+  }
 }

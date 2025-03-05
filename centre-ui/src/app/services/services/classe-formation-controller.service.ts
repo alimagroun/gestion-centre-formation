@@ -17,6 +17,8 @@ import { AddStudentToAcceleratedClass$Params } from '../fn/classe-formation-cont
 import { addStudentToAccreditedClass } from '../fn/classe-formation-controller/add-student-to-accredited-class';
 import { AddStudentToAccreditedClass$Params } from '../fn/classe-formation-controller/add-student-to-accredited-class';
 import { ClassStudentResponse } from '../models/class-student-response';
+import { exportClassStudentsAsPdf } from '../fn/classe-formation-controller/export-class-students-as-pdf';
+import { ExportClassStudentsAsPdf$Params } from '../fn/classe-formation-controller/export-class-students-as-pdf';
 import { findAllAcceleratedClass } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { FindAllAcceleratedClass$Params } from '../fn/classe-formation-controller/find-all-accelerated-class';
 import { findAllAcceleratedClassBySpecialty } from '../fn/classe-formation-controller/find-all-accelerated-class-by-specialty';
@@ -191,6 +193,31 @@ export class ClasseFormationControllerService extends BaseService {
   saveAcceleratedClass(params: SaveAcceleratedClass$Params, context?: HttpContext): Observable<number> {
     return this.saveAcceleratedClass$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `exportClassStudentsAsPdf()` */
+  static readonly ExportClassStudentsAsPdfPath = '/class/{classId}/students/export';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `exportClassStudentsAsPdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  exportClassStudentsAsPdf$Response(params: ExportClassStudentsAsPdf$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<string>>> {
+    return exportClassStudentsAsPdf(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `exportClassStudentsAsPdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  exportClassStudentsAsPdf(params: ExportClassStudentsAsPdf$Params, context?: HttpContext): Observable<Array<string>> {
+    return this.exportClassStudentsAsPdf$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<string>>): Array<string> => r.body)
     );
   }
 

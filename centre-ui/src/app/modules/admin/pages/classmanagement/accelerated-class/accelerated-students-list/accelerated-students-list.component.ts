@@ -4,12 +4,13 @@ import {
 } from "../../../../../../services/services/classe-formation-controller.service";
 import {ActivatedRoute} from "@angular/router";
 import {ClassStudentResponse} from "../../../../../../services/models/class-student-response";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {PersonControllerService} from "../../../../../../services/services/person-controller.service";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {FormsModule} from "@angular/forms";
 import {StudentAllResponse} from "../../../../../../services/models/student-all-response";
 import {ToastService} from "../../../../../../services/toast/toast.service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-accelerated-students-list',
@@ -18,8 +19,7 @@ import {ToastService} from "../../../../../../services/toast/toast.service";
     NgForOf,
     NgIf,
     NgSelectModule,
-    FormsModule,
-    AsyncPipe
+    FormsModule
   ],
   templateUrl: './accelerated-students-list.component.html',
   styleUrl: './accelerated-students-list.component.scss'
@@ -32,6 +32,7 @@ export class AcceleratedStudentsListComponent implements OnInit {
   isLoading: boolean = true;
   selectedStudentId: number | null = null;
   loader = false;
+  loading: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -88,4 +89,25 @@ export class AcceleratedStudentsListComponent implements OnInit {
       }
     })
   }
+
+  exportToPDF() {
+    this.loading = true;
+    this.classService.exportClassStudentsAsPdf(
+      {
+        classId: Number(this.classId),
+        isAccelerated: true,
+        isAccredited: false
+      }
+    )
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (response) => {
+        },
+        error: (err) => {
+          console.error("Erreur lors du téléchargement du PDF", err);
+        }
+      });
+  }
+
+
 }

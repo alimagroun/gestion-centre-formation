@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export { AcceleratedClass } from './models/accelerated-class';
+export { AcceleratedClassEntry } from './models/accelerated-class-entry';
 export { AcceleratedClassRequest } from './models/accelerated-class-request';
 export { AcceleratedClassResponse } from './models/accelerated-class-response';
 export { AccreditedClassRequest } from './models/accredited-class-request';
@@ -39,6 +40,7 @@ export { PageResponseStudentResponse } from './models/page-response-student-resp
 export { PageResponseSubjectResponse } from './models/page-response-subject-response';
 export { PageResponseTeacherResponse } from './models/page-response-teacher-response';
 export { PageResponseUserResponse } from './models/page-response-user-response';
+export { Parent } from './models/parent';
 export { ParentDetailResponse } from './models/parent-detail-response';
 export { ParentDetails } from './models/parent-details';
 export { ParentDto } from './models/parent-dto';
@@ -57,6 +59,7 @@ export { SchoolYearResponse } from './models/school-year-response';
 export { Specialty } from './models/specialty';
 export { SpecialtyRequest } from './models/specialty-request';
 export { SpecialtyResponse } from './models/specialty-response';
+export { Student } from './models/student';
 export { StudentAllResponse } from './models/student-all-response';
 export { StudentDetails } from './models/student-details';
 export { StudentDetailsResponse } from './models/student-details-response';

@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Liste des élèves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2, h3 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>Liste des élèves de la classe</h2>
+<h3><span th:text="${className}"></span></h3>
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Téléphone Élève</th>
+        <th>Téléphone Mère</th>
+        <th>Téléphone Père</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student, stat : ${students}">
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.phoneNumber}"></td>
+        <td th:text="${student.mother.phoneNumber}"></td>
+        <td th:text="${student.father.phoneNumber}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

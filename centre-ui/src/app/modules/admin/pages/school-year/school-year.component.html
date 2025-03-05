@@ -37,7 +37,7 @@
     </thead>
     <tbody>
     <tr *ngIf="loading">
-      <td colspan="3" class="text-center">
+      <td colspan="4" class="text-center">
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
@@ -53,13 +53,15 @@
             {{ sy.isDefault ? 'Oui' : 'Non' }}
           </span>
         </td>
-        <button class="btn btn-sm btn-outline-primary"
-                [disabled]="sy.isDefault || loading"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmModal"
-                (click)="selectedSchoolYear = sy">
-          <i class="bi bi-check-lg"></i> Par défaut
-        </button>
+        <td>
+          <button class="btn btn-sm btn-outline-primary"
+                  [disabled]="sy.isDefault || loading"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmModal"
+                  (click)="selectedSchoolYear = sy">
+            <i class="bi bi-check-lg"></i> Par défaut
+          </button>
+        </td>
       </tr>
     </ng-container>
     </tbody>

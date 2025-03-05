@@ -3,15 +3,10 @@
     <!--    <h5 class="card-title">{{ studentsList[0].className }}</h5>-->
   </div>
   <div class="card-body">
-    <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Chargement...</span>
-      </div>
-    </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 d-flex align-items-center gap-2">
       <ng-select
-        class="form-select bootstrap-select"
+        class="form-select bootstrap-select flex-grow-1"
         [items]="studentsList"
         bindLabel="fullName"
         bindValue="id"
@@ -21,13 +16,19 @@
         placeholder="Choisir un étudiant"
       >
       </ng-select>
-      <button class="btn btn-success mt-2" (click)="addStudentToClass()">
+      <button class="btn btn-success" (click)="addStudentToClass()">
         <div *ngIf="loader" class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
         <span *ngIf="!loader">Ajouter</span>
       </button>
     </div>
+
+    <button class="btn btn-danger mt-2" (click)="exportToPDF()" [disabled]="loading">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <i *ngIf="!loading" class="bi bi-file-earmark-pdf"></i>
+      <span *ngIf="!loading"> Exporter en PDF</span>
+    </button>
 
     <div *ngIf="!isLoading && classStudentResponses && classStudentResponses.length > 0; else noData">
       <table class="table table-striped">
@@ -40,6 +41,11 @@
         </tr>
         </thead>
         <tbody>
+        <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 200px;">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </div>
         <tr *ngFor="let student of classStudentResponses">
           <td>{{ student.firstName }} {{ student.lastName }}</td>
           <td>{{ student.studentPhoneNumber }}</td>
