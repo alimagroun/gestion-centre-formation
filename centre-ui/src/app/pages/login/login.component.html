@@ -1,6 +1,10 @@
 <div class="container">
   <div class="login-container">
-    <h2 class="login-title">Connexion</h2>
+    <!--    <h2 class="login-title">Connexion</h2>-->
+    <div class="mb-4">
+      <img
+        src="https://scontent.ftun16-1.fna.fbcdn.net/v/t39.30808-6/451318543_6133424786781560_5181146498905644408_n.png?_nc_cat=100&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=R6s4JJGl41sQ7kNvgGS6JvO&_nc_oc=AdgQBX9ASgq0a3v7d2AV9W8_GgqDes2AFxoJU7TxSHiI-qXU1-6qoR4hWVNlYTQJBSM&_nc_zt=23&_nc_ht=scontent.ftun16-1.fna&_nc_gid=AW9xvwtBEMfsRSN6g4q0Z7n&oh=00_AYFXu7L0SlQ20l6TxOHrat1uGbLlZuhaHifILCcJUS1BPw&oe=67D2276A">
+    </div>
     <div *ngIf="errorMsg.length" class="alert alert-danger">
       <p *ngFor="let msg of errorMsg">{{ msg }}</p>
     </div>

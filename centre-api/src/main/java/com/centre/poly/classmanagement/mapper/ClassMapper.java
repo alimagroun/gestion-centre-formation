@@ -70,8 +70,14 @@ public class ClassMapper {
     response.setFirstName(entry.getStudent().getFirstName());
     response.setLastName(entry.getStudent().getLastName());
     response.setStudentPhoneNumber(entry.getStudent().getPhoneNumber());
-    response.setMotherPhoneNumber(entry.getStudent().getMother().getPhoneNumber());
-    response.setFatherPhoneNumber(entry.getStudent().getFather().getPhoneNumber());
+    response.setMotherPhoneNumber(
+        entry.getStudent().getMother() != null
+            ? entry.getStudent().getMother().getPhoneNumber()
+            : null);
+    response.setFatherPhoneNumber(
+        entry.getStudent().getFather() != null
+            ? entry.getStudent().getFather().getPhoneNumber()
+            : null);
     return response;
   }
 }

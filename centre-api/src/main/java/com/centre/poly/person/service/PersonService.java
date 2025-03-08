@@ -13,6 +13,7 @@ import com.centre.poly.person.mapper.TeacherMapper;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -242,7 +243,7 @@ public class PersonService {
 
   public void createUserAccount(Person person, String roleName) {
     User user = new User();
-    user.setUserName(person.getPhoneNumber());
+    user.setUserName(generateUniqueUsername(person.getFirstName(), person.getLastName()));
     user.setRoles(
         List.of(
             roleRepository
@@ -251,12 +252,11 @@ public class PersonService {
     user.setEnabled(true);
     user.setPerson(person);
     user.setPassword(
-        passwordEncoder.encode(
-            generateUniqueUsername(person.getFirstName(), person.getLastName())));
+        passwordEncoder.encode(generatePassword(person.getFirstName(), person.getLastName())));
     userRepository.save(user);
   }
 
-  public String generateUniqueUsername(String firstName, String lastName) {
+  private String generateUniqueUsername(String firstName, String lastName) {
     Random random = new Random();
     String username;
     do {
@@ -268,6 +268,20 @@ public class PersonService {
     } while (userRepository.existsByUserName(username));
 
     return username;
+  }
+
+  private String generatePassword(String firstName, String lastName) {
+    String SPECIAL_CHARACTERS = "!@#$%^&*()-_+=<>?";
+    SecureRandom random = new SecureRandom();
+    if (firstName.isEmpty() || lastName.isEmpty()) {
+      throw new IllegalArgumentException("First name and last name must not be empty");
+    }
+    char firstLetter = Character.toUpperCase(firstName.charAt(0));
+    char lastLetter = Character.toUpperCase(firstName.charAt(firstName.length() - 1));
+    String lastNamePart = lastName.substring(0, Math.min(2, lastName.length())).toLowerCase();
+    int randomNumber = 1000 + random.nextInt(9000);
+    char specialChar = SPECIAL_CHARACTERS.charAt(random.nextInt(SPECIAL_CHARACTERS.length()));
+    return "" + firstLetter + lastLetter + lastNamePart + randomNumber + specialChar;
   }
 
   public PageResponse<TeacherResponse> getTeachersPage(int page, int size) {

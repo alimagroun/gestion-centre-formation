@@ -46,8 +46,8 @@
         <td th:text="${student.lastName}"></td>
         <td th:text="${student.firstName}"></td>
         <td th:text="${student.phoneNumber}"></td>
-        <td th:text="${student.mother.phoneNumber}"></td>
-        <td th:text="${student.father.phoneNumber}"></td>
+        <td th:text="${student.mother?.phoneNumber}"></td>
+        <td th:text="${student.father?.phoneNumber}"></td>
     </tr>
     </tbody>
 </table>
