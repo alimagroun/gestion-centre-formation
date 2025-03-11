@@ -1,11 +1,18 @@
 package com.centre.poly.subject;
 
-public record SubjectResponse(
-        Long id,
-        String name,
-        String description,
-        String pdfFilePath,
-        String wordFilePath
-) {
-}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class SubjectResponse {
+
+  private Long id;
+  private String name;
+  private String description;
+  private boolean isPdfFile;
+}

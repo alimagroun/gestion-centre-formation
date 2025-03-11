@@ -2,12 +2,18 @@ package com.centre.poly.subject;
 
 import com.centre.poly.classmanagement.entity.Specialty;
 import com.centre.poly.classmanagement.repository.SpecialtyRepository;
+import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.InvalidRequestException;
 import com.centre.poly.exception.NotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +45,21 @@ public class SubjectService {
     subject.setPdfFile(file.isEmpty() ? null : file.getBytes());
 
     return subjectRepository.save(subject).getId();
+  }
+
+  public PageResponse<SubjectResponse> getAllSubjects(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+    Page<Subject> subjectPage = subjectRepository.findAll(pageable);
+    List<SubjectResponse> subjects =
+        subjectPage.stream().map(subjectMapper::toSubjectResponse).toList();
+    return new PageResponse<>(
+        subjects,
+        subjectPage.getNumber(),
+        subjectPage.getSize(),
+        subjectPage.getTotalElements(),
+        subjectPage.getTotalPages(),
+        subjectPage.isFirst(),
+        subjectPage.isLast());
   }
 
   /*public Optional<Subject> getSubjectById(Long id) {

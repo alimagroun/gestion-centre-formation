@@ -1,7 +1,7 @@
 package com.centre.poly.subject;
 
 import com.centre.poly.common.ApiResponse;
-import com.centre.poly.exception.NotFoundException;
+import com.centre.poly.common.PageResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -40,10 +40,10 @@ public class SubjectController {
                 .build());
   }
 
-  /*@GetMapping
+  @GetMapping
   public ResponseEntity<PageResponse<SubjectResponse>> getAllSubjects(
       @RequestParam(name = "page", defaultValue = "0", required = false) int page,
       @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
     return ResponseEntity.ok().body(subjectService.getAllSubjects(page, size));
-  }*/
+  }
 }

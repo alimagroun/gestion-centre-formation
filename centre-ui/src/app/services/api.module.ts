@@ -6,6 +6,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { SchoolYearControllerService } from './services/school-year-controller.service';
 import { RegistrationControllerService } from './services/registration-controller.service';
+import { SubjectControllerService } from './services/subject-controller.service';
 import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { PersonControllerService } from './services/person-controller.service';
@@ -16,7 +17,6 @@ import { ClassroomControllerService } from './services/classroom-controller.serv
 import { ClasseFormationControllerService } from './services/classe-formation-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { UserControllerService } from './services/user-controller.service';
-import { SubjectControllerService } from './services/subject-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -28,6 +28,7 @@ import { SubjectControllerService } from './services/subject-controller.service'
   providers: [
     SchoolYearControllerService,
     RegistrationControllerService,
+    SubjectControllerService,
     SpecialtyControllerService,
     RoleControllerService,
     PersonControllerService,
@@ -38,7 +39,6 @@ import { SubjectControllerService } from './services/subject-controller.service'
     ClasseFormationControllerService,
     AuthenticationControllerService,
     UserControllerService,
-    SubjectControllerService,
     ApiConfiguration
   ],
 })

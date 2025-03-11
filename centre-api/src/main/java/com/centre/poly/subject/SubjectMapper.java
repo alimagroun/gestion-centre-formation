@@ -17,4 +17,13 @@ public class SubjectMapper {
     subject.setSpecialty(Specialty.builder().id(request.specialtyId()).build());
     return subject;
   }
+
+  public SubjectResponse toSubjectResponse(Subject subject) {
+    SubjectResponse response = new SubjectResponse();
+    response.setId(subject.getId());
+    response.setName(subject.getName());
+    response.setDescription(subject.getDescription());
+    response.setPdfFile(subject.getPdfFile().length != 0);
+    return response;
+  }
 }
