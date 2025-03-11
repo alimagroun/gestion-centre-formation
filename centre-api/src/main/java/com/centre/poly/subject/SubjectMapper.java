@@ -1,17 +1,20 @@
 package com.centre.poly.subject;
 
-import org.springframework.stereotype.Component;
+import com.centre.poly.classmanagement.entity.Specialty;
+import java.io.IOException;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class SubjectMapper {
-    
-    public SubjectResponse toSubjectResponse(Subject subject) {
-        return new SubjectResponse(
-                subject.getId(),
-                subject.getName(),
-                subject.getDescription(),
-                subject.getPdfFilePath(),
-                subject.getWordFilePath()
-        );
-    }
+
+  public Subject toSubject(SubjectRequest request) throws IOException {
+    Subject subject = new Subject();
+    subject.setName(request.name().trim());
+    subject.setDescription(request.description());
+    subject.setTotalHours(request.totalHours());
+    subject.setTheoreticalHours(request.theoreticalHours());
+    subject.setPracticalHours(request.practicalHours());
+    subject.setSpecialty(Specialty.builder().id(request.specialtyId()).build());
+    return subject;
+  }
 }

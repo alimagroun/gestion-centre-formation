@@ -2,5 +2,11 @@ spring:
   profiles:
     active: dev
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+
 springdoc:
   default-produces-media-type: application/json
