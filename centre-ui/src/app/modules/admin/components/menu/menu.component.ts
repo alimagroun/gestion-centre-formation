@@ -161,6 +161,20 @@ export class MenuComponent {
           "url": "admin/classrooms"
         },
       ],
+    },
+    {
+      id: '8',
+      "titre": "Gestion des matières",
+      "icon": "bi bi-book",
+      url: '',
+      sousMenu: [
+        {
+          id: '71',
+          "titre": "Liste des matières",
+          icon: '',
+          "url": "admin/subjects"
+        },
+      ],
     }
 
   ];

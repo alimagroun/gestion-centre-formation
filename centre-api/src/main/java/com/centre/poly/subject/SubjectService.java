@@ -42,7 +42,7 @@ public class SubjectService {
     }
 
     Subject subject = subjectMapper.toSubject(request);
-    subject.setPdfFile(file.isEmpty() ? null : file.getBytes());
+    subject.setPdfFile(file == null ? null : file.getBytes());
 
     return subjectRepository.save(subject).getId();
   }

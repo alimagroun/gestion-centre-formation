@@ -20,7 +20,8 @@ public record SubjectRequest(
       errors.put("name", "NAME_MUST_BE_AT_LEAST_3_CHARACTERS");
     }
 
-    if (subjectRequest.description() != null && subjectRequest.description().length() < 5) {
+    if ((subjectRequest.description() != null && !subjectRequest.description.isEmpty())
+        && subjectRequest.description().length() < 5) {
       errors.put("description", "DESCRIPTION_MUST_BE_AT_LEAST_5_CHARACTERS");
     }
 

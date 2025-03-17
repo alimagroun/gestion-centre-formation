@@ -39,6 +39,8 @@ import {ClassRoomComponent} from "./pages/class-room/class-room.component";
 import {AddClassRoomComponent} from "./pages/class-room/add-class-room/add-class-room.component";
 import {TeacherListComponent} from "./pages/person/teacher/teacher-list/teacher-list.component";
 import {TeacherFormComponent} from "./pages/person/teacher/teacher-form/teacher-form.component";
+import {SubjectListComponent} from "./pages/subject/subject-list/subject-list.component";
+import {AddSubjectComponent} from "./pages/subject/add-subject/add-subject.component";
 
 const routes: Routes = [
   {
@@ -252,6 +254,23 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'subjects',
+        canActivate: [authAdminGuard],
+        children: [
+          {
+            path: '',
+            component: SubjectListComponent,
+            canActivate: [authAdminGuard]
+          },
+          {
+            path: 'addSubject',
+            component: AddSubjectComponent,
+            canActivate: [authAdminGuard]
+          }
+        ]
+      },
+
     ]
   }
 ];
