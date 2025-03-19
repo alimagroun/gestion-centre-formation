@@ -6,10 +6,12 @@ import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.DuplicateEntityException;
 import com.centre.poly.exception.InvalidRequestException;
 import com.centre.poly.exception.NotFoundException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -60,6 +62,21 @@ public class SubjectService {
         subjectPage.getTotalPages(),
         subjectPage.isFirst(),
         subjectPage.isLast());
+  }
+
+  public InputStreamResource downloadPdf(Long id) {
+    Subject subject = getSubjectByid(id);
+    if (subject.getPdfFile() != null) {
+      return new InputStreamResource(new ByteArrayInputStream(subject.getPdfFile()));
+    } else {
+      return null;
+    }
+  }
+
+  public Subject getSubjectByid(Long id) {
+    return subjectRepository
+        .findById(id)
+        .orElseThrow(() -> new NotFoundException("Subject not found with id: " + id));
   }
 
   /*public Optional<Subject> getSubjectById(Long id) {

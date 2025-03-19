@@ -14,6 +14,8 @@ import { createSubject } from '../fn/subject-controller/create-subject';
 import { CreateSubject$Params } from '../fn/subject-controller/create-subject';
 import { getAllSubjects } from '../fn/subject-controller/get-all-subjects';
 import { GetAllSubjects$Params } from '../fn/subject-controller/get-all-subjects';
+import { getPdf } from '../fn/subject-controller/get-pdf';
+import { GetPdf$Params } from '../fn/subject-controller/get-pdf';
 import { PageResponseSubjectResponse } from '../models/page-response-subject-response';
 
 @Injectable({ providedIn: 'root' })
@@ -69,6 +71,31 @@ export class SubjectControllerService extends BaseService {
   createSubject(params?: CreateSubject$Params, context?: HttpContext): Observable<ApiResponseObject> {
     return this.createSubject$Response(params, context).pipe(
       map((r: StrictHttpResponse<ApiResponseObject>): ApiResponseObject => r.body)
+    );
+  }
+
+  /** Path part for operation `getPdf()` */
+  static readonly GetPdfPath = '/subject/{id}/pdf';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPdf$Response(params: GetPdf$Params, context?: HttpContext): Observable<StrictHttpResponse<Blob>> {
+    return getPdf(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPdf(params: GetPdf$Params, context?: HttpContext): Observable<Blob> {
+    return this.getPdf$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Blob>): Blob => r.body)
     );
   }
 

@@ -1241,6 +1241,38 @@
         }
       }
     },
+    "/subject/{id}/pdf": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "operationId": "getPdf",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/specialty/findAll": {
       "get": {
         "tags": [
@@ -2546,6 +2578,21 @@
             "type": "string"
           },
           "description": {
+            "type": "string"
+          },
+          "totalHours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "theoreticalHours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "practicalHours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "specialty": {
             "type": "string"
           },
           "pdfFile": {

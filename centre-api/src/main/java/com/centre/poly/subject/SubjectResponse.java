@@ -14,5 +14,9 @@ public class SubjectResponse {
   private Long id;
   private String name;
   private String description;
+  private int totalHours;
+  private int theoreticalHours;
+  private int practicalHours;
+  private String specialty;
   private boolean isPdfFile;
 }

@@ -105,5 +105,5 @@ export class AddSubjectComponent implements OnInit {
       this.specialtyList = res
     })
   }
-  
+
 }

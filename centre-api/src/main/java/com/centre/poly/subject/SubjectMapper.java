@@ -23,6 +23,13 @@ public class SubjectMapper {
     response.setId(subject.getId());
     response.setName(subject.getName());
     response.setDescription(subject.getDescription());
+    response.setTotalHours(subject.getTotalHours());
+    response.setTheoreticalHours(subject.getTheoreticalHours());
+    response.setPracticalHours(subject.getPracticalHours());
+    response.setSpecialty(
+        subject.getSpecialty().getFormationType().getName()
+            + "-"
+            + subject.getSpecialty().getDomaine().getName());
     response.setPdfFile(subject.getPdfFile() != null);
     return response;
   }

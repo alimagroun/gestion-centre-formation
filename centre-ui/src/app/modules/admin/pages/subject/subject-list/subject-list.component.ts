@@ -55,7 +55,18 @@ export class SubjectListComponent implements OnInit {
     this.findSubjectPaginated();
   }
 
-  downloadPdf(id: number | undefined) {
+  downloadPdf(id: number) {
+    this.subjectService.getPdf({id}).subscribe((data) => {
+      const file = new Blob([data], {type: 'application/pdf'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(file);
 
+      const now = new Date();
+      const formattedDate = now.toISOString().replace(/[-T:.Z]/g, '');
+
+      link.download = `matiere_${formattedDate}.pdf`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
   }
 }

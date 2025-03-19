@@ -25,7 +25,8 @@
     <thead>
     <tr>
       <th>Nom</th>
-      <th>Description</th>
+      <th>Heures Totales</th>
+      <th>Spécialité</th>
       <th>Fichier PDF</th>
     </tr>
     </thead>
@@ -41,9 +42,10 @@
       *ngFor="let subject of subjectResponse.content! | paginate: { itemsPerPage: subjectResponse.size!, currentPage: page+1, totalItems: subjectResponse.totalElements };">
       <tr>
         <td>{{ subject.name }}</td>
-        <td>{{ subject.description }}</td>
+        <td>{{ subject.totalHours }}</td>
+        <td>{{ subject.specialty }}</td>
         <td>
-          <button *ngIf="subject.pdfFile" class="btn btn-primary btn-sm" (click)="downloadPdf(subject.id)">
+          <button *ngIf="subject.pdfFile" class="btn btn-primary btn-sm" (click)="downloadPdf(subject.id!)">
             Télécharger
           </button>
           <span *ngIf="!subject.pdfFile" class="badge bg-danger">Non disponible</span>
