@@ -1,0 +1,16 @@
+<div class="d-block d-lg-none">
+  <div class="container" style="height: 100vh; justify-content: center; align-items: center;">
+
+    <h5 class="text-center mb-4">Menu Principal</h5>
+
+    <div *ngFor="let menu of menuProperties" class="row text-center">
+      <div *ngFor="let sousMenu of menu.sousMenu" class="col-4">
+        <div href="javascript:void(0);" (click)="navigate(sousMenu)" class="card h-75">
+          <i class="{{ sousMenu.icon }}" style="font-size: 3rem;"></i>
+          <h6 style="font-size: 0.65rem;">{{ sousMenu.titre }}</h6>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

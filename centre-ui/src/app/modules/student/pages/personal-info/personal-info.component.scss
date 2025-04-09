@@ -1,0 +1,102 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-color: #e9ecef;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Style général des cartes */
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Style de l'en-tête des cartes */
+.card-header {
+  background: linear-gradient(to right, #007bff, #0056b3);
+  color: white;
+  font-weight: 600;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.card-header i.bi { /* Style pour les icônes Bootstrap dans le header */
+  margin-right: 10px;
+  font-size: 1.3rem;
+  vertical-align: middle; /* S'assurer de l'alignement vertical */
+}
+
+/* Style du corps des cartes */
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Style des lignes d'information */
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding: 5px 0;
+}
+
+.info-label {
+  font-weight: 500;
+  color: #495057;
+  min-width: 150px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.info-label i.bi { /* Style pour les icônes Bootstrap dans les labels */
+  margin-right: 8px;
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
+.info-value {
+  color: #212529;
+}
+
+/* Style des titres dans les cartes */
+.card-title {
+  color: #0056b3;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  display: inline-flex; /* Pour aligner l'icône avec le titre */
+  align-items: center;
+}
+
+.card-title i.bi { /* Style pour les icônes Bootstrap dans les titres */
+  margin-right: 8px;
+  font-size: 1.2rem; /* Légèrement plus grand */
+  vertical-align: middle;
+}
+
+/* Style de la ligne horizontale */
+hr {
+  border-top: 1px solid #dee2e6;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Style du titre principal */
+h1 {
+  color: #343a40;
+  font-weight: 700;
+}
+
+.info-value {
+  max-width: 200px; /* Limite de la largeur */
+  word-wrap: break-word; /* Permet de couper le texte long à la ligne suivante */
+}

@@ -7,6 +7,9 @@ spring:
       max-file-size: 5MB
       max-request-size: 10MB
 
+app:
+  security:
+    default-password: 12345678
 
 springdoc:
   default-produces-media-type: application/json

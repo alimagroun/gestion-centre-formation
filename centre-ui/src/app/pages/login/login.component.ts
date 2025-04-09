@@ -5,6 +5,7 @@ import {AuthenticationControllerService} from "../../services/services/authentic
 import {NgForOf, NgIf} from "@angular/common";
 import {TokenService} from "../../services/token/token.service";
 import {Router} from "@angular/router";
+import {UserControllerService} from "../../services/services/user-controller.service";
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticationControllerService,
     private tokenService: TokenService,
+    private userService: UserControllerService,
     private router: Router) {
   }
 
@@ -42,6 +44,8 @@ export class LoginComponent implements OnInit {
     if (this.tokenService.isTokenValid()) {
       if (this.tokenService.userRoles.includes("ROLE_ADMIN")) {
         this.router.navigate(['admin']);
+      } else if (this.tokenService.userRoles.includes("ROLE_STUDENT")) {
+        this.router.navigate(['student']);
       }
     }
   }
@@ -60,10 +64,20 @@ export class LoginComponent implements OnInit {
         this.buttonLoading = false
         this.tokenService.token = res.token as string;
 
-        //Redirect
-        if (this.tokenService.userRoles[0] == "ROLE_ADMIN") {
-          this.router.navigate(['admin']);
-        }
+        // Check if the user must change their password
+        this.userService.isMustChangePasswordFirstLogin().subscribe({
+          next: (check) => {
+            if (check.data === true) {
+              this.router.navigate(['first-login-change-password']);
+            } else {
+              // Redirection normale selon le rôle
+              this.tokenService.redirectByRole(this.tokenService.userRoles[0]);
+            }
+          },
+          error: (err) => {
+            console.error("Erreur lors du check du mot de passe", err);
+          }
+        });
       }, error: err => {
         if (err.error.validationErrors) {
 
@@ -80,7 +94,8 @@ export class LoginComponent implements OnInit {
 
         } else {
           this.buttonLoading = false
-          if (err.error.businessErrorDescription == "LOGIN_PASSWORD_INCORRECT")
+          this.errorMsg = [];
+          if (err.error.errorMessage == "LOGIN_PASSWORD_INCORRECT")
             this.errorMsg.push("Nom d'utilisateur ou mot de passe incorrect.");
         }
       }

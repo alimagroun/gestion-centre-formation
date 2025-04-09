@@ -96,6 +96,36 @@
         }
       }
     },
+    "/user/first-login/change-password": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "changePasswordFirstLogin",
+        "parameters": [
+          {
+            "name": "newPassword",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subject": {
       "get": {
         "tags": [
@@ -1241,6 +1271,26 @@
         }
       }
     },
+    "/user/first-login/must-change-password": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "isMustChangePasswordFirstLogin",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subject/{id}/pdf": {
       "get": {
         "tags": [
@@ -1488,6 +1538,26 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/student/info": {
+      "get": {
+        "tags": [
+          "person-controller"
+        ],
+        "operationId": "getStudentInfo",
         "responses": {
           "200": {
             "description": "OK",

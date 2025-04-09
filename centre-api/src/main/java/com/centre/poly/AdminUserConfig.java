@@ -3,17 +3,17 @@ package com.centre.poly;
 import com.centre.poly.person.Repository.PersonRepository;
 import com.centre.poly.person.entity.Address;
 import com.centre.poly.person.entity.Employer;
+import com.centre.poly.person.entity.Student;
 import com.centre.poly.role.Role;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.User;
 import com.centre.poly.user.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.List;
 
 @Configuration
 public class AdminUserConfig {
@@ -67,6 +67,29 @@ public class AdminUserConfig {
         admin.setEnabled(true);
         admin.setPerson(employer);
         userRepository.save(admin);
+      }
+      if (userRepository.findByUserName("student").isEmpty()) {
+
+        Student student = new Student();
+        student.setFirstName("Ali");
+        student.setLastName("Ben Salah");
+
+        Address address = new Address();
+        address.setCity("Monastir");
+        address.setStreet("Avenue Habib Bourguiba");
+        address.setZipCode("5000");
+        student.setAddress(address);
+
+        personRepository.save(student);
+
+        User studentUser = new User();
+        studentUser.setUserName("student");
+        studentUser.setPassword(passwordEncoder.encode("12345678"));
+        studentUser.setRoles(List.of(roleRepository.findByName("ROLE_STUDENT").get()));
+        studentUser.setEnabled(true);
+        studentUser.setPerson(student);
+
+        userRepository.save(studentUser);
       }
     };
   }

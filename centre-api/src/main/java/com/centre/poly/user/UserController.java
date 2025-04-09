@@ -1,13 +1,12 @@
 package com.centre.poly.user;
 
+import com.centre.poly.common.ApiResponse;
 import com.centre.poly.common.PageResponse;
+import com.centre.poly.common.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +21,21 @@ public class UserController {
       @RequestParam(name = "page", defaultValue = "0", required = false) int page,
       @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
     return ResponseEntity.ok(userService.findAll(page, size));
+  }
+
+  @PostMapping("/first-login/change-password")
+  public ResponseEntity<ApiResponse> changePasswordFirstLogin(@RequestParam String newPassword) {
+    Integer userConnectedId = SecurityUtil.getCurrentUserId();
+    userService.changePasswordAtFirstLogin(userConnectedId, newPassword);
+    return ResponseEntity.ok(
+        ApiResponse.builder().status(200).success(true).message("CHANGE_PASSWORD_SUCCESS").build());
+  }
+
+  @GetMapping("/first-login/must-change-password")
+  public ResponseEntity<ApiResponse> isMustChangePasswordFirstLogin() {
+    Integer userConnectedId = SecurityUtil.getCurrentUserId();
+    boolean isChange = userService.isMustChangePasswordFirstLogin(userConnectedId);
+    return ResponseEntity.ok(
+        ApiResponse.builder().status(200).success(true).data(isChange).build());
   }
 }

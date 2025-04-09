@@ -41,8 +41,8 @@ public class StudentMapper {
     response.setLevelOfEducation(student.getLevelOfEducation());
 
     response.setAddress(toAddressDTO(student.getAddress()));
-    response.setMother(toParentDTO(student.getMother()));
-    response.setFather(toParentDTO(student.getFather()));
+    response.setMother(student.getMother() == null ? null : toParentDTO(student.getMother()));
+    response.setFather(student.getFather() == null ? null : toParentDTO(student.getFather()));
 
     response.setParentStatus(toParentStatusDTO(student.getMother(), student.getFather()));
     return response;
@@ -69,9 +69,12 @@ public class StudentMapper {
 
   private ParentStatusDTO toParentStatusDTO(Parent m, Parent f) {
     ParentStatusDTO parentStatusDTO = new ParentStatusDTO();
-    parentStatusDTO.setMaritalStatus(m.getMaritalStatus());
-    parentStatusDTO.setIsMatherDeceased(m.getIsDeceased());
-    parentStatusDTO.setIsFatherDeceased(f.getIsDeceased());
+    parentStatusDTO.setMaritalStatus(m != null ? m.getMaritalStatus() : null);
+    parentStatusDTO.setIsMatherDeceased(
+        m != null && m.getIsDeceased() != null ? m.getIsDeceased() : false);
+    parentStatusDTO.setIsFatherDeceased(
+        f != null && f.getIsDeceased() != null ? f.getIsDeceased() : false);
+
     return parentStatusDTO;
   }
 

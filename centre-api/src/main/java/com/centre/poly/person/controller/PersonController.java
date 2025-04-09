@@ -2,6 +2,7 @@ package com.centre.poly.person.controller;
 
 import com.centre.poly.common.ApiResponse;
 import com.centre.poly.common.PageResponse;
+import com.centre.poly.common.SecurityUtil;
 import com.centre.poly.person.dto.*;
 import com.centre.poly.person.entity.ParentType;
 import com.centre.poly.person.service.PersonService;
@@ -90,5 +91,12 @@ public class PersonController {
       @RequestParam(name = "page", defaultValue = "0", required = false) int page,
       @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
     return ResponseEntity.ok().body(personService.getTeachersPage(page, size));
+  }
+
+  @PreAuthorize("hasRole('ROLE_STUDENT')")
+  @GetMapping("/student/info")
+  public ResponseEntity<StudentDetailsResponse> getStudentInfo() {
+    Integer studentId = SecurityUtil.getCurrentUserId();
+    return ResponseEntity.ok(personService.findStudentById(studentId.longValue()));
   }
 }

@@ -1,12 +1,15 @@
 import {Injectable} from '@angular/core';
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
   }
 
   set token(token: string) {
@@ -45,5 +48,19 @@ export class TokenService {
       return decodedToken.authorities;
     }
     return [];
+  }
+
+  redirectByRole(role: string): void {
+    switch (role) {
+      case 'ROLE_ADMIN':
+        this.router.navigate(['admin']);
+        break;
+      case 'ROLE_STUDENT':
+        this.router.navigate(['student']);
+        break;
+      default:
+        this.router.navigate(['']); // page par défaut
+        break;
+    }
   }
 }
