@@ -96,7 +96,14 @@ public class PersonController {
   @PreAuthorize("hasRole('ROLE_STUDENT')")
   @GetMapping("/student/info")
   public ResponseEntity<StudentDetailsResponse> getStudentInfo() {
-    Integer studentId = SecurityUtil.getCurrentUserId();
-    return ResponseEntity.ok(personService.findStudentById(studentId.longValue()));
+    Long studentId = SecurityUtil.getCurrentPersonId();
+    return ResponseEntity.ok(personService.findStudentById(studentId));
+  }
+
+  @PreAuthorize("hasRole('ROLE_TEACHER')")
+  @GetMapping("/teacher/info")
+  public ResponseEntity<TeacherResponse> getTeacherInfo() {
+    Long teacherId = SecurityUtil.getCurrentPersonId();
+    return ResponseEntity.ok(personService.findTeacherById(teacherId));
   }
 }

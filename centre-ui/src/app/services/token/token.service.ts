@@ -58,6 +58,9 @@ export class TokenService {
       case 'ROLE_STUDENT':
         this.router.navigate(['student']);
         break;
+      case 'ROLE_TEACHER':
+        this.router.navigate(['teacher']);
+        break;
       default:
         this.router.navigate(['']); // page par défaut
         break;

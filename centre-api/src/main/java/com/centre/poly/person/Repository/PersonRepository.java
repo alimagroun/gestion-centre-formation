@@ -51,4 +51,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
   @Query("select s from Student s where s.phoneNumber = :phoneNumber")
   Optional<Student> findStudentByPhoneNumber(String phoneNumber);
+
+  @Query("SELECT t FROM Teacher t where t.id = :id")
+  Optional<Teacher> findTeacherById(Long id);
 }

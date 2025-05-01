@@ -46,6 +46,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['admin']);
       } else if (this.tokenService.userRoles.includes("ROLE_STUDENT")) {
         this.router.navigate(['student']);
+      } else if (this.tokenService.userRoles.includes("ROLE_TEACHER")) {
+        this.router.navigate(['teacher']);
       }
     }
   }

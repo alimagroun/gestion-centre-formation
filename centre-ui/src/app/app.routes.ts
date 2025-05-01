@@ -4,6 +4,7 @@ import {authGuard} from "./services/guard/auth.guard";
 import {authAdminGuard} from "./services/guard/auth-admin.guard";
 import {AccessDeniedComponent} from "./pages/access-denied/access-denied.component";
 import {authStudentGuard} from "./services/guard/auth-student.guard";
+import {authTeacherGuard} from "./services/guard/auth-teacher.guard";
 import {
   ChangePasswordFirstLoginComponent
 } from "./pages/change-password-first-login/change-password-first-login.component";
@@ -36,7 +37,7 @@ export const routes: Routes = [
   {
     path: 'teacher'
     , loadChildren: () => import('./modules/teacher/teacher.module').then(m => m.TeacherModule),
-    canActivate: [authAdminGuard]
+    canActivate: [authTeacherGuard]
   },
   {
     path: 'parent'
