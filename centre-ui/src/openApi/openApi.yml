@@ -96,6 +96,76 @@
         }
       }
     },
+    "/domaine/{id}": {
+      "put": {
+        "tags": [
+          "domaine-controller"
+        ],
+        "operationId": "updateDomaine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DomaineRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseLong"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "domaine-controller"
+        ],
+        "operationId": "deleteDomain",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/first-login/change-password": {
       "post": {
         "tags": [
@@ -112,6 +182,36 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/admin/change-password": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "adminChangeUserPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminChangePasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1521,6 +1621,26 @@
         }
       }
     },
+    "/person/teacher/info": {
+      "get": {
+        "tags": [
+          "person-controller"
+        ],
+        "operationId": "getTeacherInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/person/student/{studentId}": {
       "get": {
         "tags": [
@@ -2110,6 +2230,40 @@
   },
   "components": {
     "schemas": {
+      "DomaineRequest": {
+        "required": [
+          "description",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponseLong": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "ApiResponseObject": {
         "type": "object",
         "properties": {
@@ -2125,6 +2279,29 @@
           },
           "data": {
             "type": "object"
+          }
+        }
+      },
+      "AdminChangePasswordRequest": {
+        "required": [
+          "confirmPassword",
+          "idUser",
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "idUser": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "newPassword": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
+          },
+          "resetPasswordChange": {
+            "type": "boolean"
           }
         }
       },
@@ -2360,21 +2537,6 @@
         }
       },
       "FormationTypeRequest": {
-        "required": [
-          "description",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "DomaineRequest": {
         "required": [
           "description",
           "name"
@@ -3960,6 +4122,24 @@
           },
           "father": {
             "$ref": "#/components/schemas/Parent"
+          }
+        }
+      },
+      "ApiResponseVoid": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
           }
         }
       }

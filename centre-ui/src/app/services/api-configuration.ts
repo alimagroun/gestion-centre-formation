@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 /**
  * Global configuration
@@ -9,7 +9,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'http://192.168.137.38:8080';
+  rootUrl: string = 'http://localhost:8080';
 }
 
 /**

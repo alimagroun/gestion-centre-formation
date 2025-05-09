@@ -113,6 +113,17 @@ public class GlobalExceptionHandler {
         .body(ExceptionResponse.builder().validationErrors(errors).build());
   }
 
+  @ExceptionHandler(InvalidActionException.class)
+  public ResponseEntity<ExceptionResponse> invalidActionException(InvalidActionException exp) {
+    return ResponseEntity.status(INVALID_ACTION.getHttpStatus())
+        .body(
+            ExceptionResponse.builder()
+                .errorCode(INVALID_ACTION.getCode())
+                .errorMessage(INVALID_ACTION.getDescription())
+                .errorDescription(exp.getMessage())
+                .build());
+  }
+
   // Cette méthode gère toutes les autres exceptions qui n'ont pas été traitées par les méthodes
   // précédentes
   @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)

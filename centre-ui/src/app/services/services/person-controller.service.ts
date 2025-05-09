@@ -32,6 +32,8 @@ import { getAllStudents } from '../fn/person-controller/get-all-students';
 import { GetAllStudents$Params } from '../fn/person-controller/get-all-students';
 import { getStudentInfo } from '../fn/person-controller/get-student-info';
 import { GetStudentInfo$Params } from '../fn/person-controller/get-student-info';
+import { getTeacherInfo } from '../fn/person-controller/get-teacher-info';
+import { GetTeacherInfo$Params } from '../fn/person-controller/get-teacher-info';
 import { identityNumberValidation } from '../fn/person-controller/identity-number-validation';
 import { IdentityNumberValidation$Params } from '../fn/person-controller/identity-number-validation';
 import { PageResponseParentResponse } from '../models/page-response-parent-response';
@@ -44,6 +46,7 @@ import { PhoneNumberValidation$Params } from '../fn/person-controller/phone-numb
 import { StudentAllResponse } from '../models/student-all-response';
 import { StudentDetailsResponse } from '../models/student-details-response';
 import { StudentResponse } from '../models/student-response';
+import { TeacherResponse } from '../models/teacher-response';
 
 @Injectable({ providedIn: 'root' })
 export class PersonControllerService extends BaseService {
@@ -173,6 +176,31 @@ export class PersonControllerService extends BaseService {
   emailValidation(params: EmailValidation$Params, context?: HttpContext): Observable<boolean> {
     return this.emailValidation$Response(params, context).pipe(
       map((r: StrictHttpResponse<boolean>): boolean => r.body)
+    );
+  }
+
+  /** Path part for operation `getTeacherInfo()` */
+  static readonly GetTeacherInfoPath = '/person/teacher/info';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getTeacherInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTeacherInfo$Response(params?: GetTeacherInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<TeacherResponse>> {
+    return getTeacherInfo(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getTeacherInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getTeacherInfo(params?: GetTeacherInfo$Params, context?: HttpContext): Observable<TeacherResponse> {
+    return this.getTeacherInfo$Response(params, context).pipe(
+      map((r: StrictHttpResponse<TeacherResponse>): TeacherResponse => r.body)
     );
   }
 

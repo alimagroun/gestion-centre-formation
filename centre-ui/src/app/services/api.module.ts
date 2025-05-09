@@ -6,13 +6,13 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { SchoolYearControllerService } from './services/school-year-controller.service';
 import { RegistrationControllerService } from './services/registration-controller.service';
+import { DomaineControllerService } from './services/domaine-controller.service';
 import { UserControllerService } from './services/user-controller.service';
 import { SubjectControllerService } from './services/subject-controller.service';
 import { SpecialtyControllerService } from './services/specialty-controller.service';
 import { RoleControllerService } from './services/role-controller.service';
 import { PersonControllerService } from './services/person-controller.service';
 import { FromationControllerService } from './services/fromation-controller.service';
-import { DomaineControllerService } from './services/domaine-controller.service';
 import { DocumentsControllerService } from './services/documents-controller.service';
 import { ClassroomControllerService } from './services/classroom-controller.service';
 import { ClasseFormationControllerService } from './services/classe-formation-controller.service';
@@ -28,13 +28,13 @@ import { AuthenticationControllerService } from './services/authentication-contr
   providers: [
     SchoolYearControllerService,
     RegistrationControllerService,
+    DomaineControllerService,
     UserControllerService,
     SubjectControllerService,
     SpecialtyControllerService,
     RoleControllerService,
     PersonControllerService,
     FromationControllerService,
-    DomaineControllerService,
     DocumentsControllerService,
     ClassroomControllerService,
     ClasseFormationControllerService,

@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { adminChangeUserPassword } from '../fn/user-controller/admin-change-user-password';
+import { AdminChangeUserPassword$Params } from '../fn/user-controller/admin-change-user-password';
 import { ApiResponseObject } from '../models/api-response-object';
 import { changePasswordFirstLogin } from '../fn/user-controller/change-password-first-login';
 import { ChangePasswordFirstLogin$Params } from '../fn/user-controller/change-password-first-login';
@@ -45,6 +47,31 @@ export class UserControllerService extends BaseService {
    */
   changePasswordFirstLogin(params: ChangePasswordFirstLogin$Params, context?: HttpContext): Observable<ApiResponseObject> {
     return this.changePasswordFirstLogin$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ApiResponseObject>): ApiResponseObject => r.body)
+    );
+  }
+
+  /** Path part for operation `adminChangeUserPassword()` */
+  static readonly AdminChangeUserPasswordPath = '/user/admin/change-password';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `adminChangeUserPassword()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  adminChangeUserPassword$Response(params: AdminChangeUserPassword$Params, context?: HttpContext): Observable<StrictHttpResponse<ApiResponseObject>> {
+    return adminChangeUserPassword(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `adminChangeUserPassword$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  adminChangeUserPassword(params: AdminChangeUserPassword$Params, context?: HttpContext): Observable<ApiResponseObject> {
+    return this.adminChangeUserPassword$Response(params, context).pipe(
       map((r: StrictHttpResponse<ApiResponseObject>): ApiResponseObject => r.body)
     );
   }

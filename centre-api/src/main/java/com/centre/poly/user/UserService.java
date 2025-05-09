@@ -1,6 +1,7 @@
 package com.centre.poly.user;
 
 import com.centre.poly.common.PageResponse;
+import com.centre.poly.exception.InvalidActionException;
 import com.centre.poly.exception.NotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -53,5 +54,21 @@ public class UserService {
             .orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
 
     return user.isMustChangePassword();
+  }
+
+  public void adminChangeUserPassword(AdminChangePasswordRequest request) {
+    User user = getUserById(request.idUser());
+
+    if (!request.newPassword().equals(request.confirmPassword())) {
+      throw new InvalidActionException("PASSWORDS_DO_NOT_MATCH");
+    }
+
+    user.setPassword(passwordEncoder.encode(request.newPassword()));
+
+    if (request.resetPasswordChange()) {
+      user.setMustChangePassword(true);
+    }
+
+    userRepository.save(user);
   }
 }

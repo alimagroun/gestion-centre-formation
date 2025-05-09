@@ -3,6 +3,7 @@ package com.centre.poly.user;
 import com.centre.poly.common.ApiResponse;
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.common.SecurityUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,5 +38,20 @@ public class UserController {
     boolean isChange = userService.isMustChangePasswordFirstLogin(userConnectedId);
     return ResponseEntity.ok(
         ApiResponse.builder().status(200).success(true).data(isChange).build());
+  }
+
+  @PostMapping("/admin/change-password")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public ResponseEntity<ApiResponse> adminChangeUserPassword(
+      @Valid @RequestBody AdminChangePasswordRequest request) {
+
+    userService.adminChangeUserPassword(request);
+
+    return ResponseEntity.ok(
+        ApiResponse.builder()
+            .status(200)
+            .success(true)
+            .message("ADMIN_CHANGE_PASSWORD_SUCCESS")
+            .build());
   }
 }
