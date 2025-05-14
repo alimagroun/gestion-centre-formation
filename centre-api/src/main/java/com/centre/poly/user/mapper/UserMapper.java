@@ -3,6 +3,7 @@ package com.centre.poly.user;
 import com.centre.poly.person.entity.Parent;
 import com.centre.poly.person.entity.Person;
 import com.centre.poly.person.entity.Student;
+import com.centre.poly.user.model.User;
 import org.springframework.stereotype.Service;
 
 @Service

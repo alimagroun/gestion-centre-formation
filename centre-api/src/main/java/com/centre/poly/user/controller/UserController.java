@@ -20,8 +20,9 @@ public class UserController {
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<PageResponse<UserResponse>> findAllUsers(
       @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-      @RequestParam(name = "size", defaultValue = "10", required = false) int size) {
-    return ResponseEntity.ok(userService.findAll(page, size));
+      @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+      @RequestBody UserFilterRequest filter) {
+    return ResponseEntity.ok(userService.findAll(page, size, filter));
   }
 
   @PostMapping("/first-login/change-password")

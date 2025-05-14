@@ -1,8 +1,15 @@
-package com.centre.poly.user;
+package com.centre.poly.user.service.impl;
 
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.exception.InvalidActionException;
 import com.centre.poly.exception.NotFoundException;
+import com.centre.poly.user.dto.AdminChangePasswordRequest;
+import com.centre.poly.user.dto.UserFilterRequest;
+import com.centre.poly.user.dto.UserResponse;
+import com.centre.poly.user.entity.User;
+import com.centre.poly.user.mapper.UserMapper;
+import com.centre.poly.user.repository.UserRepository;
+import com.centre.poly.user.service.UserServiceImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,15 +21,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserServiceImpl {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
   private final PasswordEncoder passwordEncoder;
 
-  public PageResponse<UserResponse> findAll(int page, int size) {
+  @Override
+  public PageResponse<UserResponse> findAll(int page, int size, UserFilterRequest filter) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-    Page<User> users = userRepository.findAll(pageable);
+    UserFilterRequest userFilterRequest = filter;
+    Page<User> users =
+        userRepository.findByFilters(
+            filter.getUserName(), filter.getFirstName(), filter.getLastName(), pageable);
     List<UserResponse> userResponses = users.stream().map(userMapper::toResponse).toList();
     return new PageResponse<>(
         userResponses,
