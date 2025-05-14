@@ -1,9 +1,9 @@
-package com.centre.poly.user;
+package com.centre.poly.user.mapper;
 
-import com.centre.poly.person.entity.Parent;
-import com.centre.poly.person.entity.Person;
-import com.centre.poly.person.entity.Student;
-import com.centre.poly.user.model.User;
+import com.centre.poly.person.entity.*;
+import com.centre.poly.user.dto.PersonResponse;
+import com.centre.poly.user.dto.UserResponse;
+import com.centre.poly.user.entity.User;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,7 @@ public class UserMapper {
         .build();
   }
 
-  private PersonResponse toPerson(Person person) {
+  public PersonResponse toPerson(Person person) {
     return PersonResponse.builder()
         .id(person.getId())
         .firstName(person.getFirstName())
@@ -34,8 +34,10 @@ public class UserMapper {
       type = "STUDENT";
     } else if (person instanceof Parent) {
       type = "PARENT";
+    } else if (person instanceof Teacher) {
+      type = "PROF";
     } else {
-      type = "ADMIN";
+      type = "Inconnue";
     }
     return type;
   }

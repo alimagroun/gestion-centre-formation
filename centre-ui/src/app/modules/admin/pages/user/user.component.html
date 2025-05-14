@@ -2,6 +2,49 @@
   <div class="text-center mb-3">
     <h3>Liste des utilisateurs</h3>
   </div>
+
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <button type="button" class="btn btn-outline-primary" (click)="toggleFilterForm()">
+        <i class="bi bi-funnel me-1"></i> Filtrer
+      </button>
+    </div>
+
+    <div class="col-12 mt-3" *ngIf="showFilters">
+      <div class="card p-3 bg-light">
+        <form>
+          <div class="row">
+            <div class="col-md-4 mb-2">
+              <label for="firstName" class="form-label">Prénom</label>
+              <input type="text" class="form-control" id="firstName" name="firstName"
+                     [(ngModel)]="filtreRequest.firstName">
+            </div>
+            <div class="col-md-4 mb-2">
+              <label for="lastName" class="form-label">Nom</label>
+              <input type="text" class="form-control" id="lastName" name="lastName"
+                     [(ngModel)]="filtreRequest.lastName">
+            </div>
+            <div class="col-md-4 mb-2">
+              <label for="userName" class="form-label">Nom d'utilisateur</label>
+              <input type="text" class="form-control" id="userName" name="userName"
+                     [(ngModel)]="filtreRequest.userName">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12 text-end">
+              <button type="button" class="btn btn-outline-secondary me-2" (click)="resetFilters()">
+                Réinitialiser
+              </button>
+              <button type="submit" class="btn btn-primary" (click)="findUserPaginated()">
+                Appliquer
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="row align-items-center mb-3">
     <div class="col-md-2">
       <select id="pageSizeSelect" class="form-select" (change)="changePageSize($event)">
@@ -21,7 +64,7 @@
     <thead>
     <tr>
       <th>Type</th>
-      <th>Nom et Prénom</th>
+      <th>Prénom et Nom</th>
       <th>Nom d'utilisateur</th>
       <th>Date de création</th>
       <th>Actions</th>
@@ -35,20 +78,28 @@
         </div>
       </td>
     </tr>
-    <ng-container
-      *ngFor="let user of userRespone.content! | paginate: { itemsPerPage: size, currentPage: page+1, totalItems: userRespone.totalElements };">
-      <tr>
-        <td>{{ user.person?.type }}</td>
-        <td>{{ user.person?.firstName + " " + user.person?.lastName }}</td>
-        <td>{{ user.userName }}</td>
-        <td>{{ user.createdDate }}</td>
-        <td>
-          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#passwordModal"
-                  (click)="preparePasswordChange(user)">
-            <i class="bi bi-key me-1"></i> Modifier mot de passe
-          </button>
-        </td>
-      </tr>
+    <ng-container *ngIf="!loading">
+      <ng-container
+        *ngFor="let user of userRespone.content! | paginate: { itemsPerPage: size, currentPage: page+1, totalItems: userRespone.totalElements };">
+        <tr>
+          <td>
+          <span *ngIf="user.person?.type as type"
+                class="badge"
+                [ngClass]="getUserTypeBadge(type).class">
+            {{ getUserTypeBadge(type).label }}
+          </span>
+          </td>
+          <td>{{ user.person?.firstName + " " + user.person?.lastName }}</td>
+          <td>{{ user.userName }}</td>
+          <td>{{ user.createdDate | date: 'dd/MM/yyyy' }}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#passwordModal"
+                    (click)="preparePasswordChange(user)">
+              <i class="bi bi-key me-1"></i> Modifier mot de passe
+            </button>
+          </td>
+        </tr>
+      </ng-container>
     </ng-container>
     </tbody>
   </table>

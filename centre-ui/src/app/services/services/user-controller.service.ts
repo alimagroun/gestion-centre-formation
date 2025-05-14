@@ -26,6 +26,31 @@ export class UserControllerService extends BaseService {
     super(config, http);
   }
 
+  /** Path part for operation `findAllUsers()` */
+  static readonly FindAllUsersPath = '/user';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllUsers()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  findAllUsers$Response(params: FindAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseUserResponse>> {
+    return findAllUsers(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllUsers$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  findAllUsers(params: FindAllUsers$Params, context?: HttpContext): Observable<PageResponseUserResponse> {
+    return this.findAllUsers$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseUserResponse>): PageResponseUserResponse => r.body)
+    );
+  }
+
   /** Path part for operation `changePasswordFirstLogin()` */
   static readonly ChangePasswordFirstLoginPath = '/user/first-login/change-password';
 
@@ -73,31 +98,6 @@ export class UserControllerService extends BaseService {
   adminChangeUserPassword(params: AdminChangeUserPassword$Params, context?: HttpContext): Observable<ApiResponseObject> {
     return this.adminChangeUserPassword$Response(params, context).pipe(
       map((r: StrictHttpResponse<ApiResponseObject>): ApiResponseObject => r.body)
-    );
-  }
-
-  /** Path part for operation `findAllUsers()` */
-  static readonly FindAllUsersPath = '/user';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAllUsers()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllUsers$Response(params?: FindAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseUserResponse>> {
-    return findAllUsers(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAllUsers$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  findAllUsers(params?: FindAllUsers$Params, context?: HttpContext): Observable<PageResponseUserResponse> {
-    return this.findAllUsers$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageResponseUserResponse>): PageResponseUserResponse => r.body)
     );
   }
 

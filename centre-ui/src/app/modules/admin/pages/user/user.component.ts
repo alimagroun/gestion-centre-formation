@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseUserResponse} from "../../../../services/models/page-response-user-response";
 import {UserControllerService} from "../../../../services/services/user-controller.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {NgxPaginationModule} from "ngx-pagination";
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AdminChangePasswordRequest} from "../../../../services/models/admin-change-password-request";
 import {ToastService} from "../../../../services/toast/toast.service";
+import {UserFilterRequest} from "../../../../services/models/user-filter-request";
 
 @Component({
   selector: 'app-user',
@@ -14,7 +15,10 @@ import {ToastService} from "../../../../services/toast/toast.service";
     NgForOf,
     NgIf,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe,
+    FormsModule,
+    NgClass
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
@@ -25,6 +29,14 @@ export class UserComponent implements OnInit {
   page: number = 0;
   size: number = 10;
   loading: boolean = false;
+  showFilters = false;
+
+  filtreRequest: UserFilterRequest = {
+    firstName: "",
+    lastName: "",
+    userName: ""
+  }
+
 
   passwordForm: FormGroup;
   selectedUser: any;
@@ -58,7 +70,8 @@ export class UserComponent implements OnInit {
     this.loading = true;
     this.userService.findAllUsers({
       page: this.page,
-      size: this.size
+      size: this.size,
+      body: this.filtreRequest
     }).subscribe(res => {
       this.userRespone = res
       this.loading = false;
@@ -114,4 +127,29 @@ export class UserComponent implements OnInit {
       this.toastService.showError('Erreur lors de la modification du mot de passe');
     })
   }
+
+  toggleFilterForm(): void {
+    this.showFilters = !this.showFilters;
+  }
+
+  resetFilters() {
+    this.filtreRequest = {}
+    this.findUserPaginated()
+  }
+
+  getUserTypeBadge(type: string): { label: string; class: string } {
+    switch (type) {
+      case 'ADMIN':
+        return {label: 'Administrateur', class: 'bg-danger'};
+      case 'STUDENT':
+        return {label: 'Élève', class: 'bg-primary'};
+      case 'PARENT':
+        return {label: 'Parent', class: 'bg-warning text-dark'};
+      case 'PROF':
+        return {label: 'Professeur', class: 'bg-success'};
+      default:
+        return {label: 'Inconnu', class: 'bg-secondary'};
+    }
+  }
+
 }

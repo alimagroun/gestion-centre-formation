@@ -1,8 +1,12 @@
-package com.centre.poly.user;
+package com.centre.poly.user.controller;
 
 import com.centre.poly.common.ApiResponse;
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.common.SecurityUtil;
+import com.centre.poly.user.dto.AdminChangePasswordRequest;
+import com.centre.poly.user.dto.UserFilterRequest;
+import com.centre.poly.user.dto.UserResponse;
+import com.centre.poly.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +20,7 @@ public class UserController {
 
   private final UserService userService;
 
-  @GetMapping
+  @PostMapping
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   public ResponseEntity<PageResponse<UserResponse>> findAllUsers(
       @RequestParam(name = "page", defaultValue = "0", required = false) int page,

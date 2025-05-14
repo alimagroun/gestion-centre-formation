@@ -1,4 +1,4 @@
-package com.centre.poly.user;
+package com.centre.poly.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

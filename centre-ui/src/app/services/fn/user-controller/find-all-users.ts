@@ -7,17 +7,20 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { PageResponseUserResponse } from '../../models/page-response-user-response';
+import { UserFilterRequest } from '../../models/user-filter-request';
 
 export interface FindAllUsers$Params {
   page?: number;
   size?: number;
+      body: UserFilterRequest
 }
 
-export function findAllUsers(http: HttpClient, rootUrl: string, params?: FindAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseUserResponse>> {
-  const rb = new RequestBuilder(rootUrl, findAllUsers.PATH, 'get');
+export function findAllUsers(http: HttpClient, rootUrl: string, params: FindAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseUserResponse>> {
+  const rb = new RequestBuilder(rootUrl, findAllUsers.PATH, 'post');
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(

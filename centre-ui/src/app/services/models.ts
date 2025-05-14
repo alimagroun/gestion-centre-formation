@@ -71,4 +71,5 @@ export { StudentResponse } from './models/student-response';
 export { SubjectResponse } from './models/subject-response';
 export { TeacherRequest } from './models/teacher-request';
 export { TeacherResponse } from './models/teacher-response';
+export { UserFilterRequest } from './models/user-filter-request';
 export { UserResponse } from './models/user-response';

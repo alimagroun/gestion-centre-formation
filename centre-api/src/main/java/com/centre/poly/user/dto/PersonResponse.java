@@ -1,4 +1,4 @@
-package com.centre.poly.user;
+package com.centre.poly.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PersonResponse {
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String type;
-    
+  private Long id;
+  private String firstName;
+  private String lastName;
+  private String type;
 }

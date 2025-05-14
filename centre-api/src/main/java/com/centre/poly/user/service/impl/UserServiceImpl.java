@@ -9,7 +9,7 @@ import com.centre.poly.user.dto.UserResponse;
 import com.centre.poly.user.entity.User;
 import com.centre.poly.user.mapper.UserMapper;
 import com.centre.poly.user.repository.UserRepository;
-import com.centre.poly.user.service.UserServiceImpl;
+import com.centre.poly.user.service.UserService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
@@ -33,7 +33,10 @@ public class UserService implements UserServiceImpl {
     UserFilterRequest userFilterRequest = filter;
     Page<User> users =
         userRepository.findByFilters(
-            filter.getUserName(), filter.getFirstName(), filter.getLastName(), pageable);
+            filter.getUserName().trim(),
+            filter.getFirstName().trim(),
+            filter.getLastName().trim(),
+            pageable);
     List<UserResponse> userResponses = users.stream().map(userMapper::toResponse).toList();
     return new PageResponse<>(
         userResponses,
@@ -45,6 +48,7 @@ public class UserService implements UserServiceImpl {
         users.isLast());
   }
 
+  @Override
   public void changePasswordAtFirstLogin(Integer userConnectedId, String newPassword) {
     User user = getUserById(userConnectedId);
     user.setPassword(passwordEncoder.encode(newPassword));
@@ -52,12 +56,14 @@ public class UserService implements UserServiceImpl {
     userRepository.save(user);
   }
 
+  @Override
   public User getUserById(Integer userId) {
     return userRepository
         .findById(userId)
         .orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
   }
 
+  @Override
   public boolean isMustChangePasswordFirstLogin(Integer userConnectedId) {
     User user =
         userRepository
@@ -67,6 +73,7 @@ public class UserService implements UserServiceImpl {
     return user.isMustChangePassword();
   }
 
+  @Override
   public void adminChangeUserPassword(AdminChangePasswordRequest request) {
     User user = getUserById(request.idUser());
 

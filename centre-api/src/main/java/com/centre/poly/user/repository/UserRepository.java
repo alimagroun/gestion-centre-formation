@@ -1,5 +1,6 @@
-package com.centre.poly.user;
+package com.centre.poly.user.repository;
 
+import com.centre.poly.user.entity.User;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

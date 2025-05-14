@@ -1,4 +1,4 @@
-package com.centre.poly.user.model;
+package com.centre.poly.user.entity;
 
 import static jakarta.persistence.FetchType.EAGER;
 

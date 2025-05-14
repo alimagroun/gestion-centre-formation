@@ -1,6 +1,6 @@
 package com.centre.poly.role;
 
-import com.centre.poly.user.User;
+import com.centre.poly.user.entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
