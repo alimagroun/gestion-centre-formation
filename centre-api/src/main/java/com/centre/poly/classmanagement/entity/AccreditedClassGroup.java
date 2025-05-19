@@ -2,10 +2,9 @@ package com.centre.poly.classmanagement.entity;
 
 import com.centre.poly.schoolYear.SchoolYear;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AccreditedClass extends Class {
+public class AccreditedClassGroup extends ClassGroup {
 
   @ManyToOne
   @JoinColumn(name = "school_year_id", nullable = false)

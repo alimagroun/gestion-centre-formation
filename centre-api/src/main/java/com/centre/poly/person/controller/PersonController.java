@@ -106,4 +106,11 @@ public class PersonController {
     Long teacherId = SecurityUtil.getCurrentPersonId();
     return ResponseEntity.ok(personService.findTeacherById(teacherId));
   }
+
+  @PreAuthorize("hasRole('ROLE_STUDENT')")
+  @GetMapping("/student/class")
+  public ResponseEntity<StudentClassResponse> getStudentClass() {
+    Long studentId = SecurityUtil.getCurrentPersonId();
+    return ResponseEntity.ok(personService.getClassOfStudent(studentId));
+  }
 }

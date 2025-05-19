@@ -9,7 +9,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { AcceleratedClass } from '../models/accelerated-class';
+import { AcceleratedClassGroup } from '../models/accelerated-class-group';
 import { AcceleratedClassResponse } from '../models/accelerated-class-response';
 import { AccreditedClassResponse } from '../models/accredited-class-response';
 import { addStudentToAcceleratedClass } from '../fn/classe-formation-controller/add-student-to-accelerated-class';
@@ -330,7 +330,7 @@ export class ClasseFormationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllAcceleratedClasses$Response(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClass>>> {
+  findAllAcceleratedClasses$Response(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClassGroup>>> {
     return findAllAcceleratedClasses(this.http, this.rootUrl, params, context);
   }
 
@@ -340,9 +340,9 @@ export class ClasseFormationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  findAllAcceleratedClasses(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<Array<AcceleratedClass>> {
+  findAllAcceleratedClasses(params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<Array<AcceleratedClassGroup>> {
     return this.findAllAcceleratedClasses$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<AcceleratedClass>>): Array<AcceleratedClass> => r.body)
+      map((r: StrictHttpResponse<Array<AcceleratedClassGroup>>): Array<AcceleratedClassGroup> => r.body)
     );
   }
 

@@ -3,7 +3,6 @@ package com.centre.poly;
 import com.centre.poly.person.Repository.PersonRepository;
 import com.centre.poly.person.entity.Address;
 import com.centre.poly.person.entity.Employer;
-import com.centre.poly.person.entity.Student;
 import com.centre.poly.role.Role;
 import com.centre.poly.role.RoleRepository;
 import com.centre.poly.user.entity.User;
@@ -68,7 +67,7 @@ public class AdminUserConfig {
         admin.setPerson(employer);
         userRepository.save(admin);
       }
-      if (userRepository.findByUserName("student").isEmpty()) {
+      /*if (userRepository.findByUserName("student").isEmpty()) {
 
         Student student = new Student();
         student.setFirstName("Ali");
@@ -90,7 +89,7 @@ public class AdminUserConfig {
         studentUser.setPerson(student);
 
         userRepository.save(studentUser);
-      }
+      }*/
     };
   }
 }

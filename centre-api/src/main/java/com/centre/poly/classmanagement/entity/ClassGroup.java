@@ -16,11 +16,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Class {
+public class ClassGroup {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "class_sequence")
-  @SequenceGenerator(name = "class_sequence", sequenceName = "class_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "class_group_sequence")
+  @SequenceGenerator(
+      name = "class_group_sequence",
+      sequenceName = "class_group_sequence",
+      allocationSize = 1)
   private Long id;
 
   @ManyToOne

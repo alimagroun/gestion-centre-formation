@@ -24,7 +24,7 @@ application:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       expiration: 2592000000
   cors:
-    origins: http://poly-school-service.s3-website-us-east-1.amazonaws.com/
+    origins: http://polyabir.s3-website.eu-north-1.amazonaws.com/
 
 management:
   endpoints:

@@ -1,7 +1,7 @@
 package com.centre.poly.classmanagement.controller;
 
 import com.centre.poly.classmanagement.dto.*;
-import com.centre.poly.classmanagement.entity.AcceleratedClass;
+import com.centre.poly.classmanagement.entity.AcceleratedClassGroup;
 import com.centre.poly.classmanagement.service.ClassService;
 import com.centre.poly.common.PageResponse;
 import com.lowagie.text.DocumentException;
@@ -50,7 +50,7 @@ public class ClasseFormationController {
   }
 
   @GetMapping("/accelerated/all")
-  public ResponseEntity<List<AcceleratedClass>> findAllAcceleratedClasses() {
+  public ResponseEntity<List<AcceleratedClassGroup>> findAllAcceleratedClasses() {
     return ResponseEntity.ok(classService.findAll());
   }
 

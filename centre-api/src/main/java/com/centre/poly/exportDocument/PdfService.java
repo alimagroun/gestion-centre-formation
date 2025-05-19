@@ -1,9 +1,9 @@
 package com.centre.poly.exportDocument;
 
-import com.centre.poly.classmanagement.entity.AcceleratedClass;
 import com.centre.poly.classmanagement.entity.AcceleratedClassEntry;
-import com.centre.poly.classmanagement.entity.AccreditedClass;
+import com.centre.poly.classmanagement.entity.AcceleratedClassGroup;
 import com.centre.poly.classmanagement.entity.AccreditedClassEntry;
+import com.centre.poly.classmanagement.entity.AccreditedClassGroup;
 import com.centre.poly.classmanagement.repository.AcceleratedClassRepository;
 import com.centre.poly.classmanagement.repository.AccreditedClassRepository;
 import com.centre.poly.exception.NotFoundException;
@@ -33,7 +33,7 @@ public class PdfService {
     String className;
 
     if (isAccelerated) {
-      AcceleratedClass acceleratedClass =
+      AcceleratedClassGroup acceleratedClass =
           acceleratedClassRepository
               .findById(classId)
               .orElseThrow(() -> new NotFoundException("Accelerated Class not found"));
@@ -48,7 +48,7 @@ public class PdfService {
               + "-"
               + acceleratedClass.getSpecialty().getDomaine().getName();
     } else {
-      AccreditedClass accreditedClass =
+      AccreditedClassGroup accreditedClass =
           accreditedClassRepository
               .findById(classId)
               .orElseThrow(() -> new NotFoundException("Accredited Class not found"));

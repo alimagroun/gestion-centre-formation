@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AcceleratedClass extends Class {
+public class AcceleratedClassGroup extends ClassGroup {
 
   @Column(nullable = false)
   private LocalDate startDate;

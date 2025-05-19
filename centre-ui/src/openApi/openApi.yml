@@ -1328,6 +1328,76 @@
         }
       }
     },
+    "/api/class-subjects": {
+      "get": {
+        "tags": [
+          "class-subject-controller"
+        ],
+        "operationId": "getAllClassSubjects",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseClassSubjectResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "class-subject-controller"
+        ],
+        "operationId": "addClassSubject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassSubjectRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponseObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/register/status": {
       "patch": {
         "tags": [
@@ -1695,6 +1765,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StudentDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/person/student/class": {
+      "get": {
+        "tags": [
+          "person-controller"
+        ],
+        "operationId": "getStudentClass",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentClassResponse"
                 }
               }
             }
@@ -2228,7 +2318,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/AcceleratedClass"
+                    "$ref": "#/components/schemas/AcceleratedClassGroup"
                   }
                 }
               }
@@ -2787,6 +2877,33 @@
         "properties": {
           "token": {
             "type": "string"
+          }
+        }
+      },
+      "ClassSubjectRequest": {
+        "required": [
+          "classId",
+          "subjectId"
+        ],
+        "type": "object",
+        "properties": {
+          "classId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "subjectId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "semestre": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "coefficient": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -3361,6 +3478,25 @@
           }
         }
       },
+      "StudentClassResponse": {
+        "type": "object",
+        "properties": {
+          "specialtyName": {
+            "type": "string"
+          },
+          "schoolYear": {
+            "type": "string"
+          },
+          "yearLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "StudentAllResponse": {
         "type": "object",
         "properties": {
@@ -3913,7 +4049,22 @@
           }
         }
       },
-      "AcceleratedClass": {
+      "AcceleratedClassEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "student": {
+            "$ref": "#/components/schemas/Student"
+          },
+          "acceleratedClass": {
+            "$ref": "#/components/schemas/AcceleratedClassGroup"
+          }
+        }
+      },
+      "AcceleratedClassGroup": {
         "type": "object",
         "properties": {
           "id": {
@@ -3948,21 +4099,6 @@
             "items": {
               "$ref": "#/components/schemas/AcceleratedClassEntry"
             }
-          }
-        }
-      },
-      "AcceleratedClassEntry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "student": {
-            "$ref": "#/components/schemas/Student"
-          },
-          "acceleratedClass": {
-            "$ref": "#/components/schemas/AcceleratedClass"
           }
         }
       },
@@ -4146,6 +4282,55 @@
           },
           "father": {
             "$ref": "#/components/schemas/Parent"
+          }
+        }
+      },
+      "ClassSubjectResponse": {
+        "type": "object",
+        "properties": {
+          "subjectName": {
+            "type": "string"
+          },
+          "semester": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "coefficient": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageResponseClassSubjectResponse": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassSubjectResponse"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
           }
         }
       },

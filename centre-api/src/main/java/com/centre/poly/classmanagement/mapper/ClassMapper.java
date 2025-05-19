@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClassMapper {
 
-  public AccreditedClass toAccreditedClass(AccreditedClassRequest request) {
-    return AccreditedClass.builder()
+  public AccreditedClassGroup toAccreditedClass(AccreditedClassRequest request) {
+    return AccreditedClassGroup.builder()
         .specialty(Specialty.builder().id(request.getSpecialtyId()).build())
         .schoolYear(SchoolYear.builder().id(request.getSchoolYearId()).build())
         .yearLevel(request.getYearLevel())
@@ -17,8 +17,8 @@ public class ClassMapper {
         .build();
   }
 
-  public AcceleratedClass toAcceleratedClass(AcceleratedClassRequest request) {
-    return AcceleratedClass.builder()
+  public AcceleratedClassGroup toAcceleratedClass(AcceleratedClassRequest request) {
+    return AcceleratedClassGroup.builder()
         .specialty(Specialty.builder().id(request.getSpecialtyId()).build())
         .startDate(request.getStartDate())
         .endDate(request.getEndDate())
@@ -26,7 +26,7 @@ public class ClassMapper {
         .build();
   }
 
-  public AccreditedClassResponse toResponseAccreditedClass(AccreditedClass entity) {
+  public AccreditedClassResponse toResponseAccreditedClass(AccreditedClassGroup entity) {
     AccreditedClassResponse response = new AccreditedClassResponse();
     response.setId(entity.getId());
     response.setSpecialtyName(
@@ -40,7 +40,7 @@ public class ClassMapper {
     return response;
   }
 
-  public AcceleratedClassResponse toResponseAccelerated(AcceleratedClass entity) {
+  public AcceleratedClassResponse toResponseAccelerated(AcceleratedClassGroup entity) {
     AcceleratedClassResponse response = new AcceleratedClassResponse();
     response.setId(entity.getId());
     response.setSpecialtyName(

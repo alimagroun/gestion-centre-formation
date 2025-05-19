@@ -12,7 +12,7 @@ public interface DomaineRepository extends JpaRepository<Domaine, Long> {
 
   @Query(
       "SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END "
-          + "FROM Class c "
+          + "FROM ClassGroup c "
           + "WHERE c.specialty.domaine.id = :domaineId")
   boolean existsInClassByDomaineId(@Param("domaineId") Long domaineId);
 }

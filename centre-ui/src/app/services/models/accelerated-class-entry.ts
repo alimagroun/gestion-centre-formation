@@ -1,9 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-import { AcceleratedClass } from '../models/accelerated-class';
+import { AcceleratedClassGroup } from '../models/accelerated-class-group';
 import { Student } from '../models/student';
 export interface AcceleratedClassEntry {
-  acceleratedClass?: AcceleratedClass;
+  acceleratedClass?: AcceleratedClassGroup;
   id?: number;
   student?: Student;
 }

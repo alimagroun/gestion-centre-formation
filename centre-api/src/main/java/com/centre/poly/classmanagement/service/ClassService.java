@@ -92,7 +92,7 @@ public class ClassService {
 
   public PageResponse<AccreditedClassResponse> findAllAccreditedClass(int page, int size) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-    Page<AccreditedClass> classeFormationPage = accreditedClassRepository.findAll(pageable);
+    Page<AccreditedClassGroup> classeFormationPage = accreditedClassRepository.findAll(pageable);
     List<AccreditedClassResponse> list =
         classeFormationPage.stream().map(classMapper::toResponseAccreditedClass).toList();
     return new PageResponse<>(
@@ -107,7 +107,7 @@ public class ClassService {
 
   public PageResponse<AcceleratedClassResponse> findAllAcceleratedClass(int page, int size) {
     Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-    Page<AcceleratedClass> classeFormationPage = acceleratedClassRepository.findAll(pageable);
+    Page<AcceleratedClassGroup> classeFormationPage = acceleratedClassRepository.findAll(pageable);
     List<AcceleratedClassResponse> list =
         classeFormationPage.stream().map(classMapper::toResponseAccelerated).toList();
     return new PageResponse<>(
@@ -120,8 +120,8 @@ public class ClassService {
         classeFormationPage.isLast());
   }
 
-  public List<AcceleratedClass> findAll() {
-    AcceleratedClass acceleratedClass =
+  public List<AcceleratedClassGroup> findAll() {
+    AcceleratedClassGroup acceleratedClass =
         acceleratedClassRepository
             .findById(Long.valueOf(1))
             .orElseThrow(() -> new NotFoundException("AcceleratedClass not found"));
@@ -149,7 +149,7 @@ public class ClassService {
         specialtyRepository
             .findById(specialtyId)
             .orElseThrow(() -> new NotFoundException("Specialty not found"));
-    List<AccreditedClass> list = accreditedClassRepository.findAllBySpecialty(specialtyId);
+    List<AccreditedClassGroup> list = accreditedClassRepository.findAllBySpecialty(specialtyId);
     List<AccreditedClassResponse> responses =
         list.stream().map(classMapper::toResponseAccreditedClass).toList();
     return responses;
@@ -161,7 +161,7 @@ public class ClassService {
         specialtyRepository
             .findById(specialtyId)
             .orElseThrow(() -> new NotFoundException("Specialty not found"));
-    List<AcceleratedClass> list = acceleratedClassRepository.findAllBySpecialty(specialtyId);
+    List<AcceleratedClassGroup> list = acceleratedClassRepository.findAllBySpecialty(specialtyId);
     List<AcceleratedClassResponse> responses =
         list.stream().map(classMapper::toResponseAccelerated).toList();
     return responses;
@@ -189,7 +189,7 @@ public class ClassService {
         personRepository
             .findStudentById(studentId)
             .orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
-    AcceleratedClass acceleratedClass =
+    AcceleratedClassGroup acceleratedClass =
         acceleratedClassRepository
             .findById(acceleratedClassId)
             .orElseThrow(
@@ -216,7 +216,7 @@ public class ClassService {
         personRepository
             .findStudentById(studentId)
             .orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
-    AccreditedClass accreditedClass =
+    AccreditedClassGroup accreditedClass =
         accreditedClassRepository
             .findById(accreditClassId)
             .orElseThrow(
@@ -238,5 +238,12 @@ public class ClassService {
   public byte[] generateClassStudentPdf(Long classId, Boolean isAccredited, Boolean isAccelerated)
       throws IOException {
     return pdfService.generateClassStudentPdf(classId, isAccredited, isAccelerated);
+  }
+
+  public AccreditedClassGroup getClassOfStudentInDefaultYear(Long studentId) {
+    return accreditedClassEntryRepository
+        .findClassOfStudentInDefaultYear(studentId)
+        .orElseThrow(
+            () -> new NotFoundException("Class not found for student in default school year"));
   }
 }

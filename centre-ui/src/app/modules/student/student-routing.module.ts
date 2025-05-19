@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IndexComponent} from "./pages/index/index.component";
 import {PersonalInfoComponent} from "./pages/personal-info/personal-info.component";
 import {authStudentGuard} from "../../services/guard/auth-student.guard";
+import {StudentClassInfoComponent} from "./pages/student-class-info/student-class-info.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
       {
         path: "info",
         component: PersonalInfoComponent,
+        canActivate: [authStudentGuard]
+      },
+      {
+        path: "class-info",
+        component: StudentClassInfoComponent,
         canActivate: [authStudentGuard]
       }
     ]

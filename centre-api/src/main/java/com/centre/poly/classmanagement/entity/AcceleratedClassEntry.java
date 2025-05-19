@@ -25,5 +25,5 @@ public class AcceleratedClassEntry {
 
   @ManyToOne
   @JoinColumn(name = "accelerated_class_id")
-  private AcceleratedClass acceleratedClass;
+  private AcceleratedClassGroup acceleratedClass;
 }

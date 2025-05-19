@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-export { AcceleratedClass } from './models/accelerated-class';
 export { AcceleratedClassEntry } from './models/accelerated-class-entry';
+export { AcceleratedClassGroup } from './models/accelerated-class-group';
 export { AcceleratedClassRequest } from './models/accelerated-class-request';
 export { AcceleratedClassResponse } from './models/accelerated-class-response';
 export { AccreditedClassRequest } from './models/accredited-class-request';
@@ -19,6 +19,8 @@ export { AuthenticationResponse } from './models/authentication-response';
 export { ClassroomRequest } from './models/classroom-request';
 export { ClassroomResponse } from './models/classroom-response';
 export { ClassStudentResponse } from './models/class-student-response';
+export { ClassSubjectRequest } from './models/class-subject-request';
+export { ClassSubjectResponse } from './models/class-subject-response';
 export { DocumentRegistrationResponse } from './models/document-registration-response';
 export { DocumentRequest } from './models/document-request';
 export { DocumentResponse } from './models/document-response';
@@ -31,6 +33,7 @@ export { FormationTypeResponse } from './models/formation-type-response';
 export { PageResponseAcceleratedClassResponse } from './models/page-response-accelerated-class-response';
 export { PageResponseAccreditedClassResponse } from './models/page-response-accredited-class-response';
 export { PageResponseClassroomResponse } from './models/page-response-classroom-response';
+export { PageResponseClassSubjectResponse } from './models/page-response-class-subject-response';
 export { PageResponseDocumentResponse } from './models/page-response-document-response';
 export { PageResponseDomaineResponse } from './models/page-response-domaine-response';
 export { PageResponseFormationTypeResponse } from './models/page-response-formation-type-response';
@@ -64,6 +67,7 @@ export { SpecialtyRequest } from './models/specialty-request';
 export { SpecialtyResponse } from './models/specialty-response';
 export { Student } from './models/student';
 export { StudentAllResponse } from './models/student-all-response';
+export { StudentClassResponse } from './models/student-class-response';
 export { StudentDetails } from './models/student-details';
 export { StudentDetailsResponse } from './models/student-details-response';
 export { StudentRequest } from './models/student-request';

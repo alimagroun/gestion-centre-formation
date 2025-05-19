@@ -1,5 +1,7 @@
 package com.centre.poly.person.service;
 
+import com.centre.poly.classmanagement.entity.AccreditedClassGroup;
+import com.centre.poly.classmanagement.service.ClassService;
 import com.centre.poly.common.PageResponse;
 import com.centre.poly.document.DocumentsRepository;
 import com.centre.poly.exception.DuplicateEntityException;
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class PersonService {
+
+  private final ClassService classService;
 
   @Value("${app.security.default-password}")
   private String defaultPassword;
@@ -302,5 +306,24 @@ public class PersonService {
             .orElseThrow(
                 () -> new NotFoundException("Teacher with ID " + teacherId + " not found"));
     return teacherMapper.toTeacherResponse(teacher);
+  }
+
+  public StudentClassResponse getClassOfStudent(Long studentId) {
+
+    AccreditedClassGroup accreditedClassGroup =
+        classService.getClassOfStudentInDefaultYear(studentId);
+
+    StudentClassResponse response = new StudentClassResponse();
+    response.setSpecialtyName(
+        accreditedClassGroup.getSpecialty().getFormationType().getName()
+            + " "
+            + accreditedClassGroup.getSpecialty().getDomaine().getName());
+    response.setSchoolYear(
+        accreditedClassGroup.getSchoolYear().getStartYear()
+            + " "
+            + accreditedClassGroup.getSchoolYear().getEndYear());
+    response.setGroupNumber(accreditedClassGroup.getGroupNumber());
+    response.setYearLevel(accreditedClassGroup.getYearLevel());
+    return response;
   }
 }

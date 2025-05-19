@@ -17,6 +17,7 @@ import { DocumentsControllerService } from './services/documents-controller.serv
 import { ClassroomControllerService } from './services/classroom-controller.service';
 import { ClasseFormationControllerService } from './services/classe-formation-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
+import { ClassSubjectControllerService } from './services/class-subject-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -39,6 +40,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
     ClassroomControllerService,
     ClasseFormationControllerService,
     AuthenticationControllerService,
+    ClassSubjectControllerService,
     ApiConfiguration
   ],
 })

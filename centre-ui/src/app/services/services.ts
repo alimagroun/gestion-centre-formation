@@ -11,3 +11,4 @@ export { DocumentsControllerService } from './services/documents-controller.serv
 export { ClassroomControllerService } from './services/classroom-controller.service';
 export { ClasseFormationControllerService } from './services/classe-formation-controller.service';
 export { AuthenticationControllerService } from './services/authentication-controller.service';
+export { ClassSubjectControllerService } from './services/class-subject-controller.service';

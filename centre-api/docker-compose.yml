@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ahmedtiba1993/centre-api:v4
+    image: ahmedtiba1993/centre-api:v1.2
     ports:
       - 8088:8088
     networks:

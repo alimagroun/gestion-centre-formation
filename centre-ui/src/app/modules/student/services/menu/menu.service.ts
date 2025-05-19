@@ -26,7 +26,7 @@ export class MenuService {
           id: '12',
           titre: 'Mon groupe',
           icon: 'bi bi-people-fill',
-          url: 'user/group',
+          url: 'student/class-info',
         },
         {
           id: '13',

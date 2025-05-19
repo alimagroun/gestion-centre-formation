@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AcceleratedClass } from '../../models/accelerated-class';
+import { AcceleratedClassGroup } from '../../models/accelerated-class-group';
 
 export interface FindAllAcceleratedClasses$Params {
 }
 
-export function findAllAcceleratedClasses(http: HttpClient, rootUrl: string, params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClass>>> {
+export function findAllAcceleratedClasses(http: HttpClient, rootUrl: string, params?: FindAllAcceleratedClasses$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AcceleratedClassGroup>>> {
   const rb = new RequestBuilder(rootUrl, findAllAcceleratedClasses.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function findAllAcceleratedClasses(http: HttpClient, rootUrl: string, par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<AcceleratedClass>>;
+      return r as StrictHttpResponse<Array<AcceleratedClassGroup>>;
     })
   );
 }

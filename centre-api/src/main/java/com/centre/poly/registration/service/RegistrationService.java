@@ -279,7 +279,7 @@ public class RegistrationService {
         personRepository
             .findStudentById(studentId)
             .orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
-    AcceleratedClass acceleratedClass =
+    AcceleratedClassGroup acceleratedClass =
         acceleratedClassRepository
             .findById(acceleratedClassId)
             .orElseThrow(
@@ -314,7 +314,7 @@ public class RegistrationService {
         personRepository
             .findStudentById(studentId)
             .orElseThrow(() -> new NotFoundException("Student " + studentId + " not found"));
-    AccreditedClass accreditedClass =
+    AccreditedClassGroup accreditedClass =
         accreditedClassRepository
             .findById(accreditClassId)
             .orElseThrow(

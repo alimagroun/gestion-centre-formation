@@ -28,5 +28,5 @@ public class AccreditedClassEntry {
 
   @ManyToOne
   @JoinColumn(name = "accreditedClass_class_id")
-  private AccreditedClass accreditedClass;
+  private AccreditedClassGroup accreditedClass;
 }
